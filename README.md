@@ -7,4 +7,4 @@ libraries. Based on Babel, Eslint, Webpack and Jest as a testing framework.
 ## Commands:
 * `npm run dev`
 * `npm run build`
-* `npm run test`
+* `npm run test` or `npm t`

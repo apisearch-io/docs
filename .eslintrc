@@ -5,5 +5,11 @@
     "env": {
       "es6": true
     }
-  }
+  },
+  "globals": {
+    "document": true,
+    "navigator": true,
+    "window": true
+  },
+  "parser": "babel-eslint"
 }

@@ -3,21 +3,18 @@
   "version": "1.0.0",
   "description": "Skeleton for javascript es6 library development",
   "main": "index.js",
+  "license": "MIT",
+  "author": "alexhoma <alexcm.14@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alexhoma/es6-lib-skeleton.git"
+  },
+  "keywords": ["es6", "skeleton", "library", "webpack"],
   "scripts": {
     "build": "webpack --env build",
     "dev": "webpack --progress --colors --watch --env dev",
     "test": "jest"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/alexhoma/es6-lib-skeleton.git"
-  },
-  "keywords": [
-    "es6",
-    "skeleton",
-    "library",
-    "webpack"
-  ],
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.0.0",
@@ -31,6 +28,14 @@
     "webpack": "^3.5.5",
     "yargs": "^8.0.2"
   },
-  "author": "alexhoma <alexcm.14@gmail.com>",
-  "license": "MIT"
+  "jest": {
+    "testEnvironment": "node",
+    "modulePathIgnorePatterns": ["/dist/", "/node_modules/"],
+    "transformIgnorePatterns": ["/node_modules/"],
+    "rootDir": "",
+    "transform": {
+      "^.+\\.js$": "<rootDir>/node_modules/babel-jest"
+    },
+    "roots": ["<rootDir>/test"]
+  }
 }
