@@ -1,0 +1,36 @@
+{
+  "name": "es6-lib-skeleton",
+  "version": "1.0.0",
+  "description": "Skeleton for javascript es6 library development",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --env build",
+    "dev": "webpack --progress --colors --watch --env dev",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alexhoma/es6-lib-skeleton.git"
+  },
+  "keywords": [
+    "es6",
+    "skeleton",
+    "library",
+    "webpack"
+  ],
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^8.0.0",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "eslint": "^4.6.1",
+    "eslint-loader": "^1.9.0",
+    "jest-cli": "^21.0.2",
+    "webpack": "^3.5.5",
+    "yargs": "^8.0.2"
+  },
+  "author": "alexhoma <alexcm.14@gmail.com>",
+  "license": "MIT"
+}
