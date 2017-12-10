@@ -9,11 +9,15 @@
     "type": "git",
     "url": "https://github.com/alexhoma/es6-lib-skeleton.git"
   },
-  "keywords": ["es6", "skeleton", "library", "webpack"],
+  "keywords": [
+    "es6",
+    "skeleton",
+    "library",
+    "webpack"
+  ],
   "scripts": {
-    "build": "webpack --env build",
-    "dev": "webpack --progress --colors --watch --env dev",
-    "test": "jest"
+    "dev:docgen": "./generate.js",
+    "dev:styles": "webpack --progress --colors --watch --env dev"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
@@ -24,18 +28,12 @@
     "babel-preset-stage-2": "^6.24.1",
     "eslint": "^4.6.1",
     "eslint-loader": "^1.9.0",
-    "jest-cli": "^21.0.2",
     "webpack": "^3.5.5",
     "yargs": "^8.0.2"
   },
-  "jest": {
-    "testEnvironment": "node",
-    "modulePathIgnorePatterns": ["/dist/", "/node_modules/"],
-    "transformIgnorePatterns": ["/node_modules/"],
-    "rootDir": "",
-    "transform": {
-      "^.+\\.js$": "<rootDir>/node_modules/babel-jest"
-    },
-    "roots": ["<rootDir>/test"]
+  "dependencies": {
+    "hogan.js": "^3.0.2",
+    "remarkable": "^1.7.1",
+    "walk": "^2.3.9"
   }
 }

@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>widgets.md</title>
+    <meta name="description" content="">
+    <meta name="author" content="Apisearch team">
+
+    <!-- Styles -->
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
+          integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+          crossorigin="anonymous">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        HEADER
+    </header>
+
+    <!-- Content -->
+    <div class="container-fluid">
+        <section>
+            <h1>Widgets</h1>
+<h2>Simple Search</h2>
+<p>The simple search input widget is to perform text based
+searches.</p>
+<p>This widget points to <code>searchable_metadata</code> and
+<code>exact_matching_metadata</code> field of the indexed items.</p>
+<pre><code class="language-javascript">const simpleSearchWidget = ui.widgets.simpleSearch({ 
+  target: !string,
+  placeholder: ?string,
+  autofocus: ?bool[false],
+  startSearchOn: ?integer[0],
+  classNames: {
+      container: ?string,
+      input: ?string,
+      clearSearch: ?string
+  },
+  template: {
+      clearSearch: ?string
+  }
+});
+</code></pre>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>target</code>: is the dom selector, it can be an id or a class.</li>
+<li><code>placeholder</code>: the default html input placeholder.</li>
+<li><code>autofocus</code>: when set to <code>true</code>, the cursor is focused on the input.</li>
+<li><code>startSearchOn</code>: is the minimum number of characters to start searching.</li>
+<li><code>classNames</code>:
+<ul>
+<li><code>container</code>: refers to the parent <code>div</code> that contains the widget.</li>
+<li><code>input</code>: refers to the html input.</li>
+</ul></li>
+</ul>
+<h2>Suggested Search</h2>
+<p>The suggested search input goes one step further. You can
+get auto-completed suggestions list related to the text
+you are looking for just below the search input.</p>
+<pre><code class="language-javascript">const suggestedSearchWidget = ui.widgets.suggestedSearch({ 
+    target: !string,
+    placeholder: ?string,
+    autofocus: ?bool[false],
+    classNames: {
+        container: ?string,
+        input: ?string,
+        clearSearch: ?string,
+        box: ?string,
+        suggestion: ?string,
+        activeSuggestion: ?string
+    },
+    template: {
+        clearSearch: ?string
+    }
+});
+</code></pre>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>target</code>: is the dom selector, it can be an id or a class.</li>
+<li><code>placeholder</code>: the default html input placeholder.</li>
+<li><code>autofocus</code>: when set to <code>true</code>, the cursor is focused on the input.</li>
+<li><code>startSearchOn</code>: is the minimum number of characters to start searching.</li>
+<li><code>classNames</code>:
+<ul>
+<li><code>container</code>: refers to the parent <code>div</code> class that
+contains the widget.</li>
+<li><code>input</code>: refers to the html input.</li>
+<li><code>box</code>: refers to the suggestions box.</li>
+<li><code>suggestion</code>: refers to the suggestion item.</li>
+<li><code>activeSuggestion</code>: refers to the active suggestion.</li>
+</ul></li>
+</ul>
+<h2>Sort By</h2>
+<p>The sort by widget allows to order the result set as you like.</p>
+<p>This widget points to <code>indexed_metadata</code> field.</p>
+<pre><code class="language-javascript">const sortByWidget = ui.widgets.sortBy({
+    target: !string,
+    options: [
+        {name: !string, value: !string},
+        {name: !string, value: !string},
+        // ...
+    ],
+    classNames: {
+        container: ?string,
+        select: ?string
+    }
+});
+</code></pre>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>target</code>: is the dom selector, it can be an id or a class.</li>
+<li><code>options</code>: is the list of options in a selector. The <code>name</code> refers
+to the html text shown, and <code>value</code> is the value of the option itself.</li>
+<li><code>classNames</code>:
+<ul>
+<li><code>container</code>: refers to the parent <code>div</code> class that
+contains the widget.</li>
+<li><code>select</code>: refers to the select input.</li>
+</ul></li>
+</ul>
+<h2>Multiple Filter</h2>
+<p>The filter widget allows you to refine your search.</p>
+<pre><code class="language-javascript">const multipleFilterWidget = ui.widgets.multipleFilter({
+    target: !string,
+    name: !string,
+    filterField: !string,
+    aggregationField: ?string[filterField],
+    applicationType: ?integer[8],
+    fetchLimit: ?integer[5],      
+    viewLimit: ?integer[fetchLimit], // if default, show more won't be visible
+    sortBy: ?string['_count:desc'],
+    classNames: {
+        container: ?string,
+        top: ?string,
+        itemsList: ?string,
+        item: ?string,
+        active: ?string,
+        showMoreContainer: ?string
+    },
+    template: {
+        top: ?string,
+        item: !string,
+        showMore: ?string['+ Show more'],
+        showLess: ?string['- Show less']
+    },
+    formatData: ?function(itemData)
+})
+</code></pre>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>target</code>: is the dom selector, it can be an id or a class.</li>
+<li><code>name</code>: this will be the unique filter identifier inside
+this ApisearchUI instance.</li>
+<li><code>filterField</code>: this will be the field name of the filter
+when was indexed to Apisearch as <code>indexed_metadata</code>.</li>
+<li><code>aggregationField</code>: this will be the aggregation field name
+when was indexed to Apisearch as <code>indexed_metadata</code>.</li>
+<li><code>applicationType</code>: the type of filter. Check out the
+<a href="https://github.com/apisearch-io/javascript-client#filters">javascript client</a>
+docs for more information.</li>
+<li><code>fetchLimit</code>: is the limit of items to be fetched on the server.</li>
+<li><code>viewLimit</code>: If there are 10 fetched items, and viewLimit is 5. Only
+the 5 first numbers will be visible and a &quot;show more&quot; / &quot;show less&quot;
+button will appear.</li>
+<li><code>sortBy</code>: refers to the order/sort of the filter items.</li>
+<li><code>classNames</code>:
+<ul>
+<li><code>container</code>: refers to the parent <code>div</code> class that
+contains the widget.</li>
+<li><code>top</code>: class name of the container that holds the title of the filter.</li>
+<li><code>itemsList</code>: class name of the filter items list.</li>
+<li><code>item</code>: class name of the filter item link.</li>
+<li><code>active</code>: class name of the selected item link.</li>
+<li><code>showMoreContainer</code>: class of the &quot;show more&quot; button container.</li>
+</ul></li>
+<li><code>template</code>:
+<ul>
+<li><code>top</code>: template string for the title of the filter list.</li>
+<li><code>item</code>: template string for the filter item link.</li>
+<li><code>showMore</code>: template string for the &quot;show more&quot; button.</li>
+<li><code>showLess</code>: template string for the &quot;show less&quot; button.</li>
+</ul></li>
+<li><code>formatData</code>: is a callable function that receives all the resulted
+data related to the multiple filter widget:
+<ul>
+<li><code>n</code>: number of aggregations.</li>
+<li><code>isActive</code>: if filter is active.</li>
+<li><code>values</code>: the information of the filter.
+This is useful to transform some information received before being
+passed to the template.</li>
+</ul></li>
+</ul>
+<h2>Clear filters button</h2>
+<p>Clear filters widget gives us a button to remove all active
+filters.</p>
+<pre><code class="language-javascript">const clearFilters = ui.widgets.clearFilters({
+  target: !string,
+  classNames: {
+      container: ?string
+  },
+  template: {
+      container: ?string['Clear filters']
+  }
+});
+</code></pre>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>target</code>: is the dom selector, it can be an id or a class.</li>
+<li><code>classNames</code>:
+<ul>
+<li><code>container</code>: refers to the parent <code>div</code> class that
+contains the widget.</li>
+</ul></li>
+<li><code>template</code>:
+<ul>
+<li><code>container</code>: is the template string for the element.</li>
+</ul></li>
+</ul>
+<h2>Search result</h2>
+<p>The result widget allows you to print a set of results
+based on the search.</p>
+<pre><code class="language-javascript">const resultWidget = ui.widgets.result({
+    target: !string,
+    itemsPerPage: ?integer[10],
+    highlightsEnabled: ?bool[false],
+    promote: [
+        {id: !string, type: !string},
+        {id: !string, type: !string},
+        //...   
+    ],
+    exclude: [
+        {id: !string, type: !string},
+        {id: !string, type: !string},
+        //...   
+    ],
+    classNames: {
+        container: ?string
+    },
+    template: {
+        itemsList: !string,
+        placeholder: ?string
+    },
+    formatData: ?function(resultData)
+});
+</code></pre>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>target</code>: is the dom selector, it can be an id or a class.</li>
+<li><code>highlightsEnabled</code>: when <code>true</code>, the text of the item indexed as
+a highlighted, will be accessible from the <code>highlights</code> attribute on
+each resulted element.</li>
+<li><code>exclude</code>: an array of items to be promoted on the result set.</li>
+<li><code>promote</code>: an array of items to be excluded from the result set.</li>
+<li><code>classNames</code>:
+<ul>
+<li><code>container</code>: refers to the parent <code>div</code> class that
+contains the widget.</li>
+</ul></li>
+<li><code>template</code>:
+<ul>
+<li><code>itemsList</code>: is the template string of the iterable set of results.</li>
+<li><code>placeholder</code>: this template will be placed on initial widget render.
+Once a search is performed, this placeholder will disappear.</li>
+</ul></li>
+<li><code>formatData</code>: is a callable function that receives all the resulted
+data, is useful to transform some information received before being passed
+to the template.</li>
+</ul>
+<p>On the <code>itemsList</code> template you have access to this two variables:</p>
+<ul>
+<li><code>items</code>: an array of resulted items.</li>
+<li><code>query</code>: the query text made for the search.
+The variable <code>items</code> will be accessible on the body attribute using
+the <code>{{#items}}{{/items}}</code> iterable. For example, given this array
+of results:</li>
+</ul>
+<pre><code class="language-javascript">{
+    items: [
+        {
+            uuid: { source: 'Ba7XMhGh6yy', type: 'marvel' },
+            metadata: {
+                name: 'Tony Stark',
+                img: 'https://api.marvel.com/v2/characters/tony-stark'
+            }
+        },
+        {
+            uuid: { source: 'Ba6mSyvhAJt', type: 'marvel' },
+            metadata: {
+                name: 'Peter Parker',
+                img: 'https://api.marvel.com/v2/characters/peter-parker'
+            }
+        },
+        //...
+    ]
+}
+</code></pre>
+<p>You will be able to build your results like this, and
+passing the string to the <code>body</code> template attribute:</p>
+<pre><code class="language-javascript">const resultsTemplate = `
+&lt;ul&gt;
+{{#items}}
+    &lt;li&gt;
+        &lt;img src=&quot;{{metadata.img}}&quot; /&gt;
+        &lt;h1&gt;{{metadata.name}}&lt;/h1&gt;
+    &lt;/li&gt;
+{{/items}}
+&lt;/ul&gt;
+{{^items}}
+    No results found for this search: &lt;b&gt;{{query}}&lt;/b&gt; :(
+{{/items}}
+`;
+</code></pre>
+<p>For more information about how this templating system works,
+refer to the <a href="http://twitter.github.io/hogan.js/">twitter's hogan.js documentation</a>.
+Or check the library examples.</p>
+<h2>Pagination</h2>
+<p>This widget allows to navigate through the results
+with a pagination links.</p>
+<pre><code class="language-javascript">const resultInformationWidget = ui.widgets.pagination({
+    target: !string,
+    padding: ?integer[3],
+    goFirstLast: ?bool[false],
+    classNames: {
+        container: ?string,
+        item: ?string,
+        active: ?string['active'],
+        disabled: ?string['disabled'],
+        next: ?string,
+        first: ?string,
+        previous: ?string,
+        last: ?string
+    },
+    template: {
+        item: ?string['{{page}}'],
+        next: ?string['Next &gt;'],
+        previous: ?string['&lt; Prev'],
+        first: ?string['&lt;&lt; First'],
+        last: ?string['Last &gt;&gt;']
+    }
+});
+</code></pre>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>target</code>: is the dom selector, it can be an id or a class.</li>
+<li><code>padding</code>: is the number of page links that will appear on each side
+of the current page. For example, if padding is set to 2, and current
+page is <code>[5]</code>, the result will be: <code>[&lt;] 3 4 [5] 6 7 [&gt;]</code></li>
+<li><code>classNames</code>:
+<ul>
+<li><code>container</code>: refers to the parent <code>div</code> class that
+contains the widget.</li>
+<li><code>item</code>: class name of the page item.</li>
+<li><code>active</code>: class name of the current page.</li>
+<li><code>disabled</code>: class name of the disabled buttons. when current
+page is the first page, the <code>first</code> and <code>previous</code> buttons will have
+this class.</li>
+<li><code>next</code>: class name of the next page button.</li>
+<li><code>first</code>: class name of the first page button.</li>
+<li><code>previous</code>: class name of the previous page button.</li>
+<li><code>last</code>: class name of the last page button.</li>
+</ul></li>
+<li><code>template</code>:
+<ul>
+<li><code>item</code>: template string of the page item. This property will
+have the page number available using the mustache notation <code>{{page}}</code>.</li>
+<li><code>next</code>: template string of the next page button.</li>
+<li><code>first</code>: template string of the first page button.</li>
+<li><code>previous</code>: template string of the previous page button.</li>
+<li><code>last</code>: template string of the last page button.</li>
+</ul></li>
+</ul>
+<h2>Information (Result info)</h2>
+<p>The result information widget allows you to provide
+to a user some extra information about the search.
+Currently only can show the <strong>number of hits</strong> of
+the current search and the total <strong>number of items</strong>.</p>
+<pre><code class="language-javascript">const resultInformationWidget = ui.widgets.information({
+  target: !string,
+  classNames: {
+      container: ?string
+  },
+  template: {
+      container: !string['Found {{total_hits}} of {{total_items}} items'],
+  },
+  formatData: ?function(resultInformationData)
+});
+</code></pre>
+<p><strong>Parameters:</strong></p>
+<ul>
+<li><code>target</code>: is the dom selector, it can be an id or a class.</li>
+<li><code>classNames</code>:
+<ul>
+<li><code>container</code>: refers to the parent <code>div</code> class that
+contains the widget.</li>
+</ul></li>
+<li><code>template</code>:
+<ul>
+<li><code>container</code>: is the template string of the result information.
+The variables <code>{{total_hits}}</code> and <code>{{total_items}}</code> can be used
+on the template.</li>
+</ul></li>
+<li><code>formatData</code>: is a callable function that receives the resulted
+data related to the information widget: <code>total_hits</code> and <code>total_items</code>.
+Is useful to transform some information received before being passed
+to the template.</li>
+</ul>
+<h1>Multiple instances</h1>
+<p>When working with ApisearchUI you have to keep in mind that you
+can work with multiple ApisearchUI instances at once.</p>
+<p>This instances need a client to request all the data from the Apisearch
+servers. The thing is, you can work with only one client if all your
+ApisearchUI instances consume the same data store (index). Or with
+many clients if you want all your ApisearchUI instances to consume from
+many different indexes.</p>
+<p>ApisearchUI workflow:</p>
+<pre><code>View (Widget components) -&gt; action -&gt; request (apisearch client) -&gt; reduce received data -&gt; update store -&gt; re-render view
+</code></pre>
+<h1>Testing</h1>
+<p>The test suite is build on top of <a href="https://facebook.github.io/jest/">Jest</a>
+and <a href="https://github.com/mzgoddard/preact-render-spy">preact-render-spy</a>, a
+simplified clone of Enzyme for Preact.</p>
+<p>To run test type:</p>
+<pre><code class="language-shell">npm t
+# or
+yarn test
+</code></pre>
+<h1>Widget development</h1>
+<ol>
+<li>Define widget properties in <code>README.md</code> as a skeleton.</li>
+<li>Create component on <code>src/Widgets</code>.</li>
+<li>Create widget factory method in <code>src/app/WidgetFactory.js</code>
+and pass all needed widget properties.</li>
+<li>Create widget action.</li>
+<li>Test the widget on the widget's directory within a
+directory named <code>__tests__</code>.</li>
+</ol>
+
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        FOOTER
+    </footer>
+</body>
+</html>
