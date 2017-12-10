@@ -1,5 +1,6 @@
 const hogan = require("hogan.js");
 const fs = require("fs");
+const fsPath = require("fs-path");
 const path = require("path");
 const Remarkable = require("remarkable");
 const walk = require("walk");
@@ -18,7 +19,7 @@ const init = function() {
     walker.on('file', function (root, stat, next) {
         renderCompiledTemplateIntoHTMLFile({
             title: stat.name,
-            content: root + '/' + stat.name
+            contentSrc: root + '/' + stat.name
         });
 
         next();
@@ -35,7 +36,7 @@ const compileFileTemplate = function(resourceFile) {
     let template = hogan.compile(templateString);
 
     let contentSring = fs
-        .readFileSync(resourceFile.content)
+        .readFileSync(resourceFile.contentSrc)
         .toString();
     let md = new Remarkable();
 
@@ -49,8 +50,14 @@ const compileFileTemplate = function(resourceFile) {
  * Write File on directory
  */
 const renderCompiledTemplateIntoHTMLFile = function(resourceFile) {
-    fs.writeFile(
-        DIST_DIR + '/' + resourceFile.title.replace('.md', '.html'),
+    console.log(resourceFile)
+    let resourceFilePath = resourceFile.contentSrc.replace(
+        SRC_DIR + '/content',
+        DIST_DIR
+    );
+
+    fsPath.writeFile(
+        resourceFilePath.replace('.md', '.html'),
         compileFileTemplate(resourceFile),
         function (err) {
             if (err) console.log(err);
