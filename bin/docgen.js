@@ -5,6 +5,7 @@ const walk = require("walk");
 
 const fileToString = require("./helpers").fileToString;
 const parseMarkdownFile = require("./helpers").parseMarkdownFile;
+const getAssetsRelativePath = require("./helpers").getAssetsRelativePath;
 
 /**
  * Constants
@@ -15,14 +16,6 @@ const DIST_DIR = path.resolve(__dirname, '../docs');
 
 
 const compileFileTemplate = function(file) {
-    let arrayFilePath = file.path
-        .replace(CONTENT_DIR, "")
-        .split("/");
-    let trimmedFilePath = arrayFilePath.slice(1, arrayFilePath.length);
-    let assetsRelativePath = trimmedFilePath.map(function() {
-        // WIP
-    });
-    console.log(assetsRelativePath);
     /**
      * Get markdown and parse its content
      */
@@ -41,7 +34,8 @@ const compileFileTemplate = function(file) {
      * Rendered template with the content
      */
     return template.render({
-        ...parsedFile
+        ...parsedFile,
+        assets: getAssetsRelativePath(file)
     });
 };
 
