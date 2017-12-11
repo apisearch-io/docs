@@ -25,18 +25,16 @@ function parseMarkdownFile(contentString) {
 function getAssetsRelativePath(file) {
     let arrayFilePath = file.path
         .replace(CONTENT_DIR, "")
-        .split("/");
-    let trimmedFilePath = arrayFilePath.slice(
-        1,
-        arrayFilePath.length
-    );
+        .split("/")
+    ;
+    let trimmedFilePath = arrayFilePath.slice(1, arrayFilePath.length);
 
     let assetsRelativePath = trimmedFilePath.map(function(folder, index) {
         if (index > 0) {
             return "../";
         }
 
-        return "";
+        return "./";
     });
 
     return assetsRelativePath.join("") + "assets";

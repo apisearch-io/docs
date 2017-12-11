@@ -14,10 +14,18 @@
     "documentation-website",
     "documentation-tool"
   ],
+  "watch": {
+    "generate": {
+      "patterns": "src",
+      "extensions": "js,sass,mustache,md"
+    }
+  },
   "scripts": {
     "dev:docgen": "webpack --config ./webpack.docgen.js --progress --colors --watch",
     "dev:website": "webpack --config ./webpack.web.js --progress --colors --watch",
-    "generate": "rm -rf ./docs/*; node ./bin/docgen.js"
+    "build:website": "webpack --config ./webpack.web.js",
+    "generate": "rm -rf ./docs/*; npm run build:website; node ./bin/docgen.js",
+    "generate:watch": "npm-watch"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
@@ -26,18 +34,20 @@
     "babel-plugin-add-module-exports": "^0.2.1",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
+    "css-loader": "^0.28.7",
     "eslint": "^4.6.1",
     "eslint-loader": "^1.9.0",
-    "webpack": "^3.5.5",
-    "yargs": "^8.0.2",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "node-sass": "^4.7.2",
+    "npm-watch": "^0.3.0",
+    "optimize-css-assets-webpack-plugin": "^3.2.0",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.19.0",
-    "extract-text-webpack-plugin": "^3.0.2",
-    "css-loader": "^0.28.7",
-    "optimize-css-assets-webpack-plugin": "^3.2.0",
-    "node-sass": "^4.7.2"
+    "webpack": "^3.5.5",
+    "yargs": "^8.0.2"
   },
   "dependencies": {
+    "bootstrap": "4.0.0-beta.2",
     "fs-path": "0.0.23",
     "hogan.js": "^3.0.2",
     "remarkable": "^1.7.1",
