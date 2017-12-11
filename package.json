@@ -21,8 +21,7 @@
     }
   },
   "scripts": {
-    "dev:docgen": "webpack --config ./webpack.docgen.js --progress --colors --watch",
-    "dev:website": "webpack --config ./webpack.web.js --progress --colors --watch",
+    "dev:website": "webpack --config ./webpack.web.js --progress --colors && webpack-dev-server --config ./webpack.web.js --content-base docs/ --inline --hot --port 8080",
     "build:website": "webpack --config ./webpack.web.js",
     "generate": "rm -rf ./docs/*; npm run build:website; node ./bin/docgen.js",
     "generate:watch": "npm-watch"
@@ -44,6 +43,7 @@
     "sass-loader": "^6.0.6",
     "style-loader": "^0.19.0",
     "webpack": "^3.5.5",
+    "webpack-dev-server": "^2.9.7",
     "yargs": "^8.0.2"
   },
   "dependencies": {
