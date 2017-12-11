@@ -50,7 +50,6 @@ const compileFileTemplate = function(resourceFile) {
  * Write File on directory
  */
 const renderCompiledTemplateIntoHTMLFile = function(resourceFile) {
-    console.log(resourceFile)
     let resourceFilePath = resourceFile.contentSrc.replace(
         SRC_DIR + '/content',
         DIST_DIR

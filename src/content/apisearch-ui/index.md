@@ -1,3 +1,10 @@
+---
+title: Index
+description: This is the index description
+layout: template.mustache
+---
+
+
 Apisearch UI
 ============
 
