@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Apisearch client - Model</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Apisearch model">
+    <meta name="author" content="Apisearch team">
+
+    <!-- Custom -->
+    <link rel="stylesheet" href="./../assets/css/docs.css">
+    <script src="./../assets/js/app.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="c-navbar navbar navbar-expand-md fixed-top">
+            <a class="navbar-brand" href="#">
+                <img src="http://apisearch.io/public/images/favicons/favicon-32x32.png"
+                     class="d-inline-block align-top"
+                     alt="Apisearch logo">
+                <img src="http://apisearch.io/public/images/logo-.png"
+                     height="15"
+                     alt="Logo Apisearch">
+            </a>
+            <button class="navbar-toggler"
+                type="button"
+                data-toggle="collapse"
+                data-target="#navbarCollapse"
+                aria-controls="navbarCollapse"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+            >
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav mr-auto">
+                    <!-- Nav menu here -->
+                </ul>
+
+                <form class="form-inline mt-2 mt-md-0">
+                    <input class="o-input form-control mr-sm-2"
+                           type="text"
+                           placeholder="Search"
+                           aria-label="Search">
+                </form>
+            </div>
+        </nav>
+    </header>
+    <!-- /Header -->
+
+    <!-- Main -->
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="c-sidebar sidebar col-sm-3 col-md-2 d-none d-sm-block bg-light">
+                <ul class="nav nav-pills flex-column">
+                    <li class="nav-item">
+                        <a class="c-sidebar__navLink nav-link" href="#">Nav item again</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="c-sidebar__navLink nav-link" href="#">One more nav</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="c-sidebar__navLink nav-link" href="#">Another nav item</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- Sidebar -->
+
+            <!-- Content -->
+            <main class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main">
+                <section class="c-content">
+                    <h2>Model</h2>
+<p>The library provides you a set of model objects. All repositories will work
+using them, so please, be sure you understand every part of the model before any
+integration.</p>
+<h3>Item</h3>
+<p>The Item is the base class for this package. An Item instance represents a
+single row in your read-only model, and can be mapped with any class of your own
+model.</p>
+<p>Because this platform allows you to integrate any kind of object with this Item
+object, the internals of the objects are as simple as we could do, in order to
+provide you as much flexibility as we could.</p>
+<p>Lets take a look at what Items is composed by.</p>
+<ul>
+<li>id - A string representation of the id of the Item. This id is not required to
+be unique in your model universe, but is required to be unique along all
+entities of the same type (for example, along products, this id should be
+unique). This parameter is required and cannot be null.</li>
+<li>type - Because an Item can be mapped by any entity from your model, this
+parameter defined what entity has been mapped. This is parameter is required and
+cannot be null.</li>
+<li>metadata - An array of data-values. This data will be not processed nor
+indexed, and will only be accessible once returned results. Values for this
+array can have any format. By default, an empty array is used.</li>
+<li>indexed_metadata - An array of indexed, filterable and aggregable data-values.
+This data will not be searchable at all. By default, an empty array is used.</li>
+<li>searchable_metadata - An array of strings used for searching. Each string will
+be decomposed by the engine and used for searching the item. By default, an
+empty array is used.</li>
+<li>exact_matching_metadata - An array of strings used for searching. Each string
+will not be decomposed and will be used as it is introduced. Current item will
+be returned as result only if the query string contains one or many introduced
+values. By default, an empty array is used.</li>
+<li>suggest - An array of strings where each item can propose suggestions for
+searching time. Strings wont be decomposed neither. By default, an empty array
+is used.</li>
+<li>Coordinate - An Item can be geolocated in space, so an instance of Coordinate
+can be injected here. This value is not required.</li>
+</ul>
+<p>Let's see an example of an item.</p>
+<pre><code class="language-yml">id: 4303ui203
+type: product
+metadata:
+    name: &quot;T-shirt blue and red&quot;
+    description: &quot;This is an amazing T-shirt&quot;
+    ean: 7827298738293
+indexed_metadata:
+    sizes:
+        - M
+        - L
+        - XL
+    colors:
+        - Blue
+        - Red
+    price: 10
+    old_price: 15
+    brand: Supershirts
+    created_at: now()
+searchable_metadata:
+    name: T-shirt blue and red
+    description: This is an amazing T-shirt
+    brand: Supershirts
+exact_matching_metadata:
+    - 4303ui203
+    - 7827298738293
+suggest:
+    - T-shirt
+</code></pre>
+<p>Let's explain a little better this example</p>
+<ul>
+<li>Our product with ID 4303ui203 is mapped as an Item</li>
+<li>We have a name, a description and an EAN stored in the item, and because is
+not filterable not aggregable by these values, we place them in the metadata
+array.</li>
+<li>We have other values like sizes, colors, price, old_price and brand prepared
+to be filtered and aggregated by. These values will be accessible as well when
+Items are provided as results.</li>
+<li>When final user searches on our website, this Item will be part of the result
+if the search contains any of the words included as searchable_metadata (
+after some transformations, will see later), so when searching by <em>amazing</em>,
+this item will be a result. If searching by <em>Elephant</em>, will not.</li>
+<li>If the final user searches exactly by <em>4303ui203</em> or <em>7827298738293</em>, this
+Item will be part of the result as well.</li>
+<li>If you have suggestions enabled, and if the final user start searches by
+string <em>T-shi</em>, this item will add a suggestion of <em>T-shirt</em>. This is completely
+different from the search fields.</li>
+</ul>
+<p>Before start building our first Item, let's see another object we need to know
+in order to use the factory methods inside Item object.</p>
+<h3>ItemUUID</h3>
+<p>Remember that we said that the id field in Item only is unique in the universe
+of the entities with same type? Then, we need a representation of this Unique
+id.</p>
+<p>And this representation is the object ItemUUID. A simple class that contains an
+id and a type. Let's see how to build one of these.</p>
+<pre><code class="language-php">$itemUUID = new ItemUUID('4303ui203', 'product');
+</code></pre>
+<p>This is a real Unique Id representation of our model, and this instance should
+be unique in all our universe.</p>
+<h3>Building an Item</h3>
+<p>So let's build our first Item instance. Because an Item can be build by
+different ways, we will use static factories instead of the private
+<em>__construct</em> method.</p>
+<p>If you remember, all data but id and type is not required, so a simple
+implementation of a new Item could be as simple as that.</p>
+<pre><code class="language-php">$itemUUID = new ItemUUID('4303ui203', 'product');
+$item = Item::create($itemUUID);
+</code></pre>
+<p>This Item would not have any parameter, and would be equivalent to this piece of
+code.</p>
+<pre><code class="language-php">$itemUUID = new ItemUUID('4303ui203', 'product');
+$item = Item::create(
+    $itemUUID,
+    [], // Metadata
+    [], // Indexed Metadata
+    [], // Searchable Metadata
+    [], // Exact Matching Metadata
+    []  // Suggest elements
+);
+</code></pre>
+<p>Lets add some extra data to have a nice representation of our first example.</p>
+<pre><code class="language-php">$itemUUID = new ItemUUID('4303ui203', 'product');
+$item = Item::create(
+    $itemUUID,
+    [
+        'name' =&gt; 'T-shirt blue and red',
+        'description' =&gt; 'This is an amazing T-shirt'
+        'ean' =&gt; 7827298738293
+    ], 
+    [
+        'sizes' =&gt; [
+            'M',
+            'L',
+            'XL',
+        ],
+        'colors' =&gt; [
+            'Blue',
+            'Red',
+        ],
+        'price' =&gt; 10,
+        'old_price =&gt; 15,
+        'brand' =&gt; 'Supershirts',
+        'created_at' =&gt; new DateTime(),
+    ],
+    [
+        'name' =&gt; 'T-shirt blue and red',
+        'description', 'This is an amazing T-shirt',
+        'brand', 'Supershirts',
+    ],
+    [
+        '4303ui203',
+        '7827298738293'
+    ],
+    [
+        'T-shirt'
+    ]
+);
+</code></pre>
+<p>This Item would map exactly as shown in the first example.</p>
+<h3>Coordinate</h3>
+<p>A simple Coordinate is composed by a latitude and a longitude values. That
+simple. Both values are float formatted.</p>
+<pre><code class="language-php">$itemCoordinate = new Coordinate(
+    40.12, 
+    -71.34
+);
+</code></pre>
+<h3>Located Item</h3>
+<p>If you want to create a located Item, then you can use the static construct
+method <code>createLocated</code>. Because a located item must have a location, otherwise
+this would be a conventional Item, then both an ItemUUID and Coordinate
+instances must be passed as parameters.</p>
+<pre><code class="language-php">$itemUUID = new ItemUUID('12345', 'product');
+$itemCoordinate = new Coordinate(
+    40.12, 
+    -71.34
+);
+$item = Item::createLocated(
+    $itemUUID,
+    $itemCoordinate
+);
+</code></pre>
+<p>As before, this method allow all other parameters to be defined after the
+coordinate.</p>
+<pre><code class="language-php">$itemUUID = new ItemUUID('12345', 'product');
+$itemCoordinate = new Coordinate(
+    40.12, 
+    -71.34
+);
+$item = Item::createLocated(
+    $itemUUID,
+    $itemCoordinate,
+    [], // Metadata
+    [], // Indexed Metadata
+    [], // Searchable Metadata
+    [], // Exact Matching Metadata
+    []  // Suggest elements
+);
+</code></pre>
+<h3>Item manipulation</h3>
+<p>After the creation of an Item instance, or even after its retrieval from the
+repository, you can manage all metadata (single metadata and indexed metadata)
+values by using the specific getters and setters.</p>
+<pre><code class="language-php">$metadata = $item-&gt;getMetadata();
+$metadata['something'] = 'value';
+$item-&gt;setMetadata($metadata);
+$item-&gt;addMetadata('another_thing', 'another_value');
+</code></pre>
+<p>In order to provide an object as much resistant as possible in front of changes,
+you can consider all metadata data sets as a unique data set, even if internally
+you have divided it in two different arrays. For example, if you have a field
+called <em>price</em> and at the beginning of your project definition this value is not
+going to be indexed, then you should store it inside metadata. Then, in your
+project, if you will access to this value by using the <code>getMetadata</code> getter, and
+accessing to the desired position.</p>
+<pre><code class="language-php">$item-&gt;getMetadata()['price'];
+</code></pre>
+<p>But what happens if your price needs to be indexed? Then you should change your
+indexing point, and instead of placing the element as a simple metadata, you
+should place it as an indexed metadata. So, what happens with all the code
+points where you've been requiring the price value? You should change it
+well, right?</p>
+<p>This will not work anymore</p>
+<pre><code class="language-php">$item-&gt;getMetadata()['price'];
+</code></pre>
+<p>Instead of that, you'll need to start using this</p>
+<pre><code class="language-php">$item-&gt;getIndexedMetadata()['price'];
+</code></pre>
+<p>Well, this would be something that may cause you too many code changes, where
+should be something insignificant.</p>
+<p>In order to avoid this, you should take some decisions in your model.</p>
+<ul>
+<li>Don't repeat keys inside your metadata and indexed_metadata arrays.</li>
+<li>When you request a metadata value, use the <code>-&gt;get($fieldName)</code> method. This
+will return the metadata value accessing all metadata packages at the same time.</li>
+</ul>
+<p>In this example, price will be retrieved both from metadata and
+indexed_metadata, so even if you change price from one to the other, nothing bad
+will happen :)</p>
+<pre><code class="language-php">$item-&gt;get('price');
+</code></pre>
+<h3>Location Ranges</h3>
+<p>When talking about located items, and when retrieving and filtering them, we
+need to know so well a small part of our model called Location Ranges. They are
+related with the Coordinate class, and specifies an area containing many of
+them.</p>
+<p>There are three type of area definitions.</p>
+<h4>A center point and a distance</h4>
+<p>Given a center point, defined as a Coordinate instance, and a distance, defined
+as an integer and a distance unit (km or mi) joined in a string, you can define
+a simple filtering range. You must use an object called <code>CoordinateAndDistance</code>.</p>
+<pre><code class="language-php">$locationRange = new CoordinateAndDistance(
+    new Coordinate(40.9, -70.0),
+    '50km'
+);
+</code></pre>
+<blockquote>
+<p>This is useful when using, for example, a website with active localization.
+The browser can request the localization and send the coordinates to us, so we
+can provide a better experience to the final user</p>
+</blockquote>
+<h4>Two square sides</h4>
+<p>If you have the top-left coordinate and the bottom-right coordinate of a square,
+inside of where you want to locate all the items, you can use this filter
+type. In that case, you need both Coordinate instances.</p>
+<pre><code class="language-php">$locationRange = new Square(
+    new Coordinate(40.9, -70.0),
+    new Coordinate(39.4, -69.1),
+);
+</code></pre>
+<blockquote>
+<p>This is useful when working with maps. Maps are usually presented in a square
+visualization mode, so when the final user scrolls, having these two
+coordinates (top-left, bottom-right) we can look the items we want to show</p>
+</blockquote>
+<h4>A finite set of coordinates (polygon)</h4>
+<p>You can build your own polygon having a set of coordinates. These coordinates
+will draw a polygon, and all items inside the are of this polygon will be
+considered as valid result.</p>
+<p>All coordinates must be Coordinate instances.</p>
+<pre><code class="language-php">$locationRange = new Polygon(
+    new Coordinate(40.9, -70.0),
+    new Coordinate(40.9, -69.1),
+    new Coordinate(39.4, -69.1),
+    //...
+);
+</code></pre>
+<p>You can add as many coordinates as you need in order to build the desired area.</p>
+<blockquote>
+<p>This is useful when the final user has any kind of drawing tool, so an
+specific polygon can be defined by any user. Useful as well when composing
+maps, for example, defining country areas as polygons.</p>
+</blockquote>
+
+                </section>
+            </main>
+            <!-- /Content -->
+
+            <!-- Footer -->
+            <footer class="c-footer col-sm-9 ml-sm-auto col-md-10 pt-3">
+                FOOTER
+            </footer>
+            <!-- /Footer -->
+        </div>
+    </div>
+    <!-- /Main -->
+</body>
+</html>

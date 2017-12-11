@@ -416,33 +416,3 @@ servers. The thing is, you can work with only one client if all your
 ApisearchUI instances consume the same data store (index). Or with 
 many clients if you want all your ApisearchUI instances to consume from
 many different indexes.
-
-ApisearchUI workflow:
-
-```
-View (Widget components) -> action -> request (apisearch client) -> reduce received data -> update store -> re-render view
-```
-
-
-# Testing
-
-The test suite is build on top of [Jest](https://facebook.github.io/jest/) 
-and [preact-render-spy](https://github.com/mzgoddard/preact-render-spy), a 
-simplified clone of Enzyme for Preact.
-
-To run test type:
-```shell
-npm t
-# or
-yarn test
-```
-
-
-# Widget development
- 1. Define widget properties in `README.md` as a skeleton.
- 2. Create component on `src/Widgets`.
- 3. Create widget factory method in `src/app/WidgetFactory.js`
- and pass all needed widget properties.
- 4. Create widget action.
- 5. Test the widget on the widget's directory within a 
- directory named `__tests__`.
