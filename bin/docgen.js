@@ -3,16 +3,18 @@ const fs = require("fs");
 const fsPath = require("fs-path");
 const path = require("path");
 const Remarkable = require("remarkable");
+const meta = require('remarkable-meta');
 const walk = require("walk");
 
-const SRC_DIR = path.resolve(__dirname, '../src');
+const CONTENT_DIR = path.resolve(__dirname, '../src/content');
+const TEMPLATES_DIR = path.resolve(__dirname, '../src/templates');
 const DIST_DIR = path.resolve(__dirname, '../docs');
 
 /**
  * Get resources tree
  */
 const init = function() {
-    let walker = walk.walk(SRC_DIR + "/content", {
+    let walker = walk.walk(CONTENT_DIR, {
         followLinks: true
     });
 
@@ -31,14 +33,15 @@ const init = function() {
  */
 const compileFileTemplate = function(resourceFile) {
     let templateString = fs
-        .readFileSync(SRC_DIR + '/template.mustache')
+        .readFileSync(TEMPLATES_DIR + '/one-column.mustache', 'utf-8')
         .toString();
     let template = hogan.compile(templateString);
 
     let contentSring = fs
-        .readFileSync(resourceFile.contentSrc)
+        .readFileSync(resourceFile.contentSrc, 'utf-8')
         .toString();
     let md = new Remarkable();
+    md.use(meta);
 
     return template.render({
         title: resourceFile.title,
@@ -51,7 +54,7 @@ const compileFileTemplate = function(resourceFile) {
  */
 const renderCompiledTemplateIntoHTMLFile = function(resourceFile) {
     let resourceFilePath = resourceFile.contentSrc.replace(
-        SRC_DIR + '/content',
+        CONTENT_DIR,
         DIST_DIR
     );
 

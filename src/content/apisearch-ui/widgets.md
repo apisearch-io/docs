@@ -1,3 +1,17 @@
+---
+title: Apisearch UI - Widgets
+description: Search widgets
+category: Apisearch UI
+template: one-column.mustache
+source: content/apisearch-ui/widgets.md
+languages: 
+  - js
+tags:
+  - apisearch-tools
+  - apisearch ui
+  - search components
+---
+
 # Widgets
 
 ## Simple Search

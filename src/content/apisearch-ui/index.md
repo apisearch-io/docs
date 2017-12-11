@@ -1,9 +1,16 @@
 ---
-title: Index
+title: Apisearch UI
 description: This is the index description
-layout: template.mustache
+category: Apisearch UI
+template: one-column.mustache
+source: content/apisearch-ui/index.md
+languages: 
+  - js
+tags:
+  - apisearch-tools
+  - apisearch ui
+  - search components
 ---
-
 
 Apisearch UI
 ============
