@@ -2,6 +2,7 @@ const Remarkable = require("remarkable");
 const meta = require("remarkable-meta");
 const fs = require("fs");
 const path = require("path");
+const hljs = require('highlight.js');
 const CONTENT_DIR = path.resolve(__dirname, '../src/content');
 
 function fileToString(fileAbsolutePath) {
@@ -11,8 +12,25 @@ function fileToString(fileAbsolutePath) {
 }
 
 function parseMarkdownFile(contentString) {
-    let md = new Remarkable();
+    let md = new Remarkable({
+        html: true,
+        langPrefix:'language-',
+        highlight: function (str, lang) {
+            if (lang && hljs.getLanguage(lang)) {
+                try {
+                    return hljs.highlight(lang, str).value;
+                } catch (__) {}
+            }
+
+            try {
+                return hljs.highlightAuto(str).value;
+            } catch (__) {}
+
+            return '';
+        }
+    });
     md.use(meta);
+
 
     let content = md.render(contentString);
 

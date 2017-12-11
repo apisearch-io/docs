@@ -3,7 +3,7 @@ title: Apisearch UI - Widgets
 description: Search widgets
 category: Apisearch UI
 template: one-column.mustache
-source: content/apisearch-ui/widgets.md
+source: content/ui/widgets.md
 languages: 
   - js
 tags:

@@ -74,38 +74,38 @@
                     <h1>Install</h1>
 <h2>npm &amp; yarn</h2>
 <pre><code class="language-shell">npm install apisearch-ui --save
-# or
+<span class="hljs-meta">#</span><span class="bash"> or</span>
 yarn add apisearch-ui
 </code></pre>
 <h2>html tag &lt;script&gt;</h2>
 <p>You can either download the library and use a relative path to
 your assets folder, or use a CDN like jsDelivr.</p>
-<pre><code class="language-html">&lt;script src=&quot;https://cdn.jsdelivr.net/npm/apisearch-ui/dist/apisearch-ui.min.js&quot;&gt;&lt;/script&gt;
+<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/apisearch-ui/dist/apisearch-ui.min.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
 </code></pre>
 <h1>Usage</h1>
 <p>This simple setup allows you to build a full text search
 input with a result container using a custom template
 engine.</p>
-<pre><code class="language-javascript">// Create instance
-const ui = apisearchUI({
-    appId: 'music',
-    apiKey: '1cc7a3e0-bda5-11e7-abc4-cec278b6b50a'
+<pre><code class="language-javascript"><span class="hljs-comment">// Create instance</span>
+<span class="hljs-keyword">const</span> ui = apisearchUI({
+    <span class="hljs-attr">appId</span>: <span class="hljs-string">'music'</span>,
+    <span class="hljs-attr">apiKey</span>: <span class="hljs-string">'1cc7a3e0-bda5-11e7-abc4-cec278b6b50a'</span>
 });
 
-// Append widgets
+<span class="hljs-comment">// Append widgets</span>
 ui.addWidgets(
     ui.widgets.simpleSearch({
-        target: '.search-container',
+        <span class="hljs-attr">target</span>: <span class="hljs-string">'.search-container'</span>,
     }),
     ui.widgets.result({
-        target: '.result-container',
-        template: {
-            itemsList: '&lt;ul&gt;{{#items}} &lt;li&gt;{{metadata.name}}&lt;/li&gt; {{/items}}&lt;/ul&gt;',
+        <span class="hljs-attr">target</span>: <span class="hljs-string">'.result-container'</span>,
+        <span class="hljs-attr">template</span>: {
+            <span class="hljs-attr">itemsList</span>: <span class="hljs-string">'&lt;ul&gt;{{#items}} &lt;li&gt;{{metadata.name}}&lt;/li&gt; {{/items}}&lt;/ul&gt;'</span>,
         }
     })
 );
 
-// Initialize it
+<span class="hljs-comment">// Initialize it</span>
 ui.init();
 </code></pre>
 <p>All widgets are passed using <code>.addWidget(widget)</code> method,
@@ -123,14 +123,14 @@ a new instance of <code>apisearchUI</code>. This will be the core
 of your UI search engines are <code>appId</code> and <code>apiKey</code>, the <code>options</code>
 parameters are totally optional.</p>
 <p>This is the anatomy of the ApisearchUI configuration:</p>
-<pre><code class="language-javascript">const ui = apisearchUI({
-    appId: !string,
-    apiKey: !string,
-    options: {
-        endpoint: ?string,
-        apiVersion: ?string,
-        timeout: ?int[10000],
-        inMemoryCache: ?bool[true],
+<pre><code class="language-javascript"><span class="hljs-keyword">const</span> ui = apisearchUI({
+    <span class="hljs-attr">appId</span>: !string,
+    <span class="hljs-attr">apiKey</span>: !string,
+    <span class="hljs-attr">options</span>: {
+        <span class="hljs-attr">endpoint</span>: ?string,
+        <span class="hljs-attr">apiVersion</span>: ?string,
+        <span class="hljs-attr">timeout</span>: ?int[<span class="hljs-number">10000</span>],
+        <span class="hljs-attr">inMemoryCache</span>: ?bool[<span class="hljs-literal">true</span>],
     }
 });
 </code></pre>
@@ -145,7 +145,11 @@ forget to initialize it!</p>
 
             <!-- Footer -->
             <footer class="c-footer col-sm-9 ml-sm-auto col-md-10 pt-3">
-                FOOTER
+                <nav class="navbar">
+                    <span class="navbar-text">
+                        Navbar text with an inline element
+                    </span>
+                </nav>
             </footer>
             <!-- /Footer -->
         </div>

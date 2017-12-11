@@ -3,7 +3,7 @@ title: Apisearch UI - Installation
 description: This is the installation
 category: Apisearch UI
 template: one-column.mustache
-source: content/apisearch-ui/install.md
+source: content/ui/install.md
 languages: 
   - js
 tags:

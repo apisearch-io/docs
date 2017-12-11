@@ -1,4 +1,8 @@
 @import "~bootstrap/scss/bootstrap"
+@import "~highlight.js/styles/atom-one-dark.css"
+@import "~highlight.js/styles/atom-one-dark.css"
+
+@import url('https://fonts.googleapis.com/css?family=Roboto')
 
 @import "vars"
 @import "components/navbar"
@@ -8,6 +12,27 @@
 
 @import "objects/input"
 
+body
+  font-family: 'Roboto', sans-serif
+
 main.col-sm-9
   background: $color-background
   padding-top: 4.5rem!important
+
+h1
+  margin-bottom: 2rem
+  font-weight: 600
+  border-bottom: 2px solid #64ffda
+  padding-bottom: 1rem
+
+h2, h3, h4, h5
+  font-weight: 600
+  margin-top: 3rem
+  margin-bottom: 1.5rem
+
+pre
+  padding: 1rem
+  border-radius: .4rem
+  color: white
+  background-image: linear-gradient(to right, #1d1a2a, #001e07)
+  box-shadow: 0 2px 6px #999999

@@ -3,7 +3,7 @@ title: Apisearch UI
 description: This is the index description
 category: Apisearch UI
 template: one-column.mustache
-source: content/apisearch-ui/index.md
+source: content/ui/index.md
 languages: 
   - js
 tags:
