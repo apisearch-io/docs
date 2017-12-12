@@ -34,6 +34,7 @@ const SRC_DIR = path.resolve(__dirname, '../src');
         parsedFile = {
             ...parsedFile,
             systemPath,
+            url: '/' + parsedFile.source.replace('.md', '.html'),
             systemName: stat.name,
             assets: getAssetsRelativePath(systemPath)
         };
