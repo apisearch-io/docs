@@ -1,5 +1,5 @@
 ---
-title: Apisearch UI - Installation
+title: Installation
 description: This is the installation
 category: Apisearch UI
 template: one-column.mustache

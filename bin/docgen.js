@@ -2,6 +2,7 @@ const hogan = require("hogan.js");
 const fsPath = require("fs-path");
 const walk = require("walk");
 const path = require("path");
+const _ = require("lodash");
 
 const fileToString = require("./helpers").fileToString;
 const parseMarkdownFile = require("./helpers").parseMarkdownFile;
@@ -10,6 +11,7 @@ const getFileTargetPath = require("./helpers").getFileTargetPath;
 
 const CONTENT_DIR = path.resolve(__dirname, '../src/content');
 const TEMPLATES_DIR = path.resolve(__dirname, '../src/templates');
+const SRC_DIR = path.resolve(__dirname, '../src');
 
 /**
  * Main executable function
@@ -49,16 +51,38 @@ const TEMPLATES_DIR = path.resolve(__dirname, '../src/templates');
 
         files.forEach(function(file) {
             /**
+             * Compose the tree menu
+             */
+            let tree = _.groupBy(files, "category");
+            let categories = Object.keys(tree);
+            let composedMenu = categories
+                .map(function(category) {
+                    return {
+                        category_name: category,
+                        children: tree[category]
+                    }
+                });
+
+            /**
              * Render data
              */
             let targetFile = getFileTargetPath(file.systemPath);
-            let html = renderTemplate(file);
+            let html = renderTemplate({
+                ...file,
+                menu: composedMenu
+            });
 
             /**
              * Write file
              */
             writeFileInPublicFolder(targetFile, html);
         });
+
+        /**
+         * Create a Json data file
+         * for the documentation search
+         */
+        createDataFile(files);
     })
 })();
 
@@ -97,4 +121,19 @@ const renderTemplate = function(parsedFile) {
     return template.render({
         ...parsedFile
     });
+};
+
+const createDataFile = function(docsList) {
+    let targetFile = `${SRC_DIR}/docs.json`;
+    fsPath.writeFile(
+        targetFile,
+        JSON.stringify(docsList),
+        function (err) {
+            if (err) {
+                console.log(`X --> ${err}`);
+            }
+
+            console.log(`V --> Docs database created`);
+        }
+    );
 };

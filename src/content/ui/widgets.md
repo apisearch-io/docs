@@ -1,5 +1,5 @@
 ---
-title: Apisearch UI - Widgets
+title: Widgets
 description: Search widgets
 category: Apisearch UI
 template: one-column.mustache

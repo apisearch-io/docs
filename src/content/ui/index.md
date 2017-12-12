@@ -1,6 +1,6 @@
 ---
-title: Apisearch UI
-description: This is the index description
+title: Overview
+description: Overview
 category: Apisearch UI
 template: one-column.mustache
 source: ui/index.md

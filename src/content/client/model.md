@@ -1,5 +1,5 @@
 ---
-title: Apisearch client - Model
+title: Model
 description: Apisearch model
 category: Apisearch client
 template: one-column.mustache

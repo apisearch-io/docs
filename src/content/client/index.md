@@ -1,5 +1,5 @@
 ---
-title: Apisearch client - Index
+title: Index
 description: Apisearch client index page
 category: Apisearch client
 template: one-column.mustache

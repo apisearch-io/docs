@@ -9,12 +9,29 @@
   overflow-y: auto
   border-right: 1px solid #eee
   background-color: $color-sidebar!important
+  box-shadow: 1px 0 7px rgba(0, 0, 0, 0.45)
+  border-right: none
+
+  &__nav
+    margin-bottom: 1rem
+
+  &__navItem
+    &--sub-1
+      padding-left: 1rem
+      font-size: .9rem
 
   &__navLink
     -webkit-border-radius: 0!important
     -moz-border-radius: 0!important
     border-radius: 0!important
     color: darkgrey
+
+    &--title
+      font-weight: 500
+      color: #efefef
+      letter-spacing: 2px
+
+    &--subtitle
 
     &:hover
       background-color: #2b2b3d
