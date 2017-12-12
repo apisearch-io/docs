@@ -15,15 +15,17 @@
     "documentation-tool"
   ],
   "watch": {
-    "generate": {
+    "dev:generate": {
       "patterns": "src",
       "extensions": "js,sass,mustache,md"
     }
   },
   "scripts": {
+    "clear": "rm -rf ./docs/*",
     "dev:website": "webpack --config ./webpack.web.js --progress --colors && webpack-dev-server --config ./webpack.web.js --content-base docs/ --inline --hot --port 8080",
     "build:website": "webpack --config ./webpack.web.js",
-    "generate": "rm -rf ./docs/*; npm run build:website; node ./bin/docgen.js",
+    "dev:generate": "npm run clear; node ./bin/docgen.js; npm run dev:website;",
+    "build:generate": "npm run clear; node ./bin/docgen.js; npm run build:website;",
     "generate:watch": "npm-watch"
   },
   "devDependencies": {
