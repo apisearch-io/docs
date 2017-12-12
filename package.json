@@ -22,7 +22,7 @@
   },
   "scripts": {
     "clear": "rm -rf ./docs/*",
-    "dev:website": "webpack --config ./webpack.web.js --progress --colors && webpack-dev-server --config ./webpack.web.js --content-base docs/ --inline --hot --port 8080",
+    "dev:website": "webpack --config ./webpack.web.js --progress --colors && webpack-dev-server --config ./webpack.web.js --content-base . --inline --hot --port 8080",
     "build:website": "webpack --config ./webpack.web.js",
     "dev:generate": "npm run clear; node ./bin/docgen.js; npm run dev:website;",
     "build:generate": "npm run clear; node ./bin/docgen.js; npm run build:website;",
