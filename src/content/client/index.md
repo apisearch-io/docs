@@ -5,13 +5,11 @@ category: Apisearch client
 template: one-column.mustache
 source: client/index.md
 languages: 
-  - js
   - php
 tags:
   - apisearch-client
   - apisearch model
 ---
-
 
 # Search PHP library
 

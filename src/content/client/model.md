@@ -5,7 +5,6 @@ category: Apisearch client
 template: one-column.mustache
 source: client/model.md
 languages: 
-  - js
   - php
 tags:
   - apisearch-client

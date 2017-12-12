@@ -2,9 +2,9 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Installation</title>
+    <title>Result</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="This is the installation">
+    <meta name="description" content="Apisearch client - Result object">
     <meta name="author" content="Apisearch team">
 
     <!-- Custom -->
@@ -169,74 +169,86 @@
             <!-- Content -->
             <main class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main">
                 <section class="c-content">
-                    <h1>Overview</h1>
-<h2>Install</h2>
-<h3>npm &amp; yarn</h3>
-<pre><code class="language-shell">npm install apisearch-ui --save
-<span class="hljs-meta">#</span><span class="bash"> or</span>
-yarn add apisearch-ui
+                    <h1>Result</h1>
+<p>A Query instance creates a Result instance. A Result is not only a set of basic
+elements from our dataset (Product, Category...) but as well a set of
+aggregations, result of our filters.</p>
+<pre><code class="language-php">$result = $repository-&gt;query($query);
 </code></pre>
-<h3>html tag &lt;script&gt;</h3>
-<p>You can either download the library and use a relative path to
-your assets folder, or use a CDN like jsDelivr.</p>
-<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/apisearch-ui/dist/apisearch-ui.min.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<p>You can retrieve as well all elements in a single array, respecting the order
+defined by the Query.</p>
+<pre><code class="language-php">$results = $result-&gt;getItems();
 </code></pre>
-<h2>Usage</h2>
-<p>This simple setup allows you to build a full text search
-input with a result container using a custom template
-engine.</p>
-<pre><code class="language-javascript"><span class="hljs-comment">// Create instance</span>
-<span class="hljs-keyword">const</span> ui = apisearchUI({
-    <span class="hljs-attr">appId</span>: <span class="hljs-string">'music'</span>,
-    <span class="hljs-attr">apiKey</span>: <span class="hljs-string">'1cc7a3e0-bda5-11e7-abc4-cec278b6b50a'</span>
-});
-
-<span class="hljs-comment">// Append widgets</span>
-ui.addWidgets(
-    ui.widgets.simpleSearch({
-        <span class="hljs-attr">target</span>: <span class="hljs-string">'.search-container'</span>,
-    }),
-    ui.widgets.result({
-        <span class="hljs-attr">target</span>: <span class="hljs-string">'.result-container'</span>,
-        <span class="hljs-attr">template</span>: {
-            <span class="hljs-attr">itemsList</span>: <span class="hljs-string">'&lt;ul&gt;{{#items}} &lt;li&gt;{{metadata.name}}&lt;/li&gt; {{/items}}&lt;/ul&gt;'</span>,
-        }
-    })
-);
-
-<span class="hljs-comment">// Initialize it</span>
-ui.init();
+<p>If you queried by a UUID, for example, or even in any query, you can easily
+retrieve the first (and more useful when is the only expected) result by using
+this method</p>
+<pre><code class="language-php">$results = $result-&gt;getFirstItem();
 </code></pre>
-<p>All widgets are passed using <code>.addWidget(widget)</code> method,
-or using <code>.addWidgets(...widgets)</code> to add widgets in a bulk mode,
-like in the example below.</p>
-<p>Once your setup is done, you just call the <code>.init()</code> method to
-start all the magic!</p>
-<blockquote>
-<p>Check out this for more examples:
-<a href="https://github.com/puntmig/javascript-search-ui/tree/master/examples">apisearch-ui/examples</a>!</p>
-</blockquote>
-<h2>Initialization</h2>
-<p>Before configuring your widgets, first you need to create
-a new instance of <code>apisearchUI</code>. This will be the core
-of your UI search engines are <code>appId</code> and <code>apiKey</code>, the <code>options</code>
-parameters are totally optional.</p>
-<p>This is the anatomy of the ApisearchUI configuration:</p>
-<pre><code class="language-javascript"><span class="hljs-keyword">const</span> ui = apisearchUI({
-    <span class="hljs-attr">appId</span>: !string,
-    <span class="hljs-attr">apiKey</span>: !string,
-    <span class="hljs-attr">options</span>: {
-        <span class="hljs-attr">endpoint</span>: ?string,
-        <span class="hljs-attr">apiVersion</span>: ?string,
-        <span class="hljs-attr">timeout</span>: ?int[<span class="hljs-number">10000</span>],
-        <span class="hljs-attr">inMemoryCache</span>: ?bool[<span class="hljs-literal">true</span>],
-    }
-});
+<p>Each of these methods will return an array of hydrated instances of our model (
+not yours. If you want your model instances, you need to create manual
+transformers.</p>
+<p>The Result instance have some other interesting methods to retrieve some extra
+information of your data set.</p>
+<ul>
+<li>getTotalElements() - get the total items in your universe. If you don't have
+applied any universe filter, then you will have all of them. Otherwise, you will
+have the number of elements in your universe.</li>
+<li>getTotalHits() - get the total hits produced by your query. This is not the
+number of Items you have in your Result object, but the Items you can reach in
+total by paginating along the result hits.</li>
+</ul>
+<h2>Reading Aggregations</h2>
+<p>The other important part of the Result object is the Aggregation set. In order
+to iterate over all Aggregations you can make a simple foreach over the result
+of the <code>-&gt;getAggregations()</code> result (returns an implementation of the PHP
+interface Traversable). You can access directly to an aggregation by using the
+<code>-&gt;getAggregation($name)</code> method and the aggregation assigned name.</p>
+<p>Let's analyze what a result Aggregation instance is and how useful can be in our
+filtering application.</p>
+<ul>
+<li>-&gt;getName() - The name of the aggregation. For example, when we create the
+manufacturer filter, we create a new aggregation called manufacturers. This is
+the used name.</li>
+<li>-&gt;getCounters() - This method return an array of Counter instances. Explained
+later, but as a TL;DR, this is an object where each option returned by the
+aggregation (in the last example, each manufacturer available for filtering) has
+the information like totals.</li>
+<li>-&gt;isFilter() - The applied filter application type is an exclusive one, like
+MUST_ALL*</li>
+<li>-&gt;hasLevels() - The applied filter application type is a leveled one, like
+MUST_ALL_WITH_LEVELS</li>
+<li>-&gt;getTotalElements - Total elements of the aggregation.</li>
+<li>-&gt;getActiveElements - Array of all the elements active (all elements passed
+through the filter). Each active element is defined as a counter as well.</li>
+<li>-&gt;sortByName() - Sort all counters by its name. This method has only internal
+effects and no result is provided</li>
+</ul>
+<h2>Aggregation Counter</h2>
+<p>Each aggregation, mainly, is composed by a name and a set of counters. Each one
+has these methods.</p>
+<ul>
+<li>-&gt;getId() - Id of the counter</li>
+<li>-&gt;getName() - Name of the counter. You might want to print this value after a
+possible translation (for example for tags).</li>
+<li>-&gt;getLevel() - Useful for leveled filters. In that case, each counter (for
+example, each returned available category will have the level). By default, 1.</li>
+<li>-&gt;isUsed() - Does this counter belongs to an active element?</li>
+<li>-&gt;getN() - Number of results in your database having this element (for
+example, number of item with the category Adidas). This is the number
+commonly printed in your app.</li>
+</ul>
+<pre><code><span class="hljs-selector-attr">[x]</span> <span class="hljs-selector-tag">Rebook</span> (<span class="hljs-number">73</span>)
+<span class="hljs-selector-attr">[x]</span> <span class="hljs-selector-tag">Nike</span> (<span class="hljs-number">12</span>)
+<span class="hljs-selector-attr">[ ]</span> <span class="hljs-selector-tag">Adidas</span> (<span class="hljs-number">34</span>)
 </code></pre>
-<p>Once your instance and widgets are defined, don't
-forget to initialize it!</p>
-<pre><code class="language-javascript">ui.init();
+<p>This is all you need to know about the Result objects. This objects architecture
+will allow you to print all the final information for your final user.</p>
+<h2>Reading Suggestions</h2>
+<p>If your query had the suggests enabled, then you will find some suggestions in
+your Result instance by using the getter method.</p>
+<pre><code class="language-php">$suggests = $result-&gt;getSuggests();
 </code></pre>
+<p>Each suggest is defined as an array of non unique strings.</p>
 
                 </section>
             </main>

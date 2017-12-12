@@ -2,9 +2,9 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Installation</title>
+    <title>Symfony - Apisearch Bundle</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="This is the installation">
+    <meta name="description" content="Apisearch integrations - Symfony Apisearch Bundle">
     <meta name="author" content="Apisearch team">
 
     <!-- Custom -->
@@ -169,73 +169,87 @@
             <!-- Content -->
             <main class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main">
                 <section class="c-content">
-                    <h1>Overview</h1>
-<h2>Install</h2>
-<h3>npm &amp; yarn</h3>
-<pre><code class="language-shell">npm install apisearch-ui --save
-<span class="hljs-meta">#</span><span class="bash"> or</span>
-yarn add apisearch-ui
-</code></pre>
-<h3>html tag &lt;script&gt;</h3>
-<p>You can either download the library and use a relative path to
-your assets folder, or use a CDN like jsDelivr.</p>
-<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/apisearch-ui/dist/apisearch-ui.min.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
-</code></pre>
-<h2>Usage</h2>
-<p>This simple setup allows you to build a full text search
-input with a result container using a custom template
-engine.</p>
-<pre><code class="language-javascript"><span class="hljs-comment">// Create instance</span>
-<span class="hljs-keyword">const</span> ui = apisearchUI({
-    <span class="hljs-attr">appId</span>: <span class="hljs-string">'music'</span>,
-    <span class="hljs-attr">apiKey</span>: <span class="hljs-string">'1cc7a3e0-bda5-11e7-abc4-cec278b6b50a'</span>
-});
-
-<span class="hljs-comment">// Append widgets</span>
-ui.addWidgets(
-    ui.widgets.simpleSearch({
-        <span class="hljs-attr">target</span>: <span class="hljs-string">'.search-container'</span>,
-    }),
-    ui.widgets.result({
-        <span class="hljs-attr">target</span>: <span class="hljs-string">'.result-container'</span>,
-        <span class="hljs-attr">template</span>: {
-            <span class="hljs-attr">itemsList</span>: <span class="hljs-string">'&lt;ul&gt;{{#items}} &lt;li&gt;{{metadata.name}}&lt;/li&gt; {{/items}}&lt;/ul&gt;'</span>,
-        }
-    })
+                    <h1>Event</h1>
+<p>Do you remember that each Repository interaction creates a simple Event? That is
+because we track every single movement you make to our servers. And this is good
+because if we can know, you can know.</p>
+<p>So let's take a look at how you can retrieve all these events and check as many
+metrics as you want. With this example, we get all first 100 Queries done from
+yesterday at same hour until now.</p>
+<pre><code class="language-php">$eventRepository = <span class="hljs-keyword">new</span> EventRepository(
+    <span class="hljs-keyword">new</span> GuzzleClient(<span class="hljs-string">'http://api.ourhost.xyz:1234'</span>)
 );
+$repository-&gt;all(
+    <span class="hljs-string">'mysecretkey'</span>,
+    <span class="hljs-string">'QueryWasMade'</span>,
+    (time() - (<span class="hljs-number">24</span> * <span class="hljs-number">60</span> * <span class="hljs-number">60</span>)),
+    time(),
+    <span class="hljs-number">100</span>,
+    <span class="hljs-number">0</span>
+);
+</code></pre>
+<p>Let's check as well all different events.</p>
+<ul>
+<li>IndexWasReset</li>
+<li>ItemsWereIndexed</li>
+<li>ItemsWereDeleted</li>
+<li>QueryWasMade</li>
+</ul>
+<p>So, what does this endpoint return to us?</p>
+<h3>Event</h3>
+<p>An array of Events. And what is an event? A very simple class that has
+everything we need in order to make metrics, panels and side calculations.</p>
+<pre><code class="language-php"><span class="hljs-comment">/**
+ * Class Event.
+ */</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Event</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">HttpTransportable</span>
+</span>{
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@var</span> int
+     *
+     * Id
+     */</span>
+    <span class="hljs-keyword">private</span> $id;
 
-<span class="hljs-comment">// Initialize it</span>
-ui.init();
+    <span class="hljs-comment">/**
+     * var string.
+     *
+     * Consistency hash
+     */</span>
+    <span class="hljs-keyword">private</span> $consistencyHash;
+
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@var</span> string
+     *
+     * name
+     */</span>
+    <span class="hljs-keyword">private</span> $name;
+
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@var</span> string
+     *
+     * Key
+     */</span>
+    <span class="hljs-keyword">private</span> $key;
+
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@var</span> string
+     *
+     * Payload
+     */</span>
+    <span class="hljs-keyword">private</span> $payload;
+
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@var</span> int
+     *
+     * Occurred on
+     */</span>
+    <span class="hljs-keyword">private</span> $occurredOn;
+}
 </code></pre>
-<p>All widgets are passed using <code>.addWidget(widget)</code> method,
-or using <code>.addWidgets(...widgets)</code> to add widgets in a bulk mode,
-like in the example below.</p>
-<p>Once your setup is done, you just call the <code>.init()</code> method to
-start all the magic!</p>
-<blockquote>
-<p>Check out this for more examples:
-<a href="https://github.com/puntmig/javascript-search-ui/tree/master/examples">apisearch-ui/examples</a>!</p>
-</blockquote>
-<h2>Initialization</h2>
-<p>Before configuring your widgets, first you need to create
-a new instance of <code>apisearchUI</code>. This will be the core
-of your UI search engines are <code>appId</code> and <code>apiKey</code>, the <code>options</code>
-parameters are totally optional.</p>
-<p>This is the anatomy of the ApisearchUI configuration:</p>
-<pre><code class="language-javascript"><span class="hljs-keyword">const</span> ui = apisearchUI({
-    <span class="hljs-attr">appId</span>: !string,
-    <span class="hljs-attr">apiKey</span>: !string,
-    <span class="hljs-attr">options</span>: {
-        <span class="hljs-attr">endpoint</span>: ?string,
-        <span class="hljs-attr">apiVersion</span>: ?string,
-        <span class="hljs-attr">timeout</span>: ?int[<span class="hljs-number">10000</span>],
-        <span class="hljs-attr">inMemoryCache</span>: ?bool[<span class="hljs-literal">true</span>],
-    }
-});
-</code></pre>
-<p>Once your instance and widgets are defined, don't
-forget to initialize it!</p>
-<pre><code class="language-javascript">ui.init();
+<p>When retrieving the payload, you will receive a json encoded array, so make sure
+you decode it if you want to digg into the event content.</p>
+<pre><code class="language-php">$payload = json_decode($event-&gt;getPayload(), <span class="hljs-keyword">true</span>);
 </code></pre>
 
                 </section>
