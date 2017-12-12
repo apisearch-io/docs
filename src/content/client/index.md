@@ -3,7 +3,7 @@ title: Apisearch client - Index
 description: Apisearch client index page
 category: Apisearch client
 template: one-column.mustache
-source: content/apisearch-ui/index.md
+source: client/index.md
 languages: 
   - js
   - php

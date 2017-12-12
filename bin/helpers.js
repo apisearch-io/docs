@@ -1,14 +1,22 @@
 const Remarkable = require("remarkable");
 const meta = require("remarkable-meta");
 const fs = require("fs");
-const path = require("path");
 const hljs = require('highlight.js');
+const path = require("path");
+
 const CONTENT_DIR = path.resolve(__dirname, '../src/content');
+const DIST_DIR = path.resolve(__dirname, '../docs');
 
 function fileToString(fileAbsolutePath) {
     return fs
         .readFileSync(fileAbsolutePath, 'utf-8')
         .toString();
+}
+
+function getFileTargetPath(fileSystemPath) {
+    return fileSystemPath
+        .replace(CONTENT_DIR, DIST_DIR)
+        .replace('.md', '.html');
 }
 
 function parseMarkdownFile(contentString) {
@@ -40,8 +48,8 @@ function parseMarkdownFile(contentString) {
     };
 }
 
-function getAssetsRelativePath(file) {
-    let arrayFilePath = file.path
+function getAssetsRelativePath(fileSystemPath) {
+    let arrayFilePath = fileSystemPath
         .replace(CONTENT_DIR, "")
         .split("/")
     ;
@@ -61,5 +69,6 @@ function getAssetsRelativePath(file) {
 module.exports = {
     parseMarkdownFile,
     fileToString,
+    getFileTargetPath,
     getAssetsRelativePath
 };

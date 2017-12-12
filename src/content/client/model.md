@@ -3,7 +3,7 @@ title: Apisearch client - Model
 description: Apisearch model
 category: Apisearch client
 template: one-column.mustache
-source: content/apisearch-ui/model.md
+source: client/model.md
 languages: 
   - js
   - php

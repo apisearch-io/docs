@@ -3,7 +3,7 @@ title: Apisearch docs
 description: This is the index
 category: Apisearch
 template: one-column.mustache
-source: content/index.md
+source: index.md
 languages: 
   - js
   - php
@@ -11,6 +11,7 @@ tags:
   - apisearch
   - apisearch-docs
 ---
+
 
 # Apisearch docs
 

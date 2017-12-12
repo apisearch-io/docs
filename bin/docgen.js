@@ -1,27 +1,88 @@
 const hogan = require("hogan.js");
 const fsPath = require("fs-path");
-const path = require("path");
 const walk = require("walk");
+const path = require("path");
 
 const fileToString = require("./helpers").fileToString;
 const parseMarkdownFile = require("./helpers").parseMarkdownFile;
 const getAssetsRelativePath = require("./helpers").getAssetsRelativePath;
+const getFileTargetPath = require("./helpers").getFileTargetPath;
 
-/**
- * Constants
- */
 const CONTENT_DIR = path.resolve(__dirname, '../src/content');
 const TEMPLATES_DIR = path.resolve(__dirname, '../src/templates');
-const DIST_DIR = path.resolve(__dirname, '../docs');
 
+/**
+ * Main executable function
+ */
+(function () {
+    let walker = walk.walk(CONTENT_DIR, {
+        followLinks: false
+    });
+    let files = [];
 
-const compileFileTemplate = function(file) {
-    /**
-     * Get markdown and parse its content
-     */
-    let contentString = fileToString(file.path);
-    let parsedFile = parseMarkdownFile(contentString);
+    walker.on('file', function (root, stat, next) {
+        let systemPath = root + '/' + stat.name;
 
+        /**
+         * Parse MD file
+         */
+        let contentString = fileToString(systemPath);
+        let parsedFile = parseMarkdownFile(contentString);
+
+        parsedFile = {
+            ...parsedFile,
+            systemPath,
+            systemName: stat.name,
+            assets: getAssetsRelativePath(systemPath)
+        };
+
+        /**
+         * Create file list
+         */
+        files.push(parsedFile);
+
+        next();
+    });
+
+    walker.on('end', function () {
+        console.log(`Writing files...`);
+
+        files.forEach(function(file) {
+            /**
+             * Render data
+             */
+            let targetFile = getFileTargetPath(file.systemPath);
+            let html = renderTemplate(file);
+
+            /**
+             * Write file
+             */
+            writeFileInPublicFolder(targetFile, html);
+        });
+    })
+})();
+
+/**
+ * Write File on directory
+ */
+const writeFileInPublicFolder = function(targetFile, html) {
+    fsPath.writeFile(
+        targetFile,
+        html,
+        function (err) {
+            if (err) {
+                console.log(`X --> ${targetFile}`);
+            }
+
+            console.log(`V --> ${targetFile}`);
+        }
+    );
+};
+
+/**
+ * Render data into template
+ */
+const renderTemplate = function(parsedFile) {
     /**
      * Get file template and compile it
      */
@@ -34,47 +95,6 @@ const compileFileTemplate = function(file) {
      * Rendered template with the content
      */
     return template.render({
-        ...parsedFile,
-        assets: getAssetsRelativePath(file)
+        ...parsedFile
     });
 };
-
-/**
- * Write File on directory
- */
-const createDocFile = function(file) {
-    let targetFile = file.path
-        .replace(CONTENT_DIR, DIST_DIR)
-        .replace('.md', '.html');
-    let htmlContent = compileFileTemplate(file);
-
-    fsPath.writeFile(
-        targetFile,
-        htmlContent,
-        function (err) {
-            if (err) {
-                console.log(err);
-            }
-
-            console.log(file.name + ' rendered!');
-        }
-    );
-};
-
-/**
- * Main executable function
- */
-(function () {
-    let walker = walk.walk(CONTENT_DIR, {
-        followLinks: true
-    });
-
-    walker.on('file', function (root, stat, next) {
-        createDocFile({
-            name: stat.name,
-            path: root + '/' + stat.name
-        });
-
-        next();
-    });
-})();
