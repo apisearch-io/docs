@@ -12,23 +12,25 @@ tags:
   - search components
 ---
 
-# Install
+# Overview
 
-## npm & yarn
+## Install
+
+### npm & yarn
 ```shell
 npm install apisearch-ui --save
 # or
 yarn add apisearch-ui
 ```
 
-## html tag \<script\>
+### html tag \<script\>
 You can either download the library and use a relative path to 
 your assets folder, or use a CDN like jsDelivr. 
 ```html
 <script src="https://cdn.jsdelivr.net/npm/apisearch-ui/dist/apisearch-ui.min.js"></script>
 ``````
 
-# Usage
+## Usage
 This simple setup allows you to build a full text search
 input with a result container using a custom template 
 engine.
@@ -68,7 +70,7 @@ start all the magic!
 > [apisearch-ui/examples](https://github.com/puntmig/javascript-search-ui/tree/master/examples)!
 
 
-# Initialization
+## Initialization
 
 Before configuring your widgets, first you need to create
 a new instance of `apisearchUI`. This will be the core

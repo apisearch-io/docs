@@ -12,13 +12,13 @@ tags:
   - apisearch model
 ---
 
-## Model
+# Model
 
 The library provides you a set of model objects. All repositories will work
 using them, so please, be sure you understand every part of the model before any
 integration.
 
-### Item
+## Item
 
 The Item is the base class for this package. An Item instance represents a
 single row in your read-only model, and can be mapped with any class of your own
