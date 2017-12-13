@@ -36,7 +36,14 @@
   & pre
     margin-right: 1.6rem
     margin-left: 1.6rem
-    margin-bottom: 1rem
+    margin-bottom: 2rem
+
+  & li,
+  & p
+    & code
+      // color: #866edd
+      color: #01948d
+      background-color: #f1f1f1
 
   & p
     margin: .5rem 1.6rem
@@ -45,14 +52,16 @@
   & ol
     margin-right: 1.6rem
     margin-left: 1.6rem
-    margin-bottom: 1rem
+    margin-bottom: 2rem
     & ul,
     & ol
       margin-left: 0
       margin-right: 0
     & li
       margin-bottom: .5rem
-      & ul
+      & ul,
+      & ol
+        margin-bottom: 0
         margin-top: .5rem
 
   & hr
