@@ -56,7 +56,9 @@
             <div class="c-sidebar sidebar col-sm-3 col-md-2 d-none d-sm-block bg-light">
                 <ul class="c-sidebar__nav nav nav-pills flex-column">
                         <li class="c-sidebar__navItem nav-item">
-                            <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link" href="#">
+                            <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link"
+                               href="#"
+                            >
                                 Apisearch
                             </a>
                         </li>
@@ -67,9 +69,17 @@
                                     Apisearch docs
                                 </a>
                             </li>
+                            <li class="c-sidebar__navItem--sub-1 nav-item">
+                                <a class="c-sidebar__navLink c-sidebar__navLink--subtitle nav-link"
+                                   href="/docs/style-guide.html">
+                                    Style guide
+                                </a>
+                            </li>
                         </ul>
                         <li class="c-sidebar__navItem nav-item">
-                            <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link" href="#">
+                            <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link"
+                               href="#"
+                            >
                                 Apisearch UI
                             </a>
                         </li>
@@ -94,7 +104,9 @@
                             </li>
                         </ul>
                         <li class="c-sidebar__navItem nav-item">
-                            <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link" href="#">
+                            <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link"
+                               href="#"
+                            >
                                 Apisearch integration
                             </a>
                         </li>
@@ -107,7 +119,9 @@
                             </li>
                         </ul>
                         <li class="c-sidebar__navItem nav-item">
-                            <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link" href="#">
+                            <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link"
+                               href="#"
+                            >
                                 Fresh start
                             </a>
                         </li>
@@ -120,7 +134,9 @@
                             </li>
                         </ul>
                         <li class="c-sidebar__navItem nav-item">
-                            <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link" href="#">
+                            <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link"
+                               href="#"
+                            >
                                 Apisearch client
                             </a>
                         </li>
@@ -175,7 +191,7 @@ because we track every single movement you make to our servers. And this is good
 because then you can make some external conclusions by retrieving, checking and
 manipulating these events.</p>
 <h2>Event Repository</h2>
-<p>So let's take a look at how you can retrieve all these events and check as many
+<p>So let’s take a look at how you can retrieve all these events and check as many
 metrics as you want. With this example, we get all first 100 Queries done from
 yesterday at same hour until now.</p>
 <pre><code class="language-php">$eventRepository = <span class="hljs-keyword">new</span> EventRepository(
@@ -265,7 +281,7 @@ You will find the item content inside each ItemsWereIndexed events, so if in the
 future you need to rewrite the entire index from the beginning, you will notice
 that you can check items values from the past.</p>
 <h3>Readonly events</h3>
-<p>These events don't cause any index change. It is not really important the order
+<p>These events don’t cause any index change. It is not really important the order
 over the time, only for statistics purposes.</p>
 <ul>
 <li>QueryWasMade : Each query is made. Because you can check the items content at

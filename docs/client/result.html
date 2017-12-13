@@ -56,7 +56,9 @@
             <div class="c-sidebar sidebar col-sm-3 col-md-2 d-none d-sm-block bg-light">
                 <ul class="c-sidebar__nav nav nav-pills flex-column">
                         <li class="c-sidebar__navItem nav-item">
-                            <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link" href="#">
+                            <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link"
+                               href="#"
+                            >
                                 Apisearch
                             </a>
                         </li>
@@ -67,9 +69,17 @@
                                     Apisearch docs
                                 </a>
                             </li>
+                            <li class="c-sidebar__navItem--sub-1 nav-item">
+                                <a class="c-sidebar__navLink c-sidebar__navLink--subtitle nav-link"
+                                   href="/docs/style-guide.html">
+                                    Style guide
+                                </a>
+                            </li>
                         </ul>
                         <li class="c-sidebar__navItem nav-item">
-                            <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link" href="#">
+                            <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link"
+                               href="#"
+                            >
                                 Apisearch UI
                             </a>
                         </li>
@@ -94,7 +104,9 @@
                             </li>
                         </ul>
                         <li class="c-sidebar__navItem nav-item">
-                            <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link" href="#">
+                            <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link"
+                               href="#"
+                            >
                                 Apisearch integration
                             </a>
                         </li>
@@ -107,7 +119,9 @@
                             </li>
                         </ul>
                         <li class="c-sidebar__navItem nav-item">
-                            <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link" href="#">
+                            <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link"
+                               href="#"
+                            >
                                 Fresh start
                             </a>
                         </li>
@@ -120,7 +134,9 @@
                             </li>
                         </ul>
                         <li class="c-sidebar__navItem nav-item">
-                            <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link" href="#">
+                            <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link"
+                               href="#"
+                            >
                                 Apisearch client
                             </a>
                         </li>
@@ -171,7 +187,7 @@
                 <section class="c-content">
                     <h1>Result</h1>
 <p>A Query instance creates a Result instance. A Result is not only a set of basic
-elements from our dataset (Product, Category...) but as well a set of
+elements from our dataset (Product, Category…) but as well a set of
 aggregations, result of our filters.</p>
 <pre><code class="language-php">$result = $repository-&gt;query($query);
 </code></pre>
@@ -190,7 +206,7 @@ transformers.</p>
 <p>The Result instance have some other interesting methods to retrieve some extra
 information of your data set.</p>
 <ul>
-<li>getTotalElements() - get the total items in your universe. If you don't have
+<li>getTotalElements() - get the total items in your universe. If you don’t have
 applied any universe filter, then you will have all of them. Otherwise, you will
 have the number of elements in your universe.</li>
 <li>getTotalHits() - get the total hits produced by your query. This is not the
@@ -203,7 +219,7 @@ to iterate over all Aggregations you can make a simple foreach over the result
 of the <code>-&gt;getAggregations()</code> result (returns an implementation of the PHP
 interface Traversable). You can access directly to an aggregation by using the
 <code>-&gt;getAggregation($name)</code> method and the aggregation assigned name.</p>
-<p>Let's analyze what a result Aggregation instance is and how useful can be in our
+<p>Let’s analyze what a result Aggregation instance is and how useful can be in our
 filtering application.</p>
 <ul>
 <li>-&gt;getName() - The name of the aggregation. For example, when we create the

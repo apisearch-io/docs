@@ -23,6 +23,7 @@ function parseMarkdownFile(contentString) {
     let md = new Remarkable({
         html: true,
         langPrefix:'language-',
+        typographer: true,
         highlight: function (str, lang) {
             if (lang && hljs.getLanguage(lang)) {
                 try {

@@ -56,7 +56,9 @@
             <div class="c-sidebar sidebar col-sm-3 col-md-2 d-none d-sm-block bg-light">
                 <ul class="c-sidebar__nav nav nav-pills flex-column">
                         <li class="c-sidebar__navItem nav-item">
-                            <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link" href="#">
+                            <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link"
+                               href="#"
+                            >
                                 Apisearch
                             </a>
                         </li>
@@ -67,9 +69,17 @@
                                     Apisearch docs
                                 </a>
                             </li>
+                            <li class="c-sidebar__navItem--sub-1 nav-item">
+                                <a class="c-sidebar__navLink c-sidebar__navLink--subtitle nav-link"
+                                   href="/docs/style-guide.html">
+                                    Style guide
+                                </a>
+                            </li>
                         </ul>
                         <li class="c-sidebar__navItem nav-item">
-                            <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link" href="#">
+                            <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link"
+                               href="#"
+                            >
                                 Apisearch UI
                             </a>
                         </li>
@@ -94,7 +104,9 @@
                             </li>
                         </ul>
                         <li class="c-sidebar__navItem nav-item">
-                            <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link" href="#">
+                            <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link"
+                               href="#"
+                            >
                                 Apisearch integration
                             </a>
                         </li>
@@ -107,7 +119,9 @@
                             </li>
                         </ul>
                         <li class="c-sidebar__navItem nav-item">
-                            <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link" href="#">
+                            <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link"
+                               href="#"
+                            >
                                 Fresh start
                             </a>
                         </li>
@@ -120,7 +134,9 @@
                             </li>
                         </ul>
                         <li class="c-sidebar__navItem nav-item">
-                            <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link" href="#">
+                            <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link"
+                               href="#"
+                            >
                                 Apisearch client
                             </a>
                         </li>
@@ -170,22 +186,22 @@
             <main class="col-sm-9 ml-sm-auto col-md-10 pt-3" role="main">
                 <section class="c-content">
                     <h1>Query</h1>
-<p>Knowing how our model is defined, let's start by knowing how to make a simple
+<p>Knowing how our model is defined, let’s start by knowing how to make a simple
 Query Request. Query objects will give us the possibility of communication
 between our project and the server by just using some object methods, and by
 using a single pattern called builder.</p>
 <h2>Building a Query</h2>
-<p>Let's start with something really easy.</p>
+<p>Let’s start with something really easy.</p>
 <pre><code><span class="hljs-variable">$query</span> = <span class="hljs-symbol">Query:</span><span class="hljs-symbol">:create</span>(<span class="hljs-string">"something"</span>);
 </code></pre>
 <p>That simple. This small query will look for all entities in the repository,
-Scoring each of the results containing the word &quot;something&quot; by hit scoring. The
+Scoring each of the results containing the word “something” by hit scoring. The
 best the first.</p>
 <blockquote>
-<p>Sorting by scoring means that, the best appearance the word &quot;something&quot; has
+<p>Sorting by scoring means that, the best appearance the word “something” has
 inside each result, the better punctuation has.</p>
 </blockquote>
-<p>Let's make something a little bit harder. Let's take only the first 100 elements
+<p>Let’s make something a little bit harder. Let’s take only the first 100 elements
 of the second page (from the result 101 to the 200). By default, is none of
 these last values are defined, you will request the first 10 results.</p>
 <pre><code class="language-php">$query = Query::create(
@@ -194,7 +210,7 @@ these last values are defined, you will request the first 10 results.</p>
     <span class="hljs-number">100</span>          <span class="hljs-comment">// How many items do we want?</span>
 );
 </code></pre>
-<p>That's it, that easy :)</p>
+<p>That’s it, that easy :)</p>
 <p>If you want to match all elements, you can just pass an empty string as the
 first parameter or use the search-everything static factory method. In this
 second method you will query the first 1000 elements.</p>
@@ -220,13 +236,13 @@ than any other type of queries.</p>
 <p>Once a new Query is created you can start by filtering your results. This
 library provides a developer friendly way for defining filters by exposing you a
 nice set of public methods.</p>
-<p>Before starting by using filters, let's explain what an application type is and
+<p>Before starting by using filters, let’s explain what an application type is and
 the different values we have.</p>
 <p>An <strong>application type</strong> is the way a filter is applied in your data set. For
 example, if we want to filter our results by two categories, we want all the
 results containing all the categories? We want all results containing at least
-one of the defined categories? That's the application type.</p>
-<p>Let's see all available types</p>
+one of the defined categories? That’s the application type.</p>
+<p>Let’s see all available types</p>
 <ul>
 <li>Filter::MUST_ALL - All results must match all filter elements</li>
 <li>Filter::MUST_ALL_WITH_LEVELS - All results must match all filter elements, but
@@ -237,7 +253,7 @@ E.g. categories.</li>
 </ul>
 <p>Every time we create a new filter, we must determine the type of this filter
 application. Depending on that value, the filter will cause different values and
-the resulting aggregation (facet) will change, even on your screen. Let's take a
+the resulting aggregation (facet) will change, even on your screen. Let’s take a
 look at the different filters we can apply.</p>
 <h2>Must all with levels</h2>
 <p>An special explanation of this aggregation type.</p>
@@ -251,9 +267,9 @@ look at the different filters we can apply.</p>
 subcategories. For example, your Item is categorized as A and A2 at the same
 time.In that case you should relate your item with both, but adding an extra
 field in your categories called <em>level</em>. The level of the category.</p>
-<p>When you print these aggregations and you've defined this categorization as
+<p>When you print these aggregations and you’ve defined this categorization as
 MUST_ALL_WITH_LEVELS, you will print only these categories with the current
-level. So, if you don't have any filter applied, you should be able to filter
+level. So, if you don’t have any filter applied, you should be able to filter
 only by first level categories.</p>
 <ul>
 <li>[ ] Category A</li>
@@ -291,10 +307,10 @@ always have a name as first parameter in order to relate later with a possible
 aggregation).</p>
 <h2>Filtering by Type</h2>
 <p>So, try to imagine an environment when, even you have types A, B and C, you only
-want to work with A and B. In this environment C is not welcomed, and you don't
+want to work with A and B. In this environment C is not welcomed, and you don’t
 want C Items to be in any set of results.</p>
 <p>Then, all queries inside this environment will need to filter the entire
-universe by types A and B. Let's see how to do it.</p>
+universe by types A and B. Let’s see how to do it.</p>
 <pre><code class="language-php">$query = Query::createMatchAll()
     -&gt;filterUniverseByTypes([<span class="hljs-string">'A'</span>, <span class="hljs-string">'B'</span>]);
 </code></pre>
@@ -380,12 +396,12 @@ You can use any of <a href="#location-ranges">Location Ranges</a> explained prev
         <span class="hljs-string">'50km'</span>
     ))
 </code></pre>
-<p>Location is something that you should filter by just once. And because you can't
-aggregate by locations, it has'nt make sense at all to have both filters,
+<p>Location is something that you should filter by just once. And because you can’t
+aggregate by locations, it has’nt make sense at all to have both filters,
 universe and regular, so they both mean exactly the same.</p>
 <h2>Filter by range</h2>
 <p>You can filter your universe as well by range. Depending if the filter uses a
-date range or not, you should use one of these methods. Let's imagine a landing
+date range or not, you should use one of these methods. Let’s imagine a landing
 page where to list all T-shirts with low price (up to 20 euros). We want to add
 only elements created during last month</p>
 <pre><code class="language-php">$from = <span class="hljs-comment">// Date Atom of start of the month</span>
@@ -397,11 +413,11 @@ $query = Query::createMatchAll()
 <p>Furthermore, once defined your subset of available values, you can use the range
 filter the same way as others.</p>
 <p>This filter is considerably useful when filtering by price, by rating or by any
-other numeric value (discount percentage...). Let's work with the example of
+other numeric value (discount percentage…). Let’s work with the example of
 price.</p>
-<p>Let's consider that we want all items with a price value from 50 to 60, and
-from 90 to 100 euros. Let's consider as well that this price value is part of
-the indexed metadata. Let's build the filter.</p>
+<p>Let’s consider that we want all items with a price value from 50 to 60, and
+from 90 to 100 euros. Let’s consider as well that this price value is part of
+the indexed metadata. Let’s build the filter.</p>
 <pre><code class="language-php">Query::createMatchAll()
     -&gt;filterByRange(
         <span class="hljs-string">'price'</span>,
@@ -410,7 +426,7 @@ the indexed metadata. Let's build the filter.</p>
         [<span class="hljs-string">'50..60'</span>, <span class="hljs-string">'90..100'</span>]
     );
 </code></pre>
-<p>Let's analyze what we created here. First of all, the name of the filter.
+<p>Let’s analyze what we created here. First of all, the name of the filter.
 Because this is an open filter, we must define the filter field by hand. In our
 case the range will be applied over the <code>price</code> field, but could be applied
 over the <code>real_price</code> field, after some discount appliance, or the
@@ -434,11 +450,11 @@ the sixth one.</p>
     );
 </code></pre>
 <p>As you can see, this last example would return an empty set of elements as we
-don't have any item with a price lower than 60 euros and, at the same time,
+don’t have any item with a price lower than 60 euros and, at the same time,
 higher than 90. Basics of logic of sets.</p>
 <h2>Filter by field</h2>
 <p>Finally, and of course, you can filter your universe by any value inserted in
-your indexed_metadata array. Let's take our first example, and let's create a
+your indexed_metadata array. Let’s take our first example, and let’s create a
 landing page for only products from brand <em>Supershirts</em>. Other brands will not
 be a possibility.</p>
 <pre><code class="language-php">$query = Query::createMatchAll()
@@ -487,9 +503,9 @@ override it later with a more specific aggregation configuration.</p>
 aggregations. This concept is usually understood as well as facets and is the
 part of your application where filters are dynamically generated by using the
 total number of results in the data set.</p>
-<p>For example, if we can filter by the item's manufacturer 'Nike', but with the
+<p>For example, if we can filter by the item’s manufacturer 'Nike’, but with the
 current set of filters, there is not elements manufactured by Nike available,
-Nike should'nt be available. Otherwise, if it is, then we should have the
+Nike should’nt be available. Otherwise, if it is, then we should have the
 capability of showing the final user the real number of Nike elements available.</p>
 <p>This is what we call aggregations.</p>
 <p>Each filter applied creates, unless you say otherwise, an aggregation group with
@@ -497,7 +513,7 @@ all available options for this filter. If you filter by the item Nike,
 your result will come with a group called <em>manufacturers</em> and with all
 other manufacturers available to be filtered, each one with the elements total
 in your database.</p>
-<p>You can create aggregations by hand, for example, if you don't really want
+<p>You can create aggregations by hand, for example, if you don’t really want
 filters, or if the aggregation itself requires an special configuration.</p>
 <pre><code class="language-php">Query::createMatchAll()
     -&gt;aggregateBy(
@@ -507,7 +523,7 @@ filters, or if the aggregation itself requires an special configuration.</p>
 </code></pre>
 <p>Previous filters with name <code>fieldname</code> will be searched in order to create the
 Result object.
-You can change the order of the aggregation, so you don't have to do it later in
+You can change the order of the aggregation, so you don’t have to do it later in
 your process.</p>
 <pre><code class="language-php">Query::createMatchAll()
     -&gt;aggregateBy(
@@ -525,7 +541,7 @@ your process.</p>
 <li>Aggregation::SORT_BY_NAME_ASC</li>
 </ul>
 <p>You can limit as well the number of elements you want to return in the
-aggregation. By default, there's no limit, so if your result aggregation has
+aggregation. By default, there’s no limit, so if your result aggregation has
 10000 possible values, an array of 10000 counters will be returned. This is
 usually not good for performance.</p>
 <pre><code class="language-php">Query::createMatchAll()
@@ -592,7 +608,7 @@ This is the list of all of them.</p>
 <p>A set of special sorting types can sort as well by location. In order to make
 this sorting work, we must create our Query instance by using the method
 <code>createLocated()</code> instead of <code>create()</code>. The only difference between both is
-that the first one's first parameter is a <code>Coordinate</code> instance. Therefore,
+that the first one’s first parameter is a <code>Coordinate</code> instance. Therefore,
 the second parameter is the query text.</p>
 <pre><code class="language-php">$query = Query::createLocated(
     <span class="hljs-keyword">new</span> Coordinate(<span class="hljs-number">40.0</span>, <span class="hljs-number">-70.0</span>),
@@ -650,7 +666,7 @@ element only having the UUID.</p>
     -&gt;excludeUUID(<span class="hljs-keyword">new</span> ItemUUID(<span class="hljs-string">'10'</span>, <span class="hljs-string">'product'</span>))
 ;
 </code></pre>
-<p>In this example we are excluding the Item with ID 10 and 'product' as type.
+<p>In this example we are excluding the Item with ID 10 and ‘product’ as type.
 Remember that an item is always referenced not only by the id but with a
 composition between the ID and the type.</p>
 <p>We can filter by several UUIDs as well.</p>

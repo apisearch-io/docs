@@ -56,7 +56,9 @@
             <div class="c-sidebar sidebar col-sm-3 col-md-2 d-none d-sm-block bg-light">
                 <ul class="c-sidebar__nav nav nav-pills flex-column">
                         <li class="c-sidebar__navItem nav-item">
-                            <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link" href="#">
+                            <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link"
+                               href="#"
+                            >
                                 Apisearch
                             </a>
                         </li>
@@ -67,9 +69,17 @@
                                     Apisearch docs
                                 </a>
                             </li>
+                            <li class="c-sidebar__navItem--sub-1 nav-item">
+                                <a class="c-sidebar__navLink c-sidebar__navLink--subtitle nav-link"
+                                   href="/docs/style-guide.html">
+                                    Style guide
+                                </a>
+                            </li>
                         </ul>
                         <li class="c-sidebar__navItem nav-item">
-                            <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link" href="#">
+                            <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link"
+                               href="#"
+                            >
                                 Apisearch UI
                             </a>
                         </li>
@@ -94,7 +104,9 @@
                             </li>
                         </ul>
                         <li class="c-sidebar__navItem nav-item">
-                            <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link" href="#">
+                            <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link"
+                               href="#"
+                            >
                                 Apisearch integration
                             </a>
                         </li>
@@ -107,7 +119,9 @@
                             </li>
                         </ul>
                         <li class="c-sidebar__navItem nav-item">
-                            <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link" href="#">
+                            <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link"
+                               href="#"
+                            >
                                 Fresh start
                             </a>
                         </li>
@@ -120,7 +134,9 @@
                             </li>
                         </ul>
                         <li class="c-sidebar__navItem nav-item">
-                            <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link" href="#">
+                            <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link"
+                               href="#"
+                            >
                                 Apisearch client
                             </a>
                         </li>
@@ -175,18 +191,18 @@ between them and how we should integrate them with our code.</p>
 <p>But how it really works? We need an interface where we can communicate with an
 existing endpoint, so we can really have nice results given a set of pre-indexed
 data.</p>
-<p>Let's check the interface <code>Apisearch\Repository\Repository</code></p>
-<p>Using an implementation of this main repository, you'll be able to index,
+<p>Let’s check the interface <code>Apisearch\Repository\Repository</code></p>
+<p>Using an implementation of this main repository, you’ll be able to index,
 delete, reset and query your main data set. Each interaction will create an
 internal event, each one named in a particular way. To query over these events,
 please check the <a href="#event-repository">EventRepository</a> chapter.</p>
 <p>All repository implementations, before being used, need your API secret in order
-to make sure you're using the right repository.</p>
-<p>Let's take a look at all our repository interfaces</p>
+to make sure you’re using the right repository.</p>
+<p>Let’s take a look at all our repository interfaces</p>
 <h2>HttpRepository {#http-repository}</h2>
 <p>This is the main implementation of this repository, ready for production
 purposes and defined for pointing to our main servers.</p>
-<p>In order to make it work, you'll need a HTTPClient implementation. In that case,
+<p>In order to make it work, you’ll need a HTTPClient implementation. In that case,
 and because your usage will be maily for production, you can use the
 GuzzleClient implementation.</p>
 <pre><code class="language-php">$repository = <span class="hljs-keyword">new</span> HttpRepository(
@@ -204,12 +220,12 @@ ApiSearch.</p>
 domain, we should never change its composition because of external changes,
 right? So imagine that we want to start using ApiSearch. As reading this
 documentation we can see that ApiSearch understands about Items, and only about
-them, so you could think...</p>
+them, so you could think…</p>
 <p><code>Oups, I should change my product and only work with Items</code></p>
 <p>That would be a very very bad decision, so remember that with or without
 ApiSearch, your product will continue being a Product.</p>
-<p>Said that, and if you check all available Repository methods, you'll notice that
-you can only use Item related methods (addItem, deleteItem...), so does it mean
+<p>Said that, and if you check all available Repository methods, you’ll notice that
+you can only use Item related methods (addItem, deleteItem…), so does it mean
 that do I need to work always with items? Not at all.</p>
 <p>We must find a way where there is a silent transformation between our model
 (Product) and the ApiSearch model (Item, ItemUUID), and this way is called
@@ -218,11 +234,11 @@ Transformers.</p>
 objects into an Item, by implementing the interface WriteTransformer, and vice
 versa, by implementing the interface ReadTransformer. All Repositories must
 implement WriteTransformer, so it has not sense at all to have a transformer
-that does'nt write, but implementing ReadTransformer is optional.</p>
+that does’nt write, but implementing ReadTransformer is optional.</p>
 <p>The difference between both strategies is that by implementing ReadTransformer,
 you will receive your own model objects when making queries. Otherwise, when
 reading from the repository, you will receive only Item instances.</p>
-<p>Let's check a Transformer example</p>
+<p>Let’s check a Transformer example</p>
 <pre><code class="language-php"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ProductTransformer</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">ReadTransformer</span>, <span class="hljs-title">WriteTransformer</span>
 </span>{
     <span class="hljs-comment">/**
@@ -324,7 +340,7 @@ reading from the repository, you will receive only Item instances.</p>
     }
 }
 </span></code></pre>
-<p>Ok, we have our transformer ready. Then what? Let's see how we can build a
+<p>Ok, we have our transformer ready. Then what? Let’s see how we can build a
 TransformableRepository instance.</p>
 <blockquote>
 <p>Please, check Symfony integration. This is only a small snippet to show how
@@ -341,7 +357,7 @@ $transformableRepository = <span class="hljs-keyword">new</span> TransformableRe
 );
 $transformableRepository-&gt;setKey(<span class="hljs-string">'mysecretkey'</span>);
 </code></pre>
-<p>And that's it.
+<p>And that’s it.
 Discovering a little bit the TransformableRepository we will see that, apart
 of having the natural Item related methods, we will have same methods but with
 Object instead of Item</p>
@@ -350,7 +366,7 @@ Object instead of Item</p>
 <li>-&gt;deleteObject()</li>
 </ul>
 <p>And when querying the repository, if your class specific transformer implements
-ReadTransformer, instead of having an Item instance, you'll have a
+ReadTransformer, instead of having an Item instance, you’ll have a
 transformation.</p>
 <blockquote>
 <p>Using Read transformation or not should be a project scope decision, so having
@@ -359,9 +375,9 @@ thing.</p>
 </blockquote>
 <h2>InMemoryRepository {#in-memory-repository}</h2>
 <p>Only for development and testing purposes. Not all endpoints are available, and
-not all features can be done by using a simple in-memory array, so you'll be
+not all features can be done by using a simple in-memory array, so you’ll be
 able to index, delete, reset and perform basic queries (remember, in memory,
-this means that between requests, this won't work at all).</p>
+this means that between requests, this won’t work at all).</p>
 <pre><code class="language-php">$repository = <span class="hljs-keyword">new</span> InMemoryRepository();
 $repository-&gt;setKey(<span class="hljs-string">'mysecretkey'</span>);
 </code></pre>
@@ -389,7 +405,7 @@ method.</p>
 <pre><code class="language-php">$repository-&gt;addObject(Object $object);
 $repository-&gt;addObject($product);
 </code></pre>
-<p>This method only prepares this new item to be added/modified, but does'nt
+<p>This method only prepares this new item to be added/modified, but does’nt
 change it actually</p>
 <h2>Delete</h2>
 <p>Deletes an existing element from your repository. In order to use this endpoint,
@@ -402,7 +418,7 @@ method.</p>
 <pre><code class="language-php">$repository-&gt;deleteObject(Object $object);
 $repository-&gt;deleteObject($product);
 </code></pre>
-<p>This method only prepares this new item to be deleted, but does'nt change it
+<p>This method only prepares this new item to be deleted, but does’nt change it
 actually</p>
 <h2>Flush</h2>
 <p>Perform real changes by having a stack of additions and deletions.</p>
@@ -422,7 +438,7 @@ we can use the second parameter by setting it to true.</p>
 to, given a Query instance, get a Result instance.</p>
 <pre><code class="language-php">$result = $repository-&gt;query(Query $query) : Result
 </code></pre>
-<p>That's it. The result of the query method is a Result instance. To know a little
+<p>That’s it. The result of the query method is a Result instance. To know a little
 bit more about this object, check the documentation chapter.</p>
 
                 </section>

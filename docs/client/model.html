@@ -56,7 +56,9 @@
             <div class="c-sidebar sidebar col-sm-3 col-md-2 d-none d-sm-block bg-light">
                 <ul class="c-sidebar__nav nav nav-pills flex-column">
                         <li class="c-sidebar__navItem nav-item">
-                            <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link" href="#">
+                            <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link"
+                               href="#"
+                            >
                                 Apisearch
                             </a>
                         </li>
@@ -67,9 +69,17 @@
                                     Apisearch docs
                                 </a>
                             </li>
+                            <li class="c-sidebar__navItem--sub-1 nav-item">
+                                <a class="c-sidebar__navLink c-sidebar__navLink--subtitle nav-link"
+                                   href="/docs/style-guide.html">
+                                    Style guide
+                                </a>
+                            </li>
                         </ul>
                         <li class="c-sidebar__navItem nav-item">
-                            <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link" href="#">
+                            <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link"
+                               href="#"
+                            >
                                 Apisearch UI
                             </a>
                         </li>
@@ -94,7 +104,9 @@
                             </li>
                         </ul>
                         <li class="c-sidebar__navItem nav-item">
-                            <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link" href="#">
+                            <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link"
+                               href="#"
+                            >
                                 Apisearch integration
                             </a>
                         </li>
@@ -107,7 +119,9 @@
                             </li>
                         </ul>
                         <li class="c-sidebar__navItem nav-item">
-                            <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link" href="#">
+                            <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link"
+                               href="#"
+                            >
                                 Fresh start
                             </a>
                         </li>
@@ -120,7 +134,9 @@
                             </li>
                         </ul>
                         <li class="c-sidebar__navItem nav-item">
-                            <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link" href="#">
+                            <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link"
+                               href="#"
+                            >
                                 Apisearch client
                             </a>
                         </li>
@@ -207,7 +223,7 @@ is used.</li>
 <li>Coordinate - An Item can be geolocated in space, so an instance of Coordinate
 can be injected here. This value is not required.</li>
 </ul>
-<p>Let's see an example of an item.</p>
+<p>Let’s see an example of an item.</p>
 <pre><code class="language-yml"><span class="hljs-attr">id:</span> <span class="hljs-number">4303</span><span class="hljs-string">ui203</span>
 <span class="hljs-attr">type:</span> <span class="hljs-string">product</span>
 <span class="hljs-attr">metadata:</span>
@@ -236,7 +252,7 @@ can be injected here. This value is not required.</li>
 <span class="hljs-attr">suggest:</span>
 <span class="hljs-bullet">    -</span> <span class="hljs-string">T-shirt</span>
 </code></pre>
-<p>Let's explain a little better this example</p>
+<p>Let’s explain a little better this example</p>
 <ul>
 <li>Our product with ID 4303ui203 is mapped as an Item</li>
 <li>We have a name, a description and an EAN stored in the item, and because is
@@ -255,20 +271,20 @@ Item will be part of the result as well.</li>
 string <em>T-shi</em>, this item will add a suggestion of <em>T-shirt</em>. This is completely
 different from the search fields.</li>
 </ul>
-<p>Before start building our first Item, let's see another object we need to know
+<p>Before start building our first Item, let’s see another object we need to know
 in order to use the factory methods inside Item object.</p>
 <h3>ItemUUID</h3>
 <p>Remember that we said that the id field in Item only is unique in the universe
 of the entities with same type? Then, we need a representation of this Unique
 id.</p>
 <p>And this representation is the object ItemUUID. A simple class that contains an
-id and a type. Let's see how to build one of these.</p>
+id and a type. Let’s see how to build one of these.</p>
 <pre><code class="language-php">$itemUUID = <span class="hljs-keyword">new</span> ItemUUID(<span class="hljs-string">'4303ui203'</span>, <span class="hljs-string">'product'</span>);
 </code></pre>
 <p>This is a real Unique Id representation of our model, and this instance should
 be unique in all our universe.</p>
 <h3>Building an Item</h3>
-<p>So let's build our first Item instance. Because an Item can be build by
+<p>So let’s build our first Item instance. Because an Item can be build by
 different ways, we will use static factories instead of the private
 <em>__construct</em> method.</p>
 <p>If you remember, all data but id and type is not required, so a simple
@@ -388,19 +404,19 @@ accessing to the desired position.</p>
 <p>But what happens if your price needs to be indexed? Then you should change your
 indexing point, and instead of placing the element as a simple metadata, you
 should place it as an indexed metadata. So, what happens with all the code
-points where you've been requiring the price value? You should change it
+points where you’ve been requiring the price value? You should change it
 well, right?</p>
 <p>This will not work anymore</p>
 <pre><code class="language-php">$item-&gt;getMetadata()[<span class="hljs-string">'price'</span>];
 </code></pre>
-<p>Instead of that, you'll need to start using this</p>
+<p>Instead of that, you’ll need to start using this</p>
 <pre><code class="language-php">$item-&gt;getIndexedMetadata()[<span class="hljs-string">'price'</span>];
 </code></pre>
 <p>Well, this would be something that may cause you too many code changes, where
 should be something insignificant.</p>
 <p>In order to avoid this, you should take some decisions in your model.</p>
 <ul>
-<li>Don't repeat keys inside your metadata and indexed_metadata arrays.</li>
+<li>Don’t repeat keys inside your metadata and indexed_metadata arrays.</li>
 <li>When you request a metadata value, use the <code>-&gt;get($fieldName)</code> method. This
 will return the metadata value accessing all metadata packages at the same time.</li>
 </ul>

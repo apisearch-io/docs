@@ -56,7 +56,9 @@
             <div class="c-sidebar sidebar col-sm-3 col-md-2 d-none d-sm-block bg-light">
                 <ul class="c-sidebar__nav nav nav-pills flex-column">
                         <li class="c-sidebar__navItem nav-item">
-                            <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link" href="#">
+                            <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link"
+                               href="#"
+                            >
                                 Apisearch
                             </a>
                         </li>
@@ -67,9 +69,17 @@
                                     Apisearch docs
                                 </a>
                             </li>
+                            <li class="c-sidebar__navItem--sub-1 nav-item">
+                                <a class="c-sidebar__navLink c-sidebar__navLink--subtitle nav-link"
+                                   href="/docs/style-guide.html">
+                                    Style guide
+                                </a>
+                            </li>
                         </ul>
                         <li class="c-sidebar__navItem nav-item">
-                            <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link" href="#">
+                            <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link"
+                               href="#"
+                            >
                                 Apisearch UI
                             </a>
                         </li>
@@ -94,7 +104,9 @@
                             </li>
                         </ul>
                         <li class="c-sidebar__navItem nav-item">
-                            <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link" href="#">
+                            <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link"
+                               href="#"
+                            >
                                 Apisearch integration
                             </a>
                         </li>
@@ -107,7 +119,9 @@
                             </li>
                         </ul>
                         <li class="c-sidebar__navItem nav-item">
-                            <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link" href="#">
+                            <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link"
+                               href="#"
+                            >
                                 Fresh start
                             </a>
                         </li>
@@ -120,7 +134,9 @@
                             </li>
                         </ul>
                         <li class="c-sidebar__navItem nav-item">
-                            <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link" href="#">
+                            <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link"
+                               href="#"
+                            >
                                 Apisearch client
                             </a>
                         </li>
@@ -309,7 +325,7 @@ when was indexed to Apisearch as <code>indexed_metadata</code>.</li>
 docs for more information.</li>
 <li><code>fetchLimit</code>: is the limit of items to be fetched on the server.</li>
 <li><code>viewLimit</code>: If there are 10 fetched items, and viewLimit is 5. Only
-the 5 first numbers will be visible and a &quot;show more&quot; / &quot;show less&quot;
+the 5 first numbers will be visible and a “show more” / “show less”
 button will appear.</li>
 <li><code>sortBy</code>: refers to the order/sort of the filter items.</li>
 <li><code>classNames</code>:
@@ -320,14 +336,14 @@ contains the widget.</li>
 <li><code>itemsList</code>: class name of the filter items list.</li>
 <li><code>item</code>: class name of the filter item link.</li>
 <li><code>active</code>: class name of the selected item link.</li>
-<li><code>showMoreContainer</code>: class of the &quot;show more&quot; button container.</li>
+<li><code>showMoreContainer</code>: class of the “show more” button container.</li>
 </ul></li>
 <li><code>template</code>:
 <ul>
 <li><code>top</code>: template string for the title of the filter list.</li>
 <li><code>item</code>: template string for the filter item link.</li>
-<li><code>showMore</code>: template string for the &quot;show more&quot; button.</li>
-<li><code>showLess</code>: template string for the &quot;show less&quot; button.</li>
+<li><code>showMore</code>: template string for the “show more” button.</li>
+<li><code>showLess</code>: template string for the “show less” button.</li>
 </ul></li>
 <li><code>formatData</code>: is a callable function that receives all the resulted
 data related to the multiple filter widget:
@@ -460,7 +476,7 @@ passing the string to the <code>body</code> template attribute:</p>
 `</span>;
 </code></pre>
 <p>For more information about how this templating system works,
-refer to the <a href="http://twitter.github.io/hogan.js/">twitter's hogan.js documentation</a>.
+refer to the <a href="http://twitter.github.io/hogan.js/">twitter’s hogan.js documentation</a>.
 Or check the library examples.</p>
 <h2>Pagination</h2>
 <p>This widget allows to navigate through the results
