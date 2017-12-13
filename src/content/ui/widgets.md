@@ -12,6 +12,7 @@ tags:
   - search components
 ---
 
+
 # Widgets
 
 ## Simple Search
@@ -406,7 +407,7 @@ const resultInformationWidget = ui.widgets.information({
  to the template.
 
 
-# Multiple instances
+## Multiple instances
 
 When working with ApisearchUI you have to keep in mind that you 
 can work with multiple ApisearchUI instances at once. 

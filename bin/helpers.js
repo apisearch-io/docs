@@ -1,5 +1,6 @@
 const Remarkable = require("remarkable");
 const meta = require("remarkable-meta");
+const toc = require('markdown-toc');
 const fs = require("fs");
 const hljs = require('highlight.js');
 const path = require("path");
@@ -39,15 +40,18 @@ function parseMarkdownFile(contentString) {
         }
     });
     md.use(meta);
-
-
     let content = md.render(contentString);
+
+    md.use(toc.plugin({}));
+    let tableOfContent = md.render(contentString).json;
 
     return {
         ...md.meta,
+        tableOfContent,
         content
     };
 }
+
 
 function getAssetsRelativePath(fileSystemPath) {
     let arrayFilePath = fileSystemPath
