@@ -38,14 +38,30 @@
     <!-- Header -->
     <header>
         <nav class="c-navbar navbar navbar-expand-md fixed-top">
-            <a class="navbar-brand" href="#">
-                <img src="http://apisearch.io/public/images/favicons/favicon-32x32.png"
-                     class="d-inline-block align-top"
-                     alt="Apisearch logo">
-                <img src="http://apisearch.io/public/images/logo-.png"
-                     height="15"
-                     alt="Logo Apisearch">
-            </a>
+            <div class="c-navbar__main row">
+                <div class="c-navbar__brandWrapper col-sm-3 col-md-2">
+                    <a class="c-navbar__brand navbar-brand" href="#">
+                        <img src="http://apisearch.io/public/images/favicons/favicon-32x32.png"
+                             class="d-inline-block align-top"
+                             alt="Apisearch logo">
+                        <img src="http://apisearch.io/public/images/logo-.png"
+                             height="15"
+                             alt="Logo Apisearch">
+                    </a>
+                </div>
+                <div class="c-navbar__searchWrapper col-sm-9 col-md-10 ml-md-auto">
+                    <form class="c-navbar__form form-inline">
+                        <i class="c-navbar__searchIcon fa fa-search"
+                           aria-hidden="true"></i>
+                        <input class="c-navbar__searchInput form-control mr-sm-2"
+                               type="text"
+                               placeholder="Search documentation..."
+                               aria-label="Search">
+                    </form>
+                </div>
+            </div>
+
+            <!-- menu-toggle -->
             <button class="navbar-toggler"
                 type="button"
                 data-toggle="collapse"
@@ -60,15 +76,11 @@
                 <ul class="navbar-nav mr-auto">
                     <!-- Nav menu here -->
                 </ul>
-
-                <form class="form-inline mt-2 mt-md-0">
-                    <input class="o-input form-control mr-sm-2"
-                           type="text"
-                           placeholder="Search"
-                           aria-label="Search">
-                </form>
             </div>
+            <!-- /menu-toggle -->
         </nav>
+
+        <!-- breadcrumb -->
         <nav class="c-breadcrumb" aria-label="breadcrumb" role="navigation">
             <ol class="c-breadcrumb__list breadcrumb">
                 <li class="c-breadcrumb__item breadcrumb-item"><a href="#">Apisearch</a></li>
@@ -76,6 +88,7 @@
                 <li class="c-breadcrumb__item--active breadcrumb-item active" aria-current="page">PHP</li>
             </ol>
         </nav>
+        <!-- /breadcrumb -->
     </header>
     <!-- /Header -->
 
