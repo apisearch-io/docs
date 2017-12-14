@@ -1,7 +1,8 @@
 ---
+page: 5
 title: Repository
 description: Apisearch client - Repository object
-category: Apisearch client
+category: Client
 template: one-column.mustache
 source: client/repository.md
 languages: 

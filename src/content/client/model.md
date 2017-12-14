@@ -1,7 +1,8 @@
 ---
+page: 2
 title: Model
 description: Apisearch model
-category: Apisearch client
+category: Client
 template: one-column.mustache
 source: client/model.md
 languages: 

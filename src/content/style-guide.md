@@ -1,7 +1,8 @@
 ---
+page: 2
 title: Style guide
 description: This is the style guide
-category: Apisearch
+category: ~
 template: one-column.mustache
 source: style-guide.md
 languages: 

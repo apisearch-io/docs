@@ -1,7 +1,8 @@
 ---
+page: 4
 title: Result
 description: Apisearch client - Result object
-category: Apisearch client
+category: Client
 template: one-column.mustache
 source: client/result.md
 languages: 

@@ -1,7 +1,8 @@
 ---
+page: 1
 title: Index
 description: Apisearch client index page
-category: Apisearch client
+category: Client
 template: one-column.mustache
 source: client/index.md
 languages: 

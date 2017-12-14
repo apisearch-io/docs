@@ -1,7 +1,8 @@
 ---
-title: Apisearch docs
+page: 1
+title: Hello
 description: This is the index
-category: Apisearch
+category: ~
 template: one-column.mustache
 source: index.md
 languages: 

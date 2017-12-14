@@ -1,7 +1,8 @@
 ---
+page: 3
 title: Query
 description: Apisearch client - Query object
-category: Apisearch client
+category: Client
 template: one-column.mustache
 source: client/query.md
 languages: 

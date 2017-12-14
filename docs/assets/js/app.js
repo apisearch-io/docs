@@ -72,8 +72,6 @@
 
 __webpack_require__(1);
 
-console.log('documentation');
-
 /***/ }),
 /* 1 */
 /***/ (function(module, exports) {

@@ -134,14 +134,29 @@
             <div class="c-sidebar sidebar col-sm-4 col-md-3 col-lg-2 d-none d-sm-block">
                 <ul class="c-sidebar__nav nav nav-pills flex-column">
                     {{#menu}}
+                        {{^has_category}}
+                            {{#children}}
+                            <li class="c-sidebar__navItem nav-item">
+                                <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link"
+                                   href="{{url}}"
+                                >
+                                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                        {{title}}
+                                </a>
+                            </li>
+                            {{/children}}
+                        {{/has_category}}
+
+                        {{#has_category}}
                         <li class="c-sidebar__navItem nav-item">
                             <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link"
                                href="#"
                             >
+                                <i class="fa fa-angle-right" aria-hidden="true"></i>
                                 {{category_name}}
                             </a>
                         </li>
-                        <ul class="c-sidebar__nav nav nav-pills flex-column">
+                        <ul class="c-sidebar__nav c-sidebar__nav--sub-1 nav nav-pills flex-column">
                             {{#children}}
                             <li class="c-sidebar__navItem--sub-1 nav-item">
                                 <a class="c-sidebar__navLink c-sidebar__navLink--subtitle nav-link"
@@ -151,6 +166,7 @@
                             </li>
                             {{/children}}
                         </ul>
+                        {{/has_category}}
                     {{/menu}}
                 </ul>
             </div>

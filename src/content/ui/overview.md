@@ -1,9 +1,10 @@
 ---
+page: 1
 title: Installation
 description: This is the installation
-category: Apisearch UI
+category: UI
 template: one-column.mustache
-source: ui/install.md
+source: ui/overview.md
 languages: 
   - js
 tags:
@@ -13,6 +14,15 @@ tags:
 ---
 
 # Overview
+
+ApisearchUI library is set of tools to build a custom search experience for your 
+website, e-commerce, docs site, or any other web application you can imagine.
+It provides a list of common widgets like a search box, a result list, filters, 
+sorting dropdown, pagination, and many more explained below.
+
+All your data must be previously indexed using the Apisearch tools. For more 
+information say hi to: hello@puntmig.com
+
 
 ## Install
 

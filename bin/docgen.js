@@ -58,9 +58,17 @@ const SRC_DIR = path.resolve(__dirname, '../src');
             let categories = Object.keys(tree);
             let composedMenu = categories
                 .map(function(category) {
+                    if ("null" === category) {
+                        return {
+                            has_category: false,
+                            children: tree["null"]
+                        }
+                    }
+
                     return {
                         category_name: category,
-                        children: tree[category]
+                        has_category: true,
+                        children: _.orderBy(tree[category], "page")
                     }
                 });
 

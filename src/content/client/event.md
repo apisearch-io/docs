@@ -1,7 +1,8 @@
 ---
+page: 6
 title: Event
 description: Apisearch client - Event object
-category: Apisearch client
+category: Client
 template: one-column.mustache
 source: client/event.md
 languages: 

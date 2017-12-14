@@ -1,7 +1,8 @@
 ---
+page: 1
 title: Symfony - Apisearch Bundle
 description: Apisearch integrations - Symfony Apisearch Bundle
-category: Apisearch integration
+category: Integrations
 template: one-column.mustache
 source: integration/symfony-apisearch-bundle.md
 languages: 

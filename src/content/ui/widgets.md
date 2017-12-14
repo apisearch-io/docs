@@ -1,10 +1,11 @@
 ---
+page: 2
 title: Widgets
 description: Search widgets
-category: Apisearch UI
+category: UI
 template: one-column.mustache
 source: ui/widgets.md
-languages: 
+languages:
   - js
 tags:
   - apisearch-tools
