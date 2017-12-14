@@ -39,7 +39,7 @@
     <header>
         <nav class="c-navbar navbar navbar-expand-md fixed-top">
             <div class="c-navbar__main row">
-                <div class="c-navbar__brandWrapper col-sm-3 col-md-2">
+                <div class="c-navbar__brandWrapper col-sm-4 col-md-3 col-lg-2">
                     <a class="c-navbar__brand navbar-brand" href="#">
                         <img src="http://apisearch.io/public/images/favicons/favicon-32x32.png"
                              class="d-inline-block align-top"
@@ -49,7 +49,7 @@
                              alt="Logo Apisearch">
                     </a>
                 </div>
-                <div class="c-navbar__searchWrapper col-sm-9 col-md-10 ml-md-auto">
+                <div class="c-navbar__searchWrapper col-sm-8 col-md-9 col-lg-10 ml-md-auto">
                     <form class="c-navbar__form form-inline">
                         <i class="c-navbar__searchIcon fa fa-search"
                            aria-hidden="true"></i>
@@ -92,11 +92,15 @@
     </header>
     <!-- /Header -->
 
+    <!-- Search result
+    <div class="c-navbar__searchResult"></div>
+    /Search result -->
+
     <!-- Main -->
     <div class="container-fluid">
         <div class="row">
             <!-- Sidebar -->
-            <div class="c-sidebar sidebar col-sm-3 col-md-2 d-none d-sm-block">
+            <div class="c-sidebar sidebar col-sm-4 col-md-3 col-lg-2 d-none d-sm-block">
                 <ul class="c-sidebar__nav nav nav-pills flex-column">
                         <li class="c-sidebar__navItem nav-item">
                             <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link"
@@ -226,7 +230,7 @@
             <!-- Sidebar -->
 
             <!-- Content -->
-            <main class="col-sm-10 ml-md-auto pt-3" role="main">
+            <main class="col-sm-8 col-md-9 col-lg-10 ml-sm-auto pt-3" role="main">
                 <section class="c-content">
                     <h1>Event</h1>
 <p>Do you remember that each Repository interaction creates a simple Event? That is
@@ -370,6 +374,10 @@ you decode it if you want to digg into the event content.</p>
         </div>
     </div>
     <!-- /Main -->
+
+    <!-- Go up -->
+    <i class="c-goUp fa fa-thumbs-o-up" aria-hidden="true"></i>
+    <!-- /Go up -->
 
     <!-- Scripts -->
     <script src="./../assets/js/app.js"></script>

@@ -3,6 +3,7 @@
   box-shadow: 0 0 5px 0 rgba(37, 37, 37, 0.36)
   height: 3.6rem
   padding: 0
+  z-index: 999
 
   &__main
     width: 100%
@@ -39,4 +40,14 @@
     &:focus
       outline: none!important
       box-shadow: 0 0 0 transparent
-      border-left-color: #1fdea7
+      border-left-color: #dedede
+
+  &__searchResult
+    position: fixed
+    width: 100%
+    left: 0
+    right: 0
+    top: 0
+    bottom: 0
+    background-color: white
+    z-index: 99
