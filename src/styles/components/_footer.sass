@@ -1,2 +1,36 @@
 .c-footer
   background: $color-background
+  padding-bottom: 10rem
+
+  &__logoWrapper
+    width: 100%
+
+  &__logo
+    margin: 0 auto
+    filter: grayscale(100%)
+    opacity: .6
+    &--top
+      margin-bottom: 1rem
+    &--bottom
+      margin-bottom: 1rem
+
+  &__linksWrapper
+    margin-bottom: 2rem
+    align-items: center
+    width: 100%
+    flex-direction: row
+    flex-wrap: wrap
+    justify-content: center
+
+  &__linkItem
+    margin-left: 1rem
+    margin-right: 1rem
+
+  &__link
+    color: grey
+    font-size: .9rem
+    &--icon
+      font-size: 1.6rem
+      color: #c6c5c5
+    &:hover
+      color: #1a1a27
