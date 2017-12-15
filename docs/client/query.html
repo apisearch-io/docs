@@ -50,7 +50,8 @@
                              alt="Logo Apisearch">
                     </a>
                 </div>
-                <div class="c-navbar__searchWrapper col-10 col-sm-8 col-md-9 col-lg-10 ml-md-auto">
+                <!-- Search -->
+                <div class="c-navbar__searchWrapper col-8 col-sm-8 col-md-9 col-lg-10 ml-md-auto">
                     <form class="c-navbar__form form-inline">
                         <i class="c-navbar__searchIcon fa fa-search"
                            aria-hidden="true"></i>
@@ -60,25 +61,30 @@
                                aria-label="Search">
                     </form>
                 </div>
-            </div>
+                <!-- /Search -->
 
-            <!-- menu-toggle -->
-            <button class="navbar-toggler"
-                type="button"
-                data-toggle="collapse"
-                data-target="#navbarCollapse"
-                aria-controls="navbarCollapse"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
-            >
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarCollapse">
-                <ul class="navbar-nav mr-auto">
-                    <!-- Nav menu here -->
-                </ul>
+                <!-- Menu burger -->
+                <div class="col-2 d-sm-none">
+                    <button class="c-navbar__burger navbar-toggler">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                             id="burgerSidebarMenu"
+                             viewBox="0 0 30 30"
+                             width="30"
+                             height="30"
+                             focusable="false"
+                        >
+                            <title>Menu</title>
+                            <path stroke="#54edc0"
+                                  stroke-width="2"
+                                  stroke-linecap="round"
+                                  stroke-miterlimit="10"
+                                  d="M4 7h22M4 15h22M4 23h22"
+                            ></path>
+                        </svg>
+                    </button>
+                </div>
+                <!-- /Menu burger -->
             </div>
-            <!-- /menu-toggle -->
         </nav>
 
         <!-- breadcrumb -->
@@ -132,7 +138,9 @@
     <div class="container-fluid">
         <div class="row">
             <!-- Sidebar -->
-            <div class="c-sidebar sidebar col-sm-4 col-md-3 col-lg-2 d-none d-sm-block">
+            <div id="sidebarMenu"
+                 class="c-sidebar sidebar col-sm-4 col-md-3 col-lg-2 d-none d-sm-block"
+            >
                 <ul class="c-sidebar__nav nav nav-pills flex-column">
                             <li class="c-sidebar__navItem nav-item">
                                 <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link"

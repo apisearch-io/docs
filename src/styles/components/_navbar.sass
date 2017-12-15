@@ -10,18 +10,20 @@
     width: 100%
     height: 100%
     &.row
+      margin: 0
       flex-wrap: nowrap
 
   &__brandWrapper
     height: inherit!important
 
   &__brand
-    margin-left: 1rem
     padding-top: .8rem
     padding-bottom: .8rem
 
   &__searchWrapper
     height: inherit!important
+    border-left: 1px solid #dedede
+    padding-left: 0
 
   &__form
     height: inherit
@@ -37,13 +39,25 @@
     width: inherit!important
     height: inherit
     border: none
-    border-left: 1px solid #dedede
     border-radius: 0
     padding-left: 3rem
     &:focus
       outline: none!important
       box-shadow: 0 0 0 transparent
       border-left-color: #dedede
+
+  &__burger
+    height: 100%
+    width: 100%
+    padding: 0
+    margin: 0
+    border: 0
+    & svg
+      height: inherit
+      cursor: pointer
+
+    &:focus
+      outline: none!important
 
   &__searchResult
     padding-top: 5rem
