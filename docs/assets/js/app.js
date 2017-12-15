@@ -87,6 +87,19 @@ document.querySelector('#burgerSidebarMenu').addEventListener('click', function 
     }
 });
 
+/**
+ * Go Up button
+ */
+window.addEventListener('scroll', function () {
+    var goUpButton = document.querySelector('#goUpButton');
+
+    if (window.pageYOffset > 400) {
+        goUpButton.classList.add('d-block');
+    } else {
+        goUpButton.classList.remove('d-block');
+    }
+});
+
 /***/ }),
 /* 1 */
 /***/ (function(module, exports) {

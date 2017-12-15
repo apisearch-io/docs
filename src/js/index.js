@@ -17,3 +17,17 @@ document
             menu.classList.remove('d-block');
         }
     });
+
+/**
+ * Go Up button
+ */
+window
+    .addEventListener('scroll', () => {
+        let goUpButton = document.querySelector('#goUpButton');
+
+        if (window.pageYOffset > 400) {
+            goUpButton.classList.add('d-block');
+        } else {
+            goUpButton.classList.remove('d-block');
+        }
+    });
