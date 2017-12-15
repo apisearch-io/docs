@@ -3,7 +3,7 @@ page: 6
 title: Event
 description: Apisearch client - Event object
 category: Client
-template: one-column.mustache
+template: one-column-with-toc.mustache
 source: client/event.md
 languages: 
   - php

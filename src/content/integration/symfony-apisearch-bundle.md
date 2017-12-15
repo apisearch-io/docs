@@ -3,7 +3,7 @@ page: 1
 title: Symfony - Apisearch Bundle
 description: Apisearch integrations - Symfony Apisearch Bundle
 category: Integrations
-template: one-column.mustache
+template: one-column-with-toc.mustache
 source: integration/symfony-apisearch-bundle.md
 languages: 
   - php

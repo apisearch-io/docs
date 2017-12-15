@@ -3,7 +3,7 @@ page: 2
 title: Model
 description: Apisearch model
 category: Client
-template: one-column.mustache
+template: one-column-with-toc.mustache
 source: client/model.md
 languages: 
   - php

@@ -3,7 +3,7 @@ page: 2
 title: Widgets
 description: Search widgets
 category: UI
-template: one-column.mustache
+template: one-column-with-toc.mustache
 source: ui/widgets.md
 languages:
   - js

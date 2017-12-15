@@ -7,6 +7,7 @@ const path = require("path");
 
 const CONTENT_DIR = path.resolve(__dirname, '../src/content');
 const DIST_DIR = path.resolve(__dirname, '../docs');
+const PARTIALS_DIR = path.resolve(__dirname, '../src/templates/_partials');
 
 function fileToString(fileAbsolutePath) {
     return fs
@@ -52,6 +53,14 @@ function parseMarkdownFile(contentString) {
     };
 }
 
+function loadPartials() {
+    return {
+        head: fileToString(PARTIALS_DIR + '/head.mustache'),
+        header: fileToString(PARTIALS_DIR + '/header.mustache'),
+        sidebar: fileToString(PARTIALS_DIR + '/sidebar.mustache'),
+        footer: fileToString(PARTIALS_DIR + '/footer.mustache')
+    }
+}
 
 function getAssetsRelativePath(fileSystemPath) {
     let arrayFilePath = fileSystemPath
@@ -74,6 +83,7 @@ function getAssetsRelativePath(fileSystemPath) {
 module.exports = {
     parseMarkdownFile,
     fileToString,
+    loadPartials,
     getFileTargetPath,
     getAssetsRelativePath
 };

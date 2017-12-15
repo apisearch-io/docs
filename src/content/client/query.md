@@ -3,7 +3,7 @@ page: 3
 title: Query
 description: Apisearch client - Query object
 category: Client
-template: one-column.mustache
+template: one-column-with-toc.mustache
 source: client/query.md
 languages: 
   - php

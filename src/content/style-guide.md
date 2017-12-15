@@ -3,7 +3,7 @@ page: 2
 title: Style guide
 description: This is the style guide
 category: ~
-template: one-column.mustache
+template: one-column-with-toc.mustache
 source: style-guide.md
 languages: 
   - md

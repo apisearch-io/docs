@@ -3,7 +3,7 @@ page: 5
 title: Repository
 description: Apisearch client - Repository object
 category: Client
-template: one-column.mustache
+template: one-column-with-toc.mustache
 source: client/repository.md
 languages: 
   - php

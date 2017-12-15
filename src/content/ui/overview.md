@@ -3,7 +3,7 @@ page: 1
 title: Installation
 description: This is the installation
 category: UI
-template: one-column.mustache
+template: one-column-with-toc.mustache
 source: ui/overview.md
 languages: 
   - js

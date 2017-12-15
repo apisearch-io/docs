@@ -4,8 +4,10 @@ const walk = require("walk");
 const path = require("path");
 const _ = require("lodash");
 
+const apisearchTransformer = require("./apisearchTransformer");
 const fileToString = require("./helpers").fileToString;
 const parseMarkdownFile = require("./helpers").parseMarkdownFile;
+const loadPartials = require("./helpers").loadPartials;
 const getAssetsRelativePath = require("./helpers").getAssetsRelativePath;
 const getFileTargetPath = require("./helpers").getFileTargetPath;
 
@@ -33,8 +35,9 @@ const SRC_DIR = path.resolve(__dirname, '../src');
 
         parsedFile = {
             ...parsedFile,
-            systemPath,
             url: '/docs/' + parsedFile.source.replace('.md', '.html'),
+            systemPath,
+            originalContent: contentString,
             systemName: stat.name,
             assets: getAssetsRelativePath(systemPath)
         };
@@ -123,20 +126,28 @@ const renderTemplate = function(parsedFile) {
         `${TEMPLATES_DIR}/${parsedFile.template}`
     );
     let template = hogan.compile(templateString);
+    let partials = loadPartials();
 
     /**
      * Rendered template with the content
      */
     return template.render({
         ...parsedFile
+    }, {
+        ...partials
     });
 };
 
-const createDataFile = function(docsList) {
-    let targetFile = `${SRC_DIR}/docs.json`;
+/**
+ * Create database
+ */
+const createDataFile = function(docsArray) {
+    let transformedDocs = apisearchTransformer(docsArray);
+    let targetFile = `${SRC_DIR}/docsdb.json`;
+
     fsPath.writeFile(
         targetFile,
-        JSON.stringify(docsList),
+        JSON.stringify(transformedDocs),
         function (err) {
             if (err) {
                 console.log(`X --> ${err}`);

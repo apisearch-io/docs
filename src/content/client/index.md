@@ -3,7 +3,7 @@ page: 1
 title: Index
 description: Apisearch client index page
 category: Client
-template: one-column.mustache
+template: one-column-with-toc.mustache
 source: client/index.md
 languages: 
   - php

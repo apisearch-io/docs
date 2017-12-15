@@ -1,102 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <title>{{title}}</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="{{description}}">
-    <meta name="author" content="Apisearch team">
-    <meta name="keywords" content="Apisearch, Elasticsearch search engine, fast search demo, Apisearch official website">
-
-    <!-- Favicons -->
-    <link rel="apple-touch-icon" sizes="57x57" href="http://apisearch.io/public/images/favicons/apple-icon-57x57.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="http://apisearch.io/public/images/favicons/apple-icon-60x60.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="http://apisearch.io/public/images/favicons/apple-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="http://apisearch.io/public/images/favicons/apple-icon-76x76.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="http://apisearch.io/public/images/favicons/apple-icon-114x114.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="http://apisearch.io/public/images/favicons/apple-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="http://apisearch.io/public/images/favicons/apple-icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="http://apisearch.io/public/images/favicons/apple-icon-152x152.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="http://apisearch.io/public/images/favicons/apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="http://apisearch.io/public/images/favicons/android-icon-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="http://apisearch.io/public/images/favicons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="http://apisearch.io/public/images/favicons/favicon-96x96.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="http://apisearch.io/public/images/favicons/favicon-16x16.png">
-    <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="http://apisearch.io/public/images/favicons/ms-icon-144x144.png">
-    <meta name="theme-color" content="#42e6c1">
-
-    <!-- Styles -->
-    <link rel="stylesheet" href="{{assets}}/css/docs.css">
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
-          rel="stylesheet"
-          integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
-          crossorigin="anonymous"
-    >
+    {{> head}}
 </head>
 <body>
     <!-- Header -->
-    <header>
-        <nav class="c-navbar navbar navbar-expand-md fixed-top">
-            <div class="c-navbar__main row">
-                <div class="c-navbar__brandWrapper col-2 col-sm-4 col-md-3 col-lg-2">
-                    <a class="c-navbar__brand navbar-brand" href="#">
-                        <img src="http://apisearch.io/public/images/favicons/favicon-32x32.png"
-                             class="d-inline-block align-top"
-                             alt="Apisearch logo">
-                        <img src="http://apisearch.io/public/images/logo-.png"
-                             class="d-none d-sm-inline-block"
-                             height="15"
-                             alt="Logo Apisearch">
-                    </a>
-                </div>
-                <!-- Search -->
-                <div class="c-navbar__searchWrapper col-8 col-sm-8 col-md-9 col-lg-10 ml-md-auto">
-                    <form class="c-navbar__form form-inline">
-                        <i class="c-navbar__searchIcon fa fa-search"
-                           aria-hidden="true"></i>
-                        <input class="c-navbar__searchInput form-control mr-sm-2"
-                               type="text"
-                               placeholder="Search documentation..."
-                               aria-label="Search">
-                    </form>
-                </div>
-                <!-- /Search -->
-
-                <!-- Menu burger -->
-                <div class="col-2 d-sm-none">
-                    <button class="c-navbar__burger navbar-toggler">
-                        <svg xmlns="http://www.w3.org/2000/svg"
-                             id="burgerSidebarMenu"
-                             viewBox="0 0 30 30"
-                             width="30"
-                             height="30"
-                             focusable="false"
-                        >
-                            <title>Menu</title>
-                            <path stroke="#54edc0"
-                                  stroke-width="2"
-                                  stroke-linecap="round"
-                                  stroke-miterlimit="10"
-                                  d="M4 7h22M4 15h22M4 23h22"
-                            ></path>
-                        </svg>
-                    </button>
-                </div>
-                <!-- /Menu burger -->
-            </div>
-        </nav>
-
-        <!-- breadcrumb -->
-        <nav class="c-breadcrumb" aria-label="breadcrumb" role="navigation">
-            <ol class="c-breadcrumb__list breadcrumb">
-                <li class="c-breadcrumb__item breadcrumb-item"><a href="#">Apisearch</a></li>
-                <li class="c-breadcrumb__item breadcrumb-item"><a href="#">Client</a></li>
-                <li class="c-breadcrumb__item--active breadcrumb-item active" aria-current="page">PHP</li>
-            </ol>
-        </nav>
-        <!-- /breadcrumb -->
-    </header>
+    {{> header}}
     <!-- /Header -->
 
     <!-- Search result
@@ -138,108 +47,29 @@
     <div class="container-fluid">
         <div class="row">
             <!-- Sidebar -->
-            <div id="sidebarMenu"
-                 class="c-sidebar sidebar col-sm-4 col-md-3 col-lg-2 d-none d-sm-block"
-            >
-                <ul class="c-sidebar__nav nav nav-pills flex-column">
-                    {{#menu}}
-                        {{^has_category}}
-                            {{#children}}
-                            <li class="c-sidebar__navItem nav-item">
-                                <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link"
-                                   href="{{url}}"
-                                >
-                                        <i class="fa fa-angle-right" aria-hidden="true"></i>
-                                        {{title}}
-                                </a>
-                            </li>
-                            {{/children}}
-                        {{/has_category}}
-
-                        {{#has_category}}
-                        <li class="c-sidebar__navItem nav-item">
-                            <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link"
-                               href="#"
-                            >
-                                <i class="fa fa-angle-right" aria-hidden="true"></i>
-                                {{category_name}}
-                            </a>
-                        </li>
-                        <ul class="c-sidebar__nav c-sidebar__nav--sub-1 nav nav-pills flex-column">
-                            {{#children}}
-                            <li class="c-sidebar__navItem--sub-1 nav-item">
-                                <a class="c-sidebar__navLink c-sidebar__navLink--subtitle nav-link"
-                                   href="{{url}}">
-                                    {{title}}
-                                </a>
-                            </li>
-                            {{/children}}
-                        </ul>
-                        {{/has_category}}
-                    {{/menu}}
-                </ul>
-            </div>
+            {{> sidebar}}
             <!-- Sidebar -->
 
-            <!-- Content -->
+            <!-- Main -->
             <main class="col-sm-8 col-md-9 col-lg-10 ml-sm-auto pt-3" role="main">
                 <section class="c-content">
+                    <!-- Content -->
                     {{{content}}}
+                    <!-- /Content -->
+
+                    <hr>
+                    <a class="c-content__editOnGithub"
+                       target="_blank"
+                       href="https://github.com/apisearch-io/docs/tree/master/src/content/{{source}}">
+                        <i class="fa fa-github" aria-hidden="true"></i>
+                        Edit this page!
+                    </a>
                 </section>
             </main>
-            <!-- /Content -->
-
-            <!-- Toc here -->
-            <!-- End toc -->
+            <!-- /Main -->
 
             <!-- Footer -->
-            <footer class="c-footer col-sm-9 ml-sm-auto col-md-10 pt-3">
-                <nav class="navbar">
-                    <span class="c-footer__logoWrapper navbar-text text-center d-block">
-                        <img src="http://apisearch.io/public/images/favicons/favicon-32x32.png"
-                             class="c-footer__logo c-footer__logo--top d-block align-top"
-                             alt="Apisearch logo">
-                        <img src="http://apisearch.io/public/images/logo-.png"
-                             height="16"
-                             class="c-footer__logo c-footer__logo--bottom d-block align-top"
-                             alt="Logo Apisearch">
-                    </span>
-                    <ul class="c-footer__linksWrapper navbar-nav">
-                        <li class="c-footer__linkItem nav-item">
-                            <a href="https://apisearch-io.github.io/docs/" target="_blank" class="c-footer__link c-footer__link--icon nav-link">
-                                <i class="fa fa-github" aria-hidden="true"></i>
-                            </a>
-                        </li>
-                        <li class="c-footer__linkItem nav-item">
-                            <a href="https://twitter.com/apisearch_io" target="_blank" class="c-footer__link c-footer__link--icon nav-link">
-                                <i class="fa fa-twitter" aria-hidden="true"></i>
-                            </a>
-                        </li>
-                        <li class="c-footer__linkItem nav-item">
-                            <a href="#linkedin" target="_blank" class="c-footer__link c-footer__link--icon nav-link">
-                                <i class="fa fa-linkedin" aria-hidden="true"></i>
-                            </a>
-                        </li>
-                    </ul>
-                    <ul class="c-footer__linksWrapper navbar-nav">
-                        <li class="c-footer__linkItem nav-item">
-                            <a href="http://apisearch.io" class="c-footer__link nav-link">Home</a>
-                        </li>
-                        <li class="c-footer__linkItem nav-item">
-                            <a href="http://apisearch-io.github.com/docs/" class="c-footer__link nav-link">Docs</a>
-                        </li>
-                        <li class="c-footer__linkItem nav-item">
-                            <a href="#examples" class="c-footer__link nav-link">Examples</a>
-                        </li>
-                        <li class="c-footer__linkItem nav-item">
-                            <a href="mailto:hello@puntmig.com" class="c-footer__link nav-link">Contact</a>
-                        </li>
-                        <li class="c-footer__linkItem nav-item">
-                            <a href="#terms-and-conditions" class="c-footer__link nav-link">Terms & Conditions</a>
-                        </li>
-                    </ul>
-                </nav>
-            </footer>
+            {{> footer}}
             <!-- /Footer -->
         </div>
     </div>
