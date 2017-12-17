@@ -1,5 +1,11 @@
 import "../styles/index.sass";
 
+import ui from "./search";
+
+/**
+ * Initialize documentation search
+ */
+ui.init();
 
 /**
  * Menu left toggle

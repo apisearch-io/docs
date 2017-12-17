@@ -1,4 +1,5 @@
 const codeBlocks = require('gfm-code-blocks');
+const _ = require("lodash");
 
 /**
  * Apisearch transformer
@@ -8,7 +9,11 @@ const codeBlocks = require('gfm-code-blocks');
  */
 function apisearchTransformer(docsArray) {
     return docsArray.map(function(doc) {
-        console.log(codeBlocks(doc.originalContent));
+        let toc = _.groupBy(
+            doc.tableOfContent,
+            "lvl"
+        );
+        let code = codeBlocks(doc.originalContent);
 
         return {
             uuid: {
@@ -22,14 +27,23 @@ function apisearchTransformer(docsArray) {
                 category: doc.category,
                 content: doc.content,
                 languages: doc.languages,
-                code: ''
             },
-            searchable_metadata: () => {
-                return {
-                    h1: '',
-                    h2: '',
-                    h3: ''
-                }
+            searchable_metadata: {
+                h1: (typeof toc['1'] !== "undefined")
+                    ? toc['1'].map(h => h.content)
+                    : null
+                ,
+                h2: (typeof toc['2'] !== "undefined")
+                    ? toc['2'].map(h => h.content)
+                    : null
+                ,
+                h3: (typeof toc['3'] !== "undefined")
+                    ? toc['3'].map(h => h.content)
+                    : null
+                ,
+                code: (code.length !== 0)
+                    ? code.map(block => block.code)
+                    : null
             }
         }
     });

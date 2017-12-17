@@ -1,6 +1,7 @@
 <header>
     <nav class="c-navbar navbar navbar-expand-md fixed-top">
         <div class="c-navbar__main row">
+            <!-- Brand -->
             <div class="c-navbar__brandWrapper col-2 col-sm-4 col-md-3 col-lg-2">
                 <a class="c-navbar__brand navbar-brand" href="#">
                     <img src="http://apisearch.io/public/images/favicons/favicon-32x32.png"
@@ -12,16 +13,15 @@
                          alt="Logo Apisearch">
                 </a>
             </div>
+            <!-- /Brand -->
+
             <!-- Search -->
-            <div class="c-navbar__searchWrapper col-8 col-sm-8 col-md-9 col-lg-10 ml-md-auto">
-                <form class="c-navbar__form form-inline">
-                    <i class="c-navbar__searchIcon fa fa-search"
-                       aria-hidden="true"></i>
-                    <input class="c-navbar__searchInput form-control mr-sm-2"
-                           type="text"
-                           placeholder="Search documentation..."
-                           aria-label="Search">
-                </form>
+            <div class="c-search col-8 col-sm-8 col-md-9 col-lg-10 ml-md-auto">
+                <i class="c-search__searchIcon fa fa-search"
+                   aria-hidden="true"></i>
+
+                <!-- Apisearch target -->
+                <div class="c-search__wrapper" id="searchInput"></div>
             </div>
             <!-- /Search -->
 

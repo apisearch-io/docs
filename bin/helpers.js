@@ -57,6 +57,7 @@ function loadPartials() {
     return {
         head: fileToString(PARTIALS_DIR + '/head.mustache'),
         header: fileToString(PARTIALS_DIR + '/header.mustache'),
+        search_result: fileToString(PARTIALS_DIR + '/search-result.mustache'),
         sidebar: fileToString(PARTIALS_DIR + '/sidebar.mustache'),
         footer: fileToString(PARTIALS_DIR + '/footer.mustache')
     }

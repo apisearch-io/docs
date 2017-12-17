@@ -38,6 +38,7 @@
 <header>
     <nav class="c-navbar navbar navbar-expand-md fixed-top">
         <div class="c-navbar__main row">
+            <!-- Brand -->
             <div class="c-navbar__brandWrapper col-2 col-sm-4 col-md-3 col-lg-2">
                 <a class="c-navbar__brand navbar-brand" href="#">
                     <img src="http://apisearch.io/public/images/favicons/favicon-32x32.png"
@@ -49,16 +50,15 @@
                          alt="Logo Apisearch">
                 </a>
             </div>
+            <!-- /Brand -->
+
             <!-- Search -->
-            <div class="c-navbar__searchWrapper col-8 col-sm-8 col-md-9 col-lg-10 ml-md-auto">
-                <form class="c-navbar__form form-inline">
-                    <i class="c-navbar__searchIcon fa fa-search"
-                       aria-hidden="true"></i>
-                    <input class="c-navbar__searchInput form-control mr-sm-2"
-                           type="text"
-                           placeholder="Search documentation..."
-                           aria-label="Search">
-                </form>
+            <div class="c-search col-8 col-sm-8 col-md-9 col-lg-10 ml-md-auto">
+                <i class="c-search__searchIcon fa fa-search"
+                   aria-hidden="true"></i>
+
+                <!-- Apisearch target -->
+                <div class="c-search__wrapper" id="searchInput"></div>
             </div>
             <!-- /Search -->
 
@@ -97,40 +97,48 @@
     <!-- /breadcrumb -->
 </header><!-- /Header -->
 
-<!-- Search result
-<div class="c-navbar__searchResult">
+<!-- Search result -->
+<div id="searchResult" class="c-search__searchResult d-none">
     <div class="container">
-        <div class="row mb-4">
-            <div class="col-sm-6">
-                <div class="c-navbar__searchResultBlock">
-                    <h1 class="c-navbar__searchResultTitle">
+        <div class="row">
+            <div class="col-sm-6 mb-4">
+                <div class="c-search__searchResultBlock">
+                    <!-- Topics -->
+                    <h1 class="c-search__searchResultTitle">
                         <i class="fa fa-commenting" aria-hidden="true"></i>
                         Topics
                     </h1>
+
+                    <ul id="topicsSearchResult"></ul>
                 </div>
             </div>
-            <div class="col-sm-6">
-                <div class="c-navbar__searchResultBlock">
-                    <h1 class="c-navbar__searchResultTitle">
+            <div class="col-sm-6 mb-4">
+                <div class="c-search__searchResultBlock">
+                    <!-- Content -->
+                    <h1 class="c-search__searchResultTitle">
                         <i class="fa fa-align-left" aria-hidden="true"></i>
                         Content
                     </h1>
+
+                    <ul id="contentSearchResult"></ul>
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="col-sm-12">
-                <div class="c-navbar__searchResultBlock">
-                    <h1 class="c-navbar__searchResultTitle">
+                <!-- Code examples -->
+                <div class="c-search__searchResultBlock">
+                    <h1 class="c-search__searchResultTitle">
                         <i class="fa fa-code" aria-hidden="true"></i>
                         Code examples
                     </h1>
+
+                    <ul id="codeExamplesSearchResult"></ul>
                 </div>
             </div>
         </div>
     </div>
-</div>
- /Search result -->
+</div><!-- /Search result -->
 
 <!-- Main -->
 <div class="container-fluid">
