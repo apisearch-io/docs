@@ -84,15 +84,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 _search2.default.init();
 
 /**
- * Close search box if search is empty
- */
-document.querySelector(".as-simpleSearch__input").addEventListener('input', function (e) {
-    if (e.target.value === '') {
-        document.querySelector('#searchResult').classList.add('d-none');
-    }
-});
-
-/**
  * Menu left toggle
  */
 document.querySelector('#burgerSidebarMenu').addEventListener('click', function () {
@@ -149,9 +140,9 @@ var _lodash2 = _interopRequireDefault(_lodash);
 
 var _helpers = __webpack_require__(7);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _templates = __webpack_require__(8);
 
-var topicsSearchResultTemplate = "\n    {{#items}}\n    <div class=\"col-12 col-sm-6 col-md-6 col-lg-4\">\n        <div class=\"c-search__resultItem\">\n            <h2 class=\"c-search__resultItemTitle\">\n                <a href=\"{{metadata.url}}\">{{metadata.title}}</a>\n                \n                <div class=\"c-search__resultItemLangList\">\n                {{#metadata.languages}}\n                    <div class=\"c-search__resultItemLang c-search__resultItemLang--{{.}}\">\n                        {{.}}\n                    </div>\n                {{/metadata.languages}}\n                </div>\n            </h2>\n            <p class=\"c-search__resultItemDescription\">{{metadata.description}}</p>\n            \n            {{#metadata.preview}}\n            <a class=\"c-search__resultItemFoundInContent\" href=\"{{metadata.url}}\">\n                <b>Found in content:</b>\n                <p>{{{metadata.preview}}}</p>\n            </a>\n            {{/metadata.preview}}\n            \n            <div class=\"row\">\n                {{#metadata.toc}}\n                    <div class=\"col-sm-6 mb-2\">\n                        <a class=\"c-search__resultItemAnchor\" href=\"{{metadata.url}}#{{slug}}\">\n                            <i class=\"fa fa-link\" aria-hidden=\"true\"></i>\n                            {{content}}\n                        </a>\n                    </div>\n                {{/metadata.toc}}\n            </div>\n        </div>\n    </div>\n    {{/items}}\n    \n    {{^items}}\n    <div class=\"col-sm-12\">\n        <div class=\"c-search__resultItem\">\n            <i class=\"fa fa-times-circle\" aria-hidden=\"true\"></i>\n            No results found\n        </div>\n    </div>\n    {{/items}}\n";
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var ui = (0, _apisearchUi2.default)({
     appId: 'apisearch_docs',
@@ -164,8 +155,7 @@ var ui = (0, _apisearchUi2.default)({
 
 ui.addWidgets(ui.widgets.simpleSearch({
     target: '#searchInput',
-    placeholder: 'Search api',
-    startSearchOn: 2,
+    placeholder: 'Search documentation...',
     autofocus: true,
     classNames: {
         container: '',
@@ -179,7 +169,7 @@ ui.addWidgets(ui.widgets.simpleSearch({
     target: '#topicsSearchResult',
     itemsPerPage: 6,
     template: {
-        itemsList: topicsSearchResultTemplate
+        itemsList: _templates.resultSearchTemplate
     },
     classNames: {
         itemsList: 'row'
@@ -199,11 +189,18 @@ ui.addWidgets(ui.widgets.simpleSearch({
 }));
 
 ui.store.on('render', function () {
+    var resultBox = document.querySelector('#searchResult').classList;
+
     if (this.dirty) {
         return;
     }
 
-    document.querySelector('#searchResult').classList.remove('d-none');
+    if (this.currentQuery.q === '') {
+        resultBox.add('d-none');
+        return;
+    }
+
+    resultBox.remove('d-none');
 });
 
 exports.default = ui;
@@ -27318,6 +27315,22 @@ function highlightString(currentQueryText, string) {
 
     return sanitizedSpaces.join('&nbsp;');
 }
+
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+/**
+ * Result Search Template
+ * @type {string}
+ */
+var resultSearchTemplate = exports.resultSearchTemplate = "\n    {{#items}}\n    <div class=\"col-12 col-sm-6 col-md-6 col-lg-4\">\n        <div class=\"c-search__resultItem\">\n            <h2 class=\"c-search__resultItemTitle\">\n                <a href=\"{{metadata.url}}\">{{metadata.title}}</a>\n                \n                <div class=\"c-search__resultItemLangList\">\n                {{#metadata.languages}}\n                    <div class=\"c-search__resultItemLang c-search__resultItemLang--{{.}}\">\n                        {{.}}\n                    </div>\n                {{/metadata.languages}}\n                </div>\n            </h2>\n            <p class=\"c-search__resultItemDescription\">{{metadata.description}}</p>\n            \n            {{#metadata.preview}}\n            <a class=\"c-search__resultItemFoundInContent\" href=\"{{metadata.url}}\">\n                <b>Found in content:</b>\n                <p>{{{metadata.preview}}}</p>\n            </a>\n            {{/metadata.preview}}\n            \n            <div class=\"row\">\n                {{#metadata.toc}}\n                    <div class=\"col-sm-6 mb-2\">\n                        <a class=\"c-search__resultItemAnchor\" href=\"{{metadata.url}}#{{slug}}\">\n                            <i class=\"fa fa-link\" aria-hidden=\"true\"></i>\n                            {{content}}\n                        </a>\n                    </div>\n                {{/metadata.toc}}\n            </div>\n        </div>\n    </div>\n    {{/items}}\n    \n    {{^items}}\n    <div class=\"col-sm-12\">\n        <div class=\"c-search__resultItem\">\n            <i class=\"fa fa-times-circle\" aria-hidden=\"true\"></i>\n            No results found\n        </div>\n    </div>\n    {{/items}}\n";
 
 /***/ })
 /******/ ]);
