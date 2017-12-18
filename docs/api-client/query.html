@@ -34,228 +34,228 @@
           crossorigin="anonymous"
     ></head>
 <body>
-<!-- Header -->
-<header>
-    <nav class="c-navbar navbar navbar-expand-md fixed-top">
-        <div class="c-navbar__main row">
-            <!-- Brand -->
-            <div class="c-navbar__brandWrapper col-2 col-sm-4 col-md-3 col-lg-2">
-                <a class="c-navbar__brand navbar-brand" href="/docs">
-                    <img src="http://apisearch.io/public/images/favicons/favicon-32x32.png"
-                         class="d-inline-block align-top"
-                         alt="Apisearch logo">
-                    <img src="http://apisearch.io/public/images/logo-.png"
-                         class="d-none d-sm-inline-block"
-                         height="15"
-                         alt="Logo Apisearch">
-                </a>
+    <!-- Header -->
+    <header>
+        <nav class="c-navbar navbar navbar-expand-md fixed-top">
+            <div class="c-navbar__main row">
+                <!-- Brand -->
+                <div class="c-navbar__brandWrapper col-2 col-sm-4 col-md-3 col-lg-2">
+                    <a class="c-navbar__brand navbar-brand" href="/docs">
+                        <img src="http://apisearch.io/public/images/favicons/favicon-32x32.png"
+                             class="d-inline-block align-top"
+                             alt="Apisearch logo">
+                        <img src="http://apisearch.io/public/images/logo-.png"
+                             class="d-none d-sm-inline-block"
+                             height="15"
+                             alt="Logo Apisearch">
+                    </a>
+                </div>
+                <!-- /Brand -->
+
+                <!-- Search -->
+                <div class="c-search col-8 col-sm-8 col-md-9 col-lg-10 ml-md-auto">
+                    <i class="c-search__searchIcon fa fa-search"
+                       aria-hidden="true"></i>
+
+                    <!-- Apisearch target -->
+                    <div class="c-search__wrapper" id="searchInput"></div>
+                </div>
+                <!-- /Search -->
+
+                <!-- Menu burger -->
+                <div class="col-2 d-sm-none">
+                    <button class="c-navbar__burger navbar-toggler">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                             id="burgerSidebarMenu"
+                             viewBox="0 0 30 30"
+                             width="30"
+                             height="30"
+                             focusable="false"
+                        >
+                            <title>Menu</title>
+                            <path stroke="#54edc0"
+                                  stroke-width="2"
+                                  stroke-linecap="round"
+                                  stroke-miterlimit="10"
+                                  d="M4 7h22M4 15h22M4 23h22"
+                            ></path>
+                        </svg>
+                    </button>
+                </div>
+                <!-- /Menu burger -->
             </div>
-            <!-- /Brand -->
+        </nav>
 
-            <!-- Search -->
-            <div class="c-search col-8 col-sm-8 col-md-9 col-lg-10 ml-md-auto">
-                <i class="c-search__searchIcon fa fa-search"
-                   aria-hidden="true"></i>
+        <!-- breadcrumb -->
+        <nav class="c-breadcrumb" aria-label="breadcrumb" role="navigation">
+            <ol class="c-breadcrumb__list breadcrumb">
+                <li class="c-breadcrumb__item breadcrumb-item"><a href="#">Apisearch docs</a></li>
+                    <li class="c-breadcrumb__item breadcrumb-item"><a href="#">API Client</a></li>
+                <li class="c-breadcrumb__item--active breadcrumb-item active" aria-current="page">Query</li>
+            </ol>
+        </nav>
+        <!-- /breadcrumb -->
+    </header>    <!-- /Header -->
 
-                <!-- Apisearch target -->
-                <div class="c-search__wrapper" id="searchInput"></div>
-            </div>
-            <!-- /Search -->
+    <!-- Search result -->
+    <div id="searchResult" class="c-search__result d-none">
+        <!-- Overlay -->
+        <div class="c-search__resultOverlay"></div>
 
-            <!-- Menu burger -->
-            <div class="col-2 d-sm-none">
-                <button class="c-navbar__burger navbar-toggler">
-                    <svg xmlns="http://www.w3.org/2000/svg"
-                         id="burgerSidebarMenu"
-                         viewBox="0 0 30 30"
-                         width="30"
-                         height="30"
-                         focusable="false"
-                    >
-                        <title>Menu</title>
-                        <path stroke="#54edc0"
-                              stroke-width="2"
-                              stroke-linecap="round"
-                              stroke-miterlimit="10"
-                              d="M4 7h22M4 15h22M4 23h22"
-                        ></path>
-                    </svg>
-                </button>
-            </div>
-            <!-- /Menu burger -->
-        </div>
-    </nav>
-
-    <!-- breadcrumb -->
-    <nav class="c-breadcrumb" aria-label="breadcrumb" role="navigation">
-        <ol class="c-breadcrumb__list breadcrumb">
-            <li class="c-breadcrumb__item breadcrumb-item"><a href="#">Apisearch docs</a></li>
-                <li class="c-breadcrumb__item breadcrumb-item"><a href="#">Client</a></li>
-            <li class="c-breadcrumb__item--active breadcrumb-item active" aria-current="page">Query</li>
-        </ol>
-    </nav>
-    <!-- /breadcrumb -->
-</header><!-- /Header -->
-
-<!-- Search result -->
-<div id="searchResult" class="c-search__result d-none">
-    <!-- Overlay -->
-    <div class="c-search__resultOverlay"></div>
-
-    <!-- Result container -->
-    <div class="container-fluid">
-        <div class="row">
-            <!-- Content -->
-            <div class="col-sm-12">
-                <div class="c-search__resultBlock">
-                    <div id="topicsSearchResult"></div>
+        <!-- Result container -->
+        <div class="container-fluid">
+            <div class="row">
+                <!-- Content -->
+                <div class="col-sm-12">
+                    <div class="c-search__resultBlock">
+                        <div id="topicsSearchResult"></div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Pagination
-    <div id="paginationSearch"></div>
-    -->
-</div><!-- /Search result -->
+        <!-- Pagination
+        <div id="paginationSearch"></div>
+        -->
+    </div>    <!-- /Search result -->
 
-<!-- Main -->
-<div class="container-fluid">
-    <div class="row">
-        <!-- Sidebar -->
-        <div id="sidebarMenu"
-             class="c-sidebar sidebar col-sm-4 col-md-3 col-lg-2 d-none d-sm-block"
-        >
-            <ul class="c-sidebar__nav nav nav-pills flex-column">
+    <!-- Main -->
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div id="sidebarMenu"
+                 class="c-sidebar sidebar col-sm-4 col-md-3 col-lg-2 d-none d-sm-block"
+            >
+                <ul class="c-sidebar__nav nav nav-pills flex-column">
+                                <li class="c-sidebar__navItem nav-item">
+                                    <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link"
+                                       href="/docs/index.html"
+                                    >
+                                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                        Hello
+                                    </a>
+                                </li>
+                                <li class="c-sidebar__navItem nav-item">
+                                    <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link"
+                                       href="/docs/style-guide.html"
+                                    >
+                                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                        Style guide
+                                    </a>
+                                </li>
+            
+            
                             <li class="c-sidebar__navItem nav-item">
                                 <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link"
-                                   href="/docs/index.html"
+                                   href="#"
                                 >
                                     <i class="fa fa-angle-right" aria-hidden="true"></i>
-                                    Hello
+                                    UI
                                 </a>
                             </li>
+                            <ul class="c-sidebar__nav c-sidebar__nav--sub-1 nav nav-pills flex-column">
+                                    <li class="c-sidebar__navItem--sub-1 nav-item">
+                                        <a class="c-sidebar__navLink c-sidebar__navLink--subtitle nav-link"
+                                           href="/docs/ui/overview.html">
+                                            Overview
+                                        </a>
+                                    </li>
+                                    <li class="c-sidebar__navItem--sub-1 nav-item">
+                                        <a class="c-sidebar__navLink c-sidebar__navLink--subtitle nav-link"
+                                           href="/docs/ui/widgets.html">
+                                            Widgets
+                                        </a>
+                                    </li>
+                            </ul>
+            
                             <li class="c-sidebar__navItem nav-item">
                                 <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link"
-                                   href="/docs/style-guide.html"
+                                   href="#"
                                 >
                                     <i class="fa fa-angle-right" aria-hidden="true"></i>
-                                    Style guide
+                                    Integrations
                                 </a>
                             </li>
-        
-        
-                        <li class="c-sidebar__navItem nav-item">
-                            <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link"
-                               href="#"
-                            >
-                                <i class="fa fa-angle-right" aria-hidden="true"></i>
-                                UI
-                            </a>
-                        </li>
-                        <ul class="c-sidebar__nav c-sidebar__nav--sub-1 nav nav-pills flex-column">
-                                <li class="c-sidebar__navItem--sub-1 nav-item">
-                                    <a class="c-sidebar__navLink c-sidebar__navLink--subtitle nav-link"
-                                       href="/docs/ui/overview.html">
-                                        Installation
-                                    </a>
-                                </li>
-                                <li class="c-sidebar__navItem--sub-1 nav-item">
-                                    <a class="c-sidebar__navLink c-sidebar__navLink--subtitle nav-link"
-                                       href="/docs/ui/widgets.html">
-                                        Widgets
-                                    </a>
-                                </li>
-                        </ul>
-        
-                        <li class="c-sidebar__navItem nav-item">
-                            <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link"
-                               href="#"
-                            >
-                                <i class="fa fa-angle-right" aria-hidden="true"></i>
-                                Integrations
-                            </a>
-                        </li>
-                        <ul class="c-sidebar__nav c-sidebar__nav--sub-1 nav nav-pills flex-column">
-                                <li class="c-sidebar__navItem--sub-1 nav-item">
-                                    <a class="c-sidebar__navLink c-sidebar__navLink--subtitle nav-link"
-                                       href="/docs/integration/symfony-apisearch-bundle.html">
-                                        Symfony - Apisearch Bundle
-                                    </a>
-                                </li>
-                        </ul>
-        
-                        <li class="c-sidebar__navItem nav-item">
-                            <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link"
-                               href="#"
-                            >
-                                <i class="fa fa-angle-right" aria-hidden="true"></i>
-                                Fresh start
-                            </a>
-                        </li>
-                        <ul class="c-sidebar__nav c-sidebar__nav--sub-1 nav nav-pills flex-column">
-                                <li class="c-sidebar__navItem--sub-1 nav-item">
-                                    <a class="c-sidebar__navLink c-sidebar__navLink--subtitle nav-link"
-                                       href="/docs/fresh-start/first-steps.html">
-                                        First steps
-                                    </a>
-                                </li>
-                        </ul>
-        
-                        <li class="c-sidebar__navItem nav-item">
-                            <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link"
-                               href="#"
-                            >
-                                <i class="fa fa-angle-right" aria-hidden="true"></i>
-                                Client
-                            </a>
-                        </li>
-                        <ul class="c-sidebar__nav c-sidebar__nav--sub-1 nav nav-pills flex-column">
-                                <li class="c-sidebar__navItem--sub-1 nav-item">
-                                    <a class="c-sidebar__navLink c-sidebar__navLink--subtitle nav-link"
-                                       href="/docs/client/index.html">
-                                        Index
-                                    </a>
-                                </li>
-                                <li class="c-sidebar__navItem--sub-1 nav-item">
-                                    <a class="c-sidebar__navLink c-sidebar__navLink--subtitle nav-link"
-                                       href="/docs/client/model.html">
-                                        Model
-                                    </a>
-                                </li>
-                                <li class="c-sidebar__navItem--sub-1 nav-item">
-                                    <a class="c-sidebar__navLink c-sidebar__navLink--subtitle nav-link"
-                                       href="/docs/client/query.html">
-                                        Query
-                                    </a>
-                                </li>
-                                <li class="c-sidebar__navItem--sub-1 nav-item">
-                                    <a class="c-sidebar__navLink c-sidebar__navLink--subtitle nav-link"
-                                       href="/docs/client/result.html">
-                                        Result
-                                    </a>
-                                </li>
-                                <li class="c-sidebar__navItem--sub-1 nav-item">
-                                    <a class="c-sidebar__navLink c-sidebar__navLink--subtitle nav-link"
-                                       href="/docs/client/repository.html">
-                                        Repository
-                                    </a>
-                                </li>
-                                <li class="c-sidebar__navItem--sub-1 nav-item">
-                                    <a class="c-sidebar__navLink c-sidebar__navLink--subtitle nav-link"
-                                       href="/docs/client/event.html">
-                                        Event
-                                    </a>
-                                </li>
-                        </ul>
-            </ul>
-        </div>        <!-- Sidebar -->
+                            <ul class="c-sidebar__nav c-sidebar__nav--sub-1 nav nav-pills flex-column">
+                                    <li class="c-sidebar__navItem--sub-1 nav-item">
+                                        <a class="c-sidebar__navLink c-sidebar__navLink--subtitle nav-link"
+                                           href="/docs/integration/symfony-apisearch-bundle.html">
+                                            Symfony - Apisearch Bundle
+                                        </a>
+                                    </li>
+                            </ul>
+            
+                            <li class="c-sidebar__navItem nav-item">
+                                <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link"
+                                   href="#"
+                                >
+                                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                    Fresh start
+                                </a>
+                            </li>
+                            <ul class="c-sidebar__nav c-sidebar__nav--sub-1 nav nav-pills flex-column">
+                                    <li class="c-sidebar__navItem--sub-1 nav-item">
+                                        <a class="c-sidebar__navLink c-sidebar__navLink--subtitle nav-link"
+                                           href="/docs/fresh-start/first-steps.html">
+                                            First steps
+                                        </a>
+                                    </li>
+                            </ul>
+            
+                            <li class="c-sidebar__navItem nav-item">
+                                <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link"
+                                   href="#"
+                                >
+                                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                    API Client
+                                </a>
+                            </li>
+                            <ul class="c-sidebar__nav c-sidebar__nav--sub-1 nav nav-pills flex-column">
+                                    <li class="c-sidebar__navItem--sub-1 nav-item">
+                                        <a class="c-sidebar__navLink c-sidebar__navLink--subtitle nav-link"
+                                           href="/docs/api-client/index.html">
+                                            Index
+                                        </a>
+                                    </li>
+                                    <li class="c-sidebar__navItem--sub-1 nav-item">
+                                        <a class="c-sidebar__navLink c-sidebar__navLink--subtitle nav-link"
+                                           href="/docs/api-client/model.html">
+                                            Model
+                                        </a>
+                                    </li>
+                                    <li class="c-sidebar__navItem--sub-1 nav-item">
+                                        <a class="c-sidebar__navLink c-sidebar__navLink--subtitle nav-link"
+                                           href="/docs/api-client/query.html">
+                                            Query
+                                        </a>
+                                    </li>
+                                    <li class="c-sidebar__navItem--sub-1 nav-item">
+                                        <a class="c-sidebar__navLink c-sidebar__navLink--subtitle nav-link"
+                                           href="/docs/api-client/result.html">
+                                            Result
+                                        </a>
+                                    </li>
+                                    <li class="c-sidebar__navItem--sub-1 nav-item">
+                                        <a class="c-sidebar__navLink c-sidebar__navLink--subtitle nav-link"
+                                           href="/docs/api-client/repository.html">
+                                            Repository
+                                        </a>
+                                    </li>
+                                    <li class="c-sidebar__navItem--sub-1 nav-item">
+                                        <a class="c-sidebar__navLink c-sidebar__navLink--subtitle nav-link"
+                                           href="/docs/api-client/event.html">
+                                            Event
+                                        </a>
+                                    </li>
+                            </ul>
+                </ul>
+            </div>            <!-- Sidebar -->
 
-        <!-- Main -->
-        <main class="col-sm-8 col-md-9 col-lg-10 ml-sm-auto pt-3" role="main">
-            <section class="c-content">
-                <!-- Content -->
-                <h1>Query</h1>
+            <!-- Main -->
+            <main class="col-sm-8 col-md-8 ml-sm-auto mr-sm-auto pt-3" role="main">
+                <section class="c-content">
+                    <!-- Content -->
+                    <h1>Query</h1>
 <p>Knowing how our model is defined, let’s start by knowing how to make a simple
 Query Request. Query objects will give us the possibility of communication
 between our project and the server by just using some object methods, and by
@@ -314,12 +314,12 @@ results containing all the categories? We want all results containing at least
 one of the defined categories? That’s the application type.</p>
 <p>Let’s see all available types</p>
 <ul>
-<li>Filter::MUST_ALL - All results must match all filter elements</li>
-<li>Filter::MUST_ALL_WITH_LEVELS - All results must match all filter elements, but
+<li><code>Filter::MUST_ALL</code> - All results must match all filter elements</li>
+<li><code>Filter::MUST_ALL_WITH_LEVELS</code> - All results must match all filter elements, but
 when aggregating, only facets with the minor level encountered will be shown.
 E.g. categories.</li>
-<li>Filter::AT_LEAST_ONE - At least one element must match.</li>
-<li>Filter::EXCLUDE - Items should be excluded from results</li>
+<li><code>Filter::AT_LEAST_ONE</code> - At least one element must match.</li>
+<li><code>Filter::EXCLUDE</code> - Items should be excluded from results</li>
 </ul>
 <p>Every time we create a new filter, we must determine the type of this filter
 application. Depending on that value, the filter will cause different values and
@@ -605,10 +605,10 @@ your process.</p>
 </code></pre>
 <p>You can chose between these values</p>
 <ul>
-<li>Aggregation::SORT_BY_COUNT_DESC</li>
-<li>Aggregation::SORT_BY_COUNT_ASC</li>
-<li>Aggregation::SORT_BY_NAME_DESC</li>
-<li>Aggregation::SORT_BY_NAME_ASC</li>
+<li><code>Aggregation::SORT_BY_COUNT_DESC</code></li>
+<li><code>Aggregation::SORT_BY_COUNT_ASC</code></li>
+<li><code>Aggregation::SORT_BY_NAME_DESC</code></li>
+<li><code>Aggregation::SORT_BY_NAME_ASC</code></li>
 </ul>
 <p>You can limit as well the number of elements you want to return in the
 aggregation. By default, there’s no limit, so if your result aggregation has
@@ -753,37 +753,230 @@ composition between the ID and the type.</p>
 ;
 </code></pre>
 
-                <!-- /Content -->
+                    <!-- /Content -->
 
-                <hr>
-                <a class="c-content__editOnGithub"
-                   target="_blank"
-                   href="https://github.com/apisearch-io/docs/tree/master/src/content/client/query.md">
-                    <i class="fa fa-github" aria-hidden="true"></i>
-                    Edit this page!
-                </a>
-            </section>
-        </main>
-        <!-- /Main -->
+                    <hr>
+                    <a class="c-content__editOnGithub"
+                       target="_blank"
+                       href="https://github.com/apisearch-io/docs/tree/master/src/content/api-client/query.md">
+                        <i class="fa fa-github" aria-hidden="true"></i>
+                        Edit this page!
+                    </a>
+                </section>
+            </main>
+            <!-- /Main -->
 
-        <!-- Toc here -->
-        <!-- End toc -->
+            <!-- Toc here -->
+            <div class="c-toc col-lg-2 d-none d-lg-block">
+                <ul class="c-toc__nav nav nav-pills flex-column">
+                    <li class="c-toc__navItem c-toc__navItem--1 nav-item">
+                        <a class="c-toc__navLink c-toc__navLink--title nav-link"
+                           href="#query"
+                        >
+                            Query
+                        </a>
+                    </li>
+                    <li class="c-toc__navItem c-toc__navItem--2 nav-item">
+                        <a class="c-toc__navLink c-toc__navLink--title nav-link"
+                           href="#building-a-query"
+                        >
+                            Building a Query
+                        </a>
+                    </li>
+                    <li class="c-toc__navItem c-toc__navItem--2 nav-item">
+                        <a class="c-toc__navLink c-toc__navLink--title nav-link"
+                           href="#filters"
+                        >
+                            Filters
+                        </a>
+                    </li>
+                    <li class="c-toc__navItem c-toc__navItem--2 nav-item">
+                        <a class="c-toc__navLink c-toc__navLink--title nav-link"
+                           href="#must-all-with-levels"
+                        >
+                            Must all with levels
+                        </a>
+                    </li>
+                    <li class="c-toc__navItem c-toc__navItem--2 nav-item">
+                        <a class="c-toc__navLink c-toc__navLink--title nav-link"
+                           href="#filter-types"
+                        >
+                            Filter types
+                        </a>
+                    </li>
+                    <li class="c-toc__navItem c-toc__navItem--2 nav-item">
+                        <a class="c-toc__navLink c-toc__navLink--title nav-link"
+                           href="#filtering-by-type"
+                        >
+                            Filtering by Type
+                        </a>
+                    </li>
+                    <li class="c-toc__navItem c-toc__navItem--2 nav-item">
+                        <a class="c-toc__navLink c-toc__navLink--title nav-link"
+                           href="#filtering-by-id"
+                        >
+                            Filtering By Id
+                        </a>
+                    </li>
+                    <li class="c-toc__navItem c-toc__navItem--2 nav-item">
+                        <a class="c-toc__navLink c-toc__navLink--title nav-link"
+                           href="#filter-by-location"
+                        >
+                            Filter by location
+                        </a>
+                    </li>
+                    <li class="c-toc__navItem c-toc__navItem--2 nav-item">
+                        <a class="c-toc__navLink c-toc__navLink--title nav-link"
+                           href="#filter-by-range"
+                        >
+                            Filter by range
+                        </a>
+                    </li>
+                    <li class="c-toc__navItem c-toc__navItem--2 nav-item">
+                        <a class="c-toc__navLink c-toc__navLink--title nav-link"
+                           href="#filter-by-field"
+                        >
+                            Filter by field
+                        </a>
+                    </li>
+                    <li class="c-toc__navItem c-toc__navItem--2 nav-item">
+                        <a class="c-toc__navLink c-toc__navLink--title nav-link"
+                           href="#aggregations-#query-aggregations"
+                        >
+                            Aggregations {#query-aggregations}
+                        </a>
+                    </li>
+                    <li class="c-toc__navItem c-toc__navItem--2 nav-item">
+                        <a class="c-toc__navLink c-toc__navLink--title nav-link"
+                           href="#sort-by-field"
+                        >
+                            Sort by field
+                        </a>
+                    </li>
+                    <li class="c-toc__navItem c-toc__navItem--2 nav-item">
+                        <a class="c-toc__navLink c-toc__navLink--title nav-link"
+                           href="#sort-by-location"
+                        >
+                            Sort by location
+                        </a>
+                    </li>
+                    <li class="c-toc__navItem c-toc__navItem--2 nav-item">
+                        <a class="c-toc__navLink c-toc__navLink--title nav-link"
+                           href="#sort-randomly"
+                        >
+                            Sort randomly
+                        </a>
+                    </li>
+                    <li class="c-toc__navItem c-toc__navItem--2 nav-item">
+                        <a class="c-toc__navLink c-toc__navLink--title nav-link"
+                           href="#enabling-suggestions"
+                        >
+                            Enabling suggestions
+                        </a>
+                    </li>
+                    <li class="c-toc__navItem c-toc__navItem--2 nav-item">
+                        <a class="c-toc__navLink c-toc__navLink--title nav-link"
+                           href="#excluding-some-elements"
+                        >
+                            Excluding some elements
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- End toc -->
 
-        <!-- Footer -->
-        <!-- /Footer -->
+            <!-- Footer -->
+            <footer class="c-footer col-sm-9 ml-sm-auto col-md-10 pt-3">
+                <nav class="navbar">
+                    <span class="c-footer__logoWrapper navbar-text text-center d-block">
+                        <img src="http://apisearch.io/public/images/favicons/favicon-32x32.png"
+                             class="c-footer__logo c-footer__logo--top d-block align-top"
+                             alt="Apisearch logo"
+                        >
+                        <img src="http://apisearch.io/public/images/logo-.png"
+                             height="16"
+                             class="c-footer__logo c-footer__logo--bottom d-block align-top"
+                             alt="Logo Apisearch"
+                        >
+                    </span>
+                    <ul class="c-footer__linksWrapper navbar-nav">
+                        <li class="c-footer__linkItem nav-item">
+                            <a href="https://github.io/apisearch-io/"
+                               target="_blank"
+                               class="c-footer__link c-footer__link--icon nav-link"
+                            >
+                                <i class="fa fa-github" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li class="c-footer__linkItem nav-item">
+                            <a href="https://twitter.com/apisearch_io"
+                               target="_blank"
+                               class="c-footer__link c-footer__link--icon nav-link"
+                            >
+                                <i class="fa fa-twitter" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                        <li class="c-footer__linkItem nav-item">
+                            <a href="#linkedin"
+                               target="_blank"
+                               class="c-footer__link c-footer__link--icon nav-link"
+                            >
+                                <i class="fa fa-linkedin" aria-hidden="true"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="c-footer__linksWrapper navbar-nav">
+                        <li class="c-footer__linkItem nav-item">
+                            <a href="http://apisearch.io"
+                               class="c-footer__link nav-link"
+                            >
+                                Home
+                            </a>
+                        </li>
+                        <li class="c-footer__linkItem nav-item">
+                            <a href="http://apisearch-io.github.com/docs/"
+                               class="c-footer__link nav-link"
+                            >
+                                Docs
+                            </a>
+                        </li>
+                        <li class="c-footer__linkItem nav-item">
+                            <a href="#examples"
+                               class="c-footer__link nav-link"
+                            >
+                                Examples
+                            </a>
+                        </li>
+                        <li class="c-footer__linkItem nav-item">
+                            <a href="mailto:hello@puntmig.com"
+                               class="c-footer__link nav-link"
+                            >
+                                Contact
+                            </a>
+                        </li>
+                        <li class="c-footer__linkItem nav-item">
+                            <a href="#terms-and-conditions"
+                               class="c-footer__link nav-link"
+                            >
+                                Terms & Conditions
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </footer>            <!-- /Footer -->
+        </div>
     </div>
-</div>
-<!-- /Main -->
+    <!-- /Main -->
 
-<!-- Go up -->
-<a id="goUpButton"
-   class="c-goUp d-none fa fa-thumbs-o-up"
-   href="#"
-   aria-hidden="true"
-></a>
-<!-- /Go up -->
+    <!-- Go up -->
+    <a id="goUpButton"
+       class="c-goUp d-none fa fa-angle-up"
+       href="#"
+       aria-hidden="true"
+    ></a>
+    <!-- /Go up -->
 
-<!-- Scripts -->
-<script src="./../assets/js/app.js"></script>
+    <!-- Scripts -->
+    <script src="./../assets/js/app.js"></script>
 </body>
 </html>

@@ -3,7 +3,7 @@ page: 1
 title: First steps
 description: How to start with Apisearch from the scratch
 category: Fresh start
-template: one-column-with-toc.mustache
+template: one-column.mustache
 source: fresh-start/first-steps.md
 languages: 
   - js

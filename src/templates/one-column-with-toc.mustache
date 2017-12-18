@@ -4,58 +4,71 @@
     {{> head}}
 </head>
 <body>
-<!-- Header -->
-{{> header}}
-<!-- /Header -->
+    <!-- Header -->
+    {{> header}}
+    <!-- /Header -->
 
-<!-- Search result -->
-{{> search_result}}
-<!-- /Search result -->
+    <!-- Search result -->
+    {{> search_result}}
+    <!-- /Search result -->
 
-<!-- Main -->
-<div class="container-fluid">
-    <div class="row">
-        <!-- Sidebar -->
-        {{> sidebar}}
-        <!-- Sidebar -->
+    <!-- Main -->
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            {{> sidebar}}
+            <!-- Sidebar -->
 
-        <!-- Main -->
-        <main class="col-sm-8 col-md-9 col-lg-10 ml-sm-auto pt-3" role="main">
-            <section class="c-content">
-                <!-- Content -->
-                {{{content}}}
-                <!-- /Content -->
+            <!-- Main -->
+            <main class="col-sm-8 col-md-8 ml-sm-auto mr-sm-auto pt-3" role="main">
+                <section class="c-content">
+                    <!-- Content -->
+                    {{{content}}}
+                    <!-- /Content -->
 
-                <hr>
-                <a class="c-content__editOnGithub"
-                   target="_blank"
-                   href="https://github.com/apisearch-io/docs/tree/master/src/content/{{source}}">
-                    <i class="fa fa-github" aria-hidden="true"></i>
-                    Edit this page!
-                </a>
-            </section>
-        </main>
-        <!-- /Main -->
+                    <hr>
+                    <a class="c-content__editOnGithub"
+                       target="_blank"
+                       href="https://github.com/apisearch-io/docs/tree/master/src/content/{{source}}">
+                        <i class="fa fa-github" aria-hidden="true"></i>
+                        Edit this page!
+                    </a>
+                </section>
+            </main>
+            <!-- /Main -->
 
-        <!-- Toc here -->
-        <!-- End toc -->
+            <!-- Toc here -->
+            <div class="c-toc col-lg-2 d-none d-lg-block">
+                <ul class="c-toc__nav nav nav-pills flex-column">
+                    {{#tableOfContent}}
+                    <li class="c-toc__navItem c-toc__navItem--{{lvl}} nav-item">
+                        <a class="c-toc__navLink c-toc__navLink--title nav-link"
+                           href="#{{slug}}"
+                        >
+                            {{content}}
+                        </a>
+                    </li>
+                    {{/tableOfContent}}
+                </ul>
+            </div>
+            <!-- End toc -->
 
-        <!-- Footer -->
-        {{> content}}
-        <!-- /Footer -->
+            <!-- Footer -->
+            {{> footer}}
+            <!-- /Footer -->
+        </div>
     </div>
-</div>
-<!-- /Main -->
+    <!-- /Main -->
 
-<!-- Go up -->
-<a id="goUpButton"
-   class="c-goUp d-none fa fa-thumbs-o-up"
-   href="#"
-   aria-hidden="true"
-></a>
-<!-- /Go up -->
+    <!-- Go up -->
+    <a id="goUpButton"
+       class="c-goUp d-none fa fa-angle-up"
+       href="#"
+       aria-hidden="true"
+    ></a>
+    <!-- /Go up -->
 
-<!-- Scripts -->
-<script src="{{assets}}/js/app.js"></script>
+    <!-- Scripts -->
+    <script src="{{assets}}/js/app.js"></script>
 </body>
 </html>

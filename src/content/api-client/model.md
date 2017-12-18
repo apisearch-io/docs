@@ -2,9 +2,9 @@
 page: 2
 title: Model
 description: Apisearch model
-category: Client
+category: API Client
 template: one-column-with-toc.mustache
-source: client/model.md
+source: api-client/model.md
 languages: 
   - php
 tags:
@@ -30,29 +30,29 @@ provide you as much flexibility as we could.
 
 Lets take a look at what Items is composed by.
 
-* id - A string representation of the id of the Item. This id is not required to
+* `id` - A string representation of the id of the Item. This id is not required to
 be unique in your model universe, but is required to be unique along all 
 entities of the same type (for example, along products, this id should be
 unique). This parameter is required and cannot be null.
-* type - Because an Item can be mapped by any entity from your model, this
+* `type` - Because an Item can be mapped by any entity from your model, this
 parameter defined what entity has been mapped. This is parameter is required and
 cannot be null.
-* metadata - An array of data-values. This data will be not processed nor 
+* `metadata` - An array of data-values. This data will be not processed nor 
 indexed, and will only be accessible once returned results. Values for this
 array can have any format. By default, an empty array is used.
-* indexed_metadata - An array of indexed, filterable and aggregable data-values.
+* `indexed_metadata` - An array of indexed, filterable and aggregable data-values.
 This data will not be searchable at all. By default, an empty array is used.
-* searchable_metadata - An array of strings used for searching. Each string will
+* `searchable_metadata` - An array of strings used for searching. Each string will
 be decomposed by the engine and used for searching the item. By default, an 
 empty array is used.
-* exact_matching_metadata - An array of strings used for searching. Each string
+* `exact_matching_metadata` - An array of strings used for searching. Each string
 will not be decomposed and will be used as it is introduced. Current item will
 be returned as result only if the query string contains one or many introduced
 values. By default, an empty array is used.
-* suggest - An array of strings where each item can propose suggestions for
+* `suggest` - An array of strings where each item can propose suggestions for
 searching time. Strings wont be decomposed neither. By default, an empty array 
 is used.
-* Coordinate - An Item can be geolocated in space, so an instance of Coordinate
+* `Coordinate` - An Item can be geolocated in space, so an instance of Coordinate
 can be injected here. This value is not required.
 
 Let's see an example of an item.

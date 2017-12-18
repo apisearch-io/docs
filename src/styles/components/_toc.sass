@@ -15,16 +15,26 @@
     margin-bottom: 1rem
 
   &__navItem
-    &--sub-1
+    &--1
+      font-weight: 600
+      font-size: 1.1rem
+    &--2
+      font-size: .9rem
+    &--3
       padding-left: 1rem
       font-size: .9rem
+    &--4
+      padding-left: 1.5rem
+      font-size: .8rem
 
   &__navLink
-    font-weight: 600
     color: #1a1a27
-
-    &--title
-      letter-spacing: 2px
 
     &:hover
       text-decoration: underline
+
+    .c-toc__navItem--1 &
+      &:hover
+        text-decoration: none
+        color: initial
+        cursor: default

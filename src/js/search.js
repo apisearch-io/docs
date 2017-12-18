@@ -58,7 +58,8 @@ ui.addWidgets(
 ui.store.on('render', function () {
     let resultBox = document
         .querySelector('#searchResult')
-        .classList;
+        .classList
+    ;
 
     if (this.dirty) {
         return;

@@ -2,9 +2,9 @@
 page: 4
 title: Result
 description: Apisearch client - Result object
-category: Client
+category: API Client
 template: one-column-with-toc.mustache
-source: client/result.md
+source: api-client/result.md
 languages: 
   - php
 tags:

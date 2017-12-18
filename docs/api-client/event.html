@@ -2,9 +2,9 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Overview</title>
+    <title>Event</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="A brief introduction of Apisearch UI, installation, and a basic usage.">
+    <meta name="description" content="Apisearch client - Event object">
     <meta name="author" content="Apisearch team">
     <meta name="keywords" content="Apisearch, Elasticsearch search engine, fast search demo, Apisearch official website">
 
@@ -90,8 +90,8 @@
         <nav class="c-breadcrumb" aria-label="breadcrumb" role="navigation">
             <ol class="c-breadcrumb__list breadcrumb">
                 <li class="c-breadcrumb__item breadcrumb-item"><a href="#">Apisearch docs</a></li>
-                    <li class="c-breadcrumb__item breadcrumb-item"><a href="#">UI</a></li>
-                <li class="c-breadcrumb__item--active breadcrumb-item active" aria-current="page">Overview</li>
+                    <li class="c-breadcrumb__item breadcrumb-item"><a href="#">API Client</a></li>
+                <li class="c-breadcrumb__item--active breadcrumb-item active" aria-current="page">Event</li>
             </ol>
         </nav>
         <!-- /breadcrumb -->
@@ -255,87 +255,116 @@
             <main class="col-sm-8 col-md-8 ml-sm-auto mr-sm-auto pt-3" role="main">
                 <section class="c-content">
                     <!-- Content -->
-                    <h1>Overview</h1>
-<p>ApisearchUI library is set of tools to build a custom search experience for your
-website, e-commerce, docs site, or any other web application you can imagine.
-It provides a list of common widgets like a search box, a result list, filters,
-sorting dropdown, pagination, and many more explained below.</p>
-<p>All your data must be previously indexed using the Apisearch tools. For more
-information say hi to: <a href="mailto:hello@puntmig.com">hello@puntmig.com</a></p>
-<h2>Install</h2>
-<h3>npm &amp; yarn</h3>
-<pre><code class="language-shell">npm install apisearch-ui --save
-<span class="hljs-meta">#</span><span class="bash"> or</span>
-yarn add apisearch-ui
-</code></pre>
-<h3>html tag &lt;script&gt;</h3>
-<p>You can either download the library and use a relative path to
-your assets folder, or use a CDN like jsDelivr.</p>
-<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/apisearch-ui/dist/apisearch-ui.min.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
-</code></pre>
-<h2>Usage</h2>
-<p>This simple setup allows you to build a full text search
-input with a result container using a custom template
-engine.</p>
-<pre><code class="language-javascript"><span class="hljs-comment">// Create instance</span>
-<span class="hljs-keyword">const</span> ui = apisearchUI({
-    <span class="hljs-attr">appId</span>: <span class="hljs-string">'music'</span>,
-    <span class="hljs-attr">apiKey</span>: <span class="hljs-string">'1cc7a3e0-bda5-11e7-abc4-cec278b6b50a'</span>
-});
-
-<span class="hljs-comment">// Append widgets</span>
-ui.addWidgets(
-    ui.widgets.simpleSearch({
-        <span class="hljs-attr">target</span>: <span class="hljs-string">'.search-container'</span>,
-    }),
-    ui.widgets.result({
-        <span class="hljs-attr">target</span>: <span class="hljs-string">'.result-container'</span>,
-        <span class="hljs-attr">template</span>: {
-            <span class="hljs-attr">itemsList</span>: <span class="hljs-string">'&lt;ul&gt;{{#items}} &lt;li&gt;{{metadata.name}}&lt;/li&gt; {{/items}}&lt;/ul&gt;'</span>,
-        }
-    })
+                    <h1>Event</h1>
+<p>Do you remember that each Repository interaction creates a simple Event? That is
+because we track every single movement you make to our servers. And this is good
+because then you can make some external conclusions by retrieving, checking and
+manipulating these events.</p>
+<h2>Event Repository</h2>
+<p>So let’s take a look at how you can retrieve all these events and check as many
+metrics as you want. With this example, we get all first 100 Queries done from
+yesterday at same hour until now.</p>
+<pre><code class="language-php">$eventRepository = <span class="hljs-keyword">new</span> EventRepository(
+    <span class="hljs-keyword">new</span> GuzzleClient(<span class="hljs-string">'http://api.ourhost.xyz:1234'</span>)
 );
 
-<span class="hljs-comment">// Initialize it</span>
-ui.init();
+$repository-&gt;all(
+    <span class="hljs-string">'mysecretkey'</span>,
+    <span class="hljs-string">'QueryWasMade'</span>,
+    (time() - (<span class="hljs-number">24</span> * <span class="hljs-number">60</span> * <span class="hljs-number">60</span>)),
+    time(),
+    <span class="hljs-number">100</span>,
+    <span class="hljs-number">0</span>
+);
 </code></pre>
-<p>All widgets are passed using <code>.addWidget(widget)</code> method,
-or using <code>.addWidgets(...widgets)</code> to add widgets in a bulk mode,
-like in the example below.</p>
-<p>Once your setup is done, you just call the <code>.init()</code> method to
-start all the magic!</p>
-<blockquote>
-<p>Check out this for more examples:
-<a href="https://github.com/puntmig/javascript-search-ui/tree/master/examples">apisearch-ui/examples</a>!</p>
-</blockquote>
-<h2>Initialization</h2>
-<p>Before configuring your widgets, first you need to create
-a new instance of <code>apisearchUI</code>. This will be the core
-of your UI search engines are <code>appId</code> and <code>apiKey</code>, the <code>options</code>
-parameters are totally optional.</p>
-<p>This is the anatomy of the ApisearchUI configuration:</p>
-<pre><code class="language-javascript"><span class="hljs-keyword">const</span> ui = apisearchUI({
-    <span class="hljs-attr">appId</span>: !string,
-    <span class="hljs-attr">apiKey</span>: !string,
-    <span class="hljs-attr">options</span>: {
-        <span class="hljs-attr">endpoint</span>: ?string,
-        <span class="hljs-attr">apiVersion</span>: ?string,
-        <span class="hljs-attr">timeout</span>: ?int[<span class="hljs-number">10000</span>],
-        <span class="hljs-attr">inMemoryCache</span>: ?bool[<span class="hljs-literal">true</span>],
-    }
-});
+<p>You can check all the Event types after some chapters.</p>
+<h2>Event Object</h2>
+<p>Each EventRepository call will return an array of Event instances. Each one of
+them is a very simple class that has everything involved in the event itself.</p>
+<pre><code class="language-php"><span class="hljs-comment">/**
+ * Class Event.
+ */</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Event</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">HttpTransportable</span>
+</span>{
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@var</span> int
+     *
+     * Id
+     */</span>
+    <span class="hljs-keyword">private</span> $id;
+
+    <span class="hljs-comment">/**
+     * var string.
+     *
+     * Consistency hash
+     */</span>
+    <span class="hljs-keyword">private</span> $consistencyHash;
+
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@var</span> string
+     *
+     * name
+     */</span>
+    <span class="hljs-keyword">private</span> $name;
+
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@var</span> string
+     *
+     * Key
+     */</span>
+    <span class="hljs-keyword">private</span> $key;
+
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@var</span> string
+     *
+     * Payload
+     */</span>
+    <span class="hljs-keyword">private</span> $payload;
+
+    <span class="hljs-comment">/**
+     * <span class="hljs-doctag">@var</span> int
+     *
+     * Occurred on
+     */</span>
+    <span class="hljs-keyword">private</span> $occurredOn;
+}
 </code></pre>
-<p>Once your instance and widgets are defined, don’t
-forget to initialize it!</p>
-<pre><code class="language-javascript">ui.init();
+<p>When retrieving the payload, you will receive a json encoded array, so make sure
+you decode it if you want to digg into the event content.</p>
+<pre><code class="language-php">$payload = json_decode($event-&gt;getPayload(), <span class="hljs-keyword">true</span>);
 </code></pre>
+<h2>Event types</h2>
+<p>Each type of action against your data set means a different event. To be honest,
+once you have all the events sorted over the time, you should be able to
+regenerate your index from the first time you generated it.</p>
+<p>We can divide the events in two big groups</p>
+<h3>Write online events</h3>
+<p>These events will only write elements in your index. This means that no response
+is expected at all.</p>
+<ul>
+<li>IndexWasReset : You reset your index</li>
+<li>ItemsWereIndexed : You index some items</li>
+<li>ItemsWereDeleted : You delete some items</li>
+</ul>
+<p>These events will contain all the data inside your specification. For example.
+You will find the item content inside each ItemsWereIndexed events, so if in the
+future you need to rewrite the entire index from the beginning, you will notice
+that you can check items values from the past.</p>
+<h3>Readonly events</h3>
+<p>These events don’t cause any index change. It is not really important the order
+over the time, only for statistics purposes.</p>
+<ul>
+<li>QueryWasMade : Each query is made. Because you can check the items content at
+the time the query was made by checking the index status using the write only
+events, the result will only contain the Items ids instead of all the content.</li>
+</ul>
 
                     <!-- /Content -->
 
                     <hr>
                     <a class="c-content__editOnGithub"
                        target="_blank"
-                       href="https://github.com/apisearch-io/docs/tree/master/src/content/ui/overview.md">
+                       href="https://github.com/apisearch-io/docs/tree/master/src/content/api-client/event.md">
                         <i class="fa fa-github" aria-hidden="true"></i>
                         Edit this page!
                     </a>
@@ -348,44 +377,44 @@ forget to initialize it!</p>
                 <ul class="c-toc__nav nav nav-pills flex-column">
                     <li class="c-toc__navItem c-toc__navItem--1 nav-item">
                         <a class="c-toc__navLink c-toc__navLink--title nav-link"
-                           href="#overview"
+                           href="#event"
                         >
-                            Overview
+                            Event
                         </a>
                     </li>
                     <li class="c-toc__navItem c-toc__navItem--2 nav-item">
                         <a class="c-toc__navLink c-toc__navLink--title nav-link"
-                           href="#install"
+                           href="#event-repository"
                         >
-                            Install
+                            Event Repository
+                        </a>
+                    </li>
+                    <li class="c-toc__navItem c-toc__navItem--2 nav-item">
+                        <a class="c-toc__navLink c-toc__navLink--title nav-link"
+                           href="#event-object"
+                        >
+                            Event Object
+                        </a>
+                    </li>
+                    <li class="c-toc__navItem c-toc__navItem--2 nav-item">
+                        <a class="c-toc__navLink c-toc__navLink--title nav-link"
+                           href="#event-types"
+                        >
+                            Event types
                         </a>
                     </li>
                     <li class="c-toc__navItem c-toc__navItem--3 nav-item">
                         <a class="c-toc__navLink c-toc__navLink--title nav-link"
-                           href="#npm--yarn"
+                           href="#write-online-events"
                         >
-                            npm &amp; yarn
+                            Write online events
                         </a>
                     </li>
                     <li class="c-toc__navItem c-toc__navItem--3 nav-item">
                         <a class="c-toc__navLink c-toc__navLink--title nav-link"
-                           href="#html-tag-"
+                           href="#readonly-events"
                         >
-                            html tag \&lt;script\&gt;
-                        </a>
-                    </li>
-                    <li class="c-toc__navItem c-toc__navItem--2 nav-item">
-                        <a class="c-toc__navLink c-toc__navLink--title nav-link"
-                           href="#usage"
-                        >
-                            Usage
-                        </a>
-                    </li>
-                    <li class="c-toc__navItem c-toc__navItem--2 nav-item">
-                        <a class="c-toc__navLink c-toc__navLink--title nav-link"
-                           href="#initialization"
-                        >
-                            Initialization
+                            Readonly events
                         </a>
                     </li>
                 </ul>

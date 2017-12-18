@@ -2,9 +2,9 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Overview</title>
+    <title>Repository</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="A brief introduction of Apisearch UI, installation, and a basic usage.">
+    <meta name="description" content="Apisearch client - Repository object">
     <meta name="author" content="Apisearch team">
     <meta name="keywords" content="Apisearch, Elasticsearch search engine, fast search demo, Apisearch official website">
 
@@ -90,8 +90,8 @@
         <nav class="c-breadcrumb" aria-label="breadcrumb" role="navigation">
             <ol class="c-breadcrumb__list breadcrumb">
                 <li class="c-breadcrumb__item breadcrumb-item"><a href="#">Apisearch docs</a></li>
-                    <li class="c-breadcrumb__item breadcrumb-item"><a href="#">UI</a></li>
-                <li class="c-breadcrumb__item--active breadcrumb-item active" aria-current="page">Overview</li>
+                    <li class="c-breadcrumb__item breadcrumb-item"><a href="#">API Client</a></li>
+                <li class="c-breadcrumb__item--active breadcrumb-item active" aria-current="page">Repository</li>
             </ol>
         </nav>
         <!-- /breadcrumb -->
@@ -255,87 +255,268 @@
             <main class="col-sm-8 col-md-8 ml-sm-auto mr-sm-auto pt-3" role="main">
                 <section class="c-content">
                     <!-- Content -->
-                    <h1>Overview</h1>
-<p>ApisearchUI library is set of tools to build a custom search experience for your
-website, e-commerce, docs site, or any other web application you can imagine.
-It provides a list of common widgets like a search box, a result list, filters,
-sorting dropdown, pagination, and many more explained below.</p>
-<p>All your data must be previously indexed using the Apisearch tools. For more
-information say hi to: <a href="mailto:hello@puntmig.com">hello@puntmig.com</a></p>
-<h2>Install</h2>
-<h3>npm &amp; yarn</h3>
-<pre><code class="language-shell">npm install apisearch-ui --save
-<span class="hljs-meta">#</span><span class="bash"> or</span>
-yarn add apisearch-ui
-</code></pre>
-<h3>html tag &lt;script&gt;</h3>
-<p>You can either download the library and use a relative path to
-your assets folder, or use a CDN like jsDelivr.</p>
-<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"https://cdn.jsdelivr.net/npm/apisearch-ui/dist/apisearch-ui.min.js"</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
-</code></pre>
-<h2>Usage</h2>
-<p>This simple setup allows you to build a full text search
-input with a result container using a custom template
-engine.</p>
-<pre><code class="language-javascript"><span class="hljs-comment">// Create instance</span>
-<span class="hljs-keyword">const</span> ui = apisearchUI({
-    <span class="hljs-attr">appId</span>: <span class="hljs-string">'music'</span>,
-    <span class="hljs-attr">apiKey</span>: <span class="hljs-string">'1cc7a3e0-bda5-11e7-abc4-cec278b6b50a'</span>
-});
-
-<span class="hljs-comment">// Append widgets</span>
-ui.addWidgets(
-    ui.widgets.simpleSearch({
-        <span class="hljs-attr">target</span>: <span class="hljs-string">'.search-container'</span>,
-    }),
-    ui.widgets.result({
-        <span class="hljs-attr">target</span>: <span class="hljs-string">'.result-container'</span>,
-        <span class="hljs-attr">template</span>: {
-            <span class="hljs-attr">itemsList</span>: <span class="hljs-string">'&lt;ul&gt;{{#items}} &lt;li&gt;{{metadata.name}}&lt;/li&gt; {{/items}}&lt;/ul&gt;'</span>,
-        }
-    })
+                    <h1>Repository</h1>
+<p>OK, so now we know how to manage all our model objects. How they interact
+between them and how we should integrate them with our code.</p>
+<p>But how it really works? We need an interface where we can communicate with an
+existing endpoint, so we can really have nice results given a set of pre-indexed
+data.</p>
+<p>Let’s check the interface <code>Apisearch\Repository\Repository</code></p>
+<p>Using an implementation of this main repository, you’ll be able to index,
+delete, reset and query your main data set. Each interaction will create an
+internal event, each one named in a particular way. To query over these events,
+please check the <a href="#event-repository">EventRepository</a> chapter.</p>
+<p>All repository implementations, before being used, need your API secret in order
+to make sure you’re using the right repository.</p>
+<p>Let’s take a look at all our repository interfaces</p>
+<h2>HttpRepository {#http-repository}</h2>
+<p>This is the main implementation of this repository, ready for production
+purposes and defined for pointing to our main servers.</p>
+<p>In order to make it work, you’ll need a HTTPClient implementation. In that case,
+and because your usage will be maily for production, you can use the
+GuzzleClient implementation.</p>
+<pre><code class="language-php">$repository = <span class="hljs-keyword">new</span> HttpRepository(
+    <span class="hljs-keyword">new</span> GuzzleClient(<span class="hljs-string">'http://api.ourhost.xyz:1234'</span>)
 );
-
-<span class="hljs-comment">// Initialize it</span>
-ui.init();
+$repository-&gt;setKey(<span class="hljs-string">'mysecretkey'</span>);
 </code></pre>
-<p>All widgets are passed using <code>.addWidget(widget)</code> method,
-or using <code>.addWidgets(...widgets)</code> to add widgets in a bulk mode,
-like in the example below.</p>
-<p>Once your setup is done, you just call the <code>.init()</code> method to
-start all the magic!</p>
-<blockquote>
-<p>Check out this for more examples:
-<a href="https://github.com/puntmig/javascript-search-ui/tree/master/examples">apisearch-ui/examples</a>!</p>
-</blockquote>
-<h2>Initialization</h2>
-<p>Before configuring your widgets, first you need to create
-a new instance of <code>apisearchUI</code>. This will be the core
-of your UI search engines are <code>appId</code> and <code>apiKey</code>, the <code>options</code>
-parameters are totally optional.</p>
-<p>This is the anatomy of the ApisearchUI configuration:</p>
-<pre><code class="language-javascript"><span class="hljs-keyword">const</span> ui = apisearchUI({
-    <span class="hljs-attr">appId</span>: !string,
-    <span class="hljs-attr">apiKey</span>: !string,
-    <span class="hljs-attr">options</span>: {
-        <span class="hljs-attr">endpoint</span>: ?string,
-        <span class="hljs-attr">apiVersion</span>: ?string,
-        <span class="hljs-attr">timeout</span>: ?int[<span class="hljs-number">10000</span>],
-        <span class="hljs-attr">inMemoryCache</span>: ?bool[<span class="hljs-literal">true</span>],
+<h2>TransformableRepository {#transformable-repository}</h2>
+<p>This is a small wrapper of the simple HttpRepository, ready to understand and
+interact with your own Domain, instead of working with Items.</p>
+<p>Before understanding how this adapter work, we should understand what a
+transformer is and how can be really useful when integrating our project with
+ApiSearch.</p>
+<p>Imagine we have a domain class called Product. Because this class is part of our
+domain, we should never change its composition because of external changes,
+right? So imagine that we want to start using ApiSearch. As reading this
+documentation we can see that ApiSearch understands about Items, and only about
+them, so you could think…</p>
+<p><code>Oups, I should change my product and only work with Items</code></p>
+<p>That would be a very very bad decision, so remember that with or without
+ApiSearch, your product will continue being a Product.</p>
+<p>Said that, and if you check all available Repository methods, you’ll notice that
+you can only use Item related methods (addItem, deleteItem…), so does it mean
+that do I need to work always with items? Not at all.</p>
+<p>We must find a way where there is a silent transformation between our model
+(Product) and the ApiSearch model (Item, ItemUUID), and this way is called
+Transformers.</p>
+<p>So what is a Transformer? Easy. A class that can convert any of your model
+objects into an Item, by implementing the interface WriteTransformer, and vice
+versa, by implementing the interface ReadTransformer. All Repositories must
+implement WriteTransformer, so it has not sense at all to have a transformer
+that does’nt write, but implementing ReadTransformer is optional.</p>
+<p>The difference between both strategies is that by implementing ReadTransformer,
+you will receive your own model objects when making queries. Otherwise, when
+reading from the repository, you will receive only Item instances.</p>
+<p>Let’s check a Transformer example</p>
+<pre><code class="language-php"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ProductTransformer</span> <span class="hljs-keyword">implements</span> <span class="hljs-title">ReadTransformer</span>, <span class="hljs-title">WriteTransformer</span>
+</span>{
+    <span class="hljs-comment">/**
+     * Is an indexable object.
+     *
+     * <span class="hljs-doctag">@param</span> mixed $object
+     *
+     * <span class="hljs-doctag">@return</span> bool
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isValidObject</span><span class="hljs-params">($object)</span>: <span class="hljs-title">bool</span>
+    </span>{
+        <span class="hljs-keyword">return</span> $object <span class="hljs-keyword">instanceof</span> Product;
     }
-});
+
+    <span class="hljs-comment">/**
+     * Create item by object.
+     *
+     * <span class="hljs-doctag">@param</span> mixed $object
+     *
+     * <span class="hljs-doctag">@return</span> Item
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">toItem</span><span class="hljs-params">($object)</span>: <span class="hljs-title">Item</span>
+    </span>{
+        <span class="hljs-keyword">return</span> Item::create(
+            <span class="hljs-keyword">$this</span>-&gt;toItemUUID($object),
+            [
+                <span class="hljs-comment">// Metadata </span>
+                <span class="hljs-string">'name'</span> =&gt; $object-&gt;getName(),
+                <span class="hljs-string">'description'</span> =&gt; $object-&gt;getDescription(),
+                <span class="hljs-string">'ean'</span> =&gt; $object-&gt;getEan(),
+            ],
+            [
+                <span class="hljs-comment">// Indexed metadata</span>
+                <span class="hljs-string">'price'</span> =&gt; $object-&gt;getPrice(),
+                <span class="hljs-string">'old_price'</span> =&gt; $object-&gt;getOldPrice(),
+                <span class="hljs-string">'brand'</span> =&gt; $object-&gt;getBrand()-&gt;getName(),
+                <span class="hljs-string">'created_at'</span> =&gt; $object-&gt;getCreatedAt(),
+                <span class="hljs-string">'sizes'</span> =&gt; array_values($object-&gt;getSizes()),
+                <span class="hljs-string">'colors'</span> =&gt; array_values($object-&gt;getColors()),
+            ],
+            [
+                <span class="hljs-comment">// Searchable metadata</span>
+                <span class="hljs-string">'name'</span> =&gt; <span class="hljs-keyword">$this</span>-&gt;getName(),
+                <span class="hljs-string">'description'</span> =&gt; <span class="hljs-keyword">$this</span>-&gt;getDescription(),
+                <span class="hljs-string">'brand'</span> =&gt; <span class="hljs-keyword">$this</span>-&gt;getBrand()-&gt;getName(),
+            ],
+            [
+                <span class="hljs-comment">// Exact matching metadata</span>
+                <span class="hljs-keyword">$this</span>-&gt;getId(),
+                <span class="hljs-keyword">$this</span>-&gt;getEan(),
+            ],
+            [
+                <span class="hljs-comment">// Suggestions</span>
+                <span class="hljs-string">'T-shirt'</span>,
+            ]
+    }
+
+    <span class="hljs-comment">/**
+     * Create item UUID by object.
+     *
+     * <span class="hljs-doctag">@param</span> mixed $object
+     *
+     * <span class="hljs-doctag">@return</span> ItemUUID
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">toItemUUID</span><span class="hljs-params">($object)</span>: <span class="hljs-title">ItemUUID</span>
+    </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ItemUUID(
+            $object-&gt;getId(),
+            <span class="hljs-string">'product'</span>
+        );
+    }
+    
+    <span class="hljs-comment">/**
+     * The item should be converted by this transformer.
+     *
+     * <span class="hljs-doctag">@param</span> Item $item
+     *
+     * <span class="hljs-doctag">@return</span> bool
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isValidItem</span><span class="hljs-params">(Item $item)</span>: <span class="hljs-title">bool</span>
+    </span>{
+        <span class="hljs-keyword">return</span> $item-&gt;getType() === <span class="hljs-string">'product'</span>;
+    }
+
+    <span class="hljs-comment">/**
+     * Create object by item.
+     *
+     * <span class="hljs-doctag">@param</span> Item $item
+     *
+     * <span class="hljs-doctag">@return</span> mixed
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fromItem</span><span class="hljs-params">(Item $item)</span>
+    </span>{
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Product(
+            $item-&gt;getId(),
+            $item-&gt;get(<span class="hljs-string">'name'</span>),
+            $item-&gt;get(<span class="hljs-string">'description),
+            // ...
+    }
+}
+</span></code></pre>
+<p>Ok, we have our transformer ready. Then what? Let’s see how we can build a
+TransformableRepository instance.</p>
+<blockquote>
+<p>Please, check Symfony integration. This is only a small snippet to show how
+this class is internally built. The Bundle build all these instances by using
+the dependency injection component.</p>
+</blockquote>
+<pre><code class="language-php">$productTransformer = <span class="hljs-keyword">new</span> ProductTransformer();
+$transformer = <span class="hljs-keyword">new</span> Transformer($eventDispatcher);
+$transformer-&gt;addReadTransformer($productTransformer);
+$transformer-&gt;addWriteTransformer($productTransformer);
+$transformableRepository = <span class="hljs-keyword">new</span> TransformableRepository(
+    $httpRepository,
+    $transformer 
+);
+$transformableRepository-&gt;setKey(<span class="hljs-string">'mysecretkey'</span>);
 </code></pre>
-<p>Once your instance and widgets are defined, don’t
-forget to initialize it!</p>
-<pre><code class="language-javascript">ui.init();
+<p>And that’s it.
+Discovering a little bit the TransformableRepository we will see that, apart
+of having the natural Item related methods, we will have same methods but with
+Object instead of Item</p>
+<ul>
+<li>-&gt;addObject()</li>
+<li>-&gt;deleteObject()</li>
+</ul>
+<p>And when querying the repository, if your class specific transformer implements
+ReadTransformer, instead of having an Item instance, you’ll have a
+transformation.</p>
+<blockquote>
+<p>Using Read transformation or not should be a project scope decision, so having
+only a few Transformers implementing ReadTransformer interface is not a good
+thing.</p>
+</blockquote>
+<h2>InMemoryRepository {#in-memory-repository}</h2>
+<p>Only for development and testing purposes. Not all endpoints are available, and
+not all features can be done by using a simple in-memory array, so you’ll be
+able to index, delete, reset and perform basic queries (remember, in memory,
+this means that between requests, this won’t work at all).</p>
+<pre><code class="language-php">$repository = <span class="hljs-keyword">new</span> InMemoryRepository();
+$repository-&gt;setKey(<span class="hljs-string">'mysecretkey'</span>);
 </code></pre>
+<p>So what can I do with any of these implementations?</p>
+<h2>Reset</h2>
+<p>Do you want to reset your entire index? That easy. One single call and all your
+read-only data will be completely erased.</p>
+<pre><code class="language-php">$repository-&gt;reset();
+</code></pre>
+<p>When a repository is reset, internally this is deleted and created again. An
+index can be created by using a specific language. When this language is
+defined, then some internal improvements are performed in order to provide
+better experience on search time.</p>
+<pre><code class="language-php">$repository-&gt;reset(<span class="hljs-string">'en'</span>);
+</code></pre>
+<h2>Index</h2>
+<p>This repository endpoint aims to let you add your entities in the database. Of
+course, to understand how easy is to do that, first of all you need to
+understand how the model is modeled (the first chapter of this documentation is
+about that).</p>
+<pre><code class="language-php">$repository-&gt;addItem(Item $item);
+</code></pre>
+<p>If you use TransformableRepository, you can use as well the Object related
+method.</p>
+<pre><code class="language-php">$repository-&gt;addObject(Object $object);
+$repository-&gt;addObject($product);
+</code></pre>
+<p>This method only prepares this new item to be added/modified, but does’nt
+change it actually</p>
+<h2>Delete</h2>
+<p>Deletes an existing element from your repository. In order to use this endpoint,
+you need to work with Item references.</p>
+<pre><code class="language-php">$itemUUID = <span class="hljs-keyword">new</span> ItemUUID(<span class="hljs-string">'10'</span>, <span class="hljs-string">'product'</span>);
+$repository-&gt;deleteItem($itemUUID);
+</code></pre>
+<p>If you use TransformableRepository, you can use as well the Object related
+method.</p>
+<pre><code class="language-php">$repository-&gt;deleteObject(Object $object);
+$repository-&gt;deleteObject($product);
+</code></pre>
+<p>This method only prepares this new item to be deleted, but does’nt change it
+actually</p>
+<h2>Flush</h2>
+<p>Perform real changes by having a stack of additions and deletions.</p>
+<pre><code class="language-php">$repository-&gt;flush();
+</code></pre>
+<p>You can batch items when connecting to the repository in order to minimize the
+number of connections and the size of these. In next example, every connection
+will contain 100 elements maximum. By default this value is set to 500.</p>
+<pre><code class="language-php">$repository-&gt;flush(<span class="hljs-number">100</span>);
+</code></pre>
+<p>If we want to only flush if and only if we have a minimum of 100 elements, then
+we can use the second parameter by setting it to true.</p>
+<pre><code class="language-php">$repository-&gt;flush(<span class="hljs-number">100</span>, <span class="hljs-keyword">true</span>);
+</code></pre>
+<h2>Query {#query-repository}</h2>
+<p>This endpoint will be a very important part of your integration, so allow you
+to, given a Query instance, get a Result instance.</p>
+<pre><code class="language-php">$result = $repository-&gt;query(Query $query) : Result
+</code></pre>
+<p>That’s it. The result of the query method is a Result instance. To know a little
+bit more about this object, check the documentation chapter.</p>
 
                     <!-- /Content -->
 
                     <hr>
                     <a class="c-content__editOnGithub"
                        target="_blank"
-                       href="https://github.com/apisearch-io/docs/tree/master/src/content/ui/overview.md">
+                       href="https://github.com/apisearch-io/docs/tree/master/src/content/api-client/repository.md">
                         <i class="fa fa-github" aria-hidden="true"></i>
                         Edit this page!
                     </a>
@@ -348,44 +529,65 @@ forget to initialize it!</p>
                 <ul class="c-toc__nav nav nav-pills flex-column">
                     <li class="c-toc__navItem c-toc__navItem--1 nav-item">
                         <a class="c-toc__navLink c-toc__navLink--title nav-link"
-                           href="#overview"
+                           href="#repository"
                         >
-                            Overview
+                            Repository
                         </a>
                     </li>
                     <li class="c-toc__navItem c-toc__navItem--2 nav-item">
                         <a class="c-toc__navLink c-toc__navLink--title nav-link"
-                           href="#install"
+                           href="#httprepository-#http-repository"
                         >
-                            Install
-                        </a>
-                    </li>
-                    <li class="c-toc__navItem c-toc__navItem--3 nav-item">
-                        <a class="c-toc__navLink c-toc__navLink--title nav-link"
-                           href="#npm--yarn"
-                        >
-                            npm &amp; yarn
-                        </a>
-                    </li>
-                    <li class="c-toc__navItem c-toc__navItem--3 nav-item">
-                        <a class="c-toc__navLink c-toc__navLink--title nav-link"
-                           href="#html-tag-"
-                        >
-                            html tag \&lt;script\&gt;
+                            HttpRepository {#http-repository}
                         </a>
                     </li>
                     <li class="c-toc__navItem c-toc__navItem--2 nav-item">
                         <a class="c-toc__navLink c-toc__navLink--title nav-link"
-                           href="#usage"
+                           href="#transformablerepository-#transformable-repository"
                         >
-                            Usage
+                            TransformableRepository {#transformable-repository}
                         </a>
                     </li>
                     <li class="c-toc__navItem c-toc__navItem--2 nav-item">
                         <a class="c-toc__navLink c-toc__navLink--title nav-link"
-                           href="#initialization"
+                           href="#inmemoryrepository-#in-memory-repository"
                         >
-                            Initialization
+                            InMemoryRepository {#in-memory-repository}
+                        </a>
+                    </li>
+                    <li class="c-toc__navItem c-toc__navItem--2 nav-item">
+                        <a class="c-toc__navLink c-toc__navLink--title nav-link"
+                           href="#reset"
+                        >
+                            Reset
+                        </a>
+                    </li>
+                    <li class="c-toc__navItem c-toc__navItem--2 nav-item">
+                        <a class="c-toc__navLink c-toc__navLink--title nav-link"
+                           href="#index"
+                        >
+                            Index
+                        </a>
+                    </li>
+                    <li class="c-toc__navItem c-toc__navItem--2 nav-item">
+                        <a class="c-toc__navLink c-toc__navLink--title nav-link"
+                           href="#delete"
+                        >
+                            Delete
+                        </a>
+                    </li>
+                    <li class="c-toc__navItem c-toc__navItem--2 nav-item">
+                        <a class="c-toc__navLink c-toc__navLink--title nav-link"
+                           href="#flush"
+                        >
+                            Flush
+                        </a>
+                    </li>
+                    <li class="c-toc__navItem c-toc__navItem--2 nav-item">
+                        <a class="c-toc__navLink c-toc__navLink--title nav-link"
+                           href="#query-#query-repository"
+                        >
+                            Query {#query-repository}
                         </a>
                     </li>
                 </ul>

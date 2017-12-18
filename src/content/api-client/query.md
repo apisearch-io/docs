@@ -2,9 +2,9 @@
 page: 3
 title: Query
 description: Apisearch client - Query object
-category: Client
+category: API Client
 template: one-column-with-toc.mustache
-source: client/query.md
+source: api-client/query.md
 languages: 
   - php
 tags:
@@ -38,7 +38,7 @@ Let's make something a little bit harder. Let's take only the first 100 elements
 of the second page (from the result 101 to the 200). By default, is none of
 these last values are defined, you will request the first 10 results.
 
-``` php
+```php
 $query = Query::create(
     "something", // The query string
     2,           // The page we want to retrieve
@@ -52,7 +52,7 @@ If you want to match all elements, you can just pass an empty string as the
 first parameter or use the search-everything static factory method. In this
 second method you will query the first 1000 elements.
 
-``` php
+```php
 $query = Query::create('');
 $query = Query::createMatchAll();
 ```
@@ -63,7 +63,7 @@ specifically create to make these two scenarios so easy.
 
 We will use [ItemUUIDs](#itemUUID) here in both cases.
 
-``` php
+```php
 $query = Query::createByUUID(new ItemUUID('12', 'book'));
 $query = Query::createByUUIDs([
     new ItemUUID('12', 'book'),
@@ -93,12 +93,12 @@ one of the defined categories? That's the application type.
 
 Let's see all available types
 
-* Filter::MUST_ALL - All results must match all filter elements
-* Filter::MUST_ALL_WITH_LEVELS - All results must match all filter elements, but
+* `Filter::MUST_ALL` - All results must match all filter elements
+* `Filter::MUST_ALL_WITH_LEVELS` - All results must match all filter elements, but
 when aggregating, only facets with the minor level encountered will be shown.
 E.g. categories.
-* Filter::AT_LEAST_ONE - At least one element must match.
-* Filter::EXCLUDE - Items should be excluded from results
+* `Filter::AT_LEAST_ONE` - At least one element must match.
+* `Filter::EXCLUDE` - Items should be excluded from results
 
 Every time we create a new filter, we must determine the type of this filter
 application. Depending on that value, the filter will cause different values and
@@ -482,10 +482,10 @@ Query::createMatchAll()
 
 You can chose between these values
 
-- Aggregation::SORT_BY_COUNT_DESC
-- Aggregation::SORT_BY_COUNT_ASC
-- Aggregation::SORT_BY_NAME_DESC
-- Aggregation::SORT_BY_NAME_ASC
+- `Aggregation::SORT_BY_COUNT_DESC`
+- `Aggregation::SORT_BY_COUNT_ASC`
+- `Aggregation::SORT_BY_NAME_DESC`
+- `Aggregation::SORT_BY_NAME_ASC`
 
 You can limit as well the number of elements you want to return in the
 aggregation. By default, there's no limit, so if your result aggregation has

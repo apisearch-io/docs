@@ -2,9 +2,9 @@
 page: 6
 title: Event
 description: Apisearch client - Event object
-category: Client
+category: API Client
 template: one-column-with-toc.mustache
-source: client/event.md
+source: api-client/event.md
 languages: 
   - php
 tags:

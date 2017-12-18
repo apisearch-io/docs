@@ -2,9 +2,9 @@
 page: 5
 title: Repository
 description: Apisearch client - Repository object
-category: Client
+category: API Client
 template: one-column-with-toc.mustache
-source: client/repository.md
+source: api-client/repository.md
 languages: 
   - php
 tags:

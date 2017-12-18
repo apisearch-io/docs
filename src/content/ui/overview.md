@@ -1,7 +1,7 @@
 ---
 page: 1
-title: Installation
-description: This is the installation
+title: Overview
+description: A brief introduction of Apisearch UI, installation, and a basic usage.
 category: UI
 template: one-column-with-toc.mustache
 source: ui/overview.md
