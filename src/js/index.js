@@ -8,6 +8,21 @@ import ui from "./search";
 ui.init();
 
 /**
+ * Close search box if search is empty
+ */
+document
+    .querySelector(".as-simpleSearch__input")
+    .addEventListener('input', (e) => {
+        if (e.target.value === '') {
+            document
+                .querySelector('#searchResult')
+                .classList
+                .add('d-none')
+            ;
+        }
+    });
+
+/**
  * Menu left toggle
  */
 document

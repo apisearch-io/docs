@@ -1,8 +1,6 @@
 import apisearchUI from "apisearch-ui";
-import Remarkable from "remarkable";
 import _ from "lodash";
-
-const md = new Remarkable();
+import {createContentPreview} from "./helpers";
 
 const topicsSearchResultTemplate = `
     {{#items}}
@@ -65,6 +63,7 @@ ui.addWidgets(
     ui.widgets.simpleSearch({
         target: '#searchInput',
         placeholder: 'Search api',
+        startSearchOn: 2,
         autofocus: true,
         classNames: {
             container: '',
@@ -104,43 +103,17 @@ ui.addWidgets(
     })
 );
 
-function createContentPreview(queryText, content) {
-    let sanitizedContent = content
-        .replace(new RegExp('(<([^>]+)>)', 'ig'), ' ')
-        .replace(new RegExp('(<pre>[\\s\\S]*?</pre>)', 'ig'), '')
-        .toLowerCase()
-    ;
-    let wordIndex = sanitizedContent
-        .indexOf(queryText.toLowerCase())
-    ;
-    if (wordIndex < 53) {
-        return null;
+ui.store.on('render', function () {
+    if (this.dirty) {
+        return;
     }
 
-    let trimmedContent = sanitizedContent
-        .slice(
-            wordIndex - 50,
-            wordIndex + 50
-        )
-    ;
-
-    return highlightString( queryText, '...' + trimmedContent + '...');
-}
-
-function highlightString(currentQueryText, string) {
-    let regex = new RegExp(`(${currentQueryText})`, 'gi');
-    let highlightedSuggestion = string.replace(regex, "<em>$1</em>");
-    let sanitizedSpaces = highlightedSuggestion.split(' ');
-
-    return sanitizedSpaces.join('&nbsp;');
-}
-
-ui.store.on('render', () => {
     document
         .querySelector('#searchResult')
         .classList
         .remove('d-none')
     ;
 });
+
 
 export default ui;
