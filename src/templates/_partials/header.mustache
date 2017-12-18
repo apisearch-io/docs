@@ -52,9 +52,11 @@
     <!-- breadcrumb -->
     <nav class="c-breadcrumb" aria-label="breadcrumb" role="navigation">
         <ol class="c-breadcrumb__list breadcrumb">
-            <li class="c-breadcrumb__item breadcrumb-item"><a href="#">Apisearch</a></li>
-            <li class="c-breadcrumb__item breadcrumb-item"><a href="#">Client</a></li>
-            <li class="c-breadcrumb__item--active breadcrumb-item active" aria-current="page">PHP</li>
+            <li class="c-breadcrumb__item breadcrumb-item"><a href="#">Apisearch docs</a></li>
+            {{#category}}
+                <li class="c-breadcrumb__item breadcrumb-item"><a href="#">{{category}}</a></li>
+            {{/category}}
+            <li class="c-breadcrumb__item--active breadcrumb-item active" aria-current="page">{{title}}</li>
         </ol>
     </nav>
     <!-- /breadcrumb -->

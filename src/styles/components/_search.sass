@@ -38,7 +38,7 @@
     color: #09d2c6
     font-size: 1rem
 
-  &__searchResult
+  &__result
     padding-top: 5rem
     position: fixed
     overflow-y: scroll
@@ -46,15 +46,16 @@
     left: 0
     right: 0
     top: 0
+    bottom: 0
     box-shadow: 0 -2px 9px black
-    background-color: white
+    background-color: rgba(0, 0, 0, 0.73)
     z-index: 996
 
-  &__searchResultBlock
+  &__resultBlock
     padding: 1rem
     border-radius: .4rem
 
-  &__searchResultTitle
+  &__resultTitle
     margin-bottom: 1rem
     font-weight: 600
     font-size: 1.2rem
@@ -64,6 +65,7 @@
       +text-gradient(#07d2c6, #2bffbf)
 
   &__resultItem
+    background: white
     border-radius: .3rem
     padding: 1rem
     margin-bottom: 1rem

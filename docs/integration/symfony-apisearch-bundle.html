@@ -89,29 +89,34 @@
     <!-- breadcrumb -->
     <nav class="c-breadcrumb" aria-label="breadcrumb" role="navigation">
         <ol class="c-breadcrumb__list breadcrumb">
-            <li class="c-breadcrumb__item breadcrumb-item"><a href="#">Apisearch</a></li>
-            <li class="c-breadcrumb__item breadcrumb-item"><a href="#">Client</a></li>
-            <li class="c-breadcrumb__item--active breadcrumb-item active" aria-current="page">PHP</li>
+            <li class="c-breadcrumb__item breadcrumb-item"><a href="#">Apisearch docs</a></li>
+                <li class="c-breadcrumb__item breadcrumb-item"><a href="#">Integrations</a></li>
+            <li class="c-breadcrumb__item--active breadcrumb-item active" aria-current="page">Symfony - Apisearch Bundle</li>
         </ol>
     </nav>
     <!-- /breadcrumb -->
 </header><!-- /Header -->
 
 <!-- Search result -->
-<div id="searchResult" class="c-search__searchResult d-none">
+<div id="searchResult" class="c-search__result d-none">
+    <!-- Overlay -->
+    <div class="c-search__resultOverlay"></div>
+
+    <!-- Result container -->
     <div class="container-fluid">
         <div class="row">
             <!-- Content -->
             <div class="col-sm-12">
-                <div class="c-search__searchResultBlock">
+                <div class="c-search__resultBlock">
                     <div id="topicsSearchResult"></div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Pagination -->
+    <!-- Pagination
     <div id="paginationSearch"></div>
+    -->
 </div><!-- /Search result -->
 
 <!-- Main -->
