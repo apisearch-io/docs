@@ -27,8 +27,16 @@ function apisearchTransformer(docsArray) {
                 category: doc.category,
                 content: doc.content,
                 languages: doc.languages,
+                code: (code.length !== 0)
+                    ? code.map(block => block)
+                    : null
+                ,
+                toc: doc.tableOfContent
             },
             searchable_metadata: {
+                title: doc.title,
+                description: doc.description,
+                content: doc.content,
                 h1: (typeof toc['1'] !== "undefined")
                     ? toc['1'].map(h => h.content)
                     : null

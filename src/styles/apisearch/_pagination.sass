@@ -1,0 +1,33 @@
+.as-pagination
+  box-shadow: 0 1px 1px 1px rgba(0,0,0,.16)
+  padding: .5rem
+  border-radius: .3rem
+  width: 100%
+  position: relative
+  margin: 0 auto
+  display: flex
+  justify-content: space-between
+  max-width: 13rem
+
+  &__item
+    display: inline-block
+    width: 1.5rem
+    cursor: pointer
+    text-align: center
+    margin: 0 .1rem
+    -webkit-border-radius: .3rem
+    -moz-border-radius: .3rem
+    border-radius: .3rem
+    &:hover
+      background-color: #e6e6e6
+
+    &--active
+      background-image: linear-gradient(90deg,#00c3b5,#1fdea6)
+      color: white
+
+    &--disabled
+      color: grey
+      cursor: none
+      &:hover
+        background-color: transparent
+

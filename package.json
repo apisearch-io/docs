@@ -49,7 +49,7 @@
     "yargs": "^8.0.2"
   },
   "dependencies": {
-    "apisearch-ui": "^0.1.17",
+    "apisearch-ui": "^0.1.19",
     "bootstrap": "4.0.0-beta.2",
     "fs-path": "0.0.23",
     "gfm-code-blocks": "^1.0.0",

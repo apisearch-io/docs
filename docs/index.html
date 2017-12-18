@@ -40,7 +40,7 @@
             <div class="c-navbar__main row">
                 <!-- Brand -->
                 <div class="c-navbar__brandWrapper col-2 col-sm-4 col-md-3 col-lg-2">
-                    <a class="c-navbar__brand navbar-brand" href="#">
+                    <a class="c-navbar__brand navbar-brand" href="/docs">
                         <img src="http://apisearch.io/public/images/favicons/favicon-32x32.png"
                              class="d-inline-block align-top"
                              alt="Apisearch logo">
@@ -99,45 +99,19 @@
 
     <!-- Search result -->
     <div id="searchResult" class="c-search__searchResult d-none">
-        <div class="container">
+        <div class="container-fluid">
             <div class="row">
-                <div class="col-sm-6 mb-4">
-                    <div class="c-search__searchResultBlock">
-                        <!-- Topics -->
-                        <h1 class="c-search__searchResultTitle">
-                            <i class="fa fa-commenting" aria-hidden="true"></i>
-                            Topics
-                        </h1>
-
-                        <ul id="topicsSearchResult"></ul>
-                    </div>
-                </div>
-                <div class="col-sm-6 mb-4">
-                    <div class="c-search__searchResultBlock">
-                        <!-- Content -->
-                        <h1 class="c-search__searchResultTitle">
-                            <i class="fa fa-align-left" aria-hidden="true"></i>
-                            Content
-                        </h1>
-
-                        <ul id="contentSearchResult"></ul>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
+                <!-- Content -->
                 <div class="col-sm-12">
-                    <!-- Code examples -->
                     <div class="c-search__searchResultBlock">
-                        <h1 class="c-search__searchResultTitle">
-                            <i class="fa fa-code" aria-hidden="true"></i>
-                            Code examples
-                        </h1>
-
-                        <ul id="codeExamplesSearchResult"></ul>
+                        <div id="topicsSearchResult"></div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- Pagination -->
+        <div id="paginationSearch"></div>
     </div>    <!-- /Search result -->
 
     <!-- Main -->
