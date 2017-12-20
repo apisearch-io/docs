@@ -4,7 +4,7 @@ const walk = require("walk");
 const path = require("path");
 const _ = require("lodash");
 
-const apisearchTransformer = require("./apisearchTransformer");
+const apisearchTransformer = require("./apisearch/apisearchTransformer");
 const fileToString = require("./helpers").fileToString;
 const parseMarkdownFile = require("./helpers").parseMarkdownFile;
 const loadPartials = require("./helpers").loadPartials;

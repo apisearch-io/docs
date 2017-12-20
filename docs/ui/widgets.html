@@ -255,8 +255,8 @@
             <main class="col-sm-8 col-md-8 ml-sm-auto mr-sm-auto pt-3" role="main">
                 <section class="c-content">
                     <!-- Content -->
-                    <h1>Widgets</h1>
-<h2>Simple Search</h2>
+                    <h1 id="widgets"><a name="widgets" class="fa fa-link" href="#"></a>Widgets</h1>
+<h2 id="simple-search"><a name="simple-search" class="fa fa-link" href="#"></a>Simple Search</h2>
 <p>The simple search input widget is to perform text based
 searches.</p>
 <p>This widget points to <code>searchable_metadata</code> and
@@ -286,9 +286,10 @@ searches.</p>
 <ul>
 <li><code>container</code>: refers to the parent <code>div</code> that contains the widget.</li>
 <li><code>input</code>: refers to the html input.</li>
-</ul></li>
 </ul>
-<h2>Suggested Search</h2>
+</li>
+</ul>
+<h2 id="suggested-search"><a name="suggested-search" class="fa fa-link" href="#"></a>Suggested Search</h2>
 <p>The suggested search input goes one step further. You can
 get auto-completed suggestions list related to the text
 you are looking for just below the search input.</p>
@@ -323,9 +324,10 @@ contains the widget.</li>
 <li><code>box</code>: refers to the suggestions box.</li>
 <li><code>suggestion</code>: refers to the suggestion item.</li>
 <li><code>activeSuggestion</code>: refers to the active suggestion.</li>
-</ul></li>
 </ul>
-<h2>Sort By</h2>
+</li>
+</ul>
+<h2 id="sort-by"><a name="sort-by" class="fa fa-link" href="#"></a>Sort By</h2>
 <p>The sort by widget allows to order the result set as you like.</p>
 <p>This widget points to <code>indexed_metadata</code> field.</p>
 <pre><code class="language-javascript"><span class="hljs-keyword">const</span> sortByWidget = ui.widgets.sortBy({
@@ -351,9 +353,10 @@ to the html text shown, and <code>value</code> is the value of the option itself
 <li><code>container</code>: refers to the parent <code>div</code> class that
 contains the widget.</li>
 <li><code>select</code>: refers to the select input.</li>
-</ul></li>
 </ul>
-<h2>Multiple Filter</h2>
+</li>
+</ul>
+<h2 id="multiple-filter"><a name="multiple-filter" class="fa fa-link" href="#"></a>Multiple Filter</h2>
 <p>The filter widget allows you to refine your search.</p>
 <pre><code class="language-javascript"><span class="hljs-keyword">const</span> multipleFilterWidget = ui.widgets.multipleFilter({
     <span class="hljs-attr">target</span>: !string,
@@ -395,7 +398,7 @@ when was indexed to Apisearch as <code>indexed_metadata</code>.</li>
 docs for more information.</li>
 <li><code>fetchLimit</code>: is the limit of items to be fetched on the server.</li>
 <li><code>viewLimit</code>: If there are 10 fetched items, and viewLimit is 5. Only
-the 5 first numbers will be visible and a “show more” / “show less”
+the 5 first numbers will be visible and a “show more” / &quot;show less&quot;
 button will appear.</li>
 <li><code>sortBy</code>: refers to the order/sort of the filter items.</li>
 <li><code>classNames</code>:
@@ -407,14 +410,16 @@ contains the widget.</li>
 <li><code>item</code>: class name of the filter item link.</li>
 <li><code>active</code>: class name of the selected item link.</li>
 <li><code>showMoreContainer</code>: class of the “show more” button container.</li>
-</ul></li>
+</ul>
+</li>
 <li><code>template</code>:
 <ul>
 <li><code>top</code>: template string for the title of the filter list.</li>
 <li><code>item</code>: template string for the filter item link.</li>
 <li><code>showMore</code>: template string for the “show more” button.</li>
 <li><code>showLess</code>: template string for the “show less” button.</li>
-</ul></li>
+</ul>
+</li>
 <li><code>formatData</code>: is a callable function that receives all the resulted
 data related to the multiple filter widget:
 <ul>
@@ -423,9 +428,10 @@ data related to the multiple filter widget:
 <li><code>values</code>: the information of the filter.
 This is useful to transform some information received before being
 passed to the template.</li>
-</ul></li>
 </ul>
-<h2>Clear filters button</h2>
+</li>
+</ul>
+<h2 id="clear-filters-button"><a name="clear-filters-button" class="fa fa-link" href="#"></a>Clear filters button</h2>
 <p>Clear filters widget gives us a button to remove all active
 filters.</p>
 <pre><code class="language-javascript"><span class="hljs-keyword">const</span> clearFilters = ui.widgets.clearFilters({
@@ -445,13 +451,15 @@ filters.</p>
 <ul>
 <li><code>container</code>: refers to the parent <code>div</code> class that
 contains the widget.</li>
-</ul></li>
+</ul>
+</li>
 <li><code>template</code>:
 <ul>
 <li><code>container</code>: is the template string for the element.</li>
-</ul></li>
 </ul>
-<h2>Search result</h2>
+</li>
+</ul>
+<h2 id="search-result"><a name="search-result" class="fa fa-link" href="#"></a>Search result</h2>
 <p>The result widget allows you to print a set of results
 based on the search.</p>
 <pre><code class="language-javascript"><span class="hljs-keyword">const</span> resultWidget = ui.widgets.result({
@@ -490,13 +498,15 @@ each resulted element.</li>
 <ul>
 <li><code>container</code>: refers to the parent <code>div</code> class that
 contains the widget.</li>
-</ul></li>
+</ul>
+</li>
 <li><code>template</code>:
 <ul>
 <li><code>itemsList</code>: is the template string of the iterable set of results.</li>
 <li><code>placeholder</code>: this template will be placed on initial widget render.
 Once a search is performed, this placeholder will disappear.</li>
-</ul></li>
+</ul>
+</li>
 <li><code>formatData</code>: is a callable function that receives all the resulted
 data, is useful to transform some information received before being passed
 to the template.</li>
@@ -548,7 +558,7 @@ passing the string to the <code>body</code> template attribute:</p>
 <p>For more information about how this templating system works,
 refer to the <a href="http://twitter.github.io/hogan.js/">twitter’s hogan.js documentation</a>.
 Or check the library examples.</p>
-<h2>Pagination</h2>
+<h2 id="pagination"><a name="pagination" class="fa fa-link" href="#"></a>Pagination</h2>
 <p>This widget allows to navigate through the results
 with a pagination links.</p>
 <pre><code class="language-javascript"><span class="hljs-keyword">const</span> resultInformationWidget = ui.widgets.pagination({
@@ -593,7 +603,8 @@ this class.</li>
 <li><code>first</code>: class name of the first page button.</li>
 <li><code>previous</code>: class name of the previous page button.</li>
 <li><code>last</code>: class name of the last page button.</li>
-</ul></li>
+</ul>
+</li>
 <li><code>template</code>:
 <ul>
 <li><code>item</code>: template string of the page item. This property will
@@ -602,9 +613,10 @@ have the page number available using the mustache notation <code>{{page}}</code>
 <li><code>first</code>: template string of the first page button.</li>
 <li><code>previous</code>: template string of the previous page button.</li>
 <li><code>last</code>: template string of the last page button.</li>
-</ul></li>
 </ul>
-<h2>Information (Result info)</h2>
+</li>
+</ul>
+<h2 id="information-result-info"><a name="information-result-info" class="fa fa-link" href="#"></a>Information (Result info)</h2>
 <p>The result information widget allows you to provide
 to a user some extra information about the search.
 Currently only can show the <strong>number of hits</strong> of
@@ -627,19 +639,21 @@ the current search and the total <strong>number of items</strong>.</p>
 <ul>
 <li><code>container</code>: refers to the parent <code>div</code> class that
 contains the widget.</li>
-</ul></li>
+</ul>
+</li>
 <li><code>template</code>:
 <ul>
 <li><code>container</code>: is the template string of the result information.
 The variables <code>{{total_hits}}</code> and <code>{{total_items}}</code> can be used
 on the template.</li>
-</ul></li>
+</ul>
+</li>
 <li><code>formatData</code>: is a callable function that receives the resulted
 data related to the information widget: <code>total_hits</code> and <code>total_items</code>.
 Is useful to transform some information received before being passed
 to the template.</li>
 </ul>
-<h2>Multiple instances</h2>
+<h2 id="multiple-instances"><a name="multiple-instances" class="fa fa-link" href="#"></a>Multiple instances</h2>
 <p>When working with ApisearchUI you have to keep in mind that you
 can work with multiple ApisearchUI instances at once.</p>
 <p>This instances need a client to request all the data from the Apisearch

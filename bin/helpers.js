@@ -1,9 +1,6 @@
-const Remarkable = require("remarkable");
-const meta = require("remarkable-meta");
-const toc = require('markdown-toc');
 const fs = require("fs");
-const hljs = require('highlight.js');
 const path = require("path");
+const MarkdownParser = require("./parser/MarkdownParser")
 
 const CONTENT_DIR = path.resolve(__dirname, '../src/content');
 const DIST_DIR = path.resolve(__dirname, '../docs');
@@ -22,33 +19,14 @@ function getFileTargetPath(fileSystemPath) {
 }
 
 function parseMarkdownFile(contentString) {
-    let md = new Remarkable('full', {
-        html: true,
-        langPrefix:'language-',
-        typographer: true,
-        linkify: true,
-        highlight: function (str, lang) {
-            if (lang && hljs.getLanguage(lang)) {
-                try {
-                    return hljs.highlight(lang, str).value;
-                } catch (__) {}
-            }
+    let parser = new MarkdownParser(contentString);
 
-            try {
-                return hljs.highlightAuto(str).value;
-            } catch (__) {}
-
-            return '';
-        }
-    });
-    md.use(meta);
-    let content = md.render(contentString);
-
-    md.use(toc.plugin({}));
-    let tableOfContent = md.render(contentString).json;
+    let meta = parser.getMeta();
+    let tableOfContent = parser.getJsonFormattedTOC();
+    let content = parser.getHtml();
 
     return {
-        ...md.meta,
+        ...meta,
         tableOfContent,
         content
     };

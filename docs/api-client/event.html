@@ -255,12 +255,12 @@
             <main class="col-sm-8 col-md-8 ml-sm-auto mr-sm-auto pt-3" role="main">
                 <section class="c-content">
                     <!-- Content -->
-                    <h1>Event</h1>
+                    <h1 id="event"><a name="event" class="fa fa-link" href="#"></a>Event</h1>
 <p>Do you remember that each Repository interaction creates a simple Event? That is
 because we track every single movement you make to our servers. And this is good
 because then you can make some external conclusions by retrieving, checking and
 manipulating these events.</p>
-<h2>Event Repository</h2>
+<h2 id="event-repository"><a name="event-repository" class="fa fa-link" href="#"></a>Event Repository</h2>
 <p>So let’s take a look at how you can retrieve all these events and check as many
 metrics as you want. With this example, we get all first 100 Queries done from
 yesterday at same hour until now.</p>
@@ -278,7 +278,7 @@ $repository-&gt;all(
 );
 </code></pre>
 <p>You can check all the Event types after some chapters.</p>
-<h2>Event Object</h2>
+<h2 id="event-object"><a name="event-object" class="fa fa-link" href="#"></a>Event Object</h2>
 <p>Each EventRepository call will return an array of Event instances. Each one of
 them is a very simple class that has everything involved in the event itself.</p>
 <pre><code class="language-php"><span class="hljs-comment">/**
@@ -333,12 +333,12 @@ them is a very simple class that has everything involved in the event itself.</p
 you decode it if you want to digg into the event content.</p>
 <pre><code class="language-php">$payload = json_decode($event-&gt;getPayload(), <span class="hljs-keyword">true</span>);
 </code></pre>
-<h2>Event types</h2>
+<h2 id="event-types"><a name="event-types" class="fa fa-link" href="#"></a>Event types</h2>
 <p>Each type of action against your data set means a different event. To be honest,
 once you have all the events sorted over the time, you should be able to
 regenerate your index from the first time you generated it.</p>
 <p>We can divide the events in two big groups</p>
-<h3>Write online events</h3>
+<h3 id="write-online-events"><a name="write-online-events" class="fa fa-link" href="#"></a>Write online events</h3>
 <p>These events will only write elements in your index. This means that no response
 is expected at all.</p>
 <ul>
@@ -350,7 +350,7 @@ is expected at all.</p>
 You will find the item content inside each ItemsWereIndexed events, so if in the
 future you need to rewrite the entire index from the beginning, you will notice
 that you can check items values from the past.</p>
-<h3>Readonly events</h3>
+<h3 id="readonly-events"><a name="readonly-events" class="fa fa-link" href="#"></a>Readonly events</h3>
 <p>These events don’t cause any index change. It is not really important the order
 over the time, only for statistics purposes.</p>
 <ul>

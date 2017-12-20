@@ -255,7 +255,7 @@
             <main class="col-sm-8 col-md-8 ml-sm-auto mr-sm-auto pt-3" role="main">
                 <section class="c-content">
                     <!-- Content -->
-                    <h1>Result</h1>
+                    <h1 id="result"><a name="result" class="fa fa-link" href="#"></a>Result</h1>
 <p>A Query instance creates a Result instance. A Result is not only a set of basic
 elements from our dataset (Product, Category…) but as well a set of
 aggregations, result of our filters.</p>
@@ -283,7 +283,7 @@ have the number of elements in your universe.</li>
 number of Items you have in your Result object, but the Items you can reach in
 total by paginating along the result hits.</li>
 </ul>
-<h2>Reading Aggregations</h2>
+<h2 id="reading-aggregations"><a name="reading-aggregations" class="fa fa-link" href="#"></a>Reading Aggregations</h2>
 <p>The other important part of the Result object is the Aggregation set. In order
 to iterate over all Aggregations you can make a simple foreach over the result
 of the <code>-&gt;getAggregations()</code> result (returns an implementation of the PHP
@@ -309,7 +309,7 @@ through the filter). Each active element is defined as a counter as well.</li>
 <li>-&gt;sortByName() - Sort all counters by its name. This method has only internal
 effects and no result is provided</li>
 </ul>
-<h2>Aggregation Counter</h2>
+<h2 id="aggregation-counter"><a name="aggregation-counter" class="fa fa-link" href="#"></a>Aggregation Counter</h2>
 <p>Each aggregation, mainly, is composed by a name and a set of counters. Each one
 has these methods.</p>
 <ul>
@@ -329,7 +329,7 @@ commonly printed in your app.</li>
 </code></pre>
 <p>This is all you need to know about the Result objects. This objects architecture
 will allow you to print all the final information for your final user.</p>
-<h2>Reading Suggestions</h2>
+<h2 id="reading-suggestions"><a name="reading-suggestions" class="fa fa-link" href="#"></a>Reading Suggestions</h2>
 <p>If your query had the suggests enabled, then you will find some suggestions in
 your Result instance by using the getter method.</p>
 <pre><code class="language-php">$suggests = $result-&gt;getSuggests();

@@ -255,7 +255,7 @@
             <main class="col-sm-8 col-md-8 ml-sm-auto mr-sm-auto pt-3" role="main">
                 <section class="c-content">
                     <!-- Content -->
-                    <h1>Repository</h1>
+                    <h1 id="repository"><a name="repository" class="fa fa-link" href="#"></a>Repository</h1>
 <p>OK, so now we know how to manage all our model objects. How they interact
 between them and how we should integrate them with our code.</p>
 <p>But how it really works? We need an interface where we can communicate with an
@@ -269,7 +269,7 @@ please check the <a href="#event-repository">EventRepository</a> chapter.</p>
 <p>All repository implementations, before being used, need your API secret in order
 to make sure you’re using the right repository.</p>
 <p>Let’s take a look at all our repository interfaces</p>
-<h2>HttpRepository {#http-repository}</h2>
+<h2 id="httprepository"><a name="httprepository" class="fa fa-link" href="#"></a>HttpRepository</h2>
 <p>This is the main implementation of this repository, ready for production
 purposes and defined for pointing to our main servers.</p>
 <p>In order to make it work, you’ll need a HTTPClient implementation. In that case,
@@ -280,7 +280,7 @@ GuzzleClient implementation.</p>
 );
 $repository-&gt;setKey(<span class="hljs-string">'mysecretkey'</span>);
 </code></pre>
-<h2>TransformableRepository {#transformable-repository}</h2>
+<h2 id="transformablerepository"><a name="transformablerepository" class="fa fa-link" href="#"></a>TransformableRepository</h2>
 <p>This is a small wrapper of the simple HttpRepository, ready to understand and
 interact with your own Domain, instead of working with Items.</p>
 <p>Before understanding how this adapter work, we should understand what a
@@ -443,7 +443,7 @@ transformation.</p>
 only a few Transformers implementing ReadTransformer interface is not a good
 thing.</p>
 </blockquote>
-<h2>InMemoryRepository {#in-memory-repository}</h2>
+<h2 id="inmemoryrepository"><a name="inmemoryrepository" class="fa fa-link" href="#"></a>InMemoryRepository</h2>
 <p>Only for development and testing purposes. Not all endpoints are available, and
 not all features can be done by using a simple in-memory array, so you’ll be
 able to index, delete, reset and perform basic queries (remember, in memory,
@@ -452,7 +452,7 @@ this means that between requests, this won’t work at all).</p>
 $repository-&gt;setKey(<span class="hljs-string">'mysecretkey'</span>);
 </code></pre>
 <p>So what can I do with any of these implementations?</p>
-<h2>Reset</h2>
+<h2 id="reset"><a name="reset" class="fa fa-link" href="#"></a>Reset</h2>
 <p>Do you want to reset your entire index? That easy. One single call and all your
 read-only data will be completely erased.</p>
 <pre><code class="language-php">$repository-&gt;reset();
@@ -463,7 +463,7 @@ defined, then some internal improvements are performed in order to provide
 better experience on search time.</p>
 <pre><code class="language-php">$repository-&gt;reset(<span class="hljs-string">'en'</span>);
 </code></pre>
-<h2>Index</h2>
+<h2 id="index"><a name="index" class="fa fa-link" href="#"></a>Index</h2>
 <p>This repository endpoint aims to let you add your entities in the database. Of
 course, to understand how easy is to do that, first of all you need to
 understand how the model is modeled (the first chapter of this documentation is
@@ -477,7 +477,7 @@ $repository-&gt;addObject($product);
 </code></pre>
 <p>This method only prepares this new item to be added/modified, but does’nt
 change it actually</p>
-<h2>Delete</h2>
+<h2 id="delete"><a name="delete" class="fa fa-link" href="#"></a>Delete</h2>
 <p>Deletes an existing element from your repository. In order to use this endpoint,
 you need to work with Item references.</p>
 <pre><code class="language-php">$itemUUID = <span class="hljs-keyword">new</span> ItemUUID(<span class="hljs-string">'10'</span>, <span class="hljs-string">'product'</span>);
@@ -490,7 +490,7 @@ $repository-&gt;deleteObject($product);
 </code></pre>
 <p>This method only prepares this new item to be deleted, but does’nt change it
 actually</p>
-<h2>Flush</h2>
+<h2 id="flush"><a name="flush" class="fa fa-link" href="#"></a>Flush</h2>
 <p>Perform real changes by having a stack of additions and deletions.</p>
 <pre><code class="language-php">$repository-&gt;flush();
 </code></pre>
@@ -503,7 +503,7 @@ will contain 100 elements maximum. By default this value is set to 500.</p>
 we can use the second parameter by setting it to true.</p>
 <pre><code class="language-php">$repository-&gt;flush(<span class="hljs-number">100</span>, <span class="hljs-keyword">true</span>);
 </code></pre>
-<h2>Query {#query-repository}</h2>
+<h2 id="query"><a name="query" class="fa fa-link" href="#"></a>Query</h2>
 <p>This endpoint will be a very important part of your integration, so allow you
 to, given a Query instance, get a Result instance.</p>
 <pre><code class="language-php">$result = $repository-&gt;query(Query $query) : Result
@@ -536,23 +536,23 @@ bit more about this object, check the documentation chapter.</p>
                     </li>
                     <li class="c-toc__navItem c-toc__navItem--2 nav-item">
                         <a class="c-toc__navLink c-toc__navLink--title nav-link"
-                           href="#httprepository-#http-repository"
+                           href="#httprepository"
                         >
-                            HttpRepository {#http-repository}
+                            HttpRepository
                         </a>
                     </li>
                     <li class="c-toc__navItem c-toc__navItem--2 nav-item">
                         <a class="c-toc__navLink c-toc__navLink--title nav-link"
-                           href="#transformablerepository-#transformable-repository"
+                           href="#transformablerepository"
                         >
-                            TransformableRepository {#transformable-repository}
+                            TransformableRepository
                         </a>
                     </li>
                     <li class="c-toc__navItem c-toc__navItem--2 nav-item">
                         <a class="c-toc__navLink c-toc__navLink--title nav-link"
-                           href="#inmemoryrepository-#in-memory-repository"
+                           href="#inmemoryrepository"
                         >
-                            InMemoryRepository {#in-memory-repository}
+                            InMemoryRepository
                         </a>
                     </li>
                     <li class="c-toc__navItem c-toc__navItem--2 nav-item">
@@ -585,9 +585,9 @@ bit more about this object, check the documentation chapter.</p>
                     </li>
                     <li class="c-toc__navItem c-toc__navItem--2 nav-item">
                         <a class="c-toc__navLink c-toc__navLink--title nav-link"
-                           href="#query-#query-repository"
+                           href="#query"
                         >
-                            Query {#query-repository}
+                            Query
                         </a>
                     </li>
                 </ul>

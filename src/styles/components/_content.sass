@@ -24,12 +24,14 @@
     background-image: linear-gradient(90deg,#00c3b5,#1fdea6)
     font-weight: 500
     border-radius: 3px 3px 0 0
+    & .fa.fa-link
+      display: none
 
   & h2
     font-weight: 600
     border-bottom: 2px solid #64ffda
     padding-bottom: 1rem
-    margin: 5rem 1.6rem 2rem
+    margin: 0 1.6rem 2rem
     border-bottom: .2rem solid #e6e6e6
 
   & h3
@@ -37,13 +39,26 @@
     font-size: 1.5rem
     padding-left: 1.6rem
     padding-right: 1.6rem
-    margin-top: 3rem
+    margin-top: 0
 
   & h4,
   & h5,
   & h6
-    margin: 3rem 1.6rem 1rem
+    margin: 0 1.6rem 1rem
     font-weight: 600
+
+  & h2,
+  & h3,
+  & h4,
+  & h5
+    padding-top: 6rem
+    position: relative
+    top: -20px
+    bottom: 0
+    margin-bottom: 0
+    & .fa.fa-link
+      color: inherit
+      margin-right: 1rem
 
   & pre
     margin-right: 1.6rem

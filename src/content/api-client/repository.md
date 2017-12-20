@@ -33,7 +33,7 @@ to make sure you're using the right repository.
 
 Let's take a look at all our repository interfaces
 
-## HttpRepository {#http-repository}
+## HttpRepository
 
 This is the main implementation of this repository, ready for production
 purposes and defined for pointing to our main servers.
@@ -49,7 +49,7 @@ $repository = new HttpRepository(
 $repository->setKey('mysecretkey');
 ```
 
-## TransformableRepository {#transformable-repository}
+## TransformableRepository
 
 This is a small wrapper of the simple HttpRepository, ready to understand and
 interact with your own Domain, instead of working with Items.
@@ -227,7 +227,7 @@ transformation.
 > only a few Transformers implementing ReadTransformer interface is not a good
 > thing.
 
-## InMemoryRepository {#in-memory-repository}
+## InMemoryRepository
 
 Only for development and testing purposes. Not all endpoints are available, and
 not all features can be done by using a simple in-memory array, so you'll be
@@ -325,7 +325,7 @@ we can use the second parameter by setting it to true.
 $repository->flush(100, true);
 ```
 
-## Query {#query-repository}
+## Query
 
 This endpoint will be a very important part of your integration, so allow you
 to, given a Query instance, get a Result instance.

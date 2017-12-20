@@ -434,7 +434,7 @@ Query::createMatchAll()
     );
 ```
 
-## Aggregations {#query-aggregations}
+## Aggregations
 
 Once we have applied our filters, part of the result set is what we call
 aggregations. This concept is usually understood as well as facets and is the

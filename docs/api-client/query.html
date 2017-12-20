@@ -255,12 +255,12 @@
             <main class="col-sm-8 col-md-8 ml-sm-auto mr-sm-auto pt-3" role="main">
                 <section class="c-content">
                     <!-- Content -->
-                    <h1>Query</h1>
+                    <h1 id="query"><a name="query" class="fa fa-link" href="#"></a>Query</h1>
 <p>Knowing how our model is defined, let’s start by knowing how to make a simple
 Query Request. Query objects will give us the possibility of communication
 between our project and the server by just using some object methods, and by
 using a single pattern called builder.</p>
-<h2>Building a Query</h2>
+<h2 id="building-a-query"><a name="building-a-query" class="fa fa-link" href="#"></a>Building a Query</h2>
 <p>Let’s start with something really easy.</p>
 <pre><code><span class="hljs-variable">$query</span> = <span class="hljs-symbol">Query:</span><span class="hljs-symbol">:create</span>(<span class="hljs-string">"something"</span>);
 </code></pre>
@@ -302,7 +302,7 @@ $query = Query::createByUUIDs([
 </code></pre>
 <p>The order is not important here, and the result format will be exactly the same
 than any other type of queries.</p>
-<h2>Filters</h2>
+<h2 id="filters"><a name="filters" class="fa fa-link" href="#"></a>Filters</h2>
 <p>Once a new Query is created you can start by filtering your results. This
 library provides a developer friendly way for defining filters by exposing you a
 nice set of public methods.</p>
@@ -325,7 +325,7 @@ E.g. categories.</li>
 application. Depending on that value, the filter will cause different values and
 the resulting aggregation (facet) will change, even on your screen. Let’s take a
 look at the different filters we can apply.</p>
-<h2>Must all with levels</h2>
+<h2 id="must-all-with-levels"><a name="must-all-with-levels" class="fa fa-link" href="#"></a>Must all with levels</h2>
 <p>An special explanation of this aggregation type.</p>
 <p>Imagine your item is categorized with a tree-like structure.</p>
 <ul>
@@ -335,7 +335,7 @@ look at the different filters we can apply.</p>
 </ul>
 <p>You item could be related with a first-level category, and with one if its
 subcategories. For example, your Item is categorized as A and A2 at the same
-time.In that case you should relate your item with both, but adding an extra
+<a href="http://time.In">time.In</a> that case you should relate your item with both, but adding an extra
 field in your categories called <em>level</em>. The level of the category.</p>
 <p>When you print these aggregations and you’ve defined this categorization as
 MUST_ALL_WITH_LEVELS, you will print only these categories with the current
@@ -353,7 +353,7 @@ A1 and A2, the aggregations will appear like that.</p>
 <li>[ ] Category A1</li>
 <li>[ ] Category A2</li>
 </ul>
-<h2>Filter types</h2>
+<h2 id="filter-types"><a name="filter-types" class="fa fa-link" href="#"></a>Filter types</h2>
 <p>We will mainly talk about two different filter types, and it is very important
 for you to understand both, why are they important and where to use each one.</p>
 <p>First of all, we have something called Universe. We will call Universe to the
@@ -375,7 +375,7 @@ through this universe by using the standard filters.</p>
 will see both methods will always change a little bit (regular filters will
 always have a name as first parameter in order to relate later with a possible
 aggregation).</p>
-<h2>Filtering by Type</h2>
+<h2 id="filtering-by-type"><a name="filtering-by-type" class="fa fa-link" href="#"></a>Filtering by Type</h2>
 <p>So, try to imagine an environment when, even you have types A, B and C, you only
 want to work with A and B. In this environment C is not welcomed, and you don’t
 want C Items to be in any set of results.</p>
@@ -443,7 +443,7 @@ this parameter is set to <em>SORT_BY_COUNT_DESC</em>.</p>
         Aggregation::SORT_BY_COUNT_ASC
     );
 </code></pre>
-<h2>Filtering By Id</h2>
+<h2 id="filtering-by-id"><a name="filtering-by-id" class="fa fa-link" href="#"></a>Filtering By Id</h2>
 <p>You can filter universe as well by ids. In that case, you can image that, no
 matter what or how filters you add. Your result set will be of maximum 3 items.</p>
 <pre><code class="language-php">$query = Query::createMatchAll()
@@ -456,7 +456,7 @@ to select a set of items from a list.</p>
 <pre><code class="language-php">$query = Query::createMatchAll()
     -&gt;filterByIds([<span class="hljs-string">'10'</span>, <span class="hljs-string">'11'</span>, <span class="hljs-string">'12'</span>]);
 </code></pre>
-<h2>Filter by location</h2>
+<h2 id="filter-by-location"><a name="filter-by-location" class="fa fa-link" href="#"></a>Filter by location</h2>
 <p>You can filter your universe as well by Location if your Items are Geolocated.
 This will allow you to work only with some Items positioned in a certain area.
 You can use any of <a href="#location-ranges">Location Ranges</a> explained previously.</p>
@@ -469,7 +469,7 @@ You can use any of <a href="#location-ranges">Location Ranges</a> explained prev
 <p>Location is something that you should filter by just once. And because you can’t
 aggregate by locations, it has’nt make sense at all to have both filters,
 universe and regular, so they both mean exactly the same.</p>
-<h2>Filter by range</h2>
+<h2 id="filter-by-range"><a name="filter-by-range" class="fa fa-link" href="#"></a>Filter by range</h2>
 <p>You can filter your universe as well by range. Depending if the filter uses a
 date range or not, you should use one of these methods. Let’s imagine a landing
 page where to list all T-shirts with low price (up to 20 euros). We want to add
@@ -522,7 +522,7 @@ the sixth one.</p>
 <p>As you can see, this last example would return an empty set of elements as we
 don’t have any item with a price lower than 60 euros and, at the same time,
 higher than 90. Basics of logic of sets.</p>
-<h2>Filter by field</h2>
+<h2 id="filter-by-field"><a name="filter-by-field" class="fa fa-link" href="#"></a>Filter by field</h2>
 <p>Finally, and of course, you can filter your universe by any value inserted in
 your indexed_metadata array. Let’s take our first example, and let’s create a
 landing page for only products from brand <em>Supershirts</em>. Other brands will not
@@ -568,12 +568,12 @@ override it later with a more specific aggregation configuration.</p>
         <span class="hljs-keyword">false</span>
     );
 </code></pre>
-<h2>Aggregations {#query-aggregations}</h2>
+<h2 id="aggregations"><a name="aggregations" class="fa fa-link" href="#"></a>Aggregations</h2>
 <p>Once we have applied our filters, part of the result set is what we call
 aggregations. This concept is usually understood as well as facets and is the
 part of your application where filters are dynamically generated by using the
 total number of results in the data set.</p>
-<p>For example, if we can filter by the item’s manufacturer 'Nike’, but with the
+<p>For example, if we can filter by the item’s manufacturer ‘Nike’, but with the
 current set of filters, there is not elements manufactured by Nike available,
 Nike should’nt be available. Otherwise, if it is, then we should have the
 capability of showing the final user the real number of Nike elements available.</p>
@@ -643,7 +643,7 @@ parameter to <code>true</code>, but disabled by flag, so no aggregations will be
     -&gt;disabledAggregations()
 ;
 </code></pre>
-<h2>Sort by field</h2>
+<h2 id="sort-by-field"><a name="sort-by-field" class="fa fa-link" href="#"></a>Sort by field</h2>
 <p>You can sort your results, of course. The Query object provides one method for
 this, and the SortBy object defines a prebuilt set of sorting types ready to be
 used by you. You can define the sorting field and the type by yourself.</p>
@@ -674,7 +674,7 @@ This is the list of all of them.</p>
 ;
 </code></pre>
 <p>When you define a sort element, you override the existing one.</p>
-<h2>Sort by location</h2>
+<h2 id="sort-by-location"><a name="sort-by-location" class="fa fa-link" href="#"></a>Sort by location</h2>
 <p>A set of special sorting types can sort as well by location. In order to make
 this sorting work, we must create our Query instance by using the method
 <code>createLocated()</code> instead of <code>create()</code>. The only difference between both is
@@ -705,13 +705,13 @@ defined and filled only in this scenario. The result of this method is a float
 value.</p>
 <pre><code class="language-php">$item-&gt;getDistance();
 </code></pre>
-<h2>Sort randomly</h2>
+<h2 id="sort-randomly"><a name="sort-randomly" class="fa fa-link" href="#"></a>Sort randomly</h2>
 <p>You can sort your elements in a random way by using the fast predefined value</p>
 <pre><code class="language-php">Query::createMatchAll()
     -&gt;sortBy(SortBy::RANDOM)
 ;
 </code></pre>
-<h2>Enabling suggestions</h2>
+<h2 id="enabling-suggestions"><a name="enabling-suggestions" class="fa fa-link" href="#"></a>Enabling suggestions</h2>
 <p>Suggestions can be enabled or disabled by using these flag methods.</p>
 <pre><code class="language-php">Query::create(<span class="hljs-string">''</span>)
     -&gt;disableAggregations()
@@ -723,7 +723,7 @@ Query::create(<span class="hljs-string">''</span>)
 </code></pre>
 <p>Please, read <a href="#reading-suggestions">Reading Suggestions</a> to know a little bit
 more about suggestions.</p>
-<h2>Excluding some elements</h2>
+<h2 id="excluding-some-elements"><a name="excluding-some-elements" class="fa fa-link" href="#"></a>Excluding some elements</h2>
 <p>Having some kind of black list would be useful as well. For example, when
 printing a related carousel given an item, and filtering by the type,
 would be useful to exclude the current element from the list.</p>
@@ -841,9 +841,9 @@ composition between the ID and the type.</p>
                     </li>
                     <li class="c-toc__navItem c-toc__navItem--2 nav-item">
                         <a class="c-toc__navLink c-toc__navLink--title nav-link"
-                           href="#aggregations-#query-aggregations"
+                           href="#aggregations"
                         >
-                            Aggregations {#query-aggregations}
+                            Aggregations
                         </a>
                     </li>
                     <li class="c-toc__navItem c-toc__navItem--2 nav-item">
