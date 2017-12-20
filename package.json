@@ -59,6 +59,7 @@
     "markdown-toc": "^1.2.0",
     "remarkable": "^1.7.1",
     "remarkable-meta": "^1.0.1",
+    "sections": "^1.0.0",
     "walk": "^2.3.9"
   }
 }

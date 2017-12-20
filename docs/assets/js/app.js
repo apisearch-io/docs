@@ -5428,16 +5428,16 @@ var ResultComponent = function (_Component) {
 
             var reducedTemplateData = {
                 query: data ? data.query.q : '',
-                items: data ? data.items : []
+                items: data.items ? data.items : []
             };
 
             /**
              * Format each item data
              */
             var formattedTemplateData = _extends({}, reducedTemplateData, {
-                items: reducedTemplateData.items ? reducedTemplateData.items.map(function (item) {
+                items: reducedTemplateData.items.map(function (item) {
                     return formatData(item);
-                }) : []
+                })
             });
 
             return (0, _preact.h)(

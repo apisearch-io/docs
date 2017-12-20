@@ -22,11 +22,11 @@ function getFileTargetPath(fileSystemPath) {
 }
 
 function parseMarkdownFile(contentString) {
-    let md = new Remarkable({
+    let md = new Remarkable('full', {
         html: true,
         langPrefix:'language-',
         typographer: true,
-        linkify:      true,
+        linkify: true,
         highlight: function (str, lang) {
             if (lang && hljs.getLanguage(lang)) {
                 try {

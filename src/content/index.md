@@ -17,18 +17,3 @@ tags:
 # Apisearch docs
 
 Here will go the main index
-
-```js
-const docFolder = 'source/docs'
-const docPath = `./${docFolder}`;
-const fileGlob = '**/*.md'
-const publicFolder = 'public';
-const htmlTemplate = fs.readFileSync('source/doc.template.html', 'utf8')
-```
-    
-```swift
-func application(_ application: UIApplication) -> Bool {
-    sampleApp = SampleApplication()
-    return true
-}
-```

@@ -17,6 +17,7 @@ tags:
 # Widgets
 
 ## Simple Search
+
 The simple search input widget is to perform text based 
 searches.
 

@@ -1,5 +1,6 @@
 const codeBlocks = require('gfm-code-blocks');
 const _ = require("lodash");
+const sections = require('sections');
 
 /**
  * Apisearch transformer
@@ -14,6 +15,8 @@ function apisearchTransformer(docsArray) {
             "lvl"
         );
         let code = codeBlocks(doc.originalContent);
+
+        //console.log(sections.parse(doc.originalContent));
 
         return {
             uuid: {
