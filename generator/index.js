@@ -2,6 +2,7 @@ const hogan = require("hogan.js");
 const fsPath = require("fs-path");
 const walk = require("walk");
 const path = require("path");
+const rmdir = require('rimraf');
 const _ = require("lodash");
 
 const apisearchTransformer = require("./apisearch/apisearchTransformer");
@@ -12,6 +13,7 @@ const getAssetsRelativePath = require("./helpers").getAssetsRelativePath;
 const getFileTargetPath = require("./helpers").getFileTargetPath;
 
 const CONTENT_DIR = path.resolve(__dirname, '../src/content');
+const DOCS_DIR = path.resolve(__dirname, '../docs');
 const TEMPLATES_DIR = path.resolve(__dirname, '../src/templates');
 const SRC_DIR = path.resolve(__dirname, '../src');
 
@@ -19,6 +21,20 @@ const SRC_DIR = path.resolve(__dirname, '../src');
  * Main executable function
  */
 (function () {
+    /**
+     * remove docs dir
+     */
+    rmdir(DOCS_DIR, function(error) {
+        if (error) {
+            console.log("Error cleaning docs directory", error);
+            return false;
+        }
+        console.log("Docs directory cleaned!")
+    });
+
+    /**
+     * Walk content files
+     */
     let walker = walk.walk(CONTENT_DIR, {
         followLinks: false
     });

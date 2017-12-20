@@ -15,17 +15,16 @@
     "documentation-tool"
   ],
   "watch": {
-    "dev:generate": {
+    "dev": {
       "patterns": "src",
       "extensions": "js,sass,mustache,md"
     }
   },
   "scripts": {
-    "clear": "rm -rf ./docs/*",
-    "dev:website": "webpack --config ./webpack.web.js --progress --colors && webpack-dev-server --config ./webpack.web.js --content-base . --inline --hot --port 1234",
-    "build:website": "webpack --config ./webpack.web.js",
-    "dev:generate": "npm run clear; node ./bin/docgen.js; npm run dev:website;",
-    "build:generate": "npm run clear; node ./bin/docgen.js; npm run build:website;",
+    "server": "webpack-dev-server --config ./webpack.web.js --content-base . --inline --hot --port 1234",
+    "dev:website": "webpack --config ./webpack.web.js",
+    "dev": "./docgen; npm run dev:website; npm run server",
+    "build": "./docgen; npm run build:website",
     "generate:watch": "npm-watch"
   },
   "devDependencies": {
@@ -46,16 +45,7 @@
     "style-loader": "^0.19.0",
     "webpack": "^3.5.5",
     "webpack-dev-server": "^2.9.7",
-    "yargs": "^8.0.2"
-  },
-  "dependencies": {
-    "apisearch-ui": "^0.1.19",
-    "bootstrap": "4.0.0-beta.2",
-    "fs-path": "0.0.23",
-    "gfm-code-blocks": "^1.0.0",
-    "highlight.js": "^9.12.0",
-    "hogan.js": "^3.0.2",
-    "lodash": "^4.17.4",
+    "yargs": "^8.0.2",
     "markdown-it": "^8.4.0",
     "markdown-it-headinganchor": "^1.3.0",
     "markdown-toc": "^1.2.0",
@@ -63,6 +53,16 @@
     "remarkable-meta": "^1.0.1",
     "sections": "^1.0.0",
     "uslug": "^1.0.4",
-    "walk": "^2.3.9"
+    "walk": "^2.3.9",
+    "fs-path": "0.0.23",
+    "highlight.js": "^9.12.0",
+    "hogan.js": "^3.0.2"
+  },
+  "dependencies": {
+    "apisearch-ui": "^0.1.19",
+    "bootstrap": "4.0.0-beta.2",
+    "gfm-code-blocks": "^1.0.0",
+    "lodash": "^4.17.4",
+    "rimraf": "^2.6.2"
   }
 }
