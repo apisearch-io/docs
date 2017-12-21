@@ -22,9 +22,10 @@
   },
   "scripts": {
     "server": "webpack-dev-server --config ./webpack.web.js --content-base . --inline --hot --port 1234",
+    "media": "cp -r ./src/media ./docs/assets/",
     "dev:website": "webpack --config ./webpack.web.js",
     "dev": "./docgen; npm run dev:website; npm run server",
-    "build": "./docgen; npm run build:website",
+    "build": "./docgen; npm run media; npm run dev:website",
     "generate:watch": "npm-watch"
   },
   "devDependencies": {

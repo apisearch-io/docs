@@ -2,8 +2,9 @@ const hogan = require("hogan.js");
 const fsPath = require("fs-path");
 const walk = require("walk");
 const path = require("path");
-const rmdir = require('rimraf');
 const _ = require("lodash");
+const exec = require('child_process').exec;
+
 
 const apisearchTransformer = require("./apisearch/apisearchTransformer");
 const fileToString = require("./helpers").fileToString;
@@ -24,12 +25,13 @@ const SRC_DIR = path.resolve(__dirname, '../src');
     /**
      * remove docs dir
      */
-    rmdir(DOCS_DIR, function(error) {
+    exec("rm -rf " + DOCS_DIR + "/**/*.html", (error) => {
         if (error) {
-            console.log("Error cleaning docs directory", error);
+            console.log("Error cleaning docs directory.", error);
             return false;
         }
-        console.log("Docs directory cleaned!")
+
+        console.log("Docs directory cleaned!");
     });
 
     /**

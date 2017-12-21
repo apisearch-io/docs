@@ -16,6 +16,15 @@ tags:
 
 # Widgets
 
+Widgets are nothing but a small pieces of html connected between them that let
+you build a fully customized search experience. They can be used as a search input,
+a result set, a pagination component, different kind of filters, and many more. 
+
+Widgets are powerful and super fast, but when combined, can become an incredible 
+unique search that will boost your e-commerce, aggregator, or your documentation 
+site!
+
+
 ## Simple Search
 
 The simple search input widget is to perform text based 
