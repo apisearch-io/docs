@@ -58,3 +58,16 @@ READ file-name NEXT RECORD INTO ws-file-structure
    NOT AT END DISPLAY 'Record Details:' ws-file-structure
 END-READ.
 ```
+
+This is how to install:
+```html
+<html>
+Hello
+</html>
+```
+This is how to install:
+```javascript::ignore
+<html>
+Hello
+</html>
+```

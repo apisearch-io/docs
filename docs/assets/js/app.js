@@ -27426,7 +27426,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var COOKIE_NAME = 'apisearch_docs_last_selected_lang';
-var TARGET_CLASS_NAME = '.c-languageSelector__link';
+var TARGET_CLASS_SELECTOR = '.c-languageSelector__link';
 var ACTIVE_CLASS_NAME = 'c-languageSelector__link--active';
 var ACTIVE_CLASS_SELECTOR = '.c-languageSelector__link--active';
 
@@ -27437,14 +27437,16 @@ var LanguageSelector = function () {
     function LanguageSelector() {
         _classCallCheck(this, LanguageSelector);
 
-        var availableLanguages = document.querySelectorAll(TARGET_CLASS_NAME);
+        var availableLanguages = document.querySelectorAll(TARGET_CLASS_SELECTOR);
 
         if (!availableLanguages) {
             return;
         }
 
-        this.selectDefaultLanguage(availableLanguages);
-        this.addDOMEventListeners(availableLanguages);
+        this.availableLanguages = availableLanguages;
+
+        this.selectDefaultLanguage();
+        this.addDOMEventListeners();
     }
 
     /**
@@ -27472,6 +27474,22 @@ var LanguageSelector = function () {
              * Set current language on cookies jar
              */
             _jsCookie2.default.set(COOKIE_NAME, language);
+
+            /**
+             * Open code blocks
+             */
+            this.availableLanguages.forEach(function (element) {
+                var elementLanguage = element.getAttribute('data-lang');
+                if (elementLanguage === language) {
+                    document.querySelectorAll('.language-' + elementLanguage).forEach(function (block) {
+                        block.parentElement.style.display = 'block';
+                    });
+                } else {
+                    document.querySelectorAll('.language-' + elementLanguage).forEach(function (block) {
+                        block.parentElement.style.display = 'none';
+                    });
+                }
+            });
         }
 
         /**
@@ -27480,10 +27498,10 @@ var LanguageSelector = function () {
 
     }, {
         key: 'addDOMEventListeners',
-        value: function addDOMEventListeners(availableLanguages) {
+        value: function addDOMEventListeners() {
             var _this = this;
 
-            availableLanguages.forEach(function (element) {
+            this.availableLanguages.forEach(function (element) {
                 element.addEventListener('click', function (e) {
                     var selectedLanguage = e.target.getAttribute('data-lang');
 
@@ -27501,13 +27519,13 @@ var LanguageSelector = function () {
 
     }, {
         key: 'selectDefaultLanguage',
-        value: function selectDefaultLanguage(availableLanguages) {
+        value: function selectDefaultLanguage() {
             /**
              * Checks if there is a previous language
              * stored in the cookie jar. If exists, gets it.
              */
             var lastSelectedLanguage = _jsCookie2.default.get(COOKIE_NAME);
-            if (this.checkInAvailableLanguages(lastSelectedLanguage, availableLanguages)) {
+            if (this.checkInAvailableLanguages(lastSelectedLanguage)) {
                 this.select(lastSelectedLanguage);
                 return;
             }
@@ -27515,7 +27533,7 @@ var LanguageSelector = function () {
             /**
              * Checks if there is any language available.
              */
-            var firstAvailableLanguage = availableLanguages[0];
+            var firstAvailableLanguage = this.availableLanguages[0];
             if (firstAvailableLanguage) {
                 this.select(firstAvailableLanguage.getAttribute('data-lang'));
             }
@@ -27528,9 +27546,9 @@ var LanguageSelector = function () {
 
     }, {
         key: 'checkInAvailableLanguages',
-        value: function checkInAvailableLanguages(givenLanguage, availableLanguages) {
+        value: function checkInAvailableLanguages(givenLanguage) {
             var languages = [];
-            availableLanguages.forEach(function (element) {
+            this.availableLanguages.forEach(function (element) {
                 languages.push(element.getAttribute('data-lang'));
             });
 
