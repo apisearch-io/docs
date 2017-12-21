@@ -147,3 +147,47 @@
       tr:last-child
         border: none
 
+  & pre
+    & code
+      width: inherit
+      display: block
+
+      &::before
+        content: ''
+        position: relative
+        display: block
+        top: 0
+        right: 0
+        background: #343148
+        width: fit-content
+        padding: .1rem .3rem
+        border-radius: .2rem
+        text-align: right
+        float: right
+        color: #c9c9c9
+        font-family: Quicksand,sans-serif
+        font-size: .8rem
+        box-shadow: 0 0 11px 3px rgba(17, 17, 17, 0.4)
+        @media(max-width: 450px)
+          display: none
+
+      &.language-html::before
+        content: 'html'
+      &.language-javascript::before
+        content: 'javascript'
+      &.language-php::before
+        content: 'php'
+      &.language-python::before
+        content: 'python'
+      &.language-go::before
+        content: 'go'
+      &.language-scala::before
+        content: 'scala'
+      &.language-java::before
+        content: 'java'
+      &.language-android::before
+        content: 'android'
+      &.language-swift::before
+        content: 'swift'
+      &.language-cobol::before
+        content: 'cobol'

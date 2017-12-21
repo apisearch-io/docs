@@ -11,12 +11,15 @@
     float: right
 
   &__link
-    background: #e1e1e1
     color: #6f6f6f
     padding: .1rem .4rem
     border-radius: .2rem
     margin-left: .3rem
-    &:hover
+    cursor: pointer
+
+    &:hover,
+    &--active
       text-decoration: none
       color: white
-      background: #2bdda8
+      //background: #2bdda8
+      background: linear-gradient(90deg,#00cec7,#5ff1bf)

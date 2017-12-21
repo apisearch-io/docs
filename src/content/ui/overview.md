@@ -6,7 +6,7 @@ category: UI
 template: one-column-with-toc.mustache
 source: ui/overview.md
 languages: 
-  - js
+  - javascript
 tags:
   - apisearch-tools
   - apisearch ui

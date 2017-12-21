@@ -105,15 +105,27 @@
                     <nav class="c-languageSelector">
                         <ol class="c-languageSelector__list">
                                 <li class="c-languageSelector__item">
-                                    <span data-lang="js"
+                                    <span data-lang="go"
                                           class="c-languageSelector__link">
-                                        js
+                                        go
+                                    </span>
+                                </li>
+                                <li class="c-languageSelector__item">
+                                    <span data-lang="javascript"
+                                          class="c-languageSelector__link">
+                                        javascript
                                     </span>
                                 </li>
                                 <li class="c-languageSelector__item">
                                     <span data-lang="php"
                                           class="c-languageSelector__link">
                                         php
+                                    </span>
+                                </li>
+                                <li class="c-languageSelector__item">
+                                    <span data-lang="cobol"
+                                          class="c-languageSelector__link">
+                                        cobol
                                     </span>
                                 </li>
                         </ol>
@@ -299,6 +311,28 @@ you never dreamed, and increasing your conversion rate.</p>
 by enabling some plugins, to join marketplaces, analyze your users behavior in
 your site in order to take smart decisions, and know your business in a way you
 did not expect until now.</p>
+<pre><code class="language-go"><span class="hljs-keyword">import</span> <span class="hljs-string">"fmt"</span>
+
+<span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> {
+	fmt.Println(<span class="hljs-string">"Hello, 世界"</span>)
+}
+</code></pre>
+<pre><code class="language-javascript"><span class="hljs-built_in">Object</span>.defineProperty(<span class="hljs-keyword">typeof</span> global === <span class="hljs-string">"object"</span> ? global : <span class="hljs-built_in">window</span>, <span class="hljs-string">"PI"</span>, {
+    <span class="hljs-attr">value</span>:        <span class="hljs-number">3.141593</span>,
+    <span class="hljs-attr">enumerable</span>:   <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">writable</span>:     <span class="hljs-literal">false</span>,
+    <span class="hljs-attr">configurable</span>: <span class="hljs-literal">false</span>
+})
+</code></pre>
+<pre><code class="language-php"><span class="hljs-keyword">if</span> (version_compare(phpversion(), <span class="hljs-string">'7.1'</span>, <span class="hljs-string">'&gt;='</span>)) {
+    ini_set( <span class="hljs-string">'serialize_precision'</span>, <span class="hljs-number">-1</span> );
+}
+</code></pre>
+<pre><code class="language-cobol"><span class="hljs-keyword">READ</span> <span class="hljs-keyword">file</span>-<span class="hljs-keyword">name</span> NEXT <span class="hljs-keyword">RECORD</span> INTO ws-<span class="hljs-keyword">file</span>-structure
+   AT <span class="hljs-keyword">END</span> DISPLAY <span class="hljs-string">'End of File'</span>
+   <span class="hljs-keyword">NOT</span> AT <span class="hljs-keyword">END</span> DISPLAY <span class="hljs-string">'Record Details:'</span> ws-<span class="hljs-keyword">file</span>-structure
+<span class="hljs-keyword">END</span>-<span class="hljs-keyword">READ</span>.
+</code></pre>
 
                     <!-- /Content -->
 

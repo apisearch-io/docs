@@ -6,7 +6,7 @@ category: ~
 template: one-column.mustache
 source: index.md
 languages: 
-  - js
+  - javascript
   - php
 tags:
   - apisearch

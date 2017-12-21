@@ -2,7 +2,8 @@ import Cookies from "js-cookie";
 
 const COOKIE_NAME = 'apisearch_docs_last_selected_lang';
 const TARGET_CLASS_NAME = '.c-languageSelector__link';
-const ACTIVE_CLASS_NAME = '.c-languageSelector__link--active';
+const ACTIVE_CLASS_NAME = 'c-languageSelector__link--active';
+const ACTIVE_CLASS_SELECTOR = '.c-languageSelector__link--active';
 
 class LanguageSelector {
     /**
@@ -28,7 +29,7 @@ class LanguageSelector {
         /**
          * Remove current active language if exists
          */
-        let activeElement = document.querySelector(ACTIVE_CLASS_NAME);
+        let activeElement = document.querySelector(ACTIVE_CLASS_SELECTOR);
         if (activeElement) {
             activeElement
                 .classList

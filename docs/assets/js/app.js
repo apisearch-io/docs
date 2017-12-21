@@ -27427,7 +27427,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var COOKIE_NAME = 'apisearch_docs_last_selected_lang';
 var TARGET_CLASS_NAME = '.c-languageSelector__link';
-var ACTIVE_CLASS_NAME = '.c-languageSelector__link--active';
+var ACTIVE_CLASS_NAME = 'c-languageSelector__link--active';
+var ACTIVE_CLASS_SELECTOR = '.c-languageSelector__link--active';
 
 var LanguageSelector = function () {
     /**
@@ -27457,7 +27458,7 @@ var LanguageSelector = function () {
             /**
              * Remove current active language if exists
              */
-            var activeElement = document.querySelector(ACTIVE_CLASS_NAME);
+            var activeElement = document.querySelector(ACTIVE_CLASS_SELECTOR);
             if (activeElement) {
                 activeElement.classList.remove(ACTIVE_CLASS_NAME);
             }
