@@ -18,8 +18,8 @@ class LanguageSelector {
             return;
         }
 
+        this.selectDefaultLanguage(availableLanguages);
         this.addDOMEventListeners(availableLanguages);
-        this.selectDefaultLanguage();
     }
 
     /**
@@ -74,13 +74,18 @@ class LanguageSelector {
     /**
      * Get the default language.
      */
-    selectDefaultLanguage() {
+    selectDefaultLanguage(availableLanguages) {
         /**
          * Checks if there is a previous language
          * stored in the cookie jar. If exists, gets it.
          */
         let lastSelectedLanguage = Cookies.get(COOKIE_NAME);
-        if (lastSelectedLanguage) {
+        if (
+            this.checkInAvailableLanguages(
+                lastSelectedLanguage,
+                availableLanguages
+            )
+        ) {
             this.select(lastSelectedLanguage);
             return;
         }
@@ -88,12 +93,25 @@ class LanguageSelector {
         /**
          * Checks if there is any language available.
          */
-        let firstAvailableLanguage = this.availableLanguages[0];
+        let firstAvailableLanguage = availableLanguages[0];
         if (firstAvailableLanguage) {
             this.select(
                 firstAvailableLanguage.getAttribute('data-lang')
             );
         }
+    }
+
+    /**
+     * Checks if given language exists
+     * in the available languages list
+     */
+    checkInAvailableLanguages(givenLanguage, availableLanguages) {
+        let languages = [];
+        availableLanguages.forEach(element => {
+            languages.push(element.getAttribute('data-lang'))
+        });
+        
+        return languages.some(language => language === givenLanguage);
     }
 }
 

@@ -27443,8 +27443,8 @@ var LanguageSelector = function () {
             return;
         }
 
+        this.selectDefaultLanguage(availableLanguages);
         this.addDOMEventListeners(availableLanguages);
-        this.selectDefaultLanguage();
     }
 
     /**
@@ -27501,13 +27501,13 @@ var LanguageSelector = function () {
 
     }, {
         key: 'selectDefaultLanguage',
-        value: function selectDefaultLanguage() {
+        value: function selectDefaultLanguage(availableLanguages) {
             /**
              * Checks if there is a previous language
              * stored in the cookie jar. If exists, gets it.
              */
             var lastSelectedLanguage = _jsCookie2.default.get(COOKIE_NAME);
-            if (lastSelectedLanguage) {
+            if (this.checkInAvailableLanguages(lastSelectedLanguage, availableLanguages)) {
                 this.select(lastSelectedLanguage);
                 return;
             }
@@ -27515,10 +27515,28 @@ var LanguageSelector = function () {
             /**
              * Checks if there is any language available.
              */
-            var firstAvailableLanguage = this.availableLanguages[0];
+            var firstAvailableLanguage = availableLanguages[0];
             if (firstAvailableLanguage) {
                 this.select(firstAvailableLanguage.getAttribute('data-lang'));
             }
+        }
+
+        /**
+         * Checks if given language exists
+         * in the available languages list
+         */
+
+    }, {
+        key: 'checkInAvailableLanguages',
+        value: function checkInAvailableLanguages(givenLanguage, availableLanguages) {
+            var languages = [];
+            availableLanguages.forEach(function (element) {
+                languages.push(element.getAttribute('data-lang'));
+            });
+
+            return languages.some(function (language) {
+                return language === givenLanguage;
+            });
         }
     }]);
 
