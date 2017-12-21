@@ -24,9 +24,9 @@
     "server": "webpack-dev-server --config ./webpack.web.js --content-base . --inline --hot --port 1234",
     "media": "cp -r ./src/media ./docs/assets/",
     "dev:website": "webpack --config ./webpack.web.js",
-    "dev": "./docgen; npm run dev:website; npm run server",
+    "dev": "./docgen; npm run dev:website;",
     "build": "./docgen; npm run media; npm run dev:website",
-    "generate:watch": "npm-watch"
+    "watch": "npm-watch"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",
@@ -63,7 +63,7 @@
     "apisearch-ui": "^0.1.19",
     "bootstrap": "4.0.0-beta.2",
     "gfm-code-blocks": "^1.0.0",
-    "lodash": "^4.17.4",
-    "rimraf": "^2.6.2"
+    "js-cookie": "^2.2.0",
+    "lodash": "^4.17.4"
   }
 }

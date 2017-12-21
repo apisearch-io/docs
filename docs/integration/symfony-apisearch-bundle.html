@@ -86,15 +86,37 @@
             </div>
         </nav>
 
-        <!-- breadcrumb -->
-        <nav class="c-breadcrumb" aria-label="breadcrumb" role="navigation">
-            <ol class="c-breadcrumb__list breadcrumb">
-                <li class="c-breadcrumb__item breadcrumb-item"><a href="#">Apisearch docs</a></li>
-                    <li class="c-breadcrumb__item breadcrumb-item"><a href="#">Integrations</a></li>
-                <li class="c-breadcrumb__item--active breadcrumb-item active" aria-current="page">Symfony - Apisearch Bundle</li>
-            </ol>
-        </nav>
-        <!-- /breadcrumb -->
+        <!-- submenu -->
+        <div class="c-navbar__bottom">
+            <div class="row">
+                <div class="d-none d-sm-block col-sm-6">
+                    <!-- submenu -->
+                    <nav class="c-breadcrumb" aria-label="breadcrumb" role="navigation">
+                        <ol class="c-breadcrumb__list breadcrumb">
+                            <li class="c-breadcrumb__item breadcrumb-item"><a href="#">Apisearch docs</a></li>
+                                <li class="c-breadcrumb__item breadcrumb-item"><a href="#">Integrations</a></li>
+                            <li class="c-breadcrumb__item--active breadcrumb-item active" aria-current="page">Symfony - Apisearch Bundle</li>
+                        </ol>
+                    </nav>
+                    <!-- /submenu -->
+                </div>
+                <div class="col-12 col-sm-6">
+                    <!-- language selector -->
+                    <nav class="c-languageSelector">
+                        <ol class="c-languageSelector__list">
+                                <li class="c-languageSelector__item">
+                                    <span data-lang="php"
+                                          class="c-languageSelector__link">
+                                        php
+                                    </span>
+                                </li>
+                        </ol>
+                    </nav>
+                    <!-- /language selector -->
+                </div>
+            </div>
+        </div>
+        <!-- /submenu -->
     </header>    <!-- /Header -->
 
     <!-- Search result -->
@@ -258,7 +280,7 @@
             </div>            <!-- Sidebar -->
 
             <!-- Main -->
-            <main class="col-sm-8 col-md-8 ml-sm-auto mr-sm-auto pt-3" role="main">
+            <main class="col-sm-8 col-md-8 col-lg-8 ml-sm-auto mr-lg-auto pt-3" role="main">
                 <section class="c-content">
                     <!-- Content -->
                     <h1 id="event"><a name="event" class="fa fa-link" href="#"></a>Event</h1>
