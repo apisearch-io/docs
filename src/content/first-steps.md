@@ -1,10 +1,11 @@
 ---
+root: true
 page: 1
 title: First steps
 description: How to start with Apisearch from the scratch
-category: Fresh start
+category: First Steps
 template: one-column.mustache
-source: fresh-start/first-steps.md
+source: first-steps.md
 languages: 
   - go
   - javascript

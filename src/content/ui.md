@@ -1,10 +1,11 @@
 ---
-page: 1
-title: Overview
+root: true
+page: 4
+title: UI
 description: A brief introduction of Apisearch UI, installation, and a basic usage.
 category: UI
-template: one-column-with-toc.mustache
-source: ui/overview.md
+template: one-column.mustache
+source: ui.md
 languages: 
   - javascript
 tags:
@@ -13,7 +14,7 @@ tags:
   - search components
 ---
 
-# Overview
+# Apisearch UI
 
 ApisearchUI library is set of tools to build a custom search experience for your 
 website, e-commerce, docs site, or any other web application you can imagine.

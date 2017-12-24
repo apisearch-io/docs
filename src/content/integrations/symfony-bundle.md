@@ -1,10 +1,10 @@
 ---
 page: 1
-title: Symfony - Apisearch Bundle
+title: Symfony Bundle
 description: Apisearch integrations - Symfony Apisearch Bundle
 category: Integrations
 template: one-column-with-toc.mustache
-source: integration/symfony-apisearch-bundle.md
+source: integrations/symfony-bundle.md
 languages: 
   - php
 tags:

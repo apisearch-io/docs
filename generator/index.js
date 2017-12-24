@@ -75,21 +75,26 @@ const SRC_DIR = path.resolve(__dirname, '../src');
             /**
              * Compose the tree menu
              */
+            let rootFiles = _.filter(files, 'root');
+            let rootFileCategories = _.groupBy(rootFiles, 'category');
+            let rootFileCategoryKeys = Object.keys(rootFileCategories);
+
             let tree = _.groupBy(files, "category");
-            let categories = Object.keys(tree);
-            let composedMenu = categories
+            console.log(rootFileCategoryKeys);
+
+            let composedMenu = rootFileCategoryKeys
                 .map(function(category) {
-                    if ("null" === category) {
-                        return {
-                            has_category: false,
-                            children: tree["null"]
-                        }
-                    }
+                    let rootCategory = rootFileCategories[category];
+                    let hasChildren = (tree[category].length !== 0);
 
                     return {
                         category_name: category,
-                        has_category: true,
-                        children: _.orderBy(tree[category], "page")
+                        page: rootCategory.page,
+                        root: !!rootCategory.root,
+                        has_children: hasChildren,
+                        children: (tree[category].length !== 0)
+                            ? _.orderBy(tree[category], "page")
+                            : null
                     }
                 });
 
@@ -99,7 +104,7 @@ const SRC_DIR = path.resolve(__dirname, '../src');
             let targetFile = getFileTargetPath(file.systemPath);
             let html = renderTemplate({
                 ...file,
-                menu: composedMenu
+                menu:  _.orderBy(composedMenu, "page")
             });
 
             /**
