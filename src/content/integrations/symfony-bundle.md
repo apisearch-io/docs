@@ -1,5 +1,6 @@
 ---
 page: 1
+icon: angle-right
 title: Symfony Bundle
 description: Apisearch integrations - Symfony Apisearch Bundle
 category: Integrations

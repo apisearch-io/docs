@@ -1,5 +1,6 @@
 ---
 page: 3
+icon: angle-right
 title: Examples
 description: Apisearch examples, real life use cases where Apisearch can improve your search experience.
 category: UI

@@ -1,5 +1,6 @@
 ---
 page: 6
+icon: angle-right
 title: Event
 description: Apisearch client - Event object
 category: API Client

@@ -1,5 +1,6 @@
 ---
 page: 1
+icon: angle-right
 title: Index
 description: Apisearch client index page
 category: API Client

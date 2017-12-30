@@ -1,5 +1,6 @@
 ---
 page: 5
+icon: angle-right
 title: Repository
 description: Apisearch client - Repository object
 category: API Client

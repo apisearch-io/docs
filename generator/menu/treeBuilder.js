@@ -24,7 +24,7 @@ function treeBuilder(files) {
                 has_children: hasChildren,
                 children: () => {
                     let children = tree[category];
-                    _.remove(children, (item) => item.root === true);
+                    _.remove(children, item => item.root === true);
 
                     return (hasChildren)
                         ? _.orderBy(children, "page")

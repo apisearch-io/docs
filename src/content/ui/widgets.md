@@ -1,5 +1,6 @@
 ---
 page: 2
+icon: angle-right
 title: Widgets
 description: Search widgets
 category: UI

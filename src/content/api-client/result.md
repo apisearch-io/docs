@@ -1,5 +1,6 @@
 ---
 page: 4
+icon: angle-right
 title: Result
 description: Apisearch client - Result object
 category: API Client

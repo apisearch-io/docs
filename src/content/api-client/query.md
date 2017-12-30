@@ -1,5 +1,6 @@
 ---
 page: 3
+icon: angle-right
 title: Query
 description: Apisearch client - Query object
 category: API Client

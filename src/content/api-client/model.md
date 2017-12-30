@@ -1,5 +1,6 @@
 ---
 page: 2
+icon: angle-right
 title: Model
 description: Apisearch model
 category: API Client
