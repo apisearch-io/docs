@@ -146,7 +146,9 @@ const renderTemplate = function(parsedFile) {
  * Create database
  */
 const createDataFile = function(docsArray) {
-    let transformedDocs = apisearchTransformer(docsArray);
+    let transformedDocs = docsArray.map(doc => {
+        return apisearchTransformer(doc)
+    });
     let targetFile = `${SRC_DIR}/docsdb.json`;
     let docsString = JSON.stringify(transformedDocs);
 
@@ -160,13 +162,15 @@ const createDataFile = function(docsArray) {
 
             console.log(`V --> Docs database created`);
 
-            let indexResponse = indexData(docsString);
-            indexResponse
-                .then(function (response) {
+            /**
+             * Index database
+             */
+            indexData(docsString)
+                .then(function(response) {
                     console.log(`V --> Docs database indexed`);
                 })
-                .catch(function (error) {
-                    console.log(error);
+                .catch(function(error) {
+                    console.log(`X --> Error indexing: ${error.data.message}`);
                 })
             ;
         }
