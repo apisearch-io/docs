@@ -75,24 +75,26 @@ const SRC_DIR = path.resolve(__dirname, '../src');
             /**
              * Compose the tree menu
              */
-            let rootFiles = _.filter(files, 'root');
+            let rootFiles = _.orderBy(
+                _.filter(files, 'root'),
+                'page'
+            );
             let rootFileCategories = _.groupBy(rootFiles, 'category');
             let rootFileCategoryKeys = Object.keys(rootFileCategories);
 
             let tree = _.groupBy(files, "category");
-            console.log(rootFileCategoryKeys);
 
             let composedMenu = rootFileCategoryKeys
                 .map(function(category) {
                     let rootCategory = rootFileCategories[category];
-                    let hasChildren = (tree[category].length !== 0);
+                    let hasChildren = (tree[category].length > 1);
 
                     return {
                         category_name: category,
                         page: rootCategory.page,
                         root: !!rootCategory.root,
                         has_children: hasChildren,
-                        children: (tree[category].length !== 0)
+                        children: (hasChildren)
                             ? _.orderBy(tree[category], "page")
                             : null
                     }
