@@ -86,17 +86,23 @@ const SRC_DIR = path.resolve(__dirname, '../src');
 
             let composedMenu = rootFileCategoryKeys
                 .map(function(category) {
-                    let rootCategory = rootFileCategories[category];
+                    let rootCategory = rootFileCategories[category][0];
                     let hasChildren = (tree[category].length > 1);
 
                     return {
                         category_name: category,
+                        category_url: rootCategory.url,
                         page: rootCategory.page,
                         root: !!rootCategory.root,
                         has_children: hasChildren,
-                        children: (hasChildren)
-                            ? _.orderBy(tree[category], "page")
-                            : null
+                        children: () => {
+                            let children = tree[category];
+                            _.remove(children, (item) => item.root === true);
+
+                            return (hasChildren)
+                                ? _.orderBy(children, "page")
+                                : null
+                        }
                     }
                 });
 
