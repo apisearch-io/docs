@@ -7,6 +7,7 @@ const exec = require('child_process').exec;
 
 
 const apisearchTransformer = require("./apisearch/apisearchTransformer");
+const treeBuilder = require("./menu/treeBuilder");
 const fileToString = require("./helpers").fileToString;
 const parseMarkdownFile = require("./helpers").parseMarkdownFile;
 const loadPartials = require("./helpers").loadPartials;
@@ -75,36 +76,7 @@ const SRC_DIR = path.resolve(__dirname, '../src');
             /**
              * Compose the tree menu
              */
-            let rootFiles = _.orderBy(
-                _.filter(files, 'root'),
-                'page'
-            );
-            let rootFileCategories = _.groupBy(rootFiles, 'category');
-            let rootFileCategoryKeys = Object.keys(rootFileCategories);
-
-            let tree = _.groupBy(files, "category");
-
-            let composedMenu = rootFileCategoryKeys
-                .map(function(category) {
-                    let rootCategory = rootFileCategories[category][0];
-                    let hasChildren = (tree[category].length > 1);
-
-                    return {
-                        category_name: category,
-                        category_url: rootCategory.url,
-                        page: rootCategory.page,
-                        root: !!rootCategory.root,
-                        has_children: hasChildren,
-                        children: () => {
-                            let children = tree[category];
-                            _.remove(children, (item) => item.root === true);
-
-                            return (hasChildren)
-                                ? _.orderBy(children, "page")
-                                : null
-                        }
-                    }
-                });
+            let composedMenu = treeBuilder(files);
 
             /**
              * Render data
