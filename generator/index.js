@@ -7,6 +7,7 @@ const exec = require('child_process').exec;
 
 
 const apisearchTransformer = require("./apisearch/apisearchTransformer");
+const indexData = require("./apisearch/indexer");
 const treeBuilder = require("./menu/treeBuilder");
 const fileToString = require("./helpers").fileToString;
 const parseMarkdownFile = require("./helpers").parseMarkdownFile;
@@ -147,16 +148,27 @@ const renderTemplate = function(parsedFile) {
 const createDataFile = function(docsArray) {
     let transformedDocs = apisearchTransformer(docsArray);
     let targetFile = `${SRC_DIR}/docsdb.json`;
+    let docsString = JSON.stringify(transformedDocs);
 
     fsPath.writeFile(
         targetFile,
-        JSON.stringify(transformedDocs),
+        docsString,
         function (err) {
             if (err) {
                 console.log(`X --> ${err}`);
             }
 
             console.log(`V --> Docs database created`);
+
+            let indexResponse = indexData(docsString);
+            indexResponse
+                .then(function (response) {
+                    console.log(`V --> Docs database indexed`);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                })
+            ;
         }
     );
 };

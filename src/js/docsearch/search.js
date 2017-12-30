@@ -3,12 +3,14 @@ import _ from "lodash";
 import {createContentPreview} from "./helpers";
 import {resultSearchTemplate} from "./templates";
 
+const apisearchConfig = require("../../../apisearch-config");
+
 const ui = apisearchUI({
-    appId: 'apisearch_docs',
-    index: 'default',
-    token: 'd6aed983-d558-46da-9aca-c3ded7d33313',
+    appId: apisearchConfig.appId,
+    index: apisearchConfig.index,
+    token: apisearchConfig.token,
     options: {
-        endpoint: 'localhost:8999'
+        endpoint: apisearchConfig.hostname
     }
 });
 
