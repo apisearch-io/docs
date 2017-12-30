@@ -110,7 +110,7 @@ different from the search fields.
 Before start building our first Item, let's see another object we need to know
 in order to use the factory methods inside Item object.
 
-### ItemUUID
+## ItemUUID
 
 Remember that we said that the id field in Item only is unique in the universe
 of the entities with same type? Then, we need a representation of this Unique
@@ -126,7 +126,7 @@ $itemUUID = new ItemUUID('4303ui203', 'product');
 This is a real Unique Id representation of our model, and this instance should
 be unique in all our universe.
 
-### Building an Item
+## Building an Item
 
 So let's build our first Item instance. Because an Item can be build by 
 different ways, we will use static factories instead of the private 
@@ -198,7 +198,7 @@ $item = Item::create(
 
 This Item would map exactly as shown in the first example.
 
-### Coordinate
+## Coordinate
 
 A simple Coordinate is composed by a latitude and a longitude values. That
 simple. Both values are float formatted.
@@ -210,7 +210,7 @@ $itemCoordinate = new Coordinate(
 );
 ```
 
-### Located Item
+## Located Item
 
 If you want to create a located Item, then you can use the static construct
 method `createLocated`. Because a located item must have a location, otherwise
@@ -249,7 +249,7 @@ $item = Item::createLocated(
 );
 ```
 
-### Item manipulation
+## Item manipulation
 
 After the creation of an Item instance, or even after its retrieval from the
 repository, you can manage all metadata (single metadata and indexed metadata)
@@ -309,7 +309,7 @@ will happen :)
 $item->get('price');
 ```
 
-### Location Ranges
+## Location Ranges
 
 When talking about located items, and when retrieving and filtering them, we
 need to know so well a small part of our model called Location Ranges. They are
@@ -318,7 +318,7 @@ them.
 
 There are three type of area definitions.
 
-#### A center point and a distance
+### A center point and a distance
 
 Given a center point, defined as a Coordinate instance, and a distance, defined
 as an integer and a distance unit (km or mi) joined in a string, you can define
@@ -335,7 +335,7 @@ $locationRange = new CoordinateAndDistance(
 > The browser can request the localization and send the coordinates to us, so we
 > can provide a better experience to the final user
 
-#### Two square sides
+### Two square sides
 
 If you have the top-left coordinate and the bottom-right coordinate of a square,
 inside of where you want to locate all the items, you can use this filter
@@ -352,7 +352,7 @@ $locationRange = new Square(
 > visualization mode, so when the final user scrolls, having these two
 > coordinates (top-left, bottom-right) we can look the items we want to show
 
-#### A finite set of coordinates (polygon)
+### A finite set of coordinates (polygon)
 
 You can build your own polygon having a set of coordinates. These coordinates
 will draw a polygon, and all items inside the are of this polygon will be
