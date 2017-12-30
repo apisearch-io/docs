@@ -27476,20 +27476,9 @@ var LanguageSelector = function () {
             _jsCookie2.default.set(COOKIE_NAME, language);
 
             /**
-             * Open code blocks
+             * Toggle code blocks in the dom
              */
-            this.availableLanguages.forEach(function (element) {
-                var elementLanguage = element.getAttribute('data-lang');
-                if (elementLanguage === language) {
-                    document.querySelectorAll('.language-' + elementLanguage).forEach(function (block) {
-                        block.parentElement.style.display = 'block';
-                    });
-                } else {
-                    document.querySelectorAll('.language-' + elementLanguage).forEach(function (block) {
-                        block.parentElement.style.display = 'none';
-                    });
-                }
-            });
+            this.toggleCodeBlocks(language);
         }
 
         /**
@@ -27537,6 +27526,28 @@ var LanguageSelector = function () {
             if (firstAvailableLanguage) {
                 this.select(firstAvailableLanguage.getAttribute('data-lang'));
             }
+        }
+
+        /**
+         * Open and close code blocks on the dom
+         * depending on the selectedLanguage
+         */
+
+    }, {
+        key: 'toggleCodeBlocks',
+        value: function toggleCodeBlocks(selectedLanguage) {
+            this.availableLanguages.forEach(function (element) {
+                var elementLanguage = element.getAttribute('data-lang');
+                if (elementLanguage === selectedLanguage) {
+                    document.querySelectorAll('.language-' + elementLanguage).forEach(function (block) {
+                        block.parentElement.style.display = 'block';
+                    });
+                } else {
+                    document.querySelectorAll('.language-' + elementLanguage).forEach(function (block) {
+                        block.parentElement.style.display = 'none';
+                    });
+                }
+            });
         }
 
         /**

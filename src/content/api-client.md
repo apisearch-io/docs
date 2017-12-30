@@ -1,6 +1,7 @@
 ---
 root: true
 page: 2
+icon: code
 title: API Client
 description: API reference for the different Apisearch clients
 category: API Client

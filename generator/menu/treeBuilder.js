@@ -18,6 +18,7 @@ function treeBuilder(files) {
             return {
                 category_name: category,
                 category_url: rootCategory.url,
+                category_icon: rootCategory.icon,
                 page: rootCategory.page,
                 root: !!rootCategory.root,
                 has_children: hasChildren,

@@ -1,6 +1,7 @@
 ---
 root: true
 page: 1
+icon: dot-circle-o
 title: First steps
 description: How to start with Apisearch from the scratch
 category: First Steps
