@@ -150,7 +150,7 @@ ui.addWidgets(ui.widgets.simpleSearch({
     }
 }), ui.widgets.result({
     target: '#topicsSearchResult',
-    itemsPerPage: 6,
+    itemsPerPage: 9,
     template: {
         itemsList: _templates.resultSearchTemplate
     },

@@ -1,56 +1,36 @@
 const codeBlocks = require('gfm-code-blocks');
 const _ = require("lodash");
-const sections = require('sections');
+const uslug = require("uslug");
 
 /**
  * Apisearch transformer
- * from doc to item
+ * from docSection to item
  *
- * @param doc
+ * @param docSection
  */
-function apisearchTransformer(doc) {
-    let toc = _.groupBy(
-        doc.tableOfContent,
-        "lvl"
-    );
-    let code = codeBlocks(doc.originalContent);
-
-    // console.log(sections.parse(doc.originalContent));
+function apisearchTransformer(docSection) {
+    let code = codeBlocks(docSection.string);
 
     return {
         uuid: {
-            id: doc.page,
-            type: doc.source
+            id: `${docSection.level}-${uslug(docSection.title)}`,
+            type: `${uslug(docSection.parentMetadata.title)}`
         },
         metadata: {
-            url: doc.url,
-            title: doc.title,
-            description: doc.description,
-            category: doc.category,
-            content: doc.content,
-            languages: doc.languages,
+            url: `${docSection.parentMetadata.url}#${uslug(docSection.title)}`,
+            title: docSection.title,
+            content: docSection.body,
+            languages: docSection.parentMetadata.languages,
             code: (code.length !== 0)
                 ? code.map(block => block)
                 : null
             ,
-            toc: doc.tableOfContent
         },
         searchable_metadata: {
-            title: doc.title,
-            description: doc.description,
-            content: doc.content,
-            h1: (typeof toc['1'] !== "undefined")
-                ? toc['1'].map(h => h.content)
-                : null
-            ,
-            h2: (typeof toc['2'] !== "undefined")
-                ? toc['2'].map(h => h.content)
-                : null
-            ,
-            h3: (typeof toc['3'] !== "undefined")
-                ? toc['3'].map(h => h.content)
-                : null
-            ,
+            title: docSection.title,
+            content: docSection.body,
+            tags: docSection.parentMetadata.tags,
+            languages: docSection.parentMetadata.languages,
             code: (code.length !== 0)
                 ? code.map(block => block.code)
                 : null

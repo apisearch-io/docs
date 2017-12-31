@@ -30,7 +30,7 @@ ui.addWidgets(
     }),
     ui.widgets.result({
         target: '#topicsSearchResult',
-        itemsPerPage: 6,
+        itemsPerPage: 9,
         template: {
             itemsList: resultSearchTemplate,
         },

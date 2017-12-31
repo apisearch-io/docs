@@ -4,6 +4,7 @@ const walk = require("walk");
 const path = require("path");
 const _ = require("lodash");
 const exec = require('child_process').exec;
+const sections = require('sections');
 
 
 const apisearchTransformer = require("./apisearch/apisearchTransformer");
@@ -146,9 +147,34 @@ const renderTemplate = function(parsedFile) {
  * Create database
  */
 const createDataFile = function(docsArray) {
-    let transformedDocs = docsArray.map(doc => {
-        return apisearchTransformer(doc)
+    let transformedDocs = [];
+    docsArray.forEach(doc => {
+        let docSections = sections.parse(doc.originalContent);
+
+        docSections.sections.forEach(function(section) {
+            if (section.level !== 0) {
+                section = {
+                    ...section,
+                    parentMetadata: {
+                        page: doc.page,
+                        icon: doc.icon,
+                        title: doc.title,
+                        description: doc.description,
+                        category: doc.category,
+                        url: doc.url,
+                        languages: doc.languages,
+                        tags: doc.tags,
+                    }
+                };
+
+                transformedDocs = [
+                    ...transformedDocs,
+                    apisearchTransformer(section)
+                ];
+            }
+        });
     });
+
     let targetFile = `${SRC_DIR}/docsdb.json`;
     let docsString = JSON.stringify(transformedDocs);
 
