@@ -6,7 +6,7 @@ const apisearchConfig = require("../../../apisearch-config");
 const ui = apisearchUI({
     appId: apisearchConfig.appId,
     index: apisearchConfig.index,
-    token: apisearchConfig.token,
+    token: apisearchConfig.queryToken,
     options: {
         endpoint: apisearchConfig.hostname,
         protocol: apisearchConfig.protocol

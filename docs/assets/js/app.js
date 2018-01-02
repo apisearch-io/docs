@@ -122,7 +122,7 @@ var apisearchConfig = __webpack_require__(5);
 var ui = (0, _apisearchUi2.default)({
     appId: apisearchConfig.appId,
     index: apisearchConfig.index,
-    token: apisearchConfig.token,
+    token: apisearchConfig.queryToken,
     options: {
         endpoint: apisearchConfig.hostname,
         protocol: apisearchConfig.protocol
@@ -10126,7 +10126,8 @@ const apisearchConfig = {
     appId: "4186e76c",
     index: "6de535c5",
     token: "7975ac41-6cbf-4a48-afd0-30746219bc3b",
-    hostname: "apisearch.global.ssl.fastly.net",
+    queryToken: "e3aee575-2b0a-4a95-b0ce-88fa316c4eff",
+    hostname: "api.apisear.ch",
     protocol: "https"
 }
 
