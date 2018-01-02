@@ -8,7 +8,7 @@ const ui = apisearchUI({
     index: apisearchConfig.index,
     token: apisearchConfig.queryToken,
     options: {
-        endpoint: apisearchConfig.hostname,
+        endpoint: apisearchConfig.queryHostname,
         protocol: apisearchConfig.protocol
     }
 });
