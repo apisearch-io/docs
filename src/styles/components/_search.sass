@@ -39,7 +39,6 @@
     font-size: 1rem
 
   &__result
-    padding-top: 5rem
     position: fixed
     overflow-y: scroll
     width: 100%
@@ -52,8 +51,9 @@
     z-index: 996
 
   &__resultBlock
-    padding: 1rem
-    border-radius: .4rem
+    padding-top: 5rem
+    padding-bottom: 1rem
+    background-color: white
 
   &__resultTitle
     margin-bottom: 1rem
@@ -66,37 +66,52 @@
 
   &__resultItem
     background: white
-    border-radius: .3rem
     padding: 1rem
-    margin-bottom: 1rem
-    box-shadow: 0 1px 1px 1px rgba(0,0,0,.16)
+    display: block
+    cursor: pointer
+    &:hover
+      text-decoration: none
+      background: #f3f3f3
 
   &__resultItemDescription
-    font-size: .9rem
+    margin-bottom: 0
+    margin-top: .5rem
+    font-size: .8rem
+    color: #4d4d4d
 
   &__resultItemTitle
     font-size: 1rem
     font-weight: 600
-    border-bottom: 1px solid #efefef
-    padding-bottom: .4rem
+    margin-bottom: 0
     & a
       &:hover
         text-decoration: none
 
   &__resultItemLangList
-    float: right
+    display: block
 
   &__resultItemLang
-    color: white
+    color: black
     display: inline-block
     font-size: .8rem
-    padding: .2rem .4rem
-    border-radius: .3rem
-    &--js
+    margin-right: .3rem
+    &:before
+      content: ""
+      background: #989898
+      border-radius: 50%
+      width: .5rem
+      height: .5rem
+      position: relative
+      display: inline-block
+    &--javascript:before
       background: #f1cd00
-    &--php
+    &--php:before
       background: #5193da
-    &--md
+    &--go:before
+      background: #0653a6
+    &--cobol:before
+      background: #795548
+    &--md:before
       background: #04bdaf
 
   &__resultItemFoundInContent

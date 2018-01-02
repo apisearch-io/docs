@@ -30,29 +30,12 @@ ui.addWidgets(
     }),
     ui.widgets.result({
         target: '#topicsSearchResult',
-        itemsPerPage: 9,
+        itemsPerPage: 18,
         template: {
             itemsList: resultSearchTemplate,
         },
         classNames: {
             itemsList: 'row'
-        },
-        formatData: item => {
-            let queryText = document
-                    .querySelector(".as-simpleSearch__input")
-                    .value,
-                content =  item.metadata.content
-            ;
-            let preview = createContentPreview(queryText, content);
-
-            return {
-                ...item,
-                metadata: {
-                    ...item.metadata,
-                    toc: _.slice(item.metadata.toc, 0, 6),
-                    preview
-                }
-            }
         }
     })
 );

@@ -109,8 +109,6 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
 var _apisearchUi = __webpack_require__(3);
 
 var _apisearchUi2 = _interopRequireDefault(_apisearchUi);
@@ -150,24 +148,12 @@ ui.addWidgets(ui.widgets.simpleSearch({
     }
 }), ui.widgets.result({
     target: '#topicsSearchResult',
-    itemsPerPage: 9,
+    itemsPerPage: 18,
     template: {
         itemsList: _templates.resultSearchTemplate
     },
     classNames: {
         itemsList: 'row'
-    },
-    formatData: function formatData(item) {
-        var queryText = document.querySelector(".as-simpleSearch__input").value,
-            content = item.metadata.content;
-        var preview = (0, _helpers.createContentPreview)(queryText, content);
-
-        return _extends({}, item, {
-            metadata: _extends({}, item.metadata, {
-                toc: _lodash2.default.slice(item.metadata.toc, 0, 6),
-                preview: preview
-            })
-        });
     }
 }));
 
@@ -27313,7 +27299,7 @@ Object.defineProperty(exports, "__esModule", {
  * Result Search Template
  * @type {string}
  */
-var resultSearchTemplate = exports.resultSearchTemplate = "\n    {{#items}}\n    <div class=\"col-12 col-sm-6 col-md-6 col-lg-4\">\n        <div class=\"c-search__resultItem\">\n            <h2 class=\"c-search__resultItemTitle\">\n                <a href=\"{{metadata.url}}\">{{metadata.title}}</a>\n                \n                <div class=\"c-search__resultItemLangList\">\n                {{#metadata.languages}}\n                    <div class=\"c-search__resultItemLang c-search__resultItemLang--{{.}}\">\n                        {{.}}\n                    </div>\n                {{/metadata.languages}}\n                </div>\n            </h2>\n            <p class=\"c-search__resultItemDescription\">{{metadata.description}}</p>\n            \n            {{#metadata.preview}}\n            <a class=\"c-search__resultItemFoundInContent\" href=\"{{metadata.url}}\">\n                <b>Found in content:</b>\n                <p>{{{metadata.preview}}}</p>\n            </a>\n            {{/metadata.preview}}\n            \n            <div class=\"row\">\n                {{#metadata.toc}}\n                    <div class=\"col-sm-6 mb-2\">\n                        <a class=\"c-search__resultItemAnchor\" href=\"{{metadata.url}}#{{slug}}\">\n                            <i class=\"fa fa-link\" aria-hidden=\"true\"></i>\n                            {{content}}\n                        </a>\n                    </div>\n                {{/metadata.toc}}\n            </div>\n        </div>\n    </div>\n    {{/items}}\n    \n    {{^items}}\n    <div class=\"col-sm-12\">\n        <div class=\"c-search__resultItem\">\n            <i class=\"fa fa-times-circle\" aria-hidden=\"true\"></i>\n            No results found\n        </div>\n    </div>\n    {{/items}}\n";
+var resultSearchTemplate = exports.resultSearchTemplate = "\n    {{#items}}\n    <div class=\"col-12 col-sm-6 col-md-6 col-lg-4\">\n        <a href=\"{{metadata.url}}\" class=\"c-search__resultItem\">\n            <h2 class=\"c-search__resultItemTitle\">\n                <span>{{metadata.title}}</span>\n            </h2>\n            \n            {{#metadata.description}}\n            <p class=\"c-search__resultItemDescription\">\n                {{metadata.description}}\n            </p>\n            {{/metadata.description}}\n            \n            <div class=\"c-search__resultItemLangList\">\n                {{#metadata.languages}}\n                    <div class=\"c-search__resultItemLang c-search__resultItemLang--{{.}}\">\n                        {{.}}\n                    </div>\n                {{/metadata.languages}}\n            </div>\n        </a>\n    </div>\n    {{/items}}\n    {{^items}}\n    <div class=\"col-sm-12\">\n        <div class=\"c-search__emptyResult\">\n            <i class=\"fa fa-times-circle\" aria-hidden=\"true\"></i>\n            No results found\n        </div>\n    </div>\n    {{/items}}\n";
 
 /***/ }),
 /* 9 */
