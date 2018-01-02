@@ -1,6 +1,4 @@
 import apisearchUI from "apisearch-ui";
-import _ from "lodash";
-import {createContentPreview} from "./helpers";
 import {resultSearchTemplate} from "./templates";
 
 const apisearchConfig = require("../../../apisearch-config");
