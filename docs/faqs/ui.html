@@ -2,9 +2,9 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Client</title>
+    <title>FAQS about the UI</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="FAQs - Client">
+    <meta name="description" content="FAQs - About the UI">
     <meta name="author" content="Apisearch team">
     <meta name="keywords" content="Apisearch, Elasticsearch search engine, fast search demo, Apisearch official website">
 
@@ -93,9 +93,15 @@
                     <!-- submenu -->
                     <nav class="c-breadcrumb" aria-label="breadcrumb" role="navigation">
                         <ol class="c-breadcrumb__list breadcrumb">
-                            <li class="c-breadcrumb__item breadcrumb-item"><a href="#">Apisearch docs</a></li>
-                                <li class="c-breadcrumb__item breadcrumb-item"><a href="#">FAQs</a></li>
-                            <li class="c-breadcrumb__item--active breadcrumb-item active" aria-current="page">Client</li>
+                            <li class="c-breadcrumb__item breadcrumb-item">
+                                <a href="/docs">Apisearch docs</a>
+                            </li>
+                                <li class="c-breadcrumb__item breadcrumb-item">
+                                    <a href="#">FAQs</a>
+                                </li>
+                            <li class="c-breadcrumb__item--active breadcrumb-item active" aria-current="page">
+                                FAQS about the UI
+                            </li>
                         </ol>
                     </nav>
                     <!-- /submenu -->
@@ -127,17 +133,13 @@
 
     <!-- Search result -->
     <div id="searchResult" class="c-search__result d-none">
-        <!-- Overlay -->
-        <div class="c-search__resultOverlay"></div>
 
         <!-- Result container -->
-        <div class="container-fluid">
+        <div class="c-search__resultBlock container-fluid">
             <div class="row">
                 <!-- Content -->
                 <div class="col-sm-12">
-                    <div class="c-search__resultBlock">
-                        <div id="topicsSearchResult"></div>
-                    </div>
+                    <div id="topicsSearchResult"></div>
                 </div>
             </div>
         </div>
@@ -157,18 +159,18 @@
                 <ul class="c-sidebar__nav nav nav-pills flex-column">
                         <li class="c-sidebar__navItem nav-item">
                             <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link"
-                               href="/docs/faqs/client.html"
+                               href="/docs/index.html"
                             >
-                                <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                <i class="fa fa-dot-circle-o" aria-hidden="true"></i>
                                 First Steps
                             </a>
                         </li>
 
                         <li class="c-sidebar__navItem nav-item">
                             <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link"
-                               href="/docs/faqs/client.html"
+                               href="/docs/api-client.html"
                             >
-                                <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                <i class="fa fa-code" aria-hidden="true"></i>
                                 API Client
                             </a>
                         </li>
@@ -176,22 +178,9 @@
                             <ul class="c-sidebar__nav c-sidebar__nav--sub-1 nav nav-pills flex-column">
                                     <li class="c-sidebar__navItem--sub-1 nav-item">
                                         <a class="c-sidebar__navLink c-sidebar__navLink--subtitle nav-link"
-                                           href="/docs/api-client/index.html"
-                                        >
-                                            Index
-                                        </a>
-                                    </li>
-                                    <li class="c-sidebar__navItem--sub-1 nav-item">
-                                        <a class="c-sidebar__navLink c-sidebar__navLink--subtitle nav-link"
-                                           href="/docs/api-client.html"
-                                        >
-                                            API Client
-                                        </a>
-                                    </li>
-                                    <li class="c-sidebar__navItem--sub-1 nav-item">
-                                        <a class="c-sidebar__navLink c-sidebar__navLink--subtitle nav-link"
                                            href="/docs/api-client/model.html"
                                         >
+                                            <i class="fa fa-angle-right" aria-hidden="true"></i>
                                             Model
                                         </a>
                                     </li>
@@ -199,6 +188,7 @@
                                         <a class="c-sidebar__navLink c-sidebar__navLink--subtitle nav-link"
                                            href="/docs/api-client/query.html"
                                         >
+                                            <i class="fa fa-angle-right" aria-hidden="true"></i>
                                             Query
                                         </a>
                                     </li>
@@ -206,6 +196,7 @@
                                         <a class="c-sidebar__navLink c-sidebar__navLink--subtitle nav-link"
                                            href="/docs/api-client/result.html"
                                         >
+                                            <i class="fa fa-angle-right" aria-hidden="true"></i>
                                             Result
                                         </a>
                                     </li>
@@ -213,6 +204,7 @@
                                         <a class="c-sidebar__navLink c-sidebar__navLink--subtitle nav-link"
                                            href="/docs/api-client/repository.html"
                                         >
+                                            <i class="fa fa-angle-right" aria-hidden="true"></i>
                                             Repository
                                         </a>
                                     </li>
@@ -220,40 +212,24 @@
                                         <a class="c-sidebar__navLink c-sidebar__navLink--subtitle nav-link"
                                            href="/docs/api-client/event.html"
                                         >
+                                            <i class="fa fa-angle-right" aria-hidden="true"></i>
                                             Event
                                         </a>
                                     </li>
-                            </ul>
-                        <li class="c-sidebar__navItem nav-item">
-                            <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link"
-                               href="/docs/faqs/client.html"
-                            >
-                                <i class="fa fa-angle-right" aria-hidden="true"></i>
-                                Integrations
-                            </a>
-                        </li>
-
-                            <ul class="c-sidebar__nav c-sidebar__nav--sub-1 nav nav-pills flex-column">
                                     <li class="c-sidebar__navItem--sub-1 nav-item">
                                         <a class="c-sidebar__navLink c-sidebar__navLink--subtitle nav-link"
-                                           href="/docs/integrations/symfony-bundle.html"
+                                           href="/docs/api-client/config.html"
                                         >
-                                            Symfony Bundle
-                                        </a>
-                                    </li>
-                                    <li class="c-sidebar__navItem--sub-1 nav-item">
-                                        <a class="c-sidebar__navLink c-sidebar__navLink--subtitle nav-link"
-                                           href="/docs/integrations.html"
-                                        >
-                                            Integrations
+                                            <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                            Config
                                         </a>
                                     </li>
                             </ul>
                         <li class="c-sidebar__navItem nav-item">
                             <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link"
-                               href="/docs/faqs/client.html"
+                               href="/docs/ui.html"
                             >
-                                <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                <i class="fa fa-search" aria-hidden="true"></i>
                                 UI
                             </a>
                         </li>
@@ -263,6 +239,7 @@
                                         <a class="c-sidebar__navLink c-sidebar__navLink--subtitle nav-link"
                                            href="/docs/ui/widgets.html"
                                         >
+                                            <i class="fa fa-angle-right" aria-hidden="true"></i>
                                             Widgets
                                         </a>
                                     </li>
@@ -270,14 +247,94 @@
                                         <a class="c-sidebar__navLink c-sidebar__navLink--subtitle nav-link"
                                            href="/docs/ui/examples.html"
                                         >
+                                            <i class="fa fa-angle-right" aria-hidden="true"></i>
                                             Examples
+                                        </a>
+                                    </li>
+                            </ul>
+                        <li class="c-sidebar__navItem nav-item">
+                            <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link"
+                               href="/docs/integrations.html"
+                            >
+                                <i class="fa fa-chain" aria-hidden="true"></i>
+                                Integrations
+                            </a>
+                        </li>
+
+                            <ul class="c-sidebar__nav c-sidebar__nav--sub-1 nav nav-pills flex-column">
+                                    <li class="c-sidebar__navItem--sub-1 nav-item">
+                                        <a class="c-sidebar__navLink c-sidebar__navLink--subtitle nav-link"
+                                           href="/docs/integrations/symfony-bundle.html"
+                                        >
+                                            <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                            Symfony Bundle
+                                        </a>
+                                    </li>
+                            </ul>
+                        <li class="c-sidebar__navItem nav-item">
+                            <a class="c-sidebar__navLink c-sidebar__navLink--title nav-link"
+                               href="/docs/faqs.html"
+                            >
+                                <i class="fa fa-code" aria-hidden="true"></i>
+                                FAQs
+                            </a>
+                        </li>
+
+                            <ul class="c-sidebar__nav c-sidebar__nav--sub-1 nav nav-pills flex-column">
+                                    <li class="c-sidebar__navItem--sub-1 nav-item">
+                                        <a class="c-sidebar__navLink c-sidebar__navLink--subtitle nav-link"
+                                           href="/docs/faqs/project.html"
+                                        >
+                                            <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                            FAQS about the project
                                         </a>
                                     </li>
                                     <li class="c-sidebar__navItem--sub-1 nav-item">
                                         <a class="c-sidebar__navLink c-sidebar__navLink--subtitle nav-link"
-                                           href="/docs/ui.html"
+                                           href="/docs/faqs/admin.html"
                                         >
-                                            UI
+                                            <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                            FAQS about the admin
+                                        </a>
+                                    </li>
+                                    <li class="c-sidebar__navItem--sub-1 nav-item">
+                                        <a class="c-sidebar__navLink c-sidebar__navLink--subtitle nav-link"
+                                           href="/docs/faqs/clients.html"
+                                        >
+                                            <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                            FAQS about the clients
+                                        </a>
+                                    </li>
+                                    <li class="c-sidebar__navItem--sub-1 nav-item">
+                                        <a class="c-sidebar__navLink c-sidebar__navLink--subtitle nav-link"
+                                           href="/docs/faqs/ui.html"
+                                        >
+                                            <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                            FAQS about the UI
+                                        </a>
+                                    </li>
+                                    <li class="c-sidebar__navItem--sub-1 nav-item">
+                                        <a class="c-sidebar__navLink c-sidebar__navLink--subtitle nav-link"
+                                           href="/docs/faqs/integrations.html"
+                                        >
+                                            <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                            FAQS about the integrations
+                                        </a>
+                                    </li>
+                                    <li class="c-sidebar__navItem--sub-1 nav-item">
+                                        <a class="c-sidebar__navLink c-sidebar__navLink--subtitle nav-link"
+                                           href="/docs/faqs/docs.html"
+                                        >
+                                            <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                            FAQS about the docs
+                                        </a>
+                                    </li>
+                                    <li class="c-sidebar__navItem--sub-1 nav-item">
+                                        <a class="c-sidebar__navLink c-sidebar__navLink--subtitle nav-link"
+                                           href="/docs/faqs/us.html"
+                                        >
+                                            <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                            FAQS about us
                                         </a>
                                     </li>
                             </ul>
@@ -285,7 +342,7 @@
             </div>            <!-- Sidebar -->
 
             <!-- Main -->
-            <main class="col-sm-8 col-md-9 col-lg-10 ml-sm-auto pt-3" role="main">
+            <main class="col-sm-8 col-md-9 col-lg-8 ml-sm-auto mr-lg-auto pt-3" role="main">
                 <section class="c-content">
                     <!-- Content -->
                     
@@ -294,13 +351,20 @@
                     <hr>
                     <a class="c-content__editOnGithub"
                        target="_blank"
-                       href="https://github.com/apisearch-io/docs/tree/master/src/content/faqs/client.md">
+                       href="https://github.com/apisearch-io/docs/tree/master/src/content/faqs/ui.md">
                         <i class="fa fa-github" aria-hidden="true"></i>
                         Edit this page!
                     </a>
                 </section>
             </main>
             <!-- /Main -->
+
+            <!-- Toc here -->
+            <div class="c-toc col-lg-2 d-none d-lg-block">
+                <ul class="c-toc__nav nav nav-pills flex-column">
+                </ul>
+            </div>
+            <!-- End toc -->
 
             <!-- Footer -->
             <footer class="c-footer col-sm-9 ml-sm-auto col-md-10 pt-3">
