@@ -19,6 +19,7 @@ ui.addWidgets(
         target: '#searchInput',
         placeholder: 'Search documentation...',
         autofocus: true,
+        highlightsEnabled: true,
         classNames: {
             container: '',
             input: 'c-search__searchInput form-control mr-sm-2',
@@ -30,7 +31,7 @@ ui.addWidgets(
     }),
     ui.widgets.result({
         target: '#topicsSearchResult',
-        itemsPerPage: 18,
+        itemsPerPage: 12,
         template: {
             itemsList: resultSearchTemplate,
         },

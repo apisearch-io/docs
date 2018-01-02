@@ -14,12 +14,13 @@ function apisearchTransformer(docSection) {
     return {
         uuid: {
             id: `${docSection.level}-${uslug(docSection.title)}`,
-            type: `${uslug(docSection.parentMetadata.category   )}`
+            type: `${uslug(docSection.parentMetadata.category)}`
         },
         metadata: {
             url: `${docSection.parentMetadata.url}#${uslug(docSection.title)}`,
             title: docSection.title,
             content: docSection.body,
+            category: docSection.parentMetadata.category,
             description: `${docSection.body.substring(0, 50)}...`,
             languages: docSection.parentMetadata.languages,
             code: (code.length !== 0)

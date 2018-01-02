@@ -138,6 +138,7 @@ ui.addWidgets(ui.widgets.simpleSearch({
     target: '#searchInput',
     placeholder: 'Search documentation...',
     autofocus: true,
+    highlightsEnabled: true,
     classNames: {
         container: '',
         input: 'c-search__searchInput form-control mr-sm-2',
@@ -148,7 +149,7 @@ ui.addWidgets(ui.widgets.simpleSearch({
     }
 }), ui.widgets.result({
     target: '#topicsSearchResult',
-    itemsPerPage: 18,
+    itemsPerPage: 12,
     template: {
         itemsList: _templates.resultSearchTemplate
     },
@@ -27299,7 +27300,7 @@ Object.defineProperty(exports, "__esModule", {
  * Result Search Template
  * @type {string}
  */
-var resultSearchTemplate = exports.resultSearchTemplate = "\n    {{#items}}\n    <div class=\"col-12 col-sm-6 col-md-6 col-lg-4\">\n        <a href=\"{{metadata.url}}\" class=\"c-search__resultItem\">\n            <h2 class=\"c-search__resultItemTitle\">\n                <span>{{metadata.title}}</span>\n            </h2>\n            \n            {{#metadata.description}}\n            <p class=\"c-search__resultItemDescription\">\n                {{metadata.description}}\n            </p>\n            {{/metadata.description}}\n            \n            <div class=\"c-search__resultItemLangList\">\n                {{#metadata.languages}}\n                    <div class=\"c-search__resultItemLang c-search__resultItemLang--{{.}}\">\n                        {{.}}\n                    </div>\n                {{/metadata.languages}}\n            </div>\n        </a>\n    </div>\n    {{/items}}\n    {{^items}}\n    <div class=\"col-sm-12\">\n        <div class=\"c-search__emptyResult\">\n            <i class=\"fa fa-times-circle\" aria-hidden=\"true\"></i>\n            No results found\n        </div>\n    </div>\n    {{/items}}\n";
+var resultSearchTemplate = exports.resultSearchTemplate = "\n    {{#items}}\n    <div class=\"col-12 col-sm-6 col-md-6 col-lg-4\">\n        <a href=\"{{metadata.url}}\" onclick=\"window.location.reload(true)\" class=\"c-search__resultItem\">\n            <h2 class=\"c-search__resultItemTitle\">\n                <span>{{metadata.title}}</span>\n                \n                <span class=\"c-search__resultItemCategory\">\n                    {{metadata.category}}\n                </span>\n            </h2>\n            {{#metadata.description}}\n            <p class=\"c-search__resultItemDescription\">\n                {{metadata.description}}\n            </p>\n            {{/metadata.description}}\n            <div class=\"c-search__resultItemLangList\">\n                {{#metadata.languages}}\n                    <div class=\"c-search__resultItemLang c-search__resultItemLang--{{.}}\">\n                        {{.}}\n                    </div>\n                {{/metadata.languages}}\n            </div>\n        </a>\n    </div>\n    {{/items}}\n    {{^items}}\n    <div class=\"col-sm-12\">\n        <div class=\"c-search__emptyResult\">\n            <i class=\"fa fa-meh-o\" aria-hidden=\"true\"></i>\n            <h2 class=\"c-search__emptyResultTitle\">No results found</h2>\n            \n            <ul class=\"c-search__emptyResultSuggestions\">\n                <li class=\"c-search__emptyResultSuggestion\">\n                    Maybe you need <a href=\"http://localhost:1234/docs/first-steps.html\"> a starting point</a>, \n                </li>\n                <li class=\"c-search__emptyResultSuggestion\">\n                    <a href=\"http://localhost:1234/docs/integrations.html\">see the Api Reference</a>, \n                </li>\n                <li class=\"c-search__emptyResultSuggestion\">\n                    <a href=\"http://localhost:1234/docs/ui.html\">build a custom search</a>.\n                </li>\n            </ul>\n        </div>\n    </div>\n    {{/items}}\n";
 
 /***/ }),
 /* 9 */
