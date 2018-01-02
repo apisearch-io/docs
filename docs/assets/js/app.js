@@ -124,7 +124,8 @@ var ui = (0, _apisearchUi2.default)({
     index: apisearchConfig.index,
     token: apisearchConfig.token,
     options: {
-        endpoint: apisearchConfig.hostname
+        endpoint: apisearchConfig.hostname,
+        protocol: apisearchConfig.protocol
     }
 });
 
@@ -10125,7 +10126,8 @@ const apisearchConfig = {
     appId: "4186e76c",
     index: "6de535c5",
     token: "7975ac41-6cbf-4a48-afd0-30746219bc3b",
-    hostname: "api.apisear.ch"
+    hostname: "apisearch.global.ssl.fastly.net",
+    protocol: "https"
 }
 
 module.exports = apisearchConfig;
