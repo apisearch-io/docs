@@ -27,6 +27,6 @@ This is a simple aggregator of music albums built entirely with Apisearch to ind
 and query the data, and ApisearchUI to build the super fast experience. 
 > You can play with it on [apisearch.io](http://apisearch.io)! :)
 
-![](/docs/assets/media/apisearch-music.gif)
+![](/assets/media/apisearch-music.gif)
 
 

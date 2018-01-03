@@ -4,10 +4,10 @@
   "description": "Apisearch documentation site",
   "main": "index.js",
   "license": "MIT",
-  "author": "alexhoma <alexcm.14@gmail.com>",
+  "author": "Apisearch team <hello+docs@puntmig.com>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/alexhoma/docs.git"
+    "url": "https://github.com/apisearch-io/docs.git"
   },
   "keywords": [
     "docs",
@@ -21,7 +21,7 @@
     }
   },
   "scripts": {
-    "server": "webpack-dev-server --config ./webpack.web.js --content-base . --inline --hot --port 1234",
+    "server": "webpack-dev-server --config ./webpack.web.js --content-base ./docs --inline --hot --port 1234",
     "media": "cp -r ./src/media ./docs/assets/",
     "dev:website": "webpack --config ./webpack.web.js",
     "dev": "./docgen; npm run dev:website;",

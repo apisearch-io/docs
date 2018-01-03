@@ -32,6 +32,27 @@ precisely, to make you comfortable in front of all searches. Use our docs search
 bar placed in the top of the website. Find by words, by examples, by code lines
 or by whatever you have. You should find everything as fast as possible.
 
+## Is this for me?
+
+Well. It depends. What kind of project are you working on? We are trying to
+cover a small of use cases, so you're lucky if yours is one of them.
+Of course, they are some projects we've been explicitly covering while we were
+building the product, but we're sure than even many more can be properly covered
+using Apisearch.
+
+- E-commerce : We offer some integration tools for your e-commerce. Your
+public data will be stored in our servers and served in an amazing way to your
+users by using our Javascript UI libraries. Even if you're not using any
+e-commerce framework, you can use our clients and plugins to make it on your own
+way. Everything is ready for you to use it.
+- Sample website . Offer to your final users the better experience possible,
+even if your sample is millions items large. We can scale as much as you need.
+- Crawling : One of the scenarios we were thinking when designing the project
+was when making some Crawling. No hard persistence layer needed, but
+evolutionary data can be reviewed. Great to show how data changed over the time.
+- Database-less applications : We can be your database. That simple. Accessible
+from everywhere, make all your applications work with the same entry point.
+
 ## Create an Apisearch account
 
 The first thing you should do in order to start using Apisearch is to create a
@@ -39,11 +60,15 @@ new account at [https://admin.apisearch.io](https://admin.apisearch.io). If the
 website is not opened for new registrations and you want to request a new
 invitation, then don't hesitate to write us at invitations@puntmig.com.
 
+![Login](/assets/media/login.png)
+
 As a user you could be able to
 
 - Manage your own information and custom your panel
 - Manage your apps and indexes
-- Manage your billing information. This information can be overridden by app
+- Manage your access tokens
+- Manage your campaigns
+- Manage your billing information
 
 ## Create an App
 
@@ -59,6 +84,8 @@ override the one defined per user
 When you create a new app, you're not creating anything in our Elasticsearch
 databases. An app is only a virtual aggregation, so you will be able to create
 as many apps as you want without much impact at all.
+
+![Login](/assets/media/new-app.png)
 
 Once a new app is created, you will have an app_id, important to create external
 integrations. You will be able to find it in your app panel in the admin

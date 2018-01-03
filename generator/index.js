@@ -56,7 +56,7 @@ const SRC_DIR = path.resolve(__dirname, '../src');
 
         parsedFile = {
             ...parsedFile,
-            url: '/docs/' + parsedFile.source.replace('.md', '.html'),
+            url: '/' + parsedFile.source.replace('.md', '.html'),
             systemPath,
             originalContent: contentString,
             systemName: stat.name,
