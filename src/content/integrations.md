@@ -21,7 +21,16 @@ Apisearch is easy. So easy.
 
 You will find a list of Apisearch integrations developed by us.
 
-- [Symfony bundle](integrations/symfony-bundle.html)
+## [PHP Client](api-client.html)
+- Source - [Github](https://github.com/apisearch-io/php-client)
+- Current versions - [0.1.*](https://github.com/apisearch-io/php-client/releases)
+- Status - [![Build Status](https://travis-ci.org/apisearch-io/php-client.svg?branch=master)](https://travis-ci.org/apisearch-io/php-client)
+    
+## [Symfony bundle](integrations/symfony-bundle.html)
+- Source - [Github](https://github.com/apisearch-io/apisearch-bundle)
+- Current versions - [0.1.*](https://github.com/apisearch-io/apisearch-bundle/releases)
+    
+## Roadmap
 
 We encourage you to develop your own extensions for Apisearch. Make sure you
 understand how our API Works by reading our [Api Client](api-client.html) and
