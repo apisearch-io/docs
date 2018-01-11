@@ -25,7 +25,7 @@ use cases.
 
 This is a simple aggregator of music albums built entirely with Apisearch to index
 and query the data, and ApisearchUI to build the super fast experience. 
-> You can play with it on [apisearch.io](http://apisearch.io)! :)
+> You can play with it on [apisearch.io](http://apisearch.io/product.html)! :)
 
 ![](/assets/media/apisearch-music.gif)
 

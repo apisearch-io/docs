@@ -1,7 +1,7 @@
 ---
 root: true
 page: 6
-icon: code
+icon: question
 title: FAQS
 description: Apisearch Frequent Questions and Answers
 category: FAQs
