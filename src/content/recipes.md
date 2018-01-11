@@ -1,7 +1,7 @@
 ---
 root: true
 page: 5
-icon: code
+icon: ticket
 title: Recipes
 description: Cooked Recipes
 category: Recipes

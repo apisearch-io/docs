@@ -4,7 +4,7 @@ title: Working with relations
 description: Recipes - Working with relations
 category: Recipes
 template: one-column-with-toc.mustache
-source: resipes/working-with-relations.md
+source: recipes/working-with-relations.md
 languages:
   - php
 tags:

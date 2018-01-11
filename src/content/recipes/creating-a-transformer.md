@@ -4,7 +4,7 @@ title: Creating a Transformer
 description: Recipes - Creating a Transformer
 category: Recipes
 template: one-column-with-toc.mustache
-source: resipes/creating-a-transformer.md
+source: recipes/creating-a-transformer.md
 languages:
   - php
 tags:
