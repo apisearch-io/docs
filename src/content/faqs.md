@@ -1,8 +1,8 @@
 ---
 root: true
-page: 5
+page: 6
 icon: code
-title: API Client
+title: FAQS
 description: Apisearch Frequent Questions and Answers
 category: FAQs
 template: one-column-with-toc.mustache
