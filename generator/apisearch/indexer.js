@@ -5,7 +5,7 @@ const apisearchConfig = require("../../apisearch-config");
 function indexData(docsString) {
     let encodedData = encodeURIComponent(docsString);
     let api = apisearchConfig;
-    let url = `http://${api.hostname}/v1/items?app_id=${api.appId}&index=${api.index}&token=${api.token}`;
+    let url = `${api.hostname}/v1/items?app_id=${api.appId}&index=${api.indexId}&token=${api.token}`;
 
     return axios.post(url, `items=${encodedData}`, {
         headers: {

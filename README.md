@@ -2,6 +2,34 @@ Apisearch documentation
 =======================
 This is the main repository for all Apisearch related documentation.
 
+## Setup
+These are the steps to setup your docs repository:
+```shell
+git clone https://github.com/apisearch-io/docs.git
+git checkout source
+https://github.com/apisearch-io/docs.git docs
+```
+
+Remember to include the `apisearch-config.js` file that is automatically removed in
+`.gitignore` file.
+
+```javascript
+const apisearchConfig = {
+    appId: "your_app_id",
+    indexId: "your_index_id",
+    hostname: "http://api.apisear.ch",
+    token: "your_admin_token",
+    queryHostname: "https://apisearch.global.ssl.fastly.net",
+    queryToken: "your_readonly_token",
+};
+
+module.exports = apisearchConfig;
+```
+
+Then install the dependencies:
+```shell
+npm install
+```
 
 ## Quick start
 

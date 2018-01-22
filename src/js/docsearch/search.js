@@ -5,12 +5,8 @@ const apisearchConfig = require("../../../apisearch-config");
 
 const ui = apisearchUI({
     appId: apisearchConfig.appId,
-    index: apisearchConfig.index,
-    token: apisearchConfig.queryToken,
-    options: {
-        endpoint: apisearchConfig.queryHostname,
-        protocol: apisearchConfig.protocol
-    }
+    indexId: apisearchConfig.indexId,
+    token: apisearchConfig.queryToken
 });
 
 ui.addWidgets(
