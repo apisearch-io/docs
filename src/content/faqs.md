@@ -5,7 +5,7 @@ icon: question
 title: FAQS
 description: Apisearch Frequent Questions and Answers
 category: FAQs
-template: one-column-with-toc.mustache
+template: one-column.mustache
 source: faqs.md
 languages: ~
 tags:
@@ -20,7 +20,8 @@ IHere you have some questions and answers. In order to be faster when looking
 for some information about Apisearch, we encourage you to use our searcher
 placed in the top of the website.
 
-This is the table of contents
+
+### Table of contents
 
 - [About the project](faqs/project.html)
 - [About the admin](faqs/admin.html)

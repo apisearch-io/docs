@@ -140,10 +140,10 @@ You can use the event repository as well. The container will build exactly the
 same number of services than the regular repository, but instead of
 `.repository_`, the services are built by using the `.event_repository_` syntax.
 
-- apisearch.event_repository_search.default
-- apisearch.event_repository_comments.ca
-- apisearch.event_repository_comments.es
-- apisearch.event_repository_comments.en
+- `apisearch.event_repository_search.default`
+- `apisearch.event_repository_comments.ca`
+- `apisearch.event_repository_comments.es`
+- `apisearch.event_repository_comments.en`
 
 You can inject them as well the way Symfony says.
 
