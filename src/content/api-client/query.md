@@ -660,7 +660,15 @@ filters, or if the aggregation itself requires an special configuration.
 ```php
 Query::createMatchAll()
     ->aggregateBy(
-        'fieldname'
+        'fieldname',
+        'field1'
+    );
+```
+```javascript
+let query = api.query
+    .createMatchAll()
+    .aggregateBy(
+        'fieldname',
         'field1'
     );
 ```
@@ -673,10 +681,20 @@ your process.
 ```php
 Query::createMatchAll()
     ->aggregateBy(
-        'fieldname'
+        'fieldname',
         'field1',
         Filter::AT_LEAST_ONE,
         Aggregation::SORT_BY_COUNT_DESC
+    );
+```
+```javascript
+let query = api.query
+    .createMatchAll()
+    .aggregateBy(
+        'fieldname',
+        'field1',
+        'FILTER_AT_LEAST_ONE',
+        'AGGREGATION_SORT_BY_COUNT_DESC'
     );
 ```
 
@@ -702,6 +720,17 @@ Query::createMatchAll()
         Aggregation::NO_LIMIT
     );
 ```
+```javascript
+let query = api.query
+    .createMatchAll()
+    .aggregateBy(
+        'fieldname',
+        'field1',
+        'FILTER_AT_LEAST_ONE',
+        'AGGREGATION_SORT_BY_COUNT_DESC',
+        'AGGREGATION_NO_LIMIT'
+    );
+```
 
 Aggregations can be enabled or disabled by using these flag methods. This flag
 will override all behaviors from all filter methods (remember that when
@@ -715,6 +744,12 @@ Query::create('')
     ->disableAggregations()
 ;
 ```
+```javascript
+let query = api.query
+  .create('')
+  .disableAggregations()
+;
+```
 
 In this case, aggregations are specifically enabled by Types setting the second 
 parameter to `true`, but disabled by flag, so no aggregations will be requested.
@@ -726,6 +761,16 @@ Query::createMatchAll()
         true
     )
     ->disabledAggregations()
+;
+```
+```javascript
+let query = api.query
+    .createMatchAll()
+    .filterByTypes(
+        ['product'],
+        true
+    )
+    .disableAggregations()
 ;
 ```
 
@@ -751,6 +796,28 @@ Query::createMatchAll()
         ['indexed_metadata.updated_at', 'desc']
     );
 ```
+```javascript
+let query = api.query
+    .sortBy({
+        'indexed_metadata.manufacturer': {
+            'order': 'asc'
+        }
+    });
+
+let query = api.query
+    .sortBy({
+        'indexed_metadata.name': {
+            'order': 'desc'
+        }
+    });
+
+let query = api.query
+    .sortBy({
+        'indexed_metadata.updated_at': {
+            'order': 'asc'
+        }
+    });
+```
 
 We can use prebuilt sorts. The first one is the one applied by default when no
 sorting is defined. The better score given a query, the earlier in results.
@@ -765,8 +832,18 @@ Query::createMatchAll()
     ->sortBy(SortBy::TYPE_DESC)
 ;
 ```
+```javascript
+let query = api.query.createMatchAll()
+    .sortBy('SORT_BY_SCORE')
+    .sortBy('SORT_BY_ID_ASC')
+    .sortBy('SORT_BY_ID_DESC')
+    .sortBy('SORT_BY_TYPE_ASC')
+    .sortBy('SORT_BY_TYPE_DESC')
+;
+```
 
 When you define a sort element, you override the existing one.
+
 
 ## Sort by location
 
@@ -782,6 +859,13 @@ $query = Query::createLocated(
     ''
 );
 ```
+```javascript
+let query = api
+    .query.createLocated(
+        api.createObject.coordinate(40.0, -70.0),
+        ''
+    );
+```
 
 Because the only way that could make sense when sorting by location is
 requesting first of all the elements closer to us, we can only sort them by
@@ -795,6 +879,15 @@ $query = Query::createLocated(
     ->sortBy(SortBy::LOCATION_KM_ASC)
     ->sortBy(SortBy::LOCATION_MI_ASC)
 ;
+```
+```javascript
+let query = api
+    .query.createLocated(
+        api.createObject.coordinate(40.0, -70.0),
+        ''
+    )
+    .sortBy('SORT_BY_LOCATION_KM_ASC')
+    .sortBy('SORT_BY_LOCATION_KM_DESC')
 ```
 
 Both sorting types return exactly the same results in the same order, but both
@@ -810,6 +903,7 @@ value.
 $item->getDistance();
 ```
 
+
 ## Sort randomly
 
 You can sort your elements in a random way by using the fast predefined value
@@ -817,6 +911,12 @@ You can sort your elements in a random way by using the fast predefined value
 ```php
 Query::createMatchAll()
     ->sortBy(SortBy::RANDOM)
+;
+```
+```javascript
+let query = api
+    .query.createMatchAll()
+    .sortBy('SORT_BY_RANDOM')
 ;
 ```
 
@@ -833,9 +933,20 @@ Query::create('')
     ->enableAggregations()
 ;
 ```
+```javascript
+let query = api
+    .query.createMatchAll()
+    .enableAggregations()
+;
+let query = api
+    .query.createMatchAll()
+    .disableAggregations()
+;
+```
 
 Please, read [Reading Suggestions](#reading-suggestions) to know a little bit
 more about suggestions.
+
 
 ## Excluding some elements
 
@@ -854,6 +965,15 @@ Query::createMatchAll()
     ->excludeUUID(new ItemUUID('10', 'product'))
 ;
 ```
+let query = api
+    .query.createMatchAll()
+    .filterByTypes(
+         ['product']
+    )
+    .excludeUUID(
+        api.createObject.uuid('10', 'product')
+    )  
+;
 
 In this example we are excluding the Item with ID 10 and 'product' as type.
 Remember that an item is always referenced not only by the id but with a
