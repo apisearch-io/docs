@@ -33,5 +33,5 @@ This is the table of contents
 Furthermore, if you have any question related to specific cases, too specific to
 be placed in this section, feel free to use these channels.
 
-- [Apisearch Slack](https://apisearch.slack.com)
+- [Apisearch Chat](https://gitter.im/apisearch_io/)
 - [Stackoverflow](https://stackoverflow.com/questions/tagged/apisearch)
