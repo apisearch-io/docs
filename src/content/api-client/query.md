@@ -8,9 +8,11 @@ template: one-column-with-toc.mustache
 source: api-client/query.md
 languages: 
   - php
+  - javascript
 tags:
   - apisearch-client
   - apisearch model
+  - API Reference
 ---
 
 # Query
@@ -24,8 +26,13 @@ using a single pattern called builder.
 
 Let's start with something really easy.
 
-```
+```php
 $query = Query::create("something");
+```
+
+```javascript
+let api = apisearch({/* your apisearch credentials */});
+let query = api.query.create('something'); 
 ```
 
 That simple. This small query will look for all entities in the repository,
@@ -46,6 +53,14 @@ $query = Query::create(
     100          // How many items do we want?
 );
 ```
+```javascript
+let api = apisearch({/* your apisearch credentials */});
+let query = api.query.create(
+    'something',  // The query string
+    2,            // The page we want to retrieve
+    100           // How many items do we want per page?
+); 
+```
 
 That's it, that easy :)
 
@@ -56,6 +71,12 @@ second method you will query the first 1000 elements.
 ```php
 $query = Query::create('');
 $query = Query::createMatchAll();
+```
+```javascript
+let api = apisearch({/* your apisearch credentials */});
+
+let emptyStringQuery = api.query.create('');
+let querySearchEverything = api.query.createMatchAll();
 ```
 
 Finally, you can create a query to find one ore more specific elements from your
@@ -74,9 +95,25 @@ $query = Query::createByUUIDs([
     new ItemUUID('heavy', 'book'),
 ]);
 ```
+```javascript
+let api = apisearch({/* your apisearch credentials */});
+
+let queryOneUUID = api.query
+  .createByUUID(
+    api.createObject.uuid('12', 'book')
+  );
+
+let queryManyUUIDs = api.query
+  .createByUUIDs(
+    api.createObject.uuid('12', 'book'), 
+    api.createObject.uuid('332', 'book'), 
+    api.createObject.uuid('332', 'book')
+  );
+```
 
 The order is not important here, and the result format will be exactly the same
 than any other type of queries.
+
 
 ## Filters
 
@@ -94,17 +131,18 @@ one of the defined categories? That's the application type.
 
 Let's see all available types
 
-* `Filter::MUST_ALL` - All results must match all filter elements
-* `Filter::MUST_ALL_WITH_LEVELS` - All results must match all filter elements, but
+* `MUST_ALL` - All results must match all filter elements
+* `MUST_ALL_WITH_LEVELS` - All results must match all filter elements, but
 when aggregating, only facets with the minor level encountered will be shown.
 E.g. categories.
-* `Filter::AT_LEAST_ONE` - At least one element must match.
-* `Filter::EXCLUDE` - Items should be excluded from results
+* `AT_LEAST_ONE` - At least one element must match.
+* `EXCLUDE` - Items should be excluded from results
 
 Every time we create a new filter, we must determine the type of this filter
 application. Depending on that value, the filter will cause different values and
 the resulting aggregation (facet) will change, even on your screen. Let's take a
 look at the different filters we can apply.
+
 
 ## Must all with levels
 
@@ -154,6 +192,11 @@ require us to use the filterUniverse methods.
 $query = Query::createMatchAll()
     ->filterUniverseByTypes(['A', 'B']);
 ```
+```javascript
+let query = api.query
+  .createMatchAll()
+  .filterUniverseByTypes(['A', 'B']);
+```
 
 Once our Universe is properly defined, then we have to let the user navigate
 through this universe by using the standard filters.
@@ -161,13 +204,28 @@ through this universe by using the standard filters.
 ``` php
 $query = Query::createMatchAll()
     ->filterUniverseByTypes(['A', 'B'])
-    ->filterBy('brand', 'brand', ['Superbrand']);
+    ->filterBy(
+        'brand',       // filter name
+        'brand',       // field
+        ['Superbrand'] // values
+    );
+```
+```javascript
+let query = api.query
+  .createMatchAll()
+  .filterUniverseByTypes(['A', 'B'])
+  .filterBy(
+    'brand',       // filter name
+    'brand',       // field
+    ['Superbrand'] // values
+  );
 ```
 
 Each filter strategy is documented for both universe and regular filters. As you
 will see both methods will always change a little bit (regular filters will
 always have a name as first parameter in order to relate later with a possible
 aggregation).
+
 
 ## Filtering by Type
 
@@ -182,6 +240,11 @@ universe by types A and B. Let's see how to do it.
 $query = Query::createMatchAll()
     ->filterUniverseByTypes(['A', 'B']);
 ```
+```javascript
+let query = api.query
+  .createMatchAll()
+  .filterUniverseByTypes(['A', 'B']);
+```
 
 All possible results will only include A and B. Think about this filter as a
 permanent filter executed before all others.
@@ -192,6 +255,12 @@ Then you can use regular Filtering by type by using this method
 $query = Query::createMatchAll()
     ->filterUniverseByTypes(['A', 'B'])
     ->filterByTypes(['A']);
+```
+```javascript
+let query = api.query
+  .createMatchAll()
+  .filterUniverseByTypes(['A', 'B'])
+  .filterByTypes(['A']);
 ```
 
 But alert ! This seems to be exactly the same, right? Well, in this case we are
@@ -220,6 +289,12 @@ $query = Query::createMatchAll()
     ->filterUniverseByTypes(['A', 'B'])
     ->filterByTypes(['A', 'B']);
 ```
+```javascript
+let query = api.query
+  .createMatchAll()
+  .filterUniverseByTypes(['A', 'B'])
+  .filterByTypes(['A', 'B']);
+```
 
 With a result like that
 
@@ -234,6 +309,11 @@ that our filter is already working properly
 ``` php
 $query = Query::createMatchAll()
     ->filterByTypes(['A', 'B']);
+```
+```javascript
+let query = api.query
+  .createMatchAll()
+  .filterByTypes(['A', 'B']);
 ```
 
 Then, our result would be something like that, so our Universe is not filtered
@@ -256,9 +336,17 @@ $query = Query::createMatchAll()
         false
     );
 ```
+```javascript
+let query = api.query
+    .createMatchAll()
+    .filterByTypes(
+        ['A', 'B'],
+        false
+    );
+```
 
 A third and last parameter can be set to sort the aggregations result. By default, 
-this parameter is set to *SORT_BY_COUNT_DESC*.
+this parameter is set to `SORT_BY_COUNT_DESC`.
 
 ``` php
 $query = Query::createMatchAll()
@@ -268,6 +356,14 @@ $query = Query::createMatchAll()
         Aggregation::SORT_BY_COUNT_ASC
     );
 ```
+```javascript
+let query = api.query
+    .filterByTypes(
+        ['A', 'B'],
+        true,
+        'SORT_BY_COUNT_DESC'  
+    );
+````
 
 ## Filtering By Id
 
@@ -277,6 +373,11 @@ matter what or how filters you add. Your result set will be of maximum 3 items.
 ``` php
 $query = Query::createMatchAll()
     ->filterUniverseByIds(['10', '11', '12']);
+```
+```javascript
+let query = api.query
+    .createMatchAll()
+    .filterUniverseByIds(['10', '11', '12']);
 ```
 
 This is only useful if you work with a limited set of Items known by Ids.
@@ -288,6 +389,11 @@ to select a set of items from a list.
 ``` php
 $query = Query::createMatchAll()
     ->filterByIds(['10', '11', '12']);
+```
+```javascript
+let query = api.query
+    .createMatchAll()
+    .filterByIds(['10', '11', '12']);
 ```
 
 ## Filter by location
@@ -303,10 +409,20 @@ $query = Query::createMatchAll()
         '50km'
     ))
 ```
+```javascript
+let query = api.query
+  .filterUniverseByLocation(
+      api.createObject.coordinateAndDistance(
+          api.createObject.coordinate(40.9, -70.0),
+          '50km'
+      )
+  )
+```
 
 Location is something that you should filter by just once. And because you can't
 aggregate by locations, it has'nt make sense at all to have both filters,
 universe and regular, so they both mean exactly the same.
+
 
 ## Filter by range
 
@@ -321,6 +437,24 @@ $to = // Date Atom of the end of the month
 $query = Query::createMatchAll()
     ->filterUniverseByRange('price', ['0..20'], Filter::MUST_ALL)
     ->filterUniverseByDateRange('created_at', ["$from..$to"], Filter::MUST_ALL);
+```
+```javascript
+// Dates Atom 
+let from =  (new Date('01 October 2017 08:00 UTC')).toISOString();
+let to =  (new Date('01 October 2017 20:00 UTC')).toISOString();
+
+let query = api.query
+  .createMatchAll()
+  .filterUniverseByRange(
+      'price', 
+      ['0..20'], 
+      'FILTER_MUST_ALL'
+  )
+  .filterUniverseByDateRange(
+      'created_at', 
+      [`${from}..${to}`], 
+      'FILTER_MUST_ALL'
+  );
 ```
 
 Furthermore, once defined your subset of available values, you can use the range
@@ -343,6 +477,16 @@ Query::createMatchAll()
         ['50..60', '90..100']
     );
 ```
+```javascript
+let query = api.query
+    .createMatchAll()
+    .filterByRange(
+        'price',
+        'price',
+        [],
+        ['50..60', '90..100']  
+    );
+```
 
 Let's analyze what we created here. First of all, the name of the filter.
 Because this is an open filter, we must define the filter field by hand. In our
@@ -356,7 +500,7 @@ The third option is for faceting, we will check it later.
 The fourth option is the important one. Is an array of ranges, and each range is
 defined that way, separated by the string `..`.
 
-By default, a range is defined as Filter::AT_LEAST_ONE, so in that case, each
+By default, a range is defined as `AT_LEAST_ONE`, so in that case, each
 option adds results to the final set. We can change the behavior by changing the
 fifth parameter, and we can disable the auto-generated aggregation by changing
 the sixth one.
@@ -372,10 +516,23 @@ Query::createMatchAll()
         false
     );
 ```
+```javascript
+let query = api.query
+    .createMatchAll()
+    .filterByRange(
+        'price',
+        'real_price',
+        [],
+        ['50..60', '90..100'],
+        'FILTER_MUST_ALL',
+        false  
+    );
+```
 
 As you can see, this last example would return an empty set of elements as we
 don't have any item with a price lower than 60 euros and, at the same time,
 higher than 90. Basics of logic of sets.
+
 
 ## Filter by field
 
@@ -388,6 +545,15 @@ be a possibility.
 $query = Query::createMatchAll()
     ->filterUniverseBy('brand', ['Supershirts'], Filter::MUST_ALL);
 ```
+```javascript
+let query = api.query
+    .createMatchAll()
+    .filterUniverseBy(
+        'brand',
+        ['Supershirts'],
+        'FILTER_MUST_ALL'
+    );
+```
 
 You can filter by any field as well after universe filtering. This method have 
 a first parameter called filter name. This should be unique, so two filters with 
@@ -398,6 +564,15 @@ when matching with existing aggregations.
 ```php
 Query::createMatchAll()
     ->filterBy(
+        'filtername',
+        'field1',
+        ['value1', 'value2']
+    );
+```
+```javascript
+let query = api.query
+    .createMatchAll()
+    .filterBy(
         'filtername',
         'field1',
         ['value1', 'value2']
@@ -416,13 +591,25 @@ Query::createMatchAll()
         Filter::MUST_ALL
     );
 ```
+```javascript
+let query = api.query
+    .createMatchAll()
+    .filterBy(
+        'filtername',
+        'field1',
+        ['value1', 'value2'],
+        'FILTER_MUST_ALL'
+    );
+```
 
 > This filter works with the indexed_metadata field. Remember that the metadata
 > field stores non-indexable data
 
+
 By default, when you filter by meta, specific metadata field aggregation will be
 enabled. Disable this aggregation by adding a fifth and last parameter, or just
 override it later with a more specific aggregation configuration.
+
 
 ```php
 Query::createMatchAll()
@@ -434,6 +621,18 @@ Query::createMatchAll()
         false
     );
 ```
+```javascript
+let query = api.query
+    .createMatchAll()
+    .filterBy(
+        'filtername',
+        'field1',
+        ['value1', 'value2'],
+        'FILTER_AT_LEAST_ONE',
+        false
+    );
+```
+
 
 ## Aggregations
 
@@ -483,10 +682,10 @@ Query::createMatchAll()
 
 You can chose between these values
 
-- `Aggregation::SORT_BY_COUNT_DESC`
-- `Aggregation::SORT_BY_COUNT_ASC`
-- `Aggregation::SORT_BY_NAME_DESC`
-- `Aggregation::SORT_BY_NAME_ASC`
+- `SORT_BY_COUNT_DESC`
+- `SORT_BY_COUNT_ASC`
+- `SORT_BY_NAME_DESC`
+- `SORT_BY_NAME_ASC`
 
 You can limit as well the number of elements you want to return in the
 aggregation. By default, there's no limit, so if your result aggregation has
