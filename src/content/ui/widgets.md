@@ -40,6 +40,8 @@ const simpleSearchWidget = ui.widgets.simpleSearch({
   placeholder: ?string,
   autofocus: ?bool[false],
   startSearchOn: ?integer[0],
+  clearSearch: ?bool[true],
+  withContainer: ?bool[true],
   classNames: {
       container: ?string,
       input: ?string,
@@ -56,6 +58,9 @@ const simpleSearchWidget = ui.widgets.simpleSearch({
  - `placeholder`: the default html input placeholder.
  - `autofocus`: when set to `true`, the cursor is focused on the input.
  - `startSearchOn`: is the minimum number of characters to start searching.
+ - `clearSearch`: to show a clear search button to reset your search.
+ - `withContainer`: to wrap the search input with a div container. 
+ This is mandatory if you want a "clearSearch" button.
  - `classNames`:
     - `container`: refers to the parent `div` that contains the widget.
     - `input`: refers to the html input.
@@ -72,6 +77,7 @@ const suggestedSearchWidget = ui.widgets.suggestedSearch({
     target: !string,
     placeholder: ?string,
     autofocus: ?bool[false],
+    clearSearch: ?bool[true],
     classNames: {
         container: ?string,
         input: ?string,
@@ -91,6 +97,7 @@ const suggestedSearchWidget = ui.widgets.suggestedSearch({
  - `placeholder`: the default html input placeholder.
  - `autofocus`: when set to `true`, the cursor is focused on the input.
  - `startSearchOn`: is the minimum number of characters to start searching.
+ - `clearSearch`: to show a clear search button to reset your search.
  - `classNames`:
     - `container`: refers to the parent `div` class that 
     contains the widget.
