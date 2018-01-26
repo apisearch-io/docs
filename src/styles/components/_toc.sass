@@ -15,7 +15,8 @@
     margin-bottom: 1rem
 
   &__navItem
-    &--1
+    &--1,
+    &--needHelp
       font-weight: 600
       font-size: 1.1rem
     &--2
@@ -26,6 +27,9 @@
     &--4
       padding-left: 1.5rem
       font-size: .8rem
+    &--needHelp
+      padding: 0 1rem
+      margin-top: 2rem
 
   &__navLink
     color: #1a1a27
@@ -38,3 +42,15 @@
         text-decoration: none
         color: initial
         cursor: default
+
+    &--needHelp
+      &:hover
+        text-decoration: none
+        color: #1a1a27
+
+  &__navLinkImage
+    margin-right: .3rem
+    height: 2rem
+    -webkit-border-radius: 5rem
+    -moz-border-radius: 5rem
+    border-radius: 5rem

@@ -40,13 +40,6 @@
             <!-- Toc here -->
             <div class="c-toc col-lg-2 d-none d-lg-block">
                 <ul class="c-toc__nav nav nav-pills flex-column">
-                    <li style=" margin: 17px;" class="vcenter">
-                        <a style="color: #aaa; font-size: 20px;" href="">
-                            <img style="height: 50px; width: 50px; margin-right: 5px;" src="https://upload.wikimedia.org/wikipedia/commons/7/76/Slack_Icon.png" />
-                            Talk with us
-                        </a>
-                    </li>
-
                     {{#tableOfContent}}
                     <li class="c-toc__navItem c-toc__navItem--{{lvl}} nav-item">
                         <a class="c-toc__navLink c-toc__navLink--title nav-link"
@@ -56,6 +49,18 @@
                         </a>
                     </li>
                     {{/tableOfContent}}
+
+                    <li class="c-toc__navItem c-toc__navItem--needHelp nav-item">
+                        Need help?
+                    </li>
+                    <li class="c-toc__navItem c-toc__navItem--2 nav-item">
+                        <a class="c-toc__navLink c-toc__navLink--needHelp c-toc__navLink--title nav-link"
+                           href="https://gitter.im/apisearch_io"
+                        >
+                            <img class="c-toc__navLinkImage" src="/assets/media/gitter-logo.png" />
+                            Talk with us
+                        </a>
+                    </li>
                 </ul>
             </div>
             <!-- End toc -->
