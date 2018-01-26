@@ -32,7 +32,9 @@ your assets folder, or use a CDN like jsDelivr.
 <script src="https://cdn.jsdelivr.net/npm/apisearch-ui/dist/apisearch-ui.min.js"></script>
 ``````
 
+
 ## Quick start
+
 This simple setup allows you to build a full text search
 input with a result container using a custom template 
 engine.
@@ -40,8 +42,9 @@ engine.
 ```javascript
 // Create instance
 const ui = apisearchUI({
-    appId: 'music',
-    apiKey: '1cc7a3e0-bda5-11e7-abc4-cec278b6b50a'
+    appId: '241ly34R',
+    indexId: 'yT656u37',
+    token: '1cc7a3e0-bda5-11e7-abc4-cec278b6b50a'
 });
 
 // Append widgets
@@ -83,7 +86,8 @@ This is the anatomy of the ApisearchUI configuration:
 ```javascript
 const ui = apisearchUI({
     appId: !string,
-    apiKey: !string,
+    indexId: !string,
+    token: !string,
     options: {
         endpoint: ?string,
         apiVersion: ?string,
