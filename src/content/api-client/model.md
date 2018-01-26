@@ -135,7 +135,7 @@ different ways, we will use static factories instead of the private
 If you remember, all data but id and type is not required, so a simple
 implementation of a new Item could be as simple as that.
 
-``` php
+```php
 $itemUUID = new ItemUUID('4303ui203', 'product');
 $item = Item::create($itemUUID);
 ```
@@ -143,7 +143,7 @@ $item = Item::create($itemUUID);
 This Item would not have any parameter, and would be equivalent to this piece of
 code.
 
-``` php
+```php
 $itemUUID = new ItemUUID('4303ui203', 'product');
 $item = Item::create(
     $itemUUID,
@@ -157,7 +157,7 @@ $item = Item::create(
 
 Lets add some extra data to have a nice representation of our first example.
 
-``` php
+```php
 $itemUUID = new ItemUUID('4303ui203', 'product');
 $item = Item::create(
     $itemUUID,
@@ -203,7 +203,7 @@ This Item would map exactly as shown in the first example.
 A simple Coordinate is composed by a latitude and a longitude values. That
 simple. Both values are float formatted.
 
-``` php
+```php
 $itemCoordinate = new Coordinate(
     40.12, 
     -71.34
@@ -217,7 +217,7 @@ method `createLocated`. Because a located item must have a location, otherwise
 this would be a conventional Item, then both an ItemUUID and Coordinate
 instances must be passed as parameters.
 
-``` php
+```php
 $itemUUID = new ItemUUID('12345', 'product');
 $itemCoordinate = new Coordinate(
     40.12, 
@@ -232,7 +232,7 @@ $item = Item::createLocated(
 As before, this method allow all other parameters to be defined after the
 coordinate.
 
-``` php
+```php
 $itemUUID = new ItemUUID('12345', 'product');
 $itemCoordinate = new Coordinate(
     40.12, 

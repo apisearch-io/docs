@@ -8,6 +8,7 @@ template: one-column-with-toc.mustache
 source: api-client/result.md
 languages: 
   - php
+  - javascript
 tags:
   - apisearch-client
   - apisearch model
@@ -22,12 +23,30 @@ aggregations, result of our filters.
 ```php
 $result = $repository->query($query);
 ```
+```javascript
+let api = apisearch({/* your credentials */});
+
+let query = api.query.create('your query text');
+api.search(query, function(result, error) {
+    if (error) {
+        console.log(error);
+        return;
+    }
+    
+    console.log(result);
+});
+```
 
 You can retrieve as well all elements in a single array, respecting the order
 defined by the Query.
 
 ```php
 $results = $result->getItems();
+```
+```javascript
+api.search(query, function(error) {
+    console.log(result.items);
+});
 ```
 
 If you queried by a UUID, for example, or even in any query, you can easily
@@ -36,6 +55,11 @@ this method
 
 ```php
 $results = $result->getFirstItem();
+```
+```javascript
+api.search(query, function(error) {
+    console.log(result.items[0]);
+});
 ```
 
 Each of these methods will return an array of hydrated instances of our model (

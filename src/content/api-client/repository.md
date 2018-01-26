@@ -34,6 +34,7 @@ to make sure you're using the right repository.
 
 Let's take a look at all our repository interfaces
 
+
 ## HttpRepository
 
 This is the main implementation of this repository, ready for production
@@ -49,6 +50,7 @@ $repository = new HttpRepository(
 );
 $repository->setKey('mysecretkey');
 ```
+
 
 ## TransformableRepository
 

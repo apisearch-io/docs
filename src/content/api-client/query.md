@@ -925,11 +925,11 @@ let query = api
 Suggestions can be enabled or disabled by using these flag methods.
 
 ```php
-Query::create('')
+$query = Query::create('')
     ->disableAggregations()
 ;
 
-Query::create('')
+$query = Query::create('')
     ->enableAggregations()
 ;
 ```
@@ -946,6 +946,32 @@ let query = api
 
 Please, read [Reading Suggestions](#reading-suggestions) to know a little bit
 more about suggestions.
+
+
+
+## Enabling highlights
+
+Highlights can be enabled or disabled by using these flag methods.
+
+```php
+$query = Query::create('')
+    ->enableHighlights()
+;
+
+$query = Query::create('')
+    ->disableHighlights()
+;
+```
+```javascript
+let query = api
+    .query.createMatchAll()
+    .enableHighlights()
+;
+let query = api
+    .query.createMatchAll()
+    .disableHighlights()
+;
+```
 
 
 ## Excluding some elements
