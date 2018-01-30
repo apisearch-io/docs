@@ -1,32 +1,120 @@
 ---
-page: 2
+page: 1
 icon: angle-right
-title: Widgets
-description: Search widgets
+title: Search UI
+description: ApisearchUI documentation page.
 category: UI
 template: one-column-with-toc.mustache
-source: ui/widgets.md
-languages:
+source: ui/search-ui.md
+languages: 
   - javascript
 tags:
-  - apisearch-tools
-  - apisearch ui
-  - search components
+  - search ui installation
+  - quick usage
+  - user interface configuration
+  - search widgets
+  - ui examples
 ---
 
+# Search UI
 
-# Widgets
+This library is a set of tools to build a custom search experience for your 
+website, e-commerce, docs site, or any other web application you can imagine.
+It provides a list of common widgets like a search box, a result list, filters, 
+sorting dropdown, pagination, and many more explained below.
+
+
+## Installation
+
+**npm & yarn**
+
+```shell
+npm install apisearch-ui --save
+// or
+yarn add apisearch-ui
+```
+
+**html tag \<script\>**
+
+You can either download the library and use a relative path to 
+your assets folder, or use a CDN like jsDelivr. 
+```html
+<script src="https://cdn.jsdelivr.net/npm/apisearch-ui/dist/apisearch-ui.min.js"></script>
+```
+
+
+## Quick start
+
+This simple setup allows you to build a full text search
+input with a result container using a custom template 
+engine.
+
+```javascript
+// Create instance
+const ui = apisearchUI({
+    appId: 'your_app_id',
+    indexId: 'your_index_id',
+    token: 'your_app_QUERY_token'
+});
+
+// Append widgets
+ui.addWidgets(
+    ui.widgets.simpleSearch({
+        target: '.search-container',
+    }),
+    ui.widgets.result({
+        target: '.result-container',
+        template: {
+            itemsList: '<ul>{{#items}} <li>{{metadata.name}}</li> {{/items}}</ul>',
+        }
+    })
+);
+
+// Initialize it
+ui.init();
+```
+
+Before configuring your widgets, first you need to create
+a new instance of `apisearchUI`, passing an `appId`,
+an `indexId` and an **events** `token`.
+
+All widgets are passed using `.addWidget(widget)` method,
+or using `.addWidgets(...widgets)` to add widgets in a bulk mode,
+like in the example below.
+
+Once your setup is done, you just call the `.init()` method to 
+start all the magic!
+
+> Check out this for more examples: 
+> [apisearch-ui/examples](https://github.com/apisearch-io/search-ui/tree/master/examples)!
+
+
+## Anatomy
+This is the anatomy of the ApisearchUI configuration:
+
+```javascript
+const ui = apisearchUI({
+    appId: !string,
+    indexId: !string,
+    token: !string,
+    options: {
+        endpoint: ?string,
+        apiVersion: ?string,
+        timeout: ?int[10000],
+        overrideQueries: ?bool[true],
+        inMemoryCache: ?bool[true]
+    }
+});
+```
+
+## Widgets
 
 Widgets are nothing but a small pieces of html connected between them that let
 you build a fully customized search experience. They can be used as a search input,
-a result set, a pagination component, different kind of filters, and many more. 
-
-Widgets are powerful and super fast, but when combined, can become an incredible 
-unique search that will boost your e-commerce, aggregator, or your documentation 
-site!
+a result set, a pagination component, different kind of filters, and many more.
 
 
-## Simple Search
+### Simple Search
 
 The simple search input widget is to perform text based 
 searches.
@@ -66,7 +154,7 @@ const simpleSearchWidget = ui.widgets.simpleSearch({
     - `input`: refers to the html input.
 
 
-## Suggested Search
+### Suggested Search
 
 The suggested search input goes one step further. You can
 get auto-completed suggestions list related to the text
@@ -107,7 +195,7 @@ const suggestedSearchWidget = ui.widgets.suggestedSearch({
     - `activeSuggestion`: refers to the active suggestion.
 
 
-## Sort By
+### Sort By
 
 The sort by widget allows to order the result set as you like.
 
@@ -138,7 +226,7 @@ const sortByWidget = ui.widgets.sortBy({
     - `select`: refers to the select input.
     
     
-## Multiple Filter
+### Multiple Filter
 
 The filter widget allows you to refine your search.
 
@@ -208,7 +296,7 @@ const multipleFilterWidget = ui.widgets.multipleFilter({
  passed to the template. 
 
 
-## Clear filters button
+### Clear filters button
 
 Clear filters widget gives us a button to remove all active
 filters.
@@ -233,7 +321,7 @@ const clearFilters = ui.widgets.clearFilters({
     - `container`: is the template string for the element.
  
  
-## Search result
+### Search result
 
 The result widget allows you to print a set of results
 based on the search.
@@ -336,7 +424,7 @@ refer to the [twitter's hogan.js documentation](http://twitter.github.io/hogan.j
 Or check the library examples.
 
 
-## Pagination
+### Pagination
 
 This widget allows to navigate through the results
 with a pagination links.
@@ -391,7 +479,7 @@ const resultInformationWidget = ui.widgets.pagination({
     - `previous`: template string of the previous page button. 
     - `last`: template string of the last page button. 
 
-## Information (Result info)
+### Information (Result info)
 
 The result information widget allows you to provide
 to a user some extra information about the search.
@@ -426,7 +514,7 @@ const resultInformationWidget = ui.widgets.information({
  to the template.
 
 
-## Multiple instances
+### Multiple instances
 
 When working with ApisearchUI you have to keep in mind that you 
 can work with multiple ApisearchUI instances at once. 
@@ -436,3 +524,17 @@ servers. The thing is, you can work with only one client if all your
 ApisearchUI instances consume the same data store (index). Or with 
 many clients if you want all your ApisearchUI instances to consume from
 many different indexes.
+
+## Examples
+
+There are infinite possibilities where Apisearch can be used, even the search
+input of this documentation is built on top of Apisearch. Here we'll show some 
+use cases.
+
+### API Music
+
+This is a simple aggregator of music albums built entirely with Apisearch to index
+and query the data, and ApisearchUI to build the super fast experience. 
+> You can play with it on [apisearch.io](http://apisearch.io/product.html)! :)
+
+![](/assets/media/apisearch-music.gif)

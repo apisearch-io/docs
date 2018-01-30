@@ -991,6 +991,7 @@ Query::createMatchAll()
     ->excludeUUID(new ItemUUID('10', 'product'))
 ;
 ```
+```javascript
 let query = api
     .query.createMatchAll()
     .filterByTypes(
@@ -1000,6 +1001,7 @@ let query = api
         api.createObject.uuid('10', 'product')
     )  
 ;
+```
 
 In this example we are excluding the Item with ID 10 and 'product' as type.
 Remember that an item is always referenced not only by the id but with a
@@ -1018,5 +1020,19 @@ Query::createMatchAll()
         new ItemUUID('100', 'product'),
         new ItemUUID('21', 'product'),
     ])
+;
+```
+```javascript
+let query = api
+    .query.createMatchAll()
+    .filterByTypes(
+         ['product']
+    )
+    .excludeUUIDs(
+        api.createObject.uuid('10', 'product'),
+        api.createObject.uuid('5', 'product'),
+        api.createObject.uuid('100', 'product'),
+        api.createObject.uuid('21', 'product'),
+    )  
 ;
 ```

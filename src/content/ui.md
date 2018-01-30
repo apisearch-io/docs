@@ -15,20 +15,21 @@ tags:
   - search components
 ---
 
-# Apisearch UI
+# UI (User Interface)
 
-ApisearchUI library is set of tools to build a custom search experience for your 
-website, e-commerce, docs site, or any other web application you can imagine.
-It provides a list of common widgets like a search box, a result list, filters, 
-sorting dropdown, pagination, and many more explained below.
-
-All your data must be previously indexed using the Apisearch tools. For more 
-information say hi to: hello@puntmig.com
-
+The Apisearch UI libraries are a set of tools to build a customized
+client side User Interfaces.
+- **Search UI** is designed to let you build a fully customizable search,
+with many filters, pagination, sort by dropdowns and many other features.
+- **Autocomplete UI** is designed to be a simple, but powerful customizable
+autocomplete search bar.
+- **Events UI** is created to build a preconfigured charts to visualize your
+Apisearch based applications metrics, based on all events that occur on your 
+indices.
 
 
 ### Table of contents
 
-- [Installation](ui/installation.html)
-- [Widgets](ui/widgets.html)
-- [Examples](ui/examples.html)
+- [Search UI](ui/search-ui.html)
+- [Autocomplete UI](ui/autocomplete-ui.html)
+- [Events UI](ui/events-ui.html)

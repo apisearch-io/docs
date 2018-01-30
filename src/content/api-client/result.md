@@ -69,10 +69,10 @@ transformers.
 The Result instance have some other interesting methods to retrieve some extra
 information of your data set.
 
-- getTotalElements() - get the total items in your universe. If you don't have
+- `getTotalElements()` - get the total items in your universe. If you don't have
 applied any universe filter, then you will have all of them. Otherwise, you will
 have the number of elements in your universe.
-- getTotalHits() - get the total hits produced by your query. This is not the
+- `getTotalHits()` - get the total hits produced by your query. This is not the
 number of Items you have in your Result object, but the Items you can reach in
 total by paginating along the result hits.
 
@@ -87,21 +87,21 @@ interface Traversable). You can access directly to an aggregation by using the
 Let's analyze what a result Aggregation instance is and how useful can be in our
 filtering application.
 
-- ->getName() - The name of the aggregation. For example, when we create the
+- `->getName()` - The name of the aggregation. For example, when we create the
 manufacturer filter, we create a new aggregation called manufacturers. This is
 the used name.
-- ->getCounters() - This method return an array of Counter instances. Explained
+- `->getCounters()` - This method return an array of Counter instances. Explained
 later, but as a TL;DR, this is an object where each option returned by the
 aggregation (in the last example, each manufacturer available for filtering) has
 the information like totals.
-- ->isFilter() - The applied filter application type is an exclusive one, like
-MUST_ALL*
-- ->hasLevels() - The applied filter application type is a leveled one, like
-MUST_ALL_WITH_LEVELS
-- ->getTotalElements - Total elements of the aggregation.
-- ->getActiveElements - Array of all the elements active (all elements passed
+- `->isFilter()` - The applied filter application type is an exclusive one, like
+`MUST_ALL*`
+- `->hasLevels()` - The applied filter application type is a leveled one, like
+`MUST_ALL_WITH_LEVELS`
+- `->getTotalElements()` - Total elements of the aggregation.
+- `->getActiveElements()` - Array of all the elements active (all elements passed
 through the filter). Each active element is defined as a counter as well.
-- ->sortByName() - Sort all counters by its name. This method has only internal
+- `->sortByName()` - Sort all counters by its name. This method has only internal
 effects and no result is provided
 
 ## Aggregation Counter
@@ -109,13 +109,13 @@ effects and no result is provided
 Each aggregation, mainly, is composed by a name and a set of counters. Each one
 has these methods.
 
-- ->getId() - Id of the counter
-- ->getName() - Name of the counter. You might want to print this value after a
+- `->getId()` - Id of the counter
+- `->getName()` - Name of the counter. You might want to print this value after a
 possible translation (for example for tags).
-- ->getLevel() - Useful for leveled filters. In that case, each counter (for
+- `->getLevel()` - Useful for leveled filters. In that case, each counter (for
 example, each returned available category will have the level). By default, 1.
-- ->isUsed() - Does this counter belongs to an active element?
-- ->getN() - Number of results in your database having this element (for
+- `->isUsed()` - Does this counter belongs to an active element?
+- `->getN()` - Number of results in your database having this element (for
 example, number of item with the category Adidas). This is the number
 commonly printed in your app.
 
