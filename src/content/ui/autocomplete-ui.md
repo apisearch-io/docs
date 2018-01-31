@@ -106,6 +106,7 @@ search input.
 ```javascript
 autocomplete({
     inputTarget: '.apisearch-autocomplete',
+    poweredBy: ?bool|string[false],
     datasets: [{
         type: !string,
         template: {
@@ -118,6 +119,9 @@ autocomplete({
 
 **Parameters:**
  - `inputTarget`: is the dom selector, it can be an id or a class.
+ - `poweredBy`: by default is set to false. If set to true, a default poweredBy
+ template will appear, if you want a custom poweredBy template just pass a template 
+ string.
  - `datasets`: is an array of every dataset.
    - `type`: is the `uuid.type` of your item. So your results will be categorized 
    by its own data type.
