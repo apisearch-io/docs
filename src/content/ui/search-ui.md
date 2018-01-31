@@ -59,7 +59,7 @@ const ui = apisearchUI({
 
 // Append widgets
 ui.addWidgets(
-    ui.widgets.simpleSearch({
+    ui.widgets.searchInput({
         target: '.search-container',
     }),
     ui.widgets.result({
@@ -114,16 +114,16 @@ you build a fully customized search experience. They can be used as a search inp
 a result set, a pagination component, different kind of filters, and many more.
 
 
-### Simple Search
+### Search Input
 
-The simple search input widget is to perform text based 
+The search input widget is to perform text based 
 searches.
 
 This widget points to `searchable_metadata` and 
 `exact_matching_metadata` field of the indexed items.
 
 ```javascript
-const simpleSearchWidget = ui.widgets.simpleSearch({ 
+const searchInputWidget = ui.widgets.searchInput({ 
   target: !string,
   placeholder: ?string,
   autofocus: ?bool[false],
@@ -152,47 +152,6 @@ const simpleSearchWidget = ui.widgets.simpleSearch({
  - `classNames`:
     - `container`: refers to the parent `div` that contains the widget.
     - `input`: refers to the html input.
-
-
-### Suggested Search
-
-The suggested search input goes one step further. You can
-get auto-completed suggestions list related to the text
-you are looking for just below the search input.
-
-```javascript
-const suggestedSearchWidget = ui.widgets.suggestedSearch({ 
-    target: !string,
-    placeholder: ?string,
-    autofocus: ?bool[false],
-    clearSearch: ?bool[true],
-    classNames: {
-        container: ?string,
-        input: ?string,
-        clearSearch: ?string,
-        box: ?string,
-        suggestion: ?string,
-        activeSuggestion: ?string
-    },
-    template: {
-        clearSearch: ?string
-    }
-});
-```
-
-**Parameters:**
- - `target`: is the dom selector, it can be an id or a class.
- - `placeholder`: the default html input placeholder.
- - `autofocus`: when set to `true`, the cursor is focused on the input.
- - `startSearchOn`: is the minimum number of characters to start searching.
- - `clearSearch`: to show a clear search button to reset your search.
- - `classNames`:
-    - `container`: refers to the parent `div` class that 
-    contains the widget.
-    - `input`: refers to the html input.
-    - `box`: refers to the suggestions box.
-    - `suggestion`: refers to the suggestion item.
-    - `activeSuggestion`: refers to the active suggestion.
 
 
 ### Sort By
