@@ -107,6 +107,8 @@ search input.
 autocomplete({
     inputTarget: '.apisearch-autocomplete',
     poweredBy: ?bool|string[false],
+    itemsPerResult: ?integer[10],
+    startSearchOn: ?integer[0],
     datasets: [{
         type: !string,
         template: {
@@ -122,6 +124,8 @@ autocomplete({
  - `poweredBy`: by default is set to false. If set to true, a default poweredBy
  template will appear, if you want a custom poweredBy template just pass a template 
  string.
+ - `itemsPerResult`: is the maximum items that could appear on the result set.
+ - `startSearchOn`: is the minimum number of characters to start searching.
  - `datasets`: is an array of every dataset.
    - `type`: is the `uuid.type` of your item. So your results will be categorized 
    by its own data type.
