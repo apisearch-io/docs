@@ -105,7 +105,8 @@ search input.
 
 ```javascript
 autocomplete({
-    inputTarget: '.apisearch-autocomplete',
+    inputTarget: !string,
+    resultTarget: ?string,
     poweredBy: ?bool|string[false],
     itemsPerResult: ?integer[10],
     startSearchOn: ?integer[0],
@@ -121,6 +122,8 @@ autocomplete({
 
 **Parameters:**
  - `inputTarget`: is the dom selector, it can be an id or a class.
+ - `resultTarget`: results container dom selector. Is totally optional. If not 
+ defined, the results list will be placed just after the search input. 
  - `poweredBy`: by default is set to false. If set to true, a default poweredBy
  template will appear, if you want a custom poweredBy template just pass a template 
  string.

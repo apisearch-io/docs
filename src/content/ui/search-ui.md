@@ -85,8 +85,12 @@ like in the example below.
 Once your setup is done, you just call the `.init()` method to 
 start all the magic!
 
-> Check out this for more examples: 
-> [apisearch-ui/examples](https://github.com/apisearch-io/search-ui/tree/master/examples)!
+> **Note:** If you don't want the UI to query data automatically 
+> when `.init()` the instance, just add `.init({firstQuery: false})`
+> and no data will be fetched.
+
+Check out this for more examples: 
+[apisearch-ui/examples](https://github.com/apisearch-io/search-ui/tree/master/examples)!
 
 
 ## Anatomy
@@ -209,7 +213,7 @@ const multipleFilterWidget = ui.widgets.multipleFilter({
     },
     template: {
         top: ?string,
-        item: !string,
+        item: ?string[defaultItemTemplate],
         showMore: ?string['+ Show more'],
         showLess: ?string['- Show less']
     },
@@ -243,7 +247,13 @@ const multipleFilterWidget = ui.widgets.multipleFilter({
     - `showMoreContainer`: class of the "show more" button container.
  - `template`:
     - `top`: template string for the title of the filter list.
-    - `item`: template string for the filter item link.
+    - `item`: template string for the filter item link. If any template is passed, 
+    Apisearch UI have a default one. This template will have the following 
+    values available:
+        - `{{n}}`: number of aggregations. 
+        - `{{isActive}}`: if filter is active.
+        - `{{values}}`: the information of the filter: `{{values.id}}` and 
+        `{{values.name}}`.
     - `showMore`: template string for the "show more" button.
     - `showLess`: template string for the "show less" button. 
  - `formatData`: is a callable function that receives all the resulted
@@ -253,6 +263,24 @@ const multipleFilterWidget = ui.widgets.multipleFilter({
     - `values`: the information of the filter. 
  This is useful to transform some information received before being 
  passed to the template. 
+ 
+ As a example of an item template, you can check this:
+```javascript
+const filterItemTemplate = `
+    <input 
+        type="checkbox" 
+        id="filter_{{values.id}}"
+        {{#isActive}}checked="checked"{{/isActive}}
+    >
+    <label 
+        class="item-name"
+        for="filter_{{values.id}}"
+    >
+        {{{values.name}}}
+    </label>
+    <span class="aggregations">{{n}}</span>
+`;
+```
 
 
 ### Clear filters button
@@ -364,17 +392,17 @@ passing the string to the `body` template attribute:
 
 ```javascript
 const resultsTemplate = `
-<ul>
-{{#items}}
-    <li>
-        <img src="{{metadata.img}}" />
-        <h1>{{metadata.name}}</h1>
-    </li>
-{{/items}}
-</ul>
-{{^items}}
-    No results found for this search: <b>{{query}}</b> :(
-{{/items}}
+    <ul>
+    {{#items}}
+        <li>
+            <img src="{{metadata.img}}" />
+            <h1>{{metadata.name}}</h1>
+        </li>
+    {{/items}}
+    </ul>
+    {{^items}}
+        No results found for this search: <b>{{query}}</b> :(
+    {{/items}}
 `;
 ```
 
@@ -473,7 +501,7 @@ const resultInformationWidget = ui.widgets.information({
  to the template.
 
 
-### Multiple instances
+## Multiple instances
 
 When working with ApisearchUI you have to keep in mind that you 
 can work with multiple ApisearchUI instances at once. 
