@@ -53,74 +53,20 @@ evolutionary data can be reviewed. Great to show how data changed over the time.
 - Database-less applications : We can be your database. That simple. Accessible
 from everywhere, make all your applications work with the same entry point.
 
-## Create an Apisearch account
+## Download and install Apisearch
 
-The first thing you should do in order to start using Apisearch is to create a
-new account at [https://admin.apisearch.io](https://admin.apisearch.io). If the
-website is not opened for new registrations and you want to request a new
-invitation, then don't hesitate to write us at invitations@puntmig.com.
+Apisearch is an open source project. This means that you can download Apisearch
+for free and install it in your own servers.
 
-![Login](/assets/media/login.png#inline)
+In order to start using Apisearch, you only need a server with
+[docker](https://docs.docker.com/install/) and
+[docker-compose](https://docs.docker.com/compose/install/).
 
-As a user you could be able to
+    > This section is under construction
 
-- Manage your own information and custom your panel
-- Manage your apps and indexes
-- Manage your access tokens
-- Manage your campaigns
-- Manage your billing information
+## Create your first application
 
-## Create an App
-
-Each user can manage many apps. The concept of an app is like a group of
-possible indexes, each one containing related data. As an app holder, you will
-be able to
-
-- Manage your app information
-- Manage your indexes
-- Manage your billing information. By defining this information you will
-override the one defined per user
-
-When you create a new app, you're not creating anything in our Elasticsearch
-databases. An app is only a virtual aggregation, so you will be able to create
-as many apps as you want without much impact at all.
-
-![Login](/assets/media/new-app.png#inline)
-
-Once a new app is created, you will have an app_id, important to create external
-integrations. You will be able to find it in your app panel in the admin
-website. This app_id will never change and is unique, and because apisearch work
-with tokens, don't worry if someone knows this app_id. Our data is safe with us.
-
-By default, when you create a new index, a set of tokens are created for you
-with different levels of permissions. These tokens are not deletable, in order
-to make sure that you will have always some tokens to manage and access your
-data from anywhere.
-
-## Create a token
-
-You can create as many tokens as you want, but remember that tokens with write
-access can expose your data to third party people, so be careful to share and
-publish these tokens.
-
-When a token is compromised, you can regenerate it as many times as you want.
-This token receives an immutable name, and a token value. This one is unique.
-
-`f34d6da4-9ecd-48aa-9415-750c02ee9a19`
-
-## Create an Index
-
-Once you have created a new app, let's start by creating a new index. As soon as
-you create a new index, you will be creating a new Elasticsearch empty set of
-documents, so it will start by generating billing information. If you're under
-a billing plan, then you'll be able to create this index under some plan 
-limitations.
-
-By default, a new index is created using a default configuration, so for our
-fresh setup, we will not worry about this. If you have some interest in how to
-configure your index, please visit the configuration part of the documentation.
-
-Once you have a fresh new index, we can start uploading some data.
+    > This section is under construction
 
 ## Add some data
 
