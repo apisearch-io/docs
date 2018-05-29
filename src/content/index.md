@@ -58,11 +58,70 @@ from everywhere, make all your applications work with the same entry point.
 Apisearch is an open source project. This means that you can download Apisearch
 for free and install it in your own servers.
 
-In order to start using Apisearch, you only need a server with
-[docker](https://docs.docker.com/install/) and
-[docker-compose](https://docs.docker.com/compose/install/).
+In order to start using Apisearch, you only need a server with these installed
+packages
 
-    > This section is under construction
+- [docker](https://docs.docker.com/install/)
+- [docker-compose](https://docs.docker.com/compose/install/).
+
+With these two tools you will be able to have running your Apisearch Server
+instance in 2 minutes. Let's do it!
+
+First of all we need to get the repository from the source. Because this
+repository does'nt really need dependencies, we will download it by using wget
+instead of git.
+
+Check the version of the tarball in order to always get the last one or an
+specific one, depending on your needs
+
+```bash
+wget --no-check-certificate --content-disposition -O docker-search-server.tar.gz https://github.com/apisearch-io/docker-search-server/tarball/0.0.1
+tar -xvzf docker-search-server.tar.gz
+cd docker-search-server
+```
+
+You can also get the last master code. This will get the last code pushed in
+master, but not tagged as stable yet.
+
+```bash
+wget --no-check-certificate --content-disposition -O docker-search-server.tar.gz https://github.com/apisearch-io/docker-search-server/archive/master.tar.gz
+tar -xvzf docker-search-server.tar.gz
+cd docker-search-server
+```
+
+Once our code is properly downloaded, we only need to build and run all our
+containers. Everything in one simple and short line.
+
+```bash
+docker-compose up --build
+```
+
+That's it. Congratulations. You already have Apisearch running in your server.
+Now let's go a little bit further with that. Let's create a new index with a
+write-read token for you to start using Apisearch as fast as possble.
+
+```
+docker exec -i -t $(docker ps -qf "name=apisearch_server") /easy-setup.sh
+```
+
+It is important the output of this command execution. The command will generate
+you some random tokens for your application. To start fast with a simple demo,
+you should use the admin one for indexing and deleting from your private
+application. Take in account that with this token anyone could manage your data,
+and even destroy it, so keep it secret.
+
+You can use the query one for your public applications, for example the
+javascript integration. This token has only read-only permissions.
+
+Let's ping our new index using our admin token. Replace `{{admin_token}}` with
+your auto generated admin token.
+
+```bash
+curl --silent --head --write-out '%{http_code}\n' 'http://localhost:8200/ping?app_id=96a53eaf&index=e7185a86&token={{ admin_token }}'
+```
+
+You should have a 200 response code. And this means that your repository is
+ready to be used by any application.
 
 ## Create your first application
 
