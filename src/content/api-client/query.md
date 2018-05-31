@@ -920,6 +920,54 @@ let query = api
 ;
 ```
 
+## Relevance Strategy
+
+By default, your results are sorted by score from highest to lowest. This score
+is dynamically created per each matched documents in your index. But you may
+change this behavior by adding an extra document-specific boosting. This means
+that part of the final document score will be affected by the value of the
+`indexed_metadata.relevance` field. This field **MUST** be an integer value.
+The higher, the better.
+
+In order to enable this feature, use the relevance strategy method.
+
+```php
+Query::createMatchAll()
+    ->setScoreStrategy(ScoreStrategy::createRelevanceBoosting())
+;
+```
+
+You can add your custom boosting function by using
+[Painless Script](https://www.elastic.co/guide/en/elasticsearch/reference/master/modules-scripting-painless.html).
+Using this scripting, you will be able to access the previous score in order to
+make it part of the final calculation by using `_score`
+
+```php
+Query::createMatchAll()
+    ->setScoreStrategy(ScoreStrategy::createCustomFunction(
+        "doc['indexed_metadata.price'].value"
+    ))
+;
+```
+
+And using `_score`
+
+```php
+Query::createMatchAll()
+    ->setScoreStrategy(ScoreStrategy::createCustomFunction(
+        "_score + (10 * doc['indexed_metadata.relevance'].value / 100)"
+    ))
+;
+```
+
+You can set the default behavior as well.
+
+```php
+Query::createMatchAll()
+    ->setScoreStrategy(ScoreStrategy::createDefault())
+;
+```
+
 ## Enabling suggestions
 
 Suggestions can be enabled or disabled by using these flag methods.

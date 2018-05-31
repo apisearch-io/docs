@@ -60,7 +60,7 @@
     "yargs": "^8.0.2"
   },
   "dependencies": {
-    "apisearch-ui": "^0.1.19",
+    "apisearch-ui": "^0.1.24",
     "axios": "^0.17.1",
     "bootstrap": "4.0.0-beta.2",
     "gfm-code-blocks": "^1.0.0",
