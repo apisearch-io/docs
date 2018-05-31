@@ -89,8 +89,19 @@ tar -xvzf docker-search-server.tar.gz
 cd docker-search-server
 ```
 
-Once our code is properly downloaded, we only need to build and run all our
-containers. Everything in one simple and short line.
+Once our code is properly downloaded, we only need to configure some environment
+variable to customize as much as we want the server and build and run all our
+containers.
+
+Apisearch works with a file called `.env` placed in the root of the project.
+This is default proposed data.
+
+```
+APISEACH_PORT=8100
+```
+
+Make sure you update this values before building your containers.
+Once finished, let's build and run all our containers.
 
 ```bash
 docker-compose up --build
