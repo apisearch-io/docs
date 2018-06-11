@@ -1,6 +1,6 @@
 ---
 root: true
-page: 5
+page: 6
 icon: ticket
 title: Recipes
 description: Cooked Recipes
