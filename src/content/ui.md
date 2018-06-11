@@ -27,9 +27,6 @@ autocomplete search bar.
 Apisearch based applications metrics, based on all events that occur on your 
 indices.
 
-
-### Table of contents
-
 - [Search UI](ui/search-ui.html)
 - [Autocomplete UI](ui/autocomplete-ui.html)
 - [Events UI](ui/events-ui.html)

@@ -20,9 +20,6 @@ IHere you have some questions and answers. In order to be faster when looking
 for some information about Apisearch, we encourage you to use our searcher
 placed in the top of the website.
 
-
-### Table of contents
-
 - [About the project](faqs/project.html)
 - [About the admin](faqs/admin.html)
 - [About the clients](faqs/clients.html)

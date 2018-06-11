@@ -28,9 +28,6 @@ features, only read ones)
 Some clients can be divided in different repositories, and some of them can be
 unified everything in one. That information will be told in each case.
 
-
-### Table of contents
-
 - [Model](api-client/model.html)
 - [Query](api-client/query.html)
 - [Result](api-client/result.html)
