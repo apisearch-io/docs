@@ -45,6 +45,11 @@ $itemUUID = ItemUUID::createFromArray([
 }
 ```
 
+Some links of interest
+
+* [Api Client - Item](/api-client/model.html#item)
+* [Api Client - Item UUID](/api-client/model.html#itemuuid)
+
 ### Item
 
 Item reference. This is the representation of all your searchable elements.
@@ -120,6 +125,11 @@ $item = Item::createFromArray([
 }
 ```
 
+Some links of interest
+
+* [Api Client - Item](/api-client/model.html#item)
+* [Api Client - Item UUID](/api-client/model.html#itemuuid)
+
 ### User
 
 User reference. The composition of this object should represent one and
@@ -155,6 +165,10 @@ $user = User::createFromArray([
   }
 }
 ```
+
+Some links of interest
+
+* [Api Client - Building a Query](/api-client/query.html#building-a-query)
 
 ### Interaction
 
@@ -208,10 +222,26 @@ $interaction = Interaction::createFromArray([
 
 Coordinate reference. Used for object geo-localization.
 
-```json
+```
 {
   "lat": float,
   "lon": float
+}
+```
+
+Some examples for you. Feel free to change the language of your examples in the
+top right of the website.
+
+```php
+$coordinate = Coordinate::createFromArray([
+    'lat' => 1.34,
+    'lat' => -3.51,
+]);
+```
+```json
+{
+  "lat": 1.34,
+  "lon": -3.51
 }
 ```
 
@@ -219,7 +249,7 @@ Coordinate reference. Used for object geo-localization.
 
 Changes reference. This object is mainly used when updating your index.
 
-```json
+```
 [
   {
     "field": string,
@@ -230,21 +260,60 @@ Changes reference. This object is mainly used when updating your index.
 ]
 ```
 
+Some examples for you. Feel free to change the language of your examples in the
+top right of the website.
+
+```php
+$change = Change::createFromArray([
+    'field' => 'indexed_metadata.category_id',
+    'type' => Changes::TYPE_VALUE,
+    'condition' => 'indexed_metadata.category_id == 10',
+    'value' => 15
+]);
+```
+```json
+{
+  "field": "indexed_metadata.category_id",
+  "type": 1,
+  "condition": "indexed_metadata.category_id == 10",
+  "value": 15
+}
+```
+
 ### TokenUUID
 
 Token UUID reference.
 
-```json
+```
 {
   "id": string
 }
 ```
 
+Some examples for you. Feel free to change the language of your examples in the
+top right of the website.
+
+```php
+$tokenUUID = TokenUUID::createFromArray([
+    'id' => 'aaaa',
+]);
+```
+```json
+{
+  "id": "aaaa"
+}
+```
+
+Some links of interest
+
+* [Api Client - Building a Query](/api-client/query.html#building-a-query)
+* [Api Client - User query](/api-client/query.html#user-query)
+
 ### Token
 
 Token reference
 
-```json
+```
 {
   "uuid": TokenUUID,
   "app_id": string,
@@ -260,6 +329,64 @@ Token reference
 }
 ```
 
+Some examples for you. Feel free to change the language of your examples in the
+top right of the website.
+
+```php
+$token = Token::createFromArray([
+    'uuid' => [
+        'id' => 'aaaa'
+    ],
+    'app_id' => '1234',
+    'created_at' => 326736728,
+    'updated_at' => 326736728,
+    'indices => [
+        'default',
+        'default2',
+    ],
+    'seconds_valid' => 3600,
+    'max_hits_per_query' => 10,
+    'http_referrers' => [
+        'apisearch.io',
+        'apisearch.com
+    ],
+    'endpoints' => [
+        'v1-query',
+    ],
+    'plugins' => [
+        'language_split',
+        'metadata_fields'
+    ],
+    'ttl' => 3600
+]);
+```
+```json
+{
+  "uuid": {
+    "id": "aaaa"
+  },
+  "app_id": "1234",
+  "created_at": 326736728,
+  "updated_at": 326736728,
+  "indices": [
+    "default",
+    "default2"
+  ],
+  "seconds_valid": 3600,
+  "max_hits_per_query": 10,
+  "http_referrers": [
+    "apisearch.io",
+    "apisearch.com"
+  ],
+  "endpoints": ["v1-query"],
+  "plugins": [
+    "language_split",
+    "metadata_fields"
+  ],
+  "ttl": 3600
+}
+```
+
 ## Query References
 
 These elements are part of the query repository and will be used to create
@@ -269,7 +396,7 @@ queries to several repositories.
 
 Query Aggregation reference. Used in Query repository.
 
-```json
+```
 {
   "name": string,
   "field": string,
@@ -281,11 +408,40 @@ Query Aggregation reference. Used in Query repository.
 }
 ```
 
+Some examples for you. Feel free to change the language of your examples in the
+top right of the website.
+
+```php
+$aggregation = Query\Aggregation::createFromArray([
+    'name' => 'category',
+    'field' => 'category_id',
+    'application_type' => Filter::MUST_ALL,
+    'filter_type' => Filter::TYPE_FIELD,
+    'sort' => Aggregation::SORT_BY_COUNT_ASC,
+    'limit' => 10
+]);
+```
+```json
+{
+  "name": "category",
+  "field": "category_id",
+  "application_type": 4,
+  "filter_type": "field",
+  "sort": ["_count", "asc"],
+  "limit": 10
+}
+```
+
+Some links of interest
+
+* [Building a Query](/api-client/query.html#building-a-query)
+* [Query aggregations](/api-client/query.html#aggregations)
+
 ### Filter
 
 Filter reference. Used in Query repository.
 
-```json
+```
 {
   "field": string,
   "values": mixed[],
@@ -295,22 +451,69 @@ Filter reference. Used in Query repository.
 }
 ```
 
+Some examples for you. Feel free to change the language of your examples in the
+top right of the website.
+
+```php
+$filter = Filter::createFromArray([
+    'field' => 'category_id',
+    'values' => [10, 12],
+    'application_type' => Filter::MUST_ALL,
+    'filter_type' => Filter::TYPE_FIELD,
+]);
+```
+```json
+{
+  "field": "category_id",
+  "values": [10,12],
+  "application_type": 4,
+  "filter_type": "field"
+}
+```
+
+Some links of interest
+
+* [Building a Query](/api-client/query.html#building-a-query)
+* [Query filters](/api-client/query.html#filters)
+* [Filter types](/api-client/query.html#filter-types)
+
 ### ScoreStrategy
 
 Score Strategy reference. Used in Query Repository
 
-```json
+```
 {
   "type": int,
   "function": ?string
 }
 ```
 
+Some examples for you. Feel free to change the language of your examples in the
+top right of the website.
+
+```php
+$scoreStrategy = ScoreStrategy::createFromArray([
+    'type' => ScoreStrategy::CUSTOM_FUNCTION,
+    'function' => '_score + 10'
+]);
+```
+```json
+{
+  "type": 2,
+  "function": "_score + 10"
+}
+```
+
+Some links of interest
+
+* [Building a Query](/api-client/query.html#building-a-query)
+* [Relevance Strategy](/api-client/query.html#relevance-strategy)
+
 ### SortBy
 
 Sortby reference. Used in Query Repository
 
-```json
+```
 [
     {
       "type": int,
@@ -324,11 +527,39 @@ Sortby reference. Used in Query Repository
 ]
 ```
 
+Some examples for you. Feel free to change the language of your examples in the
+top right of the website.
+
+```php
+$sortBy = SortBy::createFromArray([
+    'type' => SortBy::TYPE_FIELD,
+    'mode' => SortBy::MODE_AVG,
+    'indexed_metadata.category_id' => [
+        'order': SortBy::ASC
+    ]
+]);
+```
+```json
+{
+  "type": 1,
+  "mode": "avg",
+  "indexed_metadata.category_id": {
+    "order": "asc"
+  }
+}
+```
+
+Some links of interest
+
+* [Building a Query](/api-client/query.html#building-a-query)
+* [Sort by field](/api-client/query.html#sort-by-field)
+* [Sort randomly](/api-client/query.html#sort-randomly)
+
 ### Query
 
 Query reference.
 
-```json
+```
 {
   "q": string,
   "coordinate": ?Coordinate,
@@ -349,11 +580,82 @@ Query reference.
 }
 ```
 
+Some examples for you. Feel free to change the language of your examples in the
+top right of the website.
+
+```php
+$query = Query::createFromArray([
+    'q' => 'hello',
+    'filters' => [
+        [
+            'field' => 'category_id',
+            'values' => [10, 12],
+            'application_type' => Filter::MUST_ALL,
+            'filter_type' => Filter::TYPE_FIELD,
+        ]
+    ],
+    'aggregations' => [
+        [
+            'name' => 'category',
+            'field' => 'category_id',
+            'application_type' => Filter::MUST_ALL,
+            'filter_type' => Filter::TYPE_FIELD,
+            'sort' => Aggregation::SORT_BY_COUNT_ASC,
+            'limit' => 10
+        ]
+    ],
+    'sort' => 'type' => SortBy::TYPE_FIELD,
+        'mode' => SortBy::MODE_AVG,
+        'indexed_metadata.category_id' => [
+        'order': SortBy::ASC
+    ],
+    'page' => 1,
+    'size => 10
+]);
+```
+```json
+{
+  "q": "hello",
+  "filters": [
+    {
+      "field": "category_id",
+      "values": [10,12],
+      "application_type": 4,
+      "filter_type": "field"
+    }
+  ],
+  "aggregations": [
+    {
+      "name": "category",
+      "field": "category_id",
+      "application_type": 4,
+      "filter_type": "field",
+      "sort": ["_count", "asc"],
+      "limit": 10
+    }
+  ],
+  "sort": {
+    "type": 1,
+    "mode": "avg",
+    "indexed_metadata.category_id": {
+      "order": "asc"
+    }
+  },
+  "page": 1,
+  "size": 10
+}
+```
+
+Some links of interest
+
+* [Building a Query](/api-client/query.html#building-a-query)
+* [Enabling Suggestions](/api-client/query.html#enabling-suggestions)
+
 ### Event
 
 Event reference
 
-```json
+```
 {
   "consistency_hash": string,
   "name": string,
@@ -363,16 +665,63 @@ Event reference
 }
 ```
 
+Some examples for you. Feel free to change the language of your examples in the
+top right of the website.
+
+```php
+$event = Event::createFromArray([
+    'consistency_hash' => '789ds789s7d8s9',
+    'name' => 'QueryWasMade',
+    'payload' => "{...}",
+    "indexable_payload" => "{...}",
+    "occurred_on" => 34782947389,
+]);
+```
+```json
+{
+  "consistency_hash": "789ds789s7d8s9",
+  "name": "QueryWasMade",
+  "payload": "{...}",
+  "indexable_payload": "{...}",
+  "occurred_on": "{...}"
+}
+```
+
+Some links of interest
+
+* [Event Object](/api-client/event.html#event-object)
+* [Event Types](/api-client/event.html#event-types)
+
 ### Log
 
 Log reference
 
-```json
+```
 {
   "id": string,
   "type": string,
   "payload": string,
   "occurred_on": int
+}
+```
+
+Some examples for you. Feel free to change the language of your examples in the
+top right of the website.
+
+```php
+$log = Log::createFromArray([
+    'id' => '3478378',
+    'type' => Log::TYPE_FATAL,
+    'payload' => "{...}",
+    "occurred_on" => 34782947389,
+]);
+```
+```json
+{
+  "id": "3478378",
+  "type": "fatal",
+  "payload": "{...}",
+  "occurred_on": "{...}"
 }
 ```
 
@@ -385,7 +734,7 @@ to you.
 
 Counter reference. Each of them can be understood as an aggregation result.
 
-```json
+```
 {
   "values": string[],
   "used": bool,
@@ -393,11 +742,42 @@ Counter reference. Each of them can be understood as an aggregation result.
 }
 ```
 
+Some examples for you. Feel free to change the language of your examples in the
+top right of the website.
+
+```php
+$counter = Counter::createFromArray([
+    'values' => [
+        'id' => 12,
+        'name' => 'Main Category',
+        'slug' => 'main_category',
+    ],
+    'used' => true,
+    'n' => 526
+]);
+```
+```json
+{
+  "values": {
+    "id": 12,
+    "name": "Main Category",
+    "slug": "main_category"
+  },
+  "used": true,
+  "n": 526
+}
+```
+
+Some links of interest
+
+* [Api Client - Result](/api-client/result.html)
+* [Api Client - Aggregation Counter](/api-client/result.html#aggregation-counter)
+
 ### ResultAggregation
 
 Result aggregation reference. Used for Results.
 
-```json
+```
 {
   "name": string,
   "counters": Counter[],
@@ -408,22 +788,92 @@ Result aggregation reference. Used for Results.
 }
 ```
 
+Some examples for you. Feel free to change the language of your examples in the
+top right of the website.
+
+```php
+$resultAggregation = Result\Aggregation::createFromArray([
+    'name' => 'category_id',
+    'counters' => [
+        [
+            'values' => [
+                'id' => 12,
+                'name' => 'Main Category',
+                'slug' => 'main_category',
+            ],
+            'used' => true,
+            'n' => 526
+        ]
+    ],
+    'application_type': Filter::MUST_ALL,
+    'total_elements': 1002
+]);
+```
+```json
+{
+  "name": "category_id",
+  "counters": [
+    {
+      "values": {
+        "id": 12,
+        "name": "Main Category",
+        "slug": "main_category"
+      },
+      "used": true,
+      "n": 526
+    }
+  ],
+  "application_type": 4,
+  "total_elements": 1002
+}
+```
+
+Some links of interest
+
+* [Api Client - Result](/api-client/result.html)
+* [Api Client - Reading Aggregations](/api-client/result.html#reading-aggregations)
+* [Api Client - Aggregation Counter](/api-client/result.html#aggregation-counter)
+
 ### ResultAggregations
 
 Result aggregations reference. Used for Results.
 
-```json
+```
 {
   "total_elements": int,
   "aggregations": ResultAggregation[]
 }
 ```
 
+Some examples for you. Feel free to change the language of your examples in the
+top right of the website.
+
+```php
+$aggregations = Aggregations::createFromArray([
+    'total_elements' => 1002,
+    'aggregations' => [
+    
+    ]
+]);
+```
+```json
+{
+  "total_elements": 1002,
+  "aggregations": []
+}
+```
+
+Some links of interest
+
+* [Api Client - Result](/api-client/result.html)
+* [Api Client - Reading Aggregations](/api-client/result.html#reading-aggregations)
+* [Api Client - Aggregation Counter](/api-client/result.html#aggregation-counter)
+
 ### Result
 
 Result reference.
 
-```json
+```
 {
   "query": Query,
   "total_items": int,
@@ -434,11 +884,62 @@ Result reference.
 }
 ```
 
+Some examples for you. Feel free to change the language of your examples in the
+top right of the website.
+
+```php
+$result = Result::createFromArray([
+    'query' => [
+        'q' => 'hola'
+    ],
+    'total_items' => 500,
+    'total_hits' => 1,
+    'items' => [
+        [
+            'uuid' => [
+                'id' => '1234',
+                'type => 'product
+            ],
+            'searchable_metadata' => [
+                'name' => 'Hello, my new product'
+            ]
+        ]
+    ],
+    'suggests' => ['product']
+]);
+```
+```json
+{
+  "query": {
+    "q": "hola"
+  },
+  "total_items": 500,
+  "total_hits": 1,
+  "items": [
+    {
+      "uuid": {
+        "id": "1234",
+        "type": "product"
+      },
+      "searchable_metadata": {
+        "name": "Hello, my new product"
+      }
+    }
+  ],
+  "suggests": ["product"]
+}
+```
+
+Some links of interest
+
+* [Api Client - Result](/api-client/result.html)
+* [Api Client - Reading Suggestions](/api-client/result.html#reading-suggestions)
+
 ### Events
 
 Events Result reference
 
-```json
+```
 {
   "query": Query,
   "total_hits": int,
@@ -451,7 +952,7 @@ Events Result reference
 
 Logs Result reference
 
-```json
+```
 {
   "query": Query,
   "total_hits": int,
