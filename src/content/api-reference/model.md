@@ -387,6 +387,102 @@ $token = Token::createFromArray([
 }
 ```
 
+## App References
+
+The elements are part of the repository that will be used to configure the app
+and the indices
+
+### Synonym
+
+Synonym representation.
+
+```
+{
+  "words": string[]
+}
+```
+
+Some examples for you. Feel free to change the language of your examples in the
+top right of the website.
+
+```php
+$synonym = Synonym::createFromArray([
+    'words' => [
+        'house',
+        'building',
+        'cottage'
+    ]
+]);
+```
+```json
+{
+  "words": [
+    "house",
+    "building",
+    "cottage"
+  ]
+}
+```
+
+### ImmutableConfig
+
+This configuration is used when a new index instance is created. Is called
+immutable because cannot be changed after this index creation.
+
+```
+{
+  "language": ?string [null],
+  "store_searchable_metadata": bool [true],
+  "synonyms": Synonym[]
+}
+```
+
+Some examples for you. Feel free to change the language of your examples in the
+top right of the website.
+
+```php
+$immutableConfig = ImmutableConfig::createFromArray([
+    'language' => 'ca',
+    'store_searchable_metadata' => false,
+    'synonyms' => [
+        [
+            'words' => [
+                'house',
+                'building',
+                'cottage'
+            ]
+        ],
+        [
+            'words' => [
+                'large',
+                'big'
+            ]
+        ]
+    ]
+]);
+```
+```json
+{
+  "language": "ca",
+  "store_searchable_metadata": false,
+  "synonyms": [
+    {
+      "words": [
+        "house",
+        "building",
+        "cottage"
+      ]
+    },
+    {
+      "words": [
+        "large",
+        "big"
+      ]
+    }
+  ]
+}
+```
+
 ## Query References
 
 These elements are part of the query repository and will be used to create

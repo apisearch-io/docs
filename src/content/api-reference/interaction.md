@@ -6,10 +6,6 @@ page: 4
 category: API Reference
 template: one-column-with-toc.mustache
 source: api-reference/interaction.md
-languages: 
-  - php
-  - javascript
-  - json
 tags:
   - apisearch reference
   - http
