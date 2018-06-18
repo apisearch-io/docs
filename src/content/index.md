@@ -93,19 +93,67 @@ Once our code is properly downloaded, we only need to configure some environment
 variable to customize as much as we want the server and build and run all our
 containers.
 
+> By using this docker script, and because we need `.env` variable both for
+> installing the docker containers, and for the server installation, we **MUST**
+> make a copy of all the `.env` file inside the `search-server/` folder.
+
 Apisearch works with a file called `.env` placed in the root of the project.
-This is default proposed data.
+You might update some of these values with your own values (we don't setup
+default values to prevent security issues)
 
 ```
 APISEACH_PORT=8100
+APISEARCH_GOD_TOKEN="xxx"
+APISEARCH_PING_TOKEN="xxx"
 ```
 
-Make sure you update this values before building your containers.
+Make sure you **update this values** before building your containers.
 Once finished, let's build and run all our containers.
 
 ```bash
 docker-compose up --build
 ```
+
+> This process might be a little bit long. Maybe a couple of minutes, depending
+> on how fast your internet connection is. Take the opportunity to drink a glass
+> of water and move a little bit your legs :)
+
+At this point you might encounter some of these problems. Please, check all of
+them if you have any issue, and if any of them is not included in this list,
+please ping the organization in our 
+[Gitter Channel](https://gitter.im/apisearch_io) or
+[Open an Issue](https://github.com/apisearch-io/search-server/issues/new)
+
+> Docker cannot even start. This message appears: **WARNING: The APISEARCH_PORT
+> variable is not set. Defaulting to a blank string.**  
+> In this case, please check that there is a file called **.env** in the root of
+> Apisearch server with the required APISEARCH_* environment values.
+
+> Docker starts, but the server workers restart once and again, before going to
+> a terminal state. If you check the supervisor folder inside this project you
+> will see that you can check the logs. For example the `search-server-0.log`.
+> If you see the line **Unable to read the environment file at 
+> /var/www/apisearch/bin/../.env** is because you **MUST** copy the **.env**
+> file inside the `search-server` folder as well, with the same values defined
+> in the root one.
+
+> Docker is telling that some ports are already mapped by anyone else.  
+> This project exports these ports: **8100** as the balancer entrypoint (this
+> value is defined as an environment value, feel free to change it),
+> **8200..8204** as the Apisearch enabled workers, **9200** as the Elasticsearch
+> port, and **6379** as the redis port.  
+> Make sure that these ports are not being used in your local host or in any 
+> Docker container
+
+> Elasticsearch stops with a message like this: **apisearch_elasticsearch | [1]: 
+> max virtual memory areas vm.max_map_count [65530] is too low, increase to at 
+> least [262144]**.  
+> Follow the instructions [Here](https://www.elastic.co/guide/en/elasticsearch/reference/current/docker.html#docker-cli-run-prod-mode)
+> to solve that problem and restart the docker
+
+> Apisearch do not respond properly with the admin token you've proposed.
+> In this case, please check that there is a file called **.env** in the root of
+> Apisearch server with the required APISEARCH_* environment values.
 
 That's it. Congratulations. You already have Apisearch running in your server.
 Now let's go a little bit further with that. Let's create a new index with a
@@ -128,11 +176,30 @@ Let's ping our new index using our admin token. Replace `{{admin_token}}` with
 your auto generated admin token.
 
 ```bash
-curl --silent --head --write-out '%{http_code}\n' 'http://localhost:8200/ping?app_id=96a53eaf&index=e7185a86&token={{ admin_token }}'
+curl --silent --head --write-out '%{http_code}\n' 'http://localhost:8100?app_id=96a53eaf&index=e7185a86&token={{ admin_token }}'
 ```
+
+> Take in account that in this example we're using 8100 as our default port. If
+> you changed this port in your environment file, consider changing it here as
+> well.
 
 You should have a 200 response code. And this means that your repository is
 ready to be used by any application.
+
+Let's make another fast check of our infrastructure by calling our check
+endpoint. This endpoint will give some information about the status of the
+cluster and the services working inside.
+
+```bash
+curl 'http://localhost:8203/health?app_id=96a53eaf&index=e7185a86&token=745377d6-3cb7-431e-b048-4fa0e419e169'
+```
+
+At this point you could just follow this Quick Start document, or go to the
+official API specifications; The main one, where you'll be able how to use
+Apisearch through HTTP, and the
+
+- [API Reference](/api-reference)
+- [API Client](/api-client)
 
 ## Create your first application
 
