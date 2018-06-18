@@ -5,7 +5,7 @@ icon: angle-right
 page: 2
 category: API Reference
 template: one-column-with-toc.mustache
-source: api-reference/application.md
+source: api-reference/application-api.md
 tags:
   - apisearch reference
   - http
@@ -14,7 +14,7 @@ tags:
 
 # Application API
 
-These endpoints are part of the Application related repository. By doing them
+These endpoints are part of the Application related repository. By using them
 you will be able to manage your applications, your indices and the way you 
 interact with them.
 
@@ -29,12 +29,12 @@ Here some related model objects you may know.
 This is the endpoint reference
 
 - Endpoint name - v1-index-create
-- Path - /v1/index
-- Verb - POST
+- Path - **/v1/index**
+- Verb - **POST**
 - Query Parameters
-    - app_id, *required*
-    - index, *required*
-    - token, *required with permissions*
+    - app_id, **required** 
+    - index, **required** 
+    - token, **required with permissions** 
     
 The body of the endpoint should be an array with one optional position with 
 key `config` and a [ImmutableConfig](/api-reference/model.html#immutableconfig) 
@@ -49,20 +49,36 @@ has a default values in their installation, and creating a vulnerability, no
 default values are created.
 
 ```bash
-curl -XPOST "http://localhost:8100/v1/index?app_id={{ your_app_id }}&index={{ your_index }}&token={{ your_token }}"  -d'
+curl -XPOST -H "Content-Type: application/json" "http://localhost:8100/v1/index?app_id={{ your_app_id }}&index={{ your_index }}&token={{ your_token }}"  -d'
 {
     "config": {
-        "uuid": {
-            "id": "aaaa"
+      "language": "ca",
+      "store_searchable_metadata": false,
+      "synonyms": [
+        {
+          "words": [
+            "house",
+            "building",
+            "cottage"
+          ]
         },
-        "app_id": "1234",
-        "indices": {
-            "index1",
-            "index2"
+        {
+          "words": [
+            "large",
+            "big"
+          ]
         }
+      ]
     }
 }
 '
+```
+
+This config value is optional, so by not providing this object, it should work
+by creating a new index with default configuration.
+
+```bash
+curl -XPOST "http://localhost:8100/v1/index?app_id={{ your_app_id }}&index={{ your_index }}&token={{ your_token }}"
 ```
 
 ## Delete Index
@@ -78,12 +94,12 @@ Here some related model objects you may know.
 This is the endpoint reference
 
 - Endpoint name - v1-index-delete
-- Path - /v1/index
-- Verb - DELETE
+- Path - **/v1/index**
+- Verb - **DELETE**
 - Query Parameters
-    - app_id, *required*
-    - index, *required*
-    - token, *required with permissions*
+    - app_id, **required** 
+    - index, **required** 
+    - token, **required with permissions** 
 
 This is a write-only endpoint, and eventually, all write only endpoints could be
 processed in an asynchronous way
@@ -106,12 +122,12 @@ will happen.
 This is the endpoint reference
 
 - Endpoint name - v1-index-reset
-- Path - /v1/index/reset
-- Verb - POST
+- Path - **/v1/index/reset**
+- Verb - **POST**
 - Query Parameters
-    - app_id, *required*
-    - index, *required*
-    - token, *required with permissions*
+    - app_id, **required** 
+    - index, **required** 
+    - token, **required with permissions** 
 
 This is a write-only endpoint, and eventually, all write only endpoints could be
 processed in an asynchronous way
@@ -134,11 +150,11 @@ token will completely overwrite the old one.
 This is the endpoint reference
 
 - Endpoint name - v1-token-add
-- Path - /v1/token
-- Verb - POST
+- Path - **/v1/token**
+- Verb - **POST**
 - Query Parameters
-    - app_id, *required*
-    - token, *required with permissions*
+    - app_id, **required** 
+    - token, **required with permissions** 
     
 The body of the endpoint should be an array with one position with key `token`
 and a [Token](/api-reference/model.html#token) object as value.
@@ -152,7 +168,7 @@ has a default values in their installation, and creating a vulnerability, no
 default values are created.
 
 ```bash
-curl -XPOST "http://localhost:8100/v1/token?app_id={{ your_app_id }}&token={{ your_token }}" -d'
+curl -XPOST -H "Content-Type: application/json" "http://localhost:8100/v1/token?app_id={{ your_app_id }}&token={{ your_token }}" -d'
 {
     "token": {
         "uuid": {
@@ -177,11 +193,11 @@ will happen.
 This is the endpoint reference
 
 - Endpoint name - v1-token-delete
-- Path - /v1/token
-- Verb - DELETE
+- Path - **/v1/token**
+- Verb - **DELETE**
 - Query Parameters
-    - app_id, *required*
-    - token, *required with permissions*
+    - app_id, **required** 
+    - token, **required with permissions** 
     
 The body of the endpoint should be an array with one position with key `token`
 and a [TokenUUID](/api-reference/model.html#tokenuuid) object as value.
@@ -195,7 +211,7 @@ has a default values in their installation, and creating a vulnerability, no
 default values are created.
 
 ```bash
-curl -XPOST "http://localhost:8100/v1/token?app_id={{ your_app_id }}&token={{ your_token }}" -d'
+curl -XPOST -H "Content-Type: application/json" "http://localhost:8100/v1/token?app_id={{ your_app_id }}&token={{ your_token }}" -d'
 {
     "token": {
         "id": "aaaa"
@@ -210,12 +226,12 @@ By using this endpoint you will be able to delete all existing index.
 
 This is the endpoint reference
 
-- Endpoint name - v1-token-delete-all
-- Path - /v1/tokens
-- Verb - DELETE
+- Endpoint name - v1-token-delete
+- Path - **/v1/tokens**
+- Verb - **DELETE**
 - Query Parameters
-    - app_id, *required*
-    - token, *required with permissions*
+    - app_id, **required** 
+    - token, **required with permissions** 
 
 This is a write-only endpoint, and eventually, all write only endpoints could be
 processed in an asynchronous way
@@ -237,11 +253,11 @@ existing App.
 This is the endpoint reference
 
 - Endpoint name - v1-token-delete-all
-- Path - /v1/tokens
-- Verb - GET
+- Path - **/v1/tokens**
+- Verb - **GET**
 - Query Parameters
-    - app_id, *required*
-    - token, *required with permissions*
+    - app_id, **required** 
+    - token, **required with permissions** 
 
 You can try this endpoint by using this curl snippet. As you can see, you should
 replace the placeholders with your own data. In order to make sure that no one

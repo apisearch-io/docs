@@ -783,40 +783,23 @@ used by you. You can define the sorting field and the type by yourself.
 ```php
 Query::createMatchAll()
     ->sortBy(
-        ['indexed_metadata.manufacturer', 'asc']
+        SortBy::create()
+            ->byFieldValue('manufacturer', 'asc')
     );
 
 Query::createMatchAll()
     ->sortBy(
-        ['indexed_metadata.name', 'desc']
+        SortBy::create()
+            ->byFieldValue('name', 'asc')
     );
 
 Query::createMatchAll()
     ->sortBy(
-        ['indexed_metadata.updated_at', 'desc']
+        SortBy::create()
+            ->byFieldValue('updated_at', 'desc')
     );
 ```
 ```javascript
-let query = api.query
-    .sortBy({
-        'indexed_metadata.manufacturer': {
-            'order': 'asc'
-        }
-    });
-
-let query = api.query
-    .sortBy({
-        'indexed_metadata.name': {
-            'order': 'desc'
-        }
-    });
-
-let query = api.query
-    .sortBy({
-        'indexed_metadata.updated_at': {
-            'order': 'asc'
-        }
-    });
 ```
 
 We can use prebuilt sorts. The first one is the one applied by default when no
@@ -825,21 +808,16 @@ This is the list of all of them.
 
 ```php
 Query::createMatchAll()
-    ->sortBy(SortBy::SCORE)
-    ->sortBy(SortBy::ID_ASC)
-    ->sortBy(SortBy::ID_DESC)
-    ->sortBy(SortBy::TYPE_ASC)
-    ->sortBy(SortBy::TYPE_DESC)
+    ->sortBy(
+        SortBy::create()
+            ->byValue(SortBy::SCORE)
+            ->byValue(SortBy::ID_ASC)
+            ->byValue(SortBy::ID_DESC)
+            ->byValue(SortBy::TYPE_ASC)
+            ->byValue(SortBy::TYPE_DESC)
 ;
 ```
 ```javascript
-let query = api.query.createMatchAll()
-    .sortBy('SORT_BY_SCORE')
-    .sortBy('SORT_BY_ID_ASC')
-    .sortBy('SORT_BY_ID_DESC')
-    .sortBy('SORT_BY_TYPE_ASC')
-    .sortBy('SORT_BY_TYPE_DESC')
-;
 ```
 
 When you define a sort element, you override the existing one.
@@ -860,11 +838,6 @@ $query = Query::createLocated(
 );
 ```
 ```javascript
-let query = api
-    .query.createLocated(
-        api.createObject.coordinate(40.0, -70.0),
-        ''
-    );
 ```
 
 Because the only way that could make sense when sorting by location is
@@ -876,18 +849,14 @@ $query = Query::createLocated(
         new Coordinate(40.0, -70.0), 
         ''
     )
-    ->sortBy(SortBy::LOCATION_KM_ASC)
-    ->sortBy(SortBy::LOCATION_MI_ASC)
+    ->sortBy(
+        SortBy::create()
+            ->byValue(SortBy::LOCATION_KM_ASC)
+            ->byValue(SortBy::LOCATION_MI_ASC)
+    )
 ;
 ```
 ```javascript
-let query = api
-    .query.createLocated(
-        api.createObject.coordinate(40.0, -70.0),
-        ''
-    )
-    .sortBy('SORT_BY_LOCATION_KM_ASC')
-    .sortBy('SORT_BY_LOCATION_KM_DESC')
 ```
 
 Both sorting types return exactly the same results in the same order, but both
@@ -910,15 +879,75 @@ You can sort your elements in a random way by using the fast predefined value
 
 ```php
 Query::createMatchAll()
-    ->sortBy(SortBy::RANDOM)
+    ->sortBy(
+        SortBy::create()
+            ->byValue(SortBy::RANDOM)
+    )
 ;
 ```
 ```javascript
-let query = api
-    .query.createMatchAll()
-    .sortBy('SORT_BY_RANDOM')
+```
+
+## Sort by nested field
+
+Your model can have nested properties, like a set of categories or a set of manufacturers.
+Then, you should be able to sort your results by these values. Let's see an example
+
+```php
+Query::createMatchAll()
+    ->sortBy(
+        SortBy::create()
+            ->byNestedField('category.id', SortBy::ASC, SortBy::MODE_MIN)
+            ->byNestedField('manufacturer.id', SortBy::DESC, SortBy::MODE_MAX)
+            ->byNestedField('articles.price', SortBy::DESC, SortBy::MODE_AVG)
+    )
 ;
 ```
+```javascript
+```
+
+This sorting is a bit confusing when the relation between your item and this other object
+is not one to one, but one to many. When you have multiple articles, for example, you
+would want to sort by using the price. But what article will you pick in order to sort?
+Well, as you can see in the example, the third parameter tells this strategy. You can pick
+the maximum value of all articles, the minimum or the average value.
+
+But what about when this is not the behavior we want? For example, what if we want to
+sort by only picking a subset of articles? Let's say, all the articles with code equals
+to 10.
+
+The, we need to sort by nested field and filter
+
+## Sort by nested field and filter
+
+The same composition as before, but using an extra parameter. A Filter instance. Let's see
+a simple example.
+
+```php
+Query::createMatchAll()
+    ->sortBy(
+        SortBy::create()
+            ->byNestedFieldAndFilter(
+                'articles.price', 
+                SortBy::DESC, 
+                Filter::create(
+                    'articles.code',
+                    [10],
+                    Filter::MUST_ALL,
+                    Filter::TYPE_FIELD
+                ),
+                SortBy::MODE_AVG
+            )
+    )
+;
+```
+```javascript
+```
+
+That would make the trick. Before sorting by articles, the system will apply your filter.
+After that, will sort. Means that when we apply a filter we only get one result? Not at all.
+You could have many articles with code equals to 10, and after that you would sort by the average
+price.
 
 ## Relevance Strategy
 

@@ -8,24 +8,30 @@ template: one-column-with-toc.mustache
 source: api-reference/model.md
 languages: 
   - php
-  - javascript
   - json
 tags:
   - apisearch reference
   - http
   - json
 ---
-## Model Reference
+# Model Reference
 
-### ItemUUID
+In this chapter we will expose all the objects existing inside Apisearch. This
+is important because across all repositories, and maybe inside specific client
+implementations you will see some objects and you will know how they work
+internally.
+
+Then this is your chapter.
+
+## ItemUUID
 
 ItemUUID reference. The composition of this object should be unique in your
 repository.
 
 ```
 {
-  "id": string,
-  "type": string
+  "id": !string,
+  "type": !string
 }
 ```
 
@@ -50,7 +56,7 @@ Some links of interest
 * [Api Client - Item](/api-client/model.html#item)
 * [Api Client - Item UUID](/api-client/model.html#itemuuid)
 
-### Item
+## Item
 
 Item reference. This is the representation of all your searchable elements.
 Inside this model class you will be able to work with all your data and classify
@@ -58,16 +64,16 @@ as ready to be indexed or searched by.
 
 ```
 {
-  "uuid": ItemUUID,
-  "metadata": mixed[],
-  "indexed_metadata": mixed[],
-  "searchable_metadata": mixed[],
-  "exact_matching_metadata": string[],
-  "suggest": string[],
+  "uuid": !ItemUUID,
+  "metadata": ?mixed[],
+  "indexed_metadata": ?mixed[],
+  "searchable_metadata": ?mixed[],
+  "exact_matching_metadata": ?string[],
+  "suggest": ?string[],
   "coordinate": ?Coordinate,
-  "distance": int,
-  "highlights": mixed[],
-  "is_promoted": bool
+  "distance": ?int (only in response),
+  "highlights": ?mixed[] (only in response),
+  "is_promoted": ?bool (only in response)
 }
 ```
 
@@ -130,7 +136,7 @@ Some links of interest
 * [Api Client - Item](/api-client/model.html#item)
 * [Api Client - Item UUID](/api-client/model.html#itemuuid)
 
-### User
+## User
 
 User reference. The composition of this object should represent one and
 only one user. You should place inside all user related information that will be
@@ -139,8 +145,8 @@ plugins, you may use the born year, or the gender id).
 
 ```
 {
-  "id": string,
-  "attributes": mixed[]
+  "id": !string,
+  "attributes": ?mixed[]
 }
 ```
 
@@ -170,15 +176,15 @@ Some links of interest
 
 * [Api Client - Building a Query](/api-client/query.html#building-a-query)
 
-### Interaction
+## Interaction
 
 Interaction reference. Means an interaction between a user and an ItemUUID.
 
 ```
 {
-  "user": User,
-  "item_uuid": ItemUUID,
-  "weight": int
+  "user": !User,
+  "item_uuid": !ItemUUID,
+  "weight": !int
 }
 ```
 
@@ -218,14 +224,14 @@ $interaction = Interaction::createFromArray([
 }
 ```
 
-### Coordinate
+## Coordinate
 
 Coordinate reference. Used for object geo-localization.
 
 ```
 {
-  "lat": float,
-  "lon": float
+  "lat": !float,
+  "lon": !float
 }
 ```
 
@@ -245,15 +251,15 @@ $coordinate = Coordinate::createFromArray([
 }
 ```
 
-### Changes
+## Changes
 
 Changes reference. This object is mainly used when updating your index.
 
 ```
 [
   {
-    "field": string,
-    "type": int,
+    "field": !string,
+    "type": !int,
     "condition": ?string,
     "value": ?mixed
   }
@@ -280,13 +286,13 @@ $change = Change::createFromArray([
 }
 ```
 
-### TokenUUID
+## TokenUUID
 
 Token UUID reference.
 
 ```
 {
-  "id": string
+  "id": !string
 }
 ```
 
@@ -309,23 +315,23 @@ Some links of interest
 * [Api Client - Building a Query](/api-client/query.html#building-a-query)
 * [Api Client - User query](/api-client/query.html#user-query)
 
-### Token
+## Token
 
 Token reference
 
 ```
 {
-  "uuid": TokenUUID,
-  "app_id": string,
-  "created_at": int,
-  "updated_at": int,
-  "indices": string[],
-  "seconds_valid": int,
-  "max_hits_per_query": int,
-  "http_referrers": string[],
-  "endpoints": string[],
-  "plugins": string[],
-  "ttl": int
+  "uuid": !TokenUUID,
+  "app_id": !string,
+  "created_at": !int,
+  "updated_at": !int,
+  "indices": ?string[],
+  "seconds_valid": ?int (default 0/Infinite),
+  "max_hits_per_query": ?int (default 0/Infinite),
+  "http_referrers": ?string[],
+  "endpoints": ?string[],
+  "plugins": ?string[],
+  "ttl": ?int (default 60 seconds)
 }
 ```
 
@@ -387,18 +393,13 @@ $token = Token::createFromArray([
 }
 ```
 
-## App References
-
-The elements are part of the repository that will be used to configure the app
-and the indices
-
-### Synonym
+## Synonym
 
 Synonym representation.
 
 ```
 {
-  "words": string[]
+  "words": ?string[]
 }
 ```
 
@@ -424,16 +425,16 @@ $synonym = Synonym::createFromArray([
 }
 ```
 
-### ImmutableConfig
+## ImmutableConfig
 
 This configuration is used when a new index instance is created. Is called
 immutable because cannot be changed after this index creation.
 
 ```
 {
-  "language": ?string [null],
-  "store_searchable_metadata": bool [true],
-  "synonyms": Synonym[]
+  "language": ?string (default null),
+  "store_searchable_metadata": ?bool (default true),
+  "synonyms": ?Synonym[]
 }
 ```
 
@@ -483,24 +484,19 @@ $immutableConfig = ImmutableConfig::createFromArray([
 }
 ```
 
-## Query References
-
-These elements are part of the query repository and will be used to create
-queries to several repositories.
-
-### QueryAggregation
+## QueryAggregation
 
 Query Aggregation reference. Used in Query repository.
 
 ```
 {
-  "name": string,
-  "field": string,
-  "application_type": int,
-  "filter_type": string,
-  "subgroup": string[],
-  "sort": string[],
-  "limit": int
+  "name": !string,
+  "field": ?string (default uuid.type),
+  "application_type": ?int (default 8),
+  "filter_type": ?string (default "field"),
+  "subgroup": ?string[],
+  "sort": ?string[] (default ['_count', 'desc']),
+  "limit": ?int (default 0/No limit)
 }
 ```
 
@@ -533,17 +529,17 @@ Some links of interest
 * [Building a Query](/api-client/query.html#building-a-query)
 * [Query aggregations](/api-client/query.html#aggregations)
 
-### Filter
+## Filter
 
 Filter reference. Used in Query repository.
 
 ```
 {
-  "field": string,
-  "values": mixed[],
-  "application_type": int,
-  "filter_type": string,
-  "filter_terms": string[]
+  "field": ?string (default uuid.type),
+  "values": ?mixed[],
+  "application_type": ?int (default 8),
+  "filter_type": ?string (default "field"),
+  "filter_terms": ?string[]
 }
 ```
 
@@ -573,13 +569,13 @@ Some links of interest
 * [Query filters](/api-client/query.html#filters)
 * [Filter types](/api-client/query.html#filter-types)
 
-### ScoreStrategy
+## ScoreStrategy
 
 Score Strategy reference. Used in Query Repository
 
 ```
 {
-  "type": int,
+  "type": ?int (default 0),
   "function": ?string
 }
 ```
@@ -605,18 +601,18 @@ Some links of interest
 * [Building a Query](/api-client/query.html#building-a-query)
 * [Relevance Strategy](/api-client/query.html#relevance-strategy)
 
-### SortBy
+## SortBy
 
 Sortby reference. Used in Query Repository
 
 ```
 [
     {
-      "type": int,
+      "type": ?int (default 1/field),
       "filter": ?Filter,
-      "mode": string
+      "mode": !string
       "indexed_metadata.%field_name%": {
-        "order": string,
+        "order": !string,
         "coordinate": ?Coordinate
       }
     }
@@ -651,28 +647,28 @@ Some links of interest
 * [Sort by field](/api-client/query.html#sort-by-field)
 * [Sort randomly](/api-client/query.html#sort-randomly)
 
-### Query
+## Query
 
 Query reference.
 
 ```
 {
-  "q": string,
+  "q": ?string (default ""/Match all),
   "coordinate": ?Coordinate,
-  "filters": Filter[],
-  "universe_filters": Filter[],
-  "aggregations": QueryAggregation[],
-  "sort": SortBy,
-  "page": int,
-  "size": int,
-  "results_enabled": bool,
-  "suggestions_enabled": bool,
-  "highlight_enabled": bool,
-  "aggregations_enabled": bool,
-  "filter_fields": string[],
+  "filters": ?Filter[],
+  "universe_filters": ?Filter[],
+  "aggregations": ?QueryAggregation[],
+  "sort": ?SortBy,
+  "page": ?int (default 1),
+  "size": ?int (default 10),
+  "results_enabled": ?bool (default true),
+  "suggestions_enabled": ?bool (default false),
+  "highlight_enabled": ?bool (default false),
+  "aggregations_enabled": ?bool (default true),
+  "filter_fields": ?string[],
   "score_strategy": ?ScoreStrategy,
   "user": ?User,
-  "items_promoted": ItemUUID[]
+  "items_promoted": ?ItemUUID[]
 }
 ```
 
@@ -747,17 +743,17 @@ Some links of interest
 * [Building a Query](/api-client/query.html#building-a-query)
 * [Enabling Suggestions](/api-client/query.html#enabling-suggestions)
 
-### Event
+## Event
 
-Event reference
+Event reference.
 
 ```
 {
-  "consistency_hash": string,
-  "name": string,
-  "payload": string,
-  "indexable_payload": mixed,
-  "occurred_on": int
+  "consistency_hash": !string,
+  "name": !string,
+  "payload": !string,
+  "indexable_payload": !array,
+  "occurred_on": !int
 }
 ```
 
@@ -788,16 +784,16 @@ Some links of interest
 * [Event Object](/api-client/event.html#event-object)
 * [Event Types](/api-client/event.html#event-types)
 
-### Log
+## Log
 
 Log reference
 
 ```
 {
-  "id": string,
-  "type": string,
-  "payload": string,
-  "occurred_on": int
+  "id": !string,
+  "type": !string,
+  "payload": !string,
+  "occurred_on": !int
 }
 ```
 
@@ -821,20 +817,15 @@ $log = Log::createFromArray([
 }
 ```
 
-## Result References
-
-These elements compose all the possible results that all repositories can return
-to you.
-
-### Counter
+## Counter
 
 Counter reference. Each of them can be understood as an aggregation result.
 
 ```
 {
-  "values": string[],
-  "used": bool,
-  "n": int
+  "values": !string[],
+  "used": ?bool (default false),
+  "n": !int
 }
 ```
 
@@ -869,18 +860,18 @@ Some links of interest
 * [Api Client - Result](/api-client/result.html)
 * [Api Client - Aggregation Counter](/api-client/result.html#aggregation-counter)
 
-### ResultAggregation
+## ResultAggregation
 
 Result aggregation reference. Used for Results.
 
 ```
 {
-  "name": string,
-  "counters": Counter[],
-  "application_type": int,
-  "total_elements": int,
-  "active_elements": Counter[],
-  "highest_active_level": int
+  "name": !string,
+  "counters": ?Counter[],
+  "application_type": ?int (default 8),
+  "total_elements": ?int (default 0),
+  "active_elements": ?Counter[],
+  "highest_active_level": ?int (default 0)
 }
 ```
 
@@ -930,14 +921,14 @@ Some links of interest
 * [Api Client - Reading Aggregations](/api-client/result.html#reading-aggregations)
 * [Api Client - Aggregation Counter](/api-client/result.html#aggregation-counter)
 
-### ResultAggregations
+## ResultAggregations
 
 Result aggregations reference. Used for Results.
 
 ```
 {
-  "total_elements": int,
-  "aggregations": ResultAggregation[]
+  "total_elements": ?int (default 0),
+  "aggregations": ?ResultAggregation[]
 }
 ```
 
@@ -965,18 +956,18 @@ Some links of interest
 * [Api Client - Reading Aggregations](/api-client/result.html#reading-aggregations)
 * [Api Client - Aggregation Counter](/api-client/result.html#aggregation-counter)
 
-### Result
+## Result
 
 Result reference.
 
 ```
 {
-  "query": Query,
-  "total_items": int,
-  "total_hits": int,
-  "items": Item[],
-  "aggregations": ResultAggregations,
-  "suggests": string[]
+  "query": !Query,
+  "total_items": ?int (default 0),
+  "total_hits": ?int (default 0),
+  "items": ?Item[],
+  "aggregations": ?ResultAggregations,
+  "suggests": ?string[]
 }
 ```
 
@@ -1031,28 +1022,28 @@ Some links of interest
 * [Api Client - Result](/api-client/result.html)
 * [Api Client - Reading Suggestions](/api-client/result.html#reading-suggestions)
 
-### Events
+## Events
 
 Events Result reference
 
 ```
 {
-  "query": Query,
-  "total_hits": int,
-  "events": Event[],
-  "aggregations": ResultAggregations
+  "query": !Query,
+  "total_hits": ?int (default 0),
+  "events": ?Event[],
+  "aggregations": ?ResultAggregations
 }
 ```
 
-### Logs
+## Logs
 
 Logs Result reference
 
 ```
 {
-  "query": Query,
-  "total_hits": int,
-  "logs": Log[],
-  "aggregations": ResultAggregations
+  "query": !Query,
+  "total_hits": ?int (default 0),
+  "logs": ?Log[],
+  "aggregations": ?ResultAggregations
 }
 ```

@@ -26,8 +26,8 @@ where each model object will be explained. The second one is the exposed
 endpoints, which will be using these object explained in the first part.
 
 - [Model](api-reference/model.html)
-- [Application](api-reference/application.html)
-- [Search](api-reference/search.html)
-- [Interaction](api-reference/interaction.html)
-- [Events](api-reference/events.html)
-- [Logs](api-reference/logs.html)
+- [Application API](api-reference/application-api.html)
+- [Query API](api-reference/query-api.html)
+- [User API](api-reference/user-api.html)
+- [Event API](api-reference/event-api.html)
+- [Log API](api-reference/log-api.html)
