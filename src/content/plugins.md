@@ -92,4 +92,113 @@ plugin/
 |-- MyPluginBundle.php
 ```
 
-As you can see, anything different than other
+As you can see, anything different than other simple bundles inside the Symfony
+environment.
+
+The difference between a simple Bundle and a Apisearch plugin is an interface.
+As simple as it sounds.
+
+```php
+/**
+ * Class CallbacksPluginBundle.
+ */
+class CallbacksPluginBundle extends BaseBundle implements Plugin
+{
+    /**
+     * Get plugin name.
+     *
+     * @return string
+     */
+    public function getPluginName(): string
+    {
+        return 'callbacks';
+    }
+}
+```
+
+The method that any plugin must implement is the `getPluginName`. It will be
+used mainly for enabling desired plugins when using an specific token. For
+example, this one we're building now, we could configure some tokens where this
+filter will be applied by enabling this plugin. But we could have other regular
+tokens with all plugins disabled.
+
+## Enabling the plugin
+
+Of course, we need to enable the plugin. Again, same strategy that is used
+inside Symfony environment. Enable the Bundle in our kernel.
+
+```yml
+bundles:
+    - Apisearch\Server\ApisearchServerBundle
+    - Apisearch\Plugin\Callbacks\CallbacksPluginBundle
+```
+
+## Adding a Middleware
+
+Let's add some action in our plugin. And to do that, we are going to create a
+new middleware called `QueryMiddleware`. We're going to configure the middleware
+in order to make some action **ONLY** when a new Query is done and the command
+`Query` is passed through the command bus.
+
+```php
+/**
+ * Class QueryApplySomeFiltersMiddleware.
+ */
+class QueryApplySomeFiltersMiddleware implements PluginMiddleware
+{
+    /**
+     * Execute middleware.
+     *
+     * @param CommandWithRepositoryReferenceAndToken $command
+     * @param callable                               $next
+     *
+     * @return mixed
+     */
+    public function execute(
+        CommandWithRepositoryReferenceAndToken $command,
+        $next
+    ) {
+        // Do some action before the Command handler is executed. We would place
+        // the filters here
+        
+        $result = $next($command);
+
+        // Do some action after the Command handler is executed, and before the
+        // value is returned to the previous middleware
+
+        return $result;
+    }
+
+    /**
+     * Events subscribed namespace.
+     *
+     * @return string[]
+     */
+    public function getSubscribedEvents(): array
+    {
+        return [Query::class];
+    }
+}
+```
+
+As you can see, the method `getSubscribedEvents` allow us to work with different
+commands in the same class. But remember that different actions related to
+different commands should be placed in several middlewares.
+
+After defined our class, we need to create the middleware service and tell 
+Apisearch that this is a middleware of a plugin. For such action, let's create a
+service definition with a tag.
+
+```yml
+services:
+
+    #
+    # Middlewares
+    #
+    apisearch_plugin.my_plugin.query_apply_some_filters:
+        class: Apisearch\Plugin\MetadataFields\Domain\Middleware\IndexItemsMiddleware
+        arguments:
+            - "@apisearch_plugin.metadata_fields.repository"
+        tags:
+            - { name: apisearch_plugin.middleware }
+```
