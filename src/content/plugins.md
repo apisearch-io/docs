@@ -1,7 +1,7 @@
 ---
 root: true
 page: 4
-icon: chain
+icon: plug
 title: Plugins
 description: Apisearch plugins.
 category: Plugins
@@ -37,10 +37,11 @@ to change the result value.
     
 ## Make your own plugin
 
-Apisearch is implemented by doing CQRS. This means that each time anyone uses
-Apisearch, a new command is created as a ValueObject. This value should not
-be changed by anyone during it's life. This objects is taken by one and only
-one handler, and some action is taken by this handler.
+Apisearch is implemented by doing [CQRS](https://www.martinfowler.com/bliki/CQRS.html).
+This means that each time anyone uses Apisearch, a new command is created as a 
+Value Object. This value should not be changed by anyone during it's life. This 
+objects is taken by one and only one handler, and some actions are done by this
+handler.
 
 For example.
 
@@ -57,6 +58,9 @@ we want, read them and even change them.
 > By default, the CQRS pattern would say that the command should'nt be
 > changeable, but by adding this new plugins layer, some commands can be
 > replaced by new ValueObjects of the same class.
+
+> The project uses a specific CQRS pattern implementation, and is not to be a
+> perfect pattern implementation project.
 
 And there's where Apisearch Plugins take their effect. A plugin can basically
 change the behavior of all actions by creating Middlewares. Let's see an example
@@ -183,11 +187,12 @@ class QueryApplySomeFiltersMiddleware implements PluginMiddleware
 
 As you can see, the method `getSubscribedEvents` allow us to work with different
 commands in the same class. But remember that different actions related to
-different commands should be placed in several middlewares.
+different commands should be placed in several middleware classes.
 
 After defined our class, we need to create the middleware service and tell 
-Apisearch that this is a middleware of a plugin. For such action, let's create a
-service definition with a tag.
+Apisearch that this is a middleware that should be executed inside a plugin. For
+such action, let's create a service definition with the tag 
+`apisearch_plugin.middleware`.
 
 ```yml
 services:
@@ -202,3 +207,76 @@ services:
         tags:
             - { name: apisearch_plugin.middleware }
 ```
+
+> Apisearch will not ensure you the order between middleware classes, so you
+> should only work with main Apisearch specification, and never have a hard
+> dependency with other plugins.
+
+## Apisearch Commands and Queries
+
+But what is a Command and a Query? And the most important question, what
+Commands and Queries can we find here in Apisearch? This project uses
+
+A Command is this Value Object that we generate in all these first layers that
+we can find around Apisearch. For example, the first layer when we come from the
+HTTP layer is called Controller, and the first layer when we come from the 
+console is called command. A Command is like an imperative action, and should
+follow the same format always, no matter the interface we're using, for example.
+
+So, the difference between a Command and a Query? Well, a Command is an action
+that will change the internal status of the application, a write operation. The
+status before and after applying this command could be barely different.
+
+And can a Command have a response? Not at all. Only changes the state, and
+because this operation could be asynchronous, we must assume that we will not
+receive any response.
+
+So, the question is, how can we retrieve information from Apisearch? Well, by
+using Queries. A Query is a type of Command that instead of changing the status
+of the application, only gets information from it and returns it.
+
+- So, if I need to make a change into Apisearch and return it's new value, can
+I do it by using Commands?
+- Nopes. You can't. A single action means a single action, and this can be a
+write action, what could be executed asynchronously sometime from a queue, or a
+read action, which in this case you would return the value instantly.
+
+## Commands
+
+This is the main list of Apisaerch Commands. As you will see, all these actions
+could be applied by using a queue, in an asynchronous way, and don't really need
+to return any value.
+
+> Some of these Commands application action is reduced to an specific app_id,
+> an index, and always previous verification of a valid token.
+
+- AddInteraction - A new interaction has been inserted in the system
+- AddToken - Adds a new token
+- ConfigureIndex - Configures an existing and previously created index. This
+action may require to stop the index some time
+- CreateIndex - Creates a new index
+- DeleteAllInteractions - Deletes all available interactions
+- DeleteIndex - Deletes an existing index
+- DeleteItems - Deletes a set of Items defined by their identifiers
+- DeleteToken - Deletes an existing token
+- DeleteTokens - Deletes all existing tokens
+- IndexItems - Indexes a set of items.
+- ResetIndex - Resets the index. Removed all existing information.
+- UpdateItems - Applies some updates over the existing items
+
+## Queries
+
+This is the main list of Apisearch Queries. As you will see, all these actions
+don't change the status of the application, and only ask for some information
+from inside the system
+
+> Some of these Query application action is reduced to an specific app_id,
+> an index, and always previous verification of a valid token.
+
+- CheckHealth - Checks the cluster health
+- CheckIndex - Checks if an index is available
+- GetTokens - Return all the existing tokens
+- Ping - Makes a simple ping
+- Query - Makes a query over all the existing Items
+- QueryEvents - Makes a query over all generated events
+- QueryLogs - Makes a query over all generated logs
