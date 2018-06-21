@@ -280,3 +280,7 @@ from inside the system
 - Query - Makes a query over all the existing Items
 - QueryEvents - Makes a query over all generated events
 - QueryLogs - Makes a query over all generated logs
+
+## Events in Apisearch
+
+// WIP
