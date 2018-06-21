@@ -137,7 +137,7 @@ bundles:
     - Apisearch\Plugin\Callbacks\CallbacksPluginBundle
 ```
 
-## Adding a Middleware
+## Creating a Middleware
 
 Let's add some action in our plugin. And to do that, we are going to create a
 new middleware called `QueryMiddleware`. We're going to configure the middleware
@@ -283,4 +283,90 @@ from inside the system
 
 ## Events in Apisearch
 
-// WIP
+By using Middlewares what we do is to change the compositions of the Commands
+themselves or the results that the associated handlers produce. But this is only
+one part of the Plugins environment. What happens if we want to add an specific
+action when Items are indexed in the system? Here some options for you.
+
+* Add a middleware before these items are really indexed, and pray for not to
+have an exception. Otherwise you'll have inconsistent data.
+* Add a middleware after these items are really indexed, but this point is
+specially designed for response manipulation. What if this action creates
+several related actions, and you need one of them? For sure, you'll not be able
+to access to this data
+
+In order to take some actions at the same moment these happen, we introduce you
+the Apisearch Domain Events. These are specially created to make sure you have
+all needed information of what happen inside the project. And Event Subscribers
+are the right way of subscribing to these events.
+
+> If you define Apisearch to consume events, instead of a default inline mode,
+> in an asynchronous way, you will not recieve these events once they happen,
+> but when they are taken from the queue
+
+## Creating an Event Subscriber
+
+Let's see a simple event subscriber implementation.
+
+```php
+/**
+ * Class MyEventSubscriber.
+ */
+class MyEventSubscriber implements EventSubscriber
+{
+    /**
+     * Subscriber should handle event.
+     *
+     * @param DomainEventWithRepositoryReference $domainEventWithRepositoryReference
+     *
+     * @return bool
+     */
+    public function shouldHandleEvent(DomainEventWithRepositoryReference $domainEventWithRepositoryReference): bool
+    {
+        return Query::class;
+    }
+
+    /**
+     * Handle event.
+     *
+     * @param DomainEventWithRepositoryReference $domainEventWithRepositoryReference
+     */
+    public function handle(DomainEventWithRepositoryReference $domainEventWithRepositoryReference)
+    {
+        // Do something when a new Query is handled by Apisearch
+        
+        $repositoryReference = $domainEventWithRepositoryReference->getRepositoryReference();
+        $domainEvent = $domainEventWithRepositoryReference->getDomainEvent();
+    }
+}
+```
+
+The first method would return if, given a Domain Event, the subscribe is valid.
+One Domain Event, one subscriber. That will help us the split between files all
+our domain logic.
+
+After we created the class, we need to publish it as an event subscriber.
+
+```yml
+services:
+    my_service:
+        class: My\Event\Subscriber
+        tags:
+            - { name: apisearch_server.domain_event_subscriber }
+```
+
+## Domain Events
+
+These are the available Domain Events inside Apisearch.
+
+- IndexWasConfigured - An existing Index has been configured
+- IndexWasReset - Index has been reset and all Items inside were removed
+- InteractionWasAdded - A new interaction has been added
+- ItemsWereDeleted - Some items have been deleted from the engine
+- ItemsWereAdded - Some items have been added in the engine
+- ItemsWereUpdated - Some items have been updated
+- QueryWasMade - A new Query has been done
+- TokensWereDeleted - All tokens were deleted
+- TokenWasAdded - A new token has been added
+- TokenWasDeleted - An existing token was deleted
+
