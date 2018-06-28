@@ -71,18 +71,7 @@ First of all we need to get the repository from the source. Because this
 repository does'nt really need dependencies, we will download it by using wget
 instead of git.
 
-Check the version of the tarball in order to always get the last one or an
-specific one, depending on your needs
-
-```bash
-wget --no-check-certificate --content-disposition -O docker-search-server.tar.gz https://github.com/apisearch-io/docker-search-server/tarball/0.0.2
-tar -xvzf docker-search-server.tar.gz
-cd docker-search-server
-```
-
-You can also get the last master code. This will get the last code pushed in
-master, but not tagged as stable yet. The best option until we work with stable
-versions.
+Until there's no stable releases, we will work with the HEAD of master version.
 
 ```bash
 wget --no-check-certificate --content-disposition -O docker-search-server.tar.gz https://github.com/apisearch-io/docker-search-server/archive/master.tar.gz
