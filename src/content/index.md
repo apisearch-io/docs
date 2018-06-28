@@ -103,14 +103,14 @@ default values to prevent security issues). You will find an skeleton of the
 file inside the root of the project with the name `.env.dist`
 
 ```
-APISEACH_PORT=8100
-APISEARCH_GOD_TOKEN="xxx"
-APISEARCH_PING_TOKEN="xxx"
+APISEARCH_PORT=8100
+APISEARCH_GOD_TOKEN=
+APISEARCH_PING_TOKEN=
 
-ELASTICSEARCH_HOST=127.0.0.1
+ELASTICSEARCH_HOST=apisearch_elasticsearch
 ELASTICSEARCH_PORT=9200
 
-REDIS_HOST=127.0.0.1
+REDIS_HOST=apisearch_redis
 REDIS_PORT=6379
 ```
 
