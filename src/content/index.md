@@ -99,12 +99,19 @@ containers.
 
 Apisearch works with a file called `.env` placed in the root of the project.
 You might update some of these values with your own values (we don't setup
-default values to prevent security issues)
+default values to prevent security issues). You will find an skeleton of the
+file inside the root of the project with the name `.env.dist`
 
 ```
 APISEACH_PORT=8100
 APISEARCH_GOD_TOKEN="xxx"
 APISEARCH_PING_TOKEN="xxx"
+
+ELASTICSEARCH_HOST=127.0.0.1
+ELASTICSEARCH_PORT=9200
+
+REDIS_HOST=127.0.0.1
+REDIS_PORT=6379
 ```
 
 Make sure you **update this values** before building your containers.
@@ -163,6 +170,10 @@ write-read token for you to start using Apisearch as fast as possble.
 docker exec -i -t $(docker ps -qf "name=apisearch_server") /easy-setup.sh
 ```
 
+> Check the output of the command. You will see that the system has generated
+> you a random app_id and a random index_id for security reasons.  
+> Use them in your next commands.
+
 It is important the output of this command execution. The command will generate
 you some random tokens for your application. To start fast with a simple demo,
 you should use the admin one for indexing and deleting from your private
@@ -176,7 +187,7 @@ Let's ping our new index using our admin token. Replace `{{admin_token}}` with
 your auto generated admin token.
 
 ```bash
-curl --silent --head --write-out '%{http_code}\n' 'http://localhost:8100?app_id=96a53eaf&index=e7185a86&token={{ admin_token }}'
+curl --silent --head --write-out '%{http_code}\n' 'http://localhost:8100?app_id={{ app_id }}&index={{ index_id }}&token={{ admin_token }}'
 ```
 
 > Take in account that in this example we're using 8100 as our default port. If
@@ -191,7 +202,7 @@ endpoint. This endpoint will give some information about the status of the
 cluster and the services working inside.
 
 ```bash
-curl 'http://localhost:8203/health?app_id=96a53eaf&index=e7185a86&token=745377d6-3cb7-431e-b048-4fa0e419e169'
+curl 'http://localhost:8203/health?app_id={{ app_id }}&index={{ index_id }}&token={{ admin_token }}'
 ```
 
 At this point you could just follow this Quick Start document, or go to the
