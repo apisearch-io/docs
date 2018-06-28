@@ -75,13 +75,14 @@ Check the version of the tarball in order to always get the last one or an
 specific one, depending on your needs
 
 ```bash
-wget --no-check-certificate --content-disposition -O docker-search-server.tar.gz https://github.com/apisearch-io/docker-search-server/tarball/0.0.1
+wget --no-check-certificate --content-disposition -O docker-search-server.tar.gz https://github.com/apisearch-io/docker-search-server/tarball/0.0.2
 tar -xvzf docker-search-server.tar.gz
 cd docker-search-server
 ```
 
 You can also get the last master code. This will get the last code pushed in
-master, but not tagged as stable yet.
+master, but not tagged as stable yet. The best option until we work with stable
+versions.
 
 ```bash
 wget --no-check-certificate --content-disposition -O docker-search-server.tar.gz https://github.com/apisearch-io/docker-search-server/archive/master.tar.gz
@@ -163,8 +164,21 @@ please ping the organization in our
 > Apisearch server with the required APISEARCH_* environment values.
 
 That's it. Congratulations. You already have Apisearch running in your server.
-Now let's go a little bit further with that. Let's create a new index with a
-write-read token for you to start using Apisearch as fast as possble.
+Now let's go a little bit further with that. First of all, our first call to
+Apisearch, the Apisearch *hello world*. As you can see, we will use the
+environment variable **APISEARCH_GOD_TOKEN** as the token to use everywhere,
+with full access to the entire environment.
+
+```bash
+curl --silent --head --write-out '%{http_code}\n' 'http://localhost:8100?token={{ APISEARCH_GOD_TOKEN }}'
+```
+
+That curl should return us a **200**. You could try the same action, but in this
+case using the **APISEARCH_PING_TOKEN**, and specific token with only one
+possible action of ping.
+
+Once we have our engine running, let's create a new index with a write-read 
+token for you to start using Apisearch as fast as possble with real data.
 
 ```
 docker exec -i -t $(docker ps -qf "name=apisearch_server") /easy-setup.sh
@@ -172,7 +186,7 @@ docker exec -i -t $(docker ps -qf "name=apisearch_server") /easy-setup.sh
 
 > Check the output of the command. You will see that the system has generated
 > you a random app_id and a random index_id for security reasons.  
-> Use them in your next commands.
+> Use them in your next specific app and index commands.
 
 It is important the output of this command execution. The command will generate
 you some random tokens for your application. To start fast with a simple demo,
@@ -183,26 +197,28 @@ and even destroy it, so keep it secret.
 You can use the query one for your public applications, for example the
 javascript integration. This token has only read-only permissions.
 
-Let's ping our new index using our admin token. Replace `{{admin_token}}` with
-your auto generated admin token.
+Let's make an empty query (match all) on our new index using our admin token.
+Replace `{{admin_token}}` with your auto generated admin token. We'll be able to
+use this token only when calling this app or index related endpoints, but never
+for environment actions (use **APISEARCH_PING_TOKEN** for such actions).
 
 ```bash
-curl --silent --head --write-out '%{http_code}\n' 'http://localhost:8100?app_id={{ app_id }}&index={{ index_id }}&token={{ admin_token }}'
+curl 'http://localhost:8100/v1?app_id={{ app_id }}&index={{ index_id }}&token={{ admin_token }}'
 ```
 
 > Take in account that in this example we're using 8100 as our default port. If
 > you changed this port in your environment file, consider changing it here as
 > well.
 
-You should have a 200 response code. And this means that your repository is
-ready to be used by any application.
+You should have a 200 response code and an empty set of items as response. This
+means that your repository is ready to be used by any application.
 
 Let's make another fast check of our infrastructure by calling our check
 endpoint. This endpoint will give some information about the status of the
 cluster and the services working inside.
 
 ```bash
-curl 'http://localhost:8203/health?app_id={{ app_id }}&index={{ index_id }}&token={{ admin_token }}'
+curl 'http://localhost:8100/health?token={{ APISEARCH_GOD_TOKEN }}'
 ```
 
 At this point you could just follow this Quick Start document, or go to the
