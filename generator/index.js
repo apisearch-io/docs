@@ -7,8 +7,7 @@ const exec = require('child_process').exec;
 const sections = require('sections');
 
 
-const apisearchTransformer = require("./apisearch/apisearchTransformer");
-const indexData = require("./apisearch/indexer");
+const indexer = require("./apisearch/indexer");
 const treeBuilder = require("./menu/treeBuilder");
 const fileToString = require("./helpers").fileToString;
 const parseMarkdownFile = require("./helpers").parseMarkdownFile;
@@ -19,7 +18,6 @@ const getFileTargetPath = require("./helpers").getFileTargetPath;
 const CONTENT_DIR = path.resolve(__dirname, '../src/content');
 const DOCS_DIR = path.resolve(__dirname, '../docs');
 const TEMPLATES_DIR = path.resolve(__dirname, '../src/templates');
-const SRC_DIR = path.resolve(__dirname, '../src');
 
 /**
  * Main executable function
@@ -147,7 +145,6 @@ const renderTemplate = function(parsedFile) {
  * Create database
  */
 const createDataFile = function(docsArray) {
-    let transformedDocs = [];
     docsArray.forEach(doc => {
         let docSections = sections.parse(doc.originalContent);
 
@@ -167,38 +164,14 @@ const createDataFile = function(docsArray) {
                     }
                 };
 
-                transformedDocs = [
-                    ...transformedDocs,
-                    apisearchTransformer(section)
-                ];
+                indexer.indexSection(section)
+                    .then(function(response) {
+                        console.log(`V --> Docs database indexed`);
+                    })
+                    .catch(function(error) {
+                        console.log(`X --> Error indexing: ${error.data.message}`);
+                    })
             }
         });
     });
-
-    let targetFile = `${SRC_DIR}/docsdb.json`;
-    let docsString = JSON.stringify(transformedDocs);
-
-    fsPath.writeFile(
-        targetFile,
-        docsString,
-        function (err) {
-            if (err) {
-                console.log(`X --> ${err}`);
-            }
-
-            console.log(`V --> Docs database created`);
-
-            /**
-             * Index database
-             */
-            indexData(docsString)
-                .then(function(response) {
-                    console.log(`V --> Docs database indexed`);
-                })
-                .catch(function(error) {
-                    console.log(`X --> Error indexing: ${error.data.message}`);
-                })
-            ;
-        }
-    );
 };

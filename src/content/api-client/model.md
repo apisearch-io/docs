@@ -8,6 +8,7 @@ template: one-column-with-toc.mustache
 source: api-client/model.md
 languages: 
   - php
+  - typescript
 tags:
   - apisearch-client
   - apisearch model
@@ -120,7 +121,15 @@ And this representation is the object ItemUUID. A simple class that contains an
 id and a type. Let's see how to build one of these.
 
 ```php
+use Apisearch\Model\ItemUUID;
+
 $itemUUID = new ItemUUID('4303ui203', 'product');
+```
+
+```typescript
+import {ItemUUID} from "apisearch";
+
+const itemUUID = new ItemUUID('4303ui203', 'product');
 ```
 
 This is a real Unique Id representation of our model, and this instance should
@@ -136,14 +145,27 @@ If you remember, all data but id and type is not required, so a simple
 implementation of a new Item could be as simple as that.
 
 ```php
+use Apisearch\Model\ItemUUID;
+use Apisearch\Model\Item;
+
 $itemUUID = new ItemUUID('4303ui203', 'product');
 $item = Item::create($itemUUID);
+```
+
+```typescript
+import {ItemUUID, Item} from "apisearch";
+
+const itemUUID = new ItemUUID('4303ui203', 'product');
+const item = Item.create(itemUUID);
 ```
 
 This Item would not have any parameter, and would be equivalent to this piece of
 code.
 
 ```php
+use Apisearch\Model\ItemUUID;
+use Apisearch\Model\Item;
+
 $itemUUID = new ItemUUID('4303ui203', 'product');
 $item = Item::create(
     $itemUUID,
@@ -155,15 +177,32 @@ $item = Item::create(
 );
 ```
 
+```typescript
+import {ItemUUID, Item} from "apisearch";
+
+const itemUUID = new ItemUUID('4303ui203', 'product');
+const item = Item.create(
+    itemUUID,
+    {}, // Metadata
+    {}, // Indexed Metadata
+    {}, // Searchable Metadata
+    [], // Exact Matching Metadata
+    []  // Suggest elements
+);
+```
+
 Lets add some extra data to have a nice representation of our first example.
 
 ```php
+use Apisearch\Model\ItemUUID;
+use Apisearch\Model\Item;
+
 $itemUUID = new ItemUUID('4303ui203', 'product');
 $item = Item::create(
     $itemUUID,
     [
         'name' => 'T-shirt blue and red',
-        'description' => 'This is an amazing T-shirt'
+        'description' => 'This is an amazing T-shirt',
         'ean' => 7827298738293
     ], 
     [
@@ -177,15 +216,54 @@ $item = Item::create(
             'Red',
         ],
         'price' => 10,
-        'old_price => 15,
+        'old_price' => 15,
         'brand' => 'Supershirts',
-        'created_at' => new DateTime(),
     ],
     [
         'name' => 'T-shirt blue and red',
-        'description', 'This is an amazing T-shirt',
-        'brand', 'Supershirts',
+        'description' => 'This is an amazing T-shirt',
+        'brand' => 'Supershirts',
     ],
+    [
+        '4303ui203',
+        '7827298738293'
+    ],
+    [
+        'T-shirt'
+    ]
+);
+```
+
+```typescript
+import {ItemUUID, Item} from "apisearch";
+
+const itemUUID = new ItemUUID('4303ui203', 'product');
+const item = Item.create(
+    itemUUID,
+    {
+        'name': 'T-shirt blue and red',
+        'description': 'This is an amazing T-shirt',
+        'ean': 7827298738293
+    }, 
+    {
+        'sizes': [
+            'M',
+            'L',
+            'XL',
+        ],
+        'colors': [
+            'Blue',
+            'Red',
+        ],
+        'price': 10,
+        'old_price': 15,
+        'brand': 'Supershirts'
+    },
+    {
+        'name': 'T-shirt blue and red',
+        'description': 'This is an amazing T-shirt',
+        'brand': 'Supershirts',
+    },
     [
         '4303ui203',
         '7827298738293'
@@ -204,7 +282,18 @@ A simple Coordinate is composed by a latitude and a longitude values. That
 simple. Both values are float formatted.
 
 ```php
+use Apisearch\Model\Coordinate;
+
 $itemCoordinate = new Coordinate(
+    40.12, 
+    -71.34
+);
+```
+
+```typescript
+import {Coordinate} from "apisearch";
+
+const itemCoordinate = new Coordinate(
     40.12, 
     -71.34
 );
@@ -218,7 +307,11 @@ this would be a conventional Item, then both an ItemUUID and Coordinate
 instances must be passed as parameters.
 
 ```php
-$itemUUID = new ItemUUID('12345', 'product');
+use Apisearch\Model\ItemUUID;
+use Apisearch\Model\Item;
+use Apisearch\Model\Coordinate;
+
+$itemUUID = new ItemUUID('4303ui203', 'product');
 $itemCoordinate = new Coordinate(
     40.12, 
     -71.34
@@ -229,11 +322,29 @@ $item = Item::createLocated(
 );
 ```
 
+```typescript
+import {Item, ItemUUID, Coordinate} from "apisearch";
+
+const itemUUID = new ItemUUID('4303ui203', 'product');
+const itemCoordinate = new Coordinate(
+    40.12, 
+    -71.34
+);
+const item = Item.createLocated(
+    itemUUID,
+    itemCoordinate
+);
+```
+
 As before, this method allow all other parameters to be defined after the
 coordinate.
 
 ```php
-$itemUUID = new ItemUUID('12345', 'product');
+use Apisearch\Model\ItemUUID;
+use Apisearch\Model\Item;
+use Apisearch\Model\Coordinate;
+
+$itemUUID = new ItemUUID('4303ui203', 'product');
 $itemCoordinate = new Coordinate(
     40.12, 
     -71.34
@@ -244,6 +355,25 @@ $item = Item::createLocated(
     [], // Metadata
     [], // Indexed Metadata
     [], // Searchable Metadata
+    [], // Exact Matching Metadata
+    []  // Suggest elements
+);
+```
+
+```typescript
+import {Item, ItemUUID, Coordinate} from "apisearch";
+
+const itemUUID = new ItemUUID('4303ui203', 'product');
+const itemCoordinate = new Coordinate(
+    40.12, 
+    -71.34
+);
+const item = Item.createLocated(
+    itemUUID,
+    itemCoordinate,
+    {}, // Metadata
+    {}, // Indexed Metadata
+    {}, // Searchable Metadata
     [], // Exact Matching Metadata
     []  // Suggest elements
 );
@@ -262,6 +392,13 @@ $item->setMetadata($metadata);
 $item->addMetadata('another_thing', 'another_value');
 ```
 
+```typescript
+const metadata = item.getMetadata();
+metadata['something'] = 'value';
+item.setMetadata(metadata);
+item.addMetadata('another_thing', 'another_value');
+```
+
 In order to provide an object as much resistant as possible in front of changes,
 you can consider all metadata data sets as a unique data set, even if internally
 you have divided it in two different arrays. For example, if you have a field
@@ -274,22 +411,25 @@ accessing to the desired position.
 $item->getMetadata()['price'];
 ```
 
+```typescript
+item.getMetadata()['price'];
+```
+
 But what happens if your price needs to be indexed? Then you should change your
 indexing point, and instead of placing the element as a simple metadata, you
 should place it as an indexed metadata. So, what happens with all the code
 points where you've been requiring the price value? You should change it
 well, right?
 
-This will not work anymore
-
-```php
-$item->getMetadata()['price'];
-```
-
-Instead of that, you'll need to start using this
+This last example will not work anymore. Instead of that, you'll need to start
+using this new method.
 
 ```php
 $item->getIndexedMetadata()['price'];
+```
+
+```typescript
+item.getIndexedMetadata()['price'];
 ```
 
 Well, this would be something that may cause you too many code changes, where
@@ -309,6 +449,11 @@ will happen :)
 $item->get('price');
 ```
 
+```typescript
+item.get('price');
+```
+
+
 ## Location Ranges
 
 When talking about located items, and when retrieving and filtering them, we
@@ -325,7 +470,19 @@ as an integer and a distance unit (km or mi) joined in a string, you can define
 a simple filtering range. You must use an object called `CoordinateAndDistance`.
 
 ```php
+use Apisearch\Geo\CoordinateAndDistance;
+use Apisearch\Model\Coordinate;
+
 $locationRange = new CoordinateAndDistance(
+    new Coordinate(40.9, -70.0),
+    '50km'
+);
+```
+
+```typescript
+import {CoordinateAndDistance, Coordinate} from "apisearch";
+
+const locationRange = new CoordinateAndDistance(
     new Coordinate(40.9, -70.0),
     '50km'
 );
@@ -342,7 +499,19 @@ inside of where you want to locate all the items, you can use this filter
 type. In that case, you need both Coordinate instances.
 
 ```php
+use Apisearch\Geo\Square;
+use Apisearch\Model\Coordinate;
+
 $locationRange = new Square(
+    new Coordinate(40.9, -70.0),
+    new Coordinate(39.4, -69.1),
+);
+```
+
+```typescript
+import {Square, Coordinate} from "apisearch";
+
+const locationRange = new Square(
     new Coordinate(40.9, -70.0),
     new Coordinate(39.4, -69.1),
 );
@@ -361,12 +530,25 @@ considered as valid result.
 All coordinates must be Coordinate instances.
 
 ```php
-$locationRange = new Polygon(
+use Apisearch\Geo\Polygon;
+use Apisearch\Model\Coordinate;
+
+$locationRange = new Polygon([
     new Coordinate(40.9, -70.0),
     new Coordinate(40.9, -69.1),
     new Coordinate(39.4, -69.1),
     //...
-);
+]);
+```
+
+```typescript
+import {Polygon, Coordinate} from "apisearch";
+
+const locationRange = new Polygon([
+    new Coordinate(40.9, -70.0),
+    new Coordinate(40.9, -69.1),
+    new Coordinate(39.4, -69.1),
+]);
 ```
 
 You can add as many coordinates as you need in order to build the desired area.

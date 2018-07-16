@@ -27,12 +27,15 @@ using a single pattern called builder.
 Let's start with something really easy.
 
 ```php
+use Apisearch\Query\Query;
+
 $query = Query::create("something");
 ```
 
-```javascript
-let api = apisearch({/* your apisearch credentials */});
-let query = api.query.create('something'); 
+```typescript
+import {Query} from "apisearch";
+
+const query = Query.create('something'); 
 ```
 
 That simple. This small query will look for all entities in the repository,
@@ -47,15 +50,18 @@ of the second page (from the result 101 to the 200). By default, is none of
 these last values are defined, you will request the first 10 results.
 
 ```php
+use Apisearch\Query\Query;
+
 $query = Query::create(
     "something", // The query string
     2,           // The page we want to retrieve
     100          // How many items do we want?
 );
 ```
-```javascript
-let api = apisearch({/* your apisearch credentials */});
-let query = api.query.create(
+```typescript
+import {Query} from "apisearch";
+
+let query = Query.create(
     'something',  // The query string
     2,            // The page we want to retrieve
     100           // How many items do we want per page?
@@ -69,14 +75,17 @@ first parameter or use the search-everything static factory method. In this
 second method you will query the first 1000 elements.
 
 ```php
+use Apisearch\Query\Query;
+
 $query = Query::create('');
 $query = Query::createMatchAll();
 ```
-```javascript
-let api = apisearch({/* your apisearch credentials */});
 
-let emptyStringQuery = api.query.create('');
-let querySearchEverything = api.query.createMatchAll();
+```typescript
+import {Query} from "apisearch";
+
+const emptyStringQuery = Query.create('');
+const querySearchEverything = Query.createMatchAll();
 ```
 
 Finally, you can create a query to find one ore more specific elements from your
@@ -86,6 +95,9 @@ specifically create to make these two scenarios so easy.
 We will use [ItemUUIDs](#itemUUID) here in both cases.
 
 ```php
+use Apisearch\Query\Query;
+use Apisearch\Model\ItemUUID;
+
 $query = Query::createByUUID(new ItemUUID('12', 'book'));
 $query = Query::createByUUIDs([
     new ItemUUID('12', 'book'),
@@ -95,20 +107,19 @@ $query = Query::createByUUIDs([
     new ItemUUID('heavy', 'book'),
 ]);
 ```
-```javascript
-let api = apisearch({/* your apisearch credentials */});
 
-let queryOneUUID = api.query
-  .createByUUID(
-    api.createObject.uuid('12', 'book')
-  );
+```typescript
+import {Query, ItemUUID} from "apisearch";
 
-let queryManyUUIDs = api.query
-  .createByUUIDs(
-    api.createObject.uuid('12', 'book'), 
-    api.createObject.uuid('332', 'book'), 
-    api.createObject.uuid('332', 'book')
-  );
+const queryOneUUID = Query.createByUUID(
+    new ItemUUID('12', 'book')
+);
+
+const queryManyUUIDs = Query.createByUUID(
+    new ItemUUID('12', 'book'), 
+    new ItemUUID('332', 'book'), 
+    new ItemUUID('332', 'book')
+);
 ```
 
 The order is not important here, and the result format will be exactly the same
@@ -188,20 +199,26 @@ In our website, or in our app, inside each landing page or screen we will want
 to work with the entire Universe or with a subset of it, so this first step will
 require us to use the filterUniverse methods.
 
-``` php
+```php
+use Apisearch\Query\Query;
+
 $query = Query::createMatchAll()
     ->filterUniverseByTypes(['A', 'B']);
 ```
-```javascript
-let query = api.query
-  .createMatchAll()
-  .filterUniverseByTypes(['A', 'B']);
+
+```typescript
+import {Query} from "apisearch";
+
+const query = Query.createMatchAll()
+    .filterUniverseByTypes(['A', 'B']);
 ```
 
 Once our Universe is properly defined, then we have to let the user navigate
 through this universe by using the standard filters.
 
 ``` php
+use Apisearch\Query\Query;
+
 $query = Query::createMatchAll()
     ->filterUniverseByTypes(['A', 'B'])
     ->filterBy(
@@ -211,14 +228,16 @@ $query = Query::createMatchAll()
     );
 ```
 ```javascript
-let query = api.query
-  .createMatchAll()
-  .filterUniverseByTypes(['A', 'B'])
-  .filterBy(
-    'brand',       // filter name
-    'brand',       // field
-    ['Superbrand'] // values
-  );
+import {Query} from "apisearch";
+
+const query = Query
+    .createMatchAll()
+    .filterUniverseByTypes(['A', 'B'])
+    .filterBy(
+        'brand',       // filter name
+        'brand',       // field
+        ['Superbrand'] // values
+    );
 ```
 
 Each filter strategy is documented for both universe and regular filters. As you
@@ -236,14 +255,19 @@ want C Items to be in any set of results.
 Then, all queries inside this environment will need to filter the entire
 universe by types A and B. Let's see how to do it.
 
-``` php
+```php
+use Apisearch\Query\Query;
+
 $query = Query::createMatchAll()
     ->filterUniverseByTypes(['A', 'B']);
 ```
-```javascript
-let query = api.query
-  .createMatchAll()
-  .filterUniverseByTypes(['A', 'B']);
+
+```typescript
+import {Query} from "apisearch";
+
+const query = Query
+    .createMatchAll()
+    .filterUniverseByTypes(['A', 'B']);
 ```
 
 All possible results will only include A and B. Think about this filter as a
@@ -252,15 +276,19 @@ permanent filter executed before all others.
 Then you can use regular Filtering by type by using this method
 
 ``` php
+use Apisearch\Query\Query;
+
 $query = Query::createMatchAll()
     ->filterUniverseByTypes(['A', 'B'])
     ->filterByTypes(['A']);
 ```
-```javascript
-let query = api.query
-  .createMatchAll()
-  .filterUniverseByTypes(['A', 'B'])
-  .filterByTypes(['A']);
+```typescript
+import {Query} from "apisearch";
+
+const query = Query
+    .createMatchAll()
+    .filterUniverseByTypes(['A', 'B'])
+    .filterByTypes(['A']);
 ```
 
 But alert ! This seems to be exactly the same, right? Well, in this case we are
@@ -285,12 +313,17 @@ user would see something like this.
 We could even have something like that
 
 ``` php
+use Apisearch\Query\Query;
+
 $query = Query::createMatchAll()
     ->filterUniverseByTypes(['A', 'B'])
     ->filterByTypes(['A', 'B']);
 ```
-```javascript
-let query = api.query
+
+```typescript
+import {Query} from "apisearch";
+
+const query = Query
   .createMatchAll()
   .filterUniverseByTypes(['A', 'B'])
   .filterByTypes(['A', 'B']);
@@ -307,11 +340,16 @@ While if we have this implementation, ignoring our Universe filter, considering
 that our filter is already working properly
 
 ``` php
+use Apisearch\Query\Query;
+
 $query = Query::createMatchAll()
     ->filterByTypes(['A', 'B']);
 ```
-```javascript
-let query = api.query
+
+```typescript
+import {Query} from "apisearch";
+
+const query = Query
   .createMatchAll()
   .filterByTypes(['A', 'B']);
 ```
@@ -330,14 +368,19 @@ without the aggregations, we can also set a second boolean parameter to disable
 aggregations (by default is set to `true`).
 
 ``` php
+use Apisearch\Query\Query;
+
 $query = Query::createMatchAll()
     ->filterByTypes(
         ['A', 'B']
         false
     );
 ```
-```javascript
-let query = api.query
+
+```typescript
+import {Query} from "apisearch";
+
+const query = Query
     .createMatchAll()
     .filterByTypes(
         ['A', 'B'],
@@ -349,6 +392,8 @@ A third and last parameter can be set to sort the aggregations result. By defaul
 this parameter is set to `SORT_BY_COUNT_DESC`.
 
 ``` php
+use Apisearch\Query\Query;
+
 $query = Query::createMatchAll()
     ->filterByTypes(
         ['A', 'B']
@@ -356,8 +401,11 @@ $query = Query::createMatchAll()
         Aggregation::SORT_BY_COUNT_ASC
     );
 ```
-```javascript
-let query = api.query
+
+```typescript
+import {Query} from "apisearch";
+
+const query = Query
     .filterByTypes(
         ['A', 'B'],
         true,
@@ -371,11 +419,16 @@ You can filter universe as well by ids. In that case, you can image that, no
 matter what or how filters you add. Your result set will be of maximum 3 items.
 
 ``` php
+use Apisearch\Query\Query;
+
 $query = Query::createMatchAll()
     ->filterUniverseByIds(['10', '11', '12']);
 ```
-```javascript
-let query = api.query
+
+```typescript
+import {Query} from "apisearch";
+
+const query = Query
     .createMatchAll()
     .filterUniverseByIds(['10', '11', '12']);
 ```
@@ -387,11 +440,16 @@ This is useful, for example, if you ID is a human readable value, and you want
 to select a set of items from a list.
 
 ``` php
+use Apisearch\Query\Query;
+
 $query = Query::createMatchAll()
     ->filterByIds(['10', '11', '12']);
 ```
-```javascript
-let query = api.query
+
+```typescript
+import {Query} from "apisearch";
+
+const query = Query
     .createMatchAll()
     .filterByIds(['10', '11', '12']);
 ```
@@ -403,20 +461,28 @@ This will allow you to work only with some Items positioned in a certain area.
 You can use any of [Location Ranges](#location-ranges) explained previously.
 
 ```php
+use Apisearch\Query\Query;
+use Apisearch\Model\Coordinate;
+use Apisearch\Geo\CoordinateAndDistance;
+
 $query = Query::createMatchAll()
     ->filterUniverseByLocation(new CoordinateAndDistance(
         new Coordinate(40.9, -70.0),
         '50km'
     ))
 ```
-```javascript
-let query = api.query
-  .filterUniverseByLocation(
-      api.createObject.coordinateAndDistance(
-          api.createObject.coordinate(40.9, -70.0),
-          '50km'
-      )
-  )
+
+```typescript
+import {Query, Coordinate, CoordinateAndDistance} from "apisearch";
+
+const query = Query
+    .createMatchAll()
+    .filterUniverseByLocation(
+        new CoordinateAndDistance(
+            new Coordinate(40.9, -70.0),
+            '50km'
+        )
+    );
 ```
 
 Location is something that you should filter by just once. And because you can't
@@ -432,29 +498,34 @@ page where to list all T-shirts with low price (up to 20 euros). We want to add
 only elements created during last month
 
 ``` php
+use Apisearch\Query\Query;
+
 $from = // Date Atom of start of the month
 $to = // Date Atom of the end of the month
 $query = Query::createMatchAll()
     ->filterUniverseByRange('price', ['0..20'], Filter::MUST_ALL)
     ->filterUniverseByDateRange('created_at', ["$from..$to"], Filter::MUST_ALL);
 ```
-```javascript
-// Dates Atom 
-let from =  (new Date('01 October 2017 08:00 UTC')).toISOString();
-let to =  (new Date('01 October 2017 20:00 UTC')).toISOString();
 
-let query = api.query
-  .createMatchAll()
-  .filterUniverseByRange(
-      'price', 
-      ['0..20'], 
-      'FILTER_MUST_ALL'
-  )
-  .filterUniverseByDateRange(
-      'created_at', 
-      [`${from}..${to}`], 
-      'FILTER_MUST_ALL'
-  );
+```typescript
+import {Query} from "apisearch";
+
+// Dates Atom 
+const from =  (new Date('01 October 2017 08:00 UTC')).toISOString();
+const to =  (new Date('01 October 2017 20:00 UTC')).toISOString();
+
+const query = Query
+    .createMatchAll()
+    .filterUniverseByRange(
+        'price', 
+        ['0..20'], 
+        'FILTER_MUST_ALL'
+    )
+    .filterUniverseByDateRange(
+        'created_at', 
+        [`${from}..${to}`], 
+        'FILTER_MUST_ALL'
+    );
 ```
 
 Furthermore, once defined your subset of available values, you can use the range
@@ -469,6 +540,8 @@ from 90 to 100 euros. Let's consider as well that this price value is part of
 the indexed metadata. Let's build the filter.
 
 ```php
+use Apisearch\Query\Query;
+
 Query::createMatchAll()
     ->filterByRange(
         'price',
@@ -477,8 +550,11 @@ Query::createMatchAll()
         ['50..60', '90..100']
     );
 ```
-```javascript
-let query = api.query
+
+```typescript
+import {Query} from "apisearch";
+
+const query = Query
     .createMatchAll()
     .filterByRange(
         'price',
@@ -506,6 +582,8 @@ fifth parameter, and we can disable the auto-generated aggregation by changing
 the sixth one.
 
 ```php
+use Apisearch\Query\Query;
+
 Query::createMatchAll()
     ->filterByRange(
         'price',
@@ -516,8 +594,11 @@ Query::createMatchAll()
         false
     );
 ```
-```javascript
-let query = api.query
+
+```typescript
+import {Query} from "apisearch";
+
+const query = Query
     .createMatchAll()
     .filterByRange(
         'price',
@@ -542,11 +623,20 @@ landing page for only products from brand *Supershirts*. Other brands will not
 be a possibility.
 
 ``` php
+use Apisearch\Query\Query;
+
 $query = Query::createMatchAll()
-    ->filterUniverseBy('brand', ['Supershirts'], Filter::MUST_ALL);
+    ->filterUniverseBy(
+        'brand', 
+        ['Supershirts'],
+        Filter::MUST_ALL
+    );
 ```
-```javascript
-let query = api.query
+
+```typescript
+import {Query} from "apisearch";
+
+const query = Query
     .createMatchAll()
     .filterUniverseBy(
         'brand',
@@ -562,6 +652,8 @@ different name over the same field. This filter name will be used as well later
 when matching with existing aggregations.
 
 ```php
+use Apisearch\Query\Query;
+
 Query::createMatchAll()
     ->filterBy(
         'filtername',
@@ -569,8 +661,11 @@ Query::createMatchAll()
         ['value1', 'value2']
     );
 ```
-```javascript
-let query = api.query
+
+```typescript
+import {Query} from "apisearch";
+
+const query = Query
     .createMatchAll()
     .filterBy(
         'filtername',
@@ -583,6 +678,8 @@ By default, this filter is defined as *AT_LEAST_ONE* but you can change this
 behavior by adding a fourth method parameter.
 
 ```php
+use Apisearch\Query\Query;
+
 Query::createMatchAll()
     ->filterByMeta(
         'filtername',
@@ -591,8 +688,11 @@ Query::createMatchAll()
         Filter::MUST_ALL
     );
 ```
-```javascript
-let query = api.query
+
+```typescript
+import {Query} from "apisearch";
+
+const query = Query
     .createMatchAll()
     .filterBy(
         'filtername',
@@ -612,6 +712,8 @@ override it later with a more specific aggregation configuration.
 
 
 ```php
+use Apisearch\Query\Query;
+
 Query::createMatchAll()
     ->filterBy(
         'filtername',
@@ -621,8 +723,11 @@ Query::createMatchAll()
         false
     );
 ```
-```javascript
-let query = api.query
+
+```typescript
+import {Query} from "apisearch";
+
+const query = Query
     .createMatchAll()
     .filterBy(
         'filtername',
@@ -658,14 +763,19 @@ You can create aggregations by hand, for example, if you don't really want
 filters, or if the aggregation itself requires an special configuration.
 
 ```php
+use Apisearch\Query\Query;
+
 Query::createMatchAll()
     ->aggregateBy(
         'fieldname',
         'field1'
     );
 ```
-```javascript
-let query = api.query
+
+```typescript
+import {Query} from "apisearch";
+
+const query = Query
     .createMatchAll()
     .aggregateBy(
         'fieldname',
@@ -679,6 +789,8 @@ You can change the order of the aggregation, so you don't have to do it later in
 your process.
 
 ```php
+use Apisearch\Query\Query;
+
 Query::createMatchAll()
     ->aggregateBy(
         'fieldname',
@@ -687,8 +799,11 @@ Query::createMatchAll()
         Aggregation::SORT_BY_COUNT_DESC
     );
 ```
-```javascript
-let query = api.query
+
+```typescript
+import {Query} from "apisearch";
+
+const query = Query
     .createMatchAll()
     .aggregateBy(
         'fieldname',
@@ -711,6 +826,8 @@ aggregation. By default, there's no limit, so if your result aggregation has
 usually not good for performance.
 
 ```php
+use Apisearch\Query\Query;
+
 Query::createMatchAll()
     ->aggregateBy(
         'fieldname'
@@ -720,8 +837,11 @@ Query::createMatchAll()
         Aggregation::NO_LIMIT
     );
 ```
-```javascript
-let query = api.query
+
+```typescript
+import {Query} from "apisearch";
+
+const query = Query
     .createMatchAll()
     .aggregateBy(
         'fieldname',
@@ -740,12 +860,17 @@ change and each field specific behaviors will be used. If disable, all field
 specific behaviors will be disabled.
 
 ```php
+use Apisearch\Query\Query;
+
 Query::create('')
     ->disableAggregations()
 ;
 ```
-```javascript
-let query = api.query
+
+```typescript
+import {Query} from "apisearch";
+
+const query = Query
   .create('')
   .disableAggregations()
 ;
@@ -755,6 +880,8 @@ In this case, aggregations are specifically enabled by Types setting the second
 parameter to `true`, but disabled by flag, so no aggregations will be requested.
 
 ```php
+use Apisearch\Query\Query;
+
 Query::createMatchAll()
     ->filterByTypes(
         ['product'],
@@ -763,8 +890,11 @@ Query::createMatchAll()
     ->disabledAggregations()
 ;
 ```
-```javascript
-let query = api.query
+
+```typescript
+import {Query} from "apisearch";
+
+const query = Query
     .createMatchAll()
     .filterByTypes(
         ['product'],
@@ -781,6 +911,8 @@ this, and the SortBy object defines a prebuilt set of sorting types ready to be
 used by you. You can define the sorting field and the type by yourself.
 
 ```php
+use Apisearch\Query\Query;
+
 Query::createMatchAll()
     ->sortBy(
         SortBy::create()
@@ -807,6 +939,8 @@ sorting is defined. The better score given a query, the earlier in results.
 This is the list of all of them.
 
 ```php
+use Apisearch\Query\Query;
+
 Query::createMatchAll()
     ->sortBy(
         SortBy::create()
@@ -845,6 +979,8 @@ requesting first of all the elements closer to us, we can only sort them by
 location in an *asc* mode.
 
 ```php
+use Apisearch\Query\Query;
+
 $query = Query::createLocated(
         new Coordinate(40.0, -70.0), 
         ''
@@ -878,6 +1014,8 @@ $item->getDistance();
 You can sort your elements in a random way by using the fast predefined value
 
 ```php
+use Apisearch\Query\Query;
+
 Query::createMatchAll()
     ->sortBy(
         SortBy::create()
@@ -894,6 +1032,8 @@ Your model can have nested properties, like a set of categories or a set of manu
 Then, you should be able to sort your results by these values. Let's see an example
 
 ```php
+use Apisearch\Query\Query;
+
 Query::createMatchAll()
     ->sortBy(
         SortBy::create()
@@ -924,6 +1064,8 @@ The same composition as before, but using an extra parameter. A Filter instance.
 a simple example.
 
 ```php
+use Apisearch\Query\Query;
+
 Query::createMatchAll()
     ->sortBy(
         SortBy::create()
@@ -961,6 +1103,8 @@ The higher, the better.
 In order to enable this feature, use the relevance strategy method.
 
 ```php
+use Apisearch\Query\Query;
+
 Query::createMatchAll()
     ->setScoreStrategy(ScoreStrategy::createRelevanceBoosting())
 ;
@@ -972,6 +1116,8 @@ Using this scripting, you will be able to access the previous score in order to
 make it part of the final calculation by using `_score`
 
 ```php
+use Apisearch\Query\Query;
+
 Query::createMatchAll()
     ->setScoreStrategy(ScoreStrategy::createCustomFunction(
         "doc['indexed_metadata.price'].value"
@@ -982,6 +1128,8 @@ Query::createMatchAll()
 And using `_score`
 
 ```php
+use Apisearch\Query\Query;
+
 Query::createMatchAll()
     ->setScoreStrategy(ScoreStrategy::createCustomFunction(
         "_score + (10 * doc['indexed_metadata.relevance'].value / 100)"
@@ -992,6 +1140,8 @@ Query::createMatchAll()
 You can set the default behavior as well.
 
 ```php
+use Apisearch\Query\Query;
+
 Query::createMatchAll()
     ->setScoreStrategy(ScoreStrategy::createDefault())
 ;
@@ -1002,6 +1152,8 @@ Query::createMatchAll()
 Suggestions can be enabled or disabled by using these flag methods.
 
 ```php
+use Apisearch\Query\Query;
+
 $query = Query::create('')
     ->disableAggregations()
 ;
@@ -1010,13 +1162,16 @@ $query = Query::create('')
     ->enableAggregations()
 ;
 ```
-```javascript
-let query = api
-    .query.createMatchAll()
+
+```typescript
+import {Query} from "apisearch";
+
+let query = Query
+    .createMatchAll()
     .enableAggregations()
 ;
-let query = api
-    .query.createMatchAll()
+query = Query
+    .createMatchAll()
     .disableAggregations()
 ;
 ```
@@ -1031,6 +1186,8 @@ more about suggestions.
 Highlights can be enabled or disabled by using these flag methods.
 
 ```php
+use Apisearch\Query\Query;
+
 $query = Query::create('')
     ->enableHighlights()
 ;
@@ -1039,13 +1196,16 @@ $query = Query::create('')
     ->disableHighlights()
 ;
 ```
-```javascript
-let query = api
-    .query.createMatchAll()
+
+```typescript
+import {Query} from "apisearch";
+
+let query = Query
+    .createMatchAll()
     .enableHighlights()
 ;
-let query = api
-    .query.createMatchAll()
+query = Query
+    .createMatchAll()
     .disableHighlights()
 ;
 ```
@@ -1061,6 +1221,9 @@ In order to do this, we will use UUIDs, so we can filter by any kind of
 element only having the UUID.
 
 ```php
+use Apisearch\Query\Query;
+use Apisearch\Model\ItemUUID;
+
 Query::createMatchAll()
     ->filterByTypes(
         ['product']
@@ -1068,14 +1231,17 @@ Query::createMatchAll()
     ->excludeUUID(new ItemUUID('10', 'product'))
 ;
 ```
-```javascript
-let query = api
-    .query.createMatchAll()
+
+```typescript
+import {Query, ItemUUID} from "apisearch";
+
+let query = Query
+    .createMatchAll()
     .filterByTypes(
          ['product']
     )
     .excludeUUID(
-        api.createObject.uuid('10', 'product')
+        new ItemUUID('10', 'product')
     )  
 ;
 ```
@@ -1087,6 +1253,9 @@ composition between the ID and the type.
 We can filter by several UUIDs as well.
 
 ```php
+use Apisearch\Query\Query;
+use Apisearch\Model\ItemUUID;
+
 Query::createMatchAll()
     ->filterByTypes(
         ['product']
@@ -1099,17 +1268,20 @@ Query::createMatchAll()
     ])
 ;
 ```
-```javascript
-let query = api
-    .query.createMatchAll()
+
+```typescript
+import {Query, ItemUUID} from "apisearch";
+
+let query = Query
+    .createMatchAll()
     .filterByTypes(
          ['product']
     )
     .excludeUUIDs(
-        api.createObject.uuid('10', 'product'),
-        api.createObject.uuid('5', 'product'),
-        api.createObject.uuid('100', 'product'),
-        api.createObject.uuid('21', 'product'),
+        new ItemUUID('10', 'product'),
+        new ItemUUID('5', 'product'),
+        new ItemUUID('100', 'product'),
+        new ItemUUID('21', 'product'),
     )  
 ;
 ```

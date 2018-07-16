@@ -3,14 +3,17 @@ import {resultSearchTemplate} from "./templates";
 
 const apisearchConfig = require("../../../apisearch-config");
 
-const ui = apisearchUI({
-    appId: apisearchConfig.appId,
-    indexId: apisearchConfig.indexId,
-    token: apisearchConfig.queryToken
+const ui = apisearchUI.create({
+    app_id: apisearchConfig.app_id,
+    index_id: apisearchConfig.index_id,
+    token: apisearchConfig.query_token,
+    options: {
+        endpoint: apisearchConfig.query_hostname
+    }
 });
 
 ui.addWidgets(
-    ui.widgets.simpleSearch({
+    ui.widgets.searchInput({
         target: '#searchInput',
         placeholder: 'Search documentation...',
         autofocus: true,
@@ -36,7 +39,7 @@ ui.addWidgets(
     })
 );
 
-ui.store.on('render', function () {
+ui.attach('render', function () {
     let resultBox = document
         .querySelector('#searchResult')
         .classList

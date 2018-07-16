@@ -1,17 +1,21 @@
-const axios = require("axios");
-
-const apisearchConfig = require("../../apisearch-config");
-
-function indexData(docsString) {
-    let encodedData = encodeURIComponent(docsString);
-    let api = apisearchConfig;
-    let url = `${api.hostname}/v1/items?app_id=${api.appId}&index=${api.indexId}&token=${api.token}`;
-
-    return axios.post(url, `items=${encodedData}`, {
-        headers: {
-            'Content-Type': 'text/plain'
+"use strict";
+exports.__esModule = true;
+var apisearch_1 = require("apisearch");
+var DocsTransformer_1 = require("./DocsTransformer");
+var apisearchConfig = require("../../apisearch-config.js");
+function indexSection(section) {
+    var repository = apisearch_1["default"].createRepository({
+        app_id: apisearchConfig.app_id,
+        index_id: apisearchConfig.index_id,
+        token: apisearchConfig.admin_token,
+        options: {
+            endpoint: apisearchConfig.admin_hostname
         }
     });
+    repository
+        .getTransformer()
+        .addWriteTransformer(DocsTransformer_1["default"]);
+    repository.addObject(section);
+    return repository.flush();
 }
-
-module.exports = indexData;
+exports.indexSection = indexSection;
