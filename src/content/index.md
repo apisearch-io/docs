@@ -83,10 +83,6 @@ Once our code is properly downloaded, we only need to configure some environment
 variable to customize as much as we want the server and build and run all our
 containers.
 
-> By using this docker script, and because we need `.env` variable both for
-> installing the docker containers, and for the server installation, we **MUST**
-> make a copy of all the `.env` file inside the `search-server/` folder.
-
 Apisearch works with a file called `.env` placed in the root of the project.
 You might update some of these values with your own values (we don't setup
 default values to prevent security issues). You will find an skeleton of the
@@ -94,6 +90,7 @@ file inside the root of the project with the name `.env.dist`
 
 ```
 APISEARCH_PORT=8100
+
 APISEARCH_GOD_TOKEN=
 APISEARCH_PING_TOKEN=
 
@@ -125,14 +122,6 @@ please ping the organization in our
 > variable is not set. Defaulting to a blank string.**  
 > In this case, please check that there is a file called **.env** in the root of
 > Apisearch server with the required APISEARCH_* environment values.
-
-> Docker starts, but the server workers restart once and again, before going to
-> a terminal state. If you check the supervisor folder inside this project you
-> will see that you can check the logs. For example the `search-server-0.log`.
-> If you see the line **Unable to read the environment file at 
-> /var/www/apisearch/bin/../.env** is because you **MUST** copy the **.env**
-> file inside the `search-server` folder as well, with the same values defined
-> in the root one.
 
 > Docker is telling that some ports are already mapped by anyone else.  
 > This project exports these ports: **8100** as the balancer entrypoint (this
@@ -304,12 +293,19 @@ properly the Client. Remember to fill this data with yours.
 
 ```javascript
 // Create instance
-const ui = apisearchUI({
-    appId: 'xxx',
-    indexId: 'yyy',
-    apiKey: 'zzz'
+const ui = apisearchUI.create({
+    app_id: 'xxx',
+    index_id: 'yyy',
+    token: 'zzz',
+    options: {
+        endpoint: 'http://localhost:8100'
+    }
 });
 ```
+
+> Check that all the values in the configuration matches the installation you
+> are actually trying. You should check as well the endpoint, both the host and
+> the port used.
 
 OK. Client done. Let's start by doing a simple skeleton in your html code. That
 skeleton should be enough for you to make as many customizations as you need,
