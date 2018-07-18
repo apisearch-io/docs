@@ -159,7 +159,7 @@ Once we have our engine running, let's create a new index with a write-read
 token for you to start using Apisearch as fast as possble with real data.
 
 ```
-docker exec -i -t $(docker ps -qf "name=apisearch_server") /easy-setup.sh
+docker exec -i -t $(docker ps -qf "name=apisearch_server_0") apisearch/scripts/easy-setup
 ```
 
 > Check the output of the command. You will see that the system has generated
