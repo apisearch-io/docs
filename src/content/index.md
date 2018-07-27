@@ -74,9 +74,9 @@ instead of git.
 Until there's no stable releases, we will work with the HEAD of master version.
 
 ```bash
-wget --no-check-certificate --content-disposition -O docker-search-server.tar.gz https://github.com/apisearch-io/docker-search-server/archive/master.tar.gz
-tar -xvzf docker-search-server.tar.gz
-cd docker-search-server
+wget --no-check-certificate --content-disposition -O basic-infrastructure.tar.gz https://github.com/apisearch-io/basic-infrastructure/archive/master.tar.gz
+tar -xvzf basic-infrastructure.tar.gz
+cd basic-infrastructure
 ```
 
 Once our code is properly downloaded, we only need to configure some environment
