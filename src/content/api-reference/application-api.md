@@ -175,10 +175,10 @@ curl -XPOST -H "Content-Type: application/json" "http://localhost:8100/v1/token?
             "id": "aaaa"
         },
         "app_id": "1234",
-        "indices": {
+        "indices": [
             "index1",
             "index2"
-        }
+        ]
     }
 }
 '
@@ -252,7 +252,7 @@ existing App.
 
 This is the endpoint reference
 
-- Endpoint name - v1-token-delete-all
+- Endpoint name - v1-token-all-tokens
 - Path - **/v1/tokens**
 - Verb - **GET**
 - Query Parameters
@@ -272,4 +272,25 @@ This endpoint will return an array of [Token](/api-reference/model.html#token)
 objects.
 
 ## Check Health
+
+By using this endpoint you will be able to check the service statuses and memory usage.
+
+```bash
+curl -XGET "http://localhost:8100/health?app_id={{ your_app_id }}&token={{ your_token }}"
+```
+
+This endpoint will return an array like below: 
+
+```
+{
+    "status": {
+        "elasticsearch": "green",
+        "redis": true
+    },
+    "process": {
+        "memory_used": 6867528
+    }
+}
+```
+
 ## Ping
