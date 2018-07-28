@@ -8,7 +8,6 @@ template: one-column-with-toc.mustache
 source: plugins/metadata-fields.md
 languages: ~
 tags:
-  - apisearch
   - plugin
   - metadata
 ---

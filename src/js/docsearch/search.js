@@ -31,7 +31,7 @@ ui.addWidgets(
         target: '#topicsSearchResult',
         itemsPerPage: 12,
         template: {
-            itemsList: resultSearchTemplate,
+            itemsList: resultSearchTemplate
         },
         classNames: {
             itemsList: 'row'

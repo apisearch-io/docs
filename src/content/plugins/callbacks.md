@@ -8,7 +8,6 @@ template: one-column-with-toc.mustache
 source: plugins/callbacks.md
 languages: ~
 tags:
-  - apisearch
   - plugin
   - callbacks
 ---
