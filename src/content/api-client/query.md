@@ -1091,6 +1091,121 @@ After that, will sort. Means that when we apply a filter we only get one result?
 You could have many articles with code equals to 10, and after that you would sort by the average
 price.
 
+## Filter fields
+
+By default, your search will use all the values inside `searchable_metadata`
+with a boosting of 1, and all values inside `exact_matching_metadata` wwith a
+boosting of 5. This means that, obviously, an exact matching will be 5 times
+more important that a partial search.
+
+your can change this configuration by using this proper field.
+
+```php
+Query::createMatchAll()
+    ->setFilterFields([
+        'searchable_metadata.title^10',
+        'searchable_metadata.subtitle^5',
+        'serchable_metadata.body',
+        'exact_matching_metadata.*^20'
+    ]);
+```
+```javascript
+Query
+    .createFromArray()
+    .setFilterFields([
+        'searchable_metadata.title^10',
+        'searchable_metadata.subtitle^5',
+        'serchable_metadata.body',
+        'exact_matching_metadata.*^20'
+    ]);
+```
+
+As you can see, every entry in this array is the name of the field and the
+boosting associated. If the boosting is not defined, a default boosting of 1 is
+applied.
+
+## Fuzziness
+
+Sometimes final users make mistakes when searching with literals. Mistakes make
+humans humans, but we, as a service, should provide the best results even with
+these errors.
+
+This is why fuzziness is a great tool, and Apisearch provides some basic
+features in order to configure how much your users can be wrong when searching
+over your items.
+
+> Warning. The more fuzziness you define in a search, the more results you'll be
+> able to return. And this is not always the best option. Make sure you define
+> properly this value. Check once and again, and make tests AB in order to find
+> the best values for your case
+
+By default, fuzziness is disabled, but you can enable it in a basic
+configuration by using this simple method.
+
+```php
+Query::createMatchAll()
+    ->setAutoFuzziness();
+```
+```javascript
+Query
+    .createFromArray()
+    .setAutoFuzziness();
+```
+
+This will add some variable fuzziness depending on the length of the word. We
+can forget one letter in a word with 10 letters, but forgetting it in a word of
+4 letters would be more dangerous. In that case we could return too many results
+with no sense.
+
+We can define an explicit fuzziness by specifying a value. This value will be
+static and will not depend on the word length.
+
+```php
+Query::createMatchAll()
+    ->setFuzziness(3);
+```
+```javascript
+Query
+    .createFromArray()
+    .setFuzziness(3);
+```
+
+This will create the same fuzziness in all fields enabled for searching.
+Remember that you can define the fields where you want to search. If you want to
+define an specific fuzziness per each field, then you will have to define a
+simple associative array. Each entry will have the field (previously defined as
+a filter field) as array, and the fuzziness as the value.
+
+```php
+Query::createMatchAll()
+    ->setFilterFields([
+        'searchable_metadata.title^10',
+        'searchable_metadata.subtitle^5',
+        'serchable_metadata.body',
+        'exact_matching_metadata.*^20'
+    ])
+    ->setFuzziness([
+        'searchable_metadata.title' => 3,
+        'searchable_metadata.subtitle' => '2',
+        'serchable_metadata.body' => 'AUTO,
+    ]);
+```
+```javascript
+Query
+    .createFromArray()
+    .setFilterFields([
+        'searchable_metadata.title^10',
+        'searchable_metadata.subtitle^5',
+        'serchable_metadata.body',
+        'exact_matching_metadata.*^20'
+    ])
+    .setFuzziness({
+        'searchable_metadata.title': 3,
+        'searchable_metadata.subtitle': '2',
+        'serchable_metadata.body': 'AUTO'
+    });
+```
+
 ## Relevance Strategy
 
 By default, your results are sorted by score from highest to lowest. This score

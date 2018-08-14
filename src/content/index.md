@@ -76,7 +76,7 @@ Until there's no stable releases, we will work with the HEAD of master version.
 ```bash
 wget --no-check-certificate --content-disposition -O basic-infrastructure.tar.gz https://github.com/apisearch-io/basic-infrastructure/archive/master.tar.gz
 tar -xvzf basic-infrastructure.tar.gz
-cd basic-infrastructure
+cd basic-infrastructuregra
 ```
 
 Once our code is properly downloaded, we only need to configure some environment
@@ -92,6 +92,7 @@ file inside the root of the project with the name `.env.dist`
 APISEARCH_PORT=8100
 
 APISEARCH_GOD_TOKEN=
+APISEARCH_READONLY_TOKEN=
 APISEARCH_PING_TOKEN=
 
 ELASTICSEARCH_HOST=apisearch_elasticsearch
