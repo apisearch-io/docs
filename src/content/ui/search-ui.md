@@ -510,7 +510,7 @@ This instances need a client to request all the data from the Apisearch
 servers. The thing is, you can work with only one client if all your 
 ApisearchUI instances consume the same data store (index). Or with 
 many clients if you want all your ApisearchUI instances to consume from
-many different indexes.
+many different indices.
 
 ## Examples
 

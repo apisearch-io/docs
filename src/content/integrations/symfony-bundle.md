@@ -49,12 +49,12 @@ apisearch:
         search:
             app_id: d78s7ds89
             token: dcdbc971-9872-a798-c7ac-59e64957d4bd
-            indexes:
+            indices:
                 default: d789d7s89
         comments:
             app_id: ds9d7s8978
             token: 1d992ee9-0eb4-096c-3e1e-bc1eba256360
-            indexes:
+            indices:
                 ca: 87dsd78s78
                 es: d7s8d78s97
                 en: 347893b43b
@@ -96,7 +96,7 @@ apisearch:
         search:
             app_id: d78s7ds89
             token: dcdbc971-9872-a798-c7ac-59e64957d4bd
-            indexes:
+            indices:
                 default: d789d7s89
             http: false
 ```
@@ -113,7 +113,7 @@ apisearch:
         search_test:
             app_id: d78s7ds89
             token: dcdbc971-9872-a798-c7ac-59e64957d4bd
-            indexes:
+            indices:
                 default: d789d7s89
             test: true
 ```
@@ -128,7 +128,7 @@ apisearch:
         search:
             app_id: d78s7ds89
             token: dcdbc971-9872-a798-c7ac-59e64957d4bd
-            indexes:
+            indices:
                 default: d789d7s89
             search:
                 repository_server: my_repository_service
@@ -167,7 +167,7 @@ search_bundle:
         search:
             app_id: d78s7ds89
             token: dcdbc971-9872-a798-c7ac-59e64957d4bd
-            indexes:
+            indices:
                 default: d789d7s89
             event:
                 repository_server: my_event_repository_service
