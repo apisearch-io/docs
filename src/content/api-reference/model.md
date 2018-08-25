@@ -82,8 +82,8 @@ $index = Index::createFromArray([
 ```
 ```json
 {
-  "app_id": "123456",
-  "name": "test_products",
+  "app_id": "test",
+  "name": "default",
   "doc_count": 0
 }
 ```
