@@ -56,6 +56,39 @@ Some links of interest
 * [Api Client - Item](/api-client/model.html#item)
 * [Api Client - Item UUID](/api-client/model.html#itemuuid)
 
+
+## Index 
+
+Index reference. This is the representation of all your indices. Inside this model you can find information about your index.
+
+```
+{
+  "app_id": string,
+  "name": string,
+  "doc_count": int
+}
+```
+
+Some examples for you. Feel free to change the language of your examples in the
+top right of the website.
+
+```php
+$index = Index::createFromArray([
+    'app_id' => 'test',
+    'name' => 'default',
+    'doc_count' => 0,
+]);
+
+```
+```json
+{
+  "app_id": "test",
+  "name": "default",
+  "doc_count": 0
+}
+```
+
+
 ## Item
 
 Item reference. This is the representation of all your searchable elements.
