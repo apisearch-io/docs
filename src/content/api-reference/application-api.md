@@ -81,6 +81,29 @@ by creating a new index with default configuration.
 curl -XPOST "http://localhost:8100/v1/index?app_id={{ your_app_id }}&index={{ your_index }}&token={{ your_token }}"
 ```
 
+## List Indices
+
+By using this endpoint, you will be able to list existing indices. If there is no indices created, this action returns empty array.
+
+Here some related model objects you may know.
+
+- [Api Client - Index Model](/api-reference/model.html#index)
+
+This is the endpoint reference
+
+- Endpoint name - v1-index-delete
+- Path - **/v1/indices**
+- Verb - **GET**
+- Query Parameters
+    - token, **required with permissions** 
+    - app_id, **optional** 
+
+This is read-only endpoint and you can filter indices with `app_id` query parameter. 
+
+```bash
+curl -XGET "http://localhost:8100/v1/indices?app_id={{ your_app_id }&token={{ your_token }}"
+```
+
 ## Delete Index
 
 By using this endpoint you will be able to delete an existing index. If the
