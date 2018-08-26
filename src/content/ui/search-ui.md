@@ -51,9 +51,9 @@ engine.
 
 ```javascript
 // Create instance
-const ui = apisearchUI({
-    appId: 'your_app_id',
-    indexId: 'your_index_id',
+const ui = apisearchUI.create({
+    app_id: 'your_app_id',
+    index_id: 'your_index_id',
     token: 'your_app_QUERY_token'
 });
 
@@ -75,8 +75,8 @@ ui.init();
 ```
 
 Before configuring your widgets, first you need to create
-a new instance of `apisearchUI`, passing an `appId`,
-an `indexId` and an **events** `token`.
+a new instance of `apisearchUI`, passing an `app_id`,
+an `index_id` and an **Query** accessible `token`.
 
 All widgets are passed using `.addWidget(widget)` method,
 or using `.addWidgets(...widgets)` to add widgets in a bulk mode,
@@ -97,17 +97,18 @@ Check out this for more examples:
 This is the anatomy of the ApisearchUI configuration:
 
 ```javascript
-const ui = apisearchUI({
-    appId: !string,
-    indexId: !string,
-    token: !string,
+const ui = apisearchUI.create({
+    app_id: string,
+    index_id: string,
+    token: string,
     options: {
-        endpoint: ?string,
-        apiVersion: ?string,
-        timeout: ?int[10000],
-        overrideQueries: ?bool[true],
-        inMemoryCache: ?bool[true]
-    }
+        endpoint: string,
+        api_version?: string,
+        timeout?: number,
+        override_queries?: boolean,
+        cache?: KeyValueCache,
+        http_client?: HttpClient,
+    },
 });
 ```
 

@@ -76,7 +76,7 @@ Until there's no stable releases, we will work with the HEAD of master version.
 ```bash
 wget --no-check-certificate --content-disposition -O basic-infrastructure.tar.gz https://github.com/apisearch-io/basic-infrastructure/archive/master.tar.gz
 tar -xvzf basic-infrastructure.tar.gz
-cd basic-infrastructuregra
+cd basic-infrastructure-master
 ```
 
 Once our code is properly downloaded, we only need to configure some environment
@@ -156,42 +156,6 @@ That curl should return us a **200**. You could try the same action, but in this
 case using the **APISEARCH_PING_TOKEN**, and specific token with only one
 possible action of ping.
 
-Once we have our engine running, let's create a new index with a write-read 
-token for you to start using Apisearch as fast as possble with real data.
-
-```
-docker exec -i -t $(docker ps -qf "name=apisearch_server_0") apisearch/scripts/easy-setup
-```
-
-> Check the output of the command. You will see that the system has generated
-> you a random app_id and a random index_id for security reasons.  
-> Use them in your next specific app and index commands.
-
-It is important the output of this command execution. The command will generate
-you some random tokens for your application. To start fast with a simple demo,
-you should use the admin one for indexing and deleting from your private
-application. Take in account that with this token anyone could manage your data,
-and even destroy it, so keep it secret.
-
-You can use the query one for your public applications, for example the
-javascript integration. This token has only read-only permissions.
-
-Let's make an empty query (match all) on our new index using our admin token.
-Replace `{{admin_token}}` with your auto generated admin token. We'll be able to
-use this token only when calling this app or index related endpoints, but never
-for environment actions (use **APISEARCH_PING_TOKEN** for such actions).
-
-```bash
-curl 'http://localhost:8100/v1?app_id={{ app_id }}&index={{ index_id }}&token={{ admin_token }}'
-```
-
-> Take in account that in this example we're using 8100 as our default port. If
-> you changed this port in your environment file, consider changing it here as
-> well.
-
-You should have a 200 response code and an empty set of items as response. This
-means that your repository is ready to be used by any application.
-
 Let's make another fast check of our infrastructure by calling our check
 endpoint. This endpoint will give some information about the status of the
 cluster and the services working inside.
@@ -200,148 +164,212 @@ cluster and the services working inside.
 curl 'http://localhost:8100/health?token={{ APISEARCH_GOD_TOKEN }}'
 ```
 
-At this point you could just follow this Quick Start document, or go to the
-official API specifications; The main one, where you'll be able how to use
-Apisearch through HTTP, and the
-
-- [API Reference](/api-reference)
-- [API Client](/api-client)
-
 ## Create your first application
 
-    > This section is under construction
+Once we have our engine running, it's time to create our first application.
+The server will always be accessible by its own API endpoints, but in this small
+tutorial, we will use the internal commands placed in the same server by
+entering inside one of the server docker containers.
 
-## Add some data
-
-In Apisearch you can work with some accepted and common formats. Some of them
-are basically implemented because are multi platform, like CSV or JSON, but some
-of them are specifically implemented because are human friendly, like Yaml. In
-this chapter we will use this last one.
-
-Let's add some fake items in our index. You will find a simple *Add Items*
-button in your index main page. In that page, you will be able to add items
-manually, or import an existing file. You will find some information about how
-to export and import your index in our [FAQS ahout the admin](faqs/admin.html).
-
-You items would look like this.
-
-```yaml
-header:
-    metadata: [name, description, image]
-    indexed_metadata: [sku, type]
-    searchable_metadata: [name, description]
-item_1:
-    id: 1
-    sku: 74398742973428
-    name: T-shirt future
-    description: T-shirt from the future
-    type: t-shirt
-    image: /img/t-shirt1.jpg
-item_2:
-    id: 2
-    sku: 43289748932744
-    name: Alabama T-shirt
-    description: Model from Alabama. Will show you how amazing can it be
-    type: t-shirt
-    image: /img/t-shirt2.jpg
-item_3:
-    id: 3
-    sku: 43289748932744
-    name: Model R
-    description: R from Romania. Will shine in th dark
-    type: t-shirt
-    image: /img/t-shirt3.jpg
-item_4:
-    id: 4
-    sku: 37897489278798
-    name: Customizable T-shirt
-    description: Customize your t-shirt
-    type: t-shirt
-    image: /img/t-shirt4.jpg
+```
+docker exec -i -t $(docker ps -qf "name=apisearch_server_0") bash
 ```
 
-With that code, you would add 2 items with these fields, and with the
-particularity that:
+> From this point, all commands will be executed inside this container.
 
-- You could filter your data by sku and type fields
-- You could search your data by name and description fields
-- Fields name, description and image would only be saved, but would not be
-filtered by them
+Inside the container, we need to place ourselves inside the server root. Once we
+are there, we can list all the available commands.
+
+```
+cd /var/www/apisearch
+bin/console --env=prod
+```
+
+Our next steps will be
+
+* Create a new empty application index
+* Create some tokens in order to manage the access of our data across all our
+applications.
+
+Let's do it!
+
+First of all, let's create a new application index. For this purpose, we will
+need an application identifier and an index identifier. The different between
+them is that an Application can handle different indices, each of them hosting
+different type of items. By placing your data into different indices you will be
+able to create tokens with permissions in some indices, implementing a very
+strict security layer in your application. You will be able to query across 
+different indices as well, so index architecture should be as much flexible as
+your requisites need.
+
+> Make sure your identifiers are unique and random to prevent security holes.
+> You can use some online service to generate UUID values like
+> [uuidgenerator.net](https://www.uuidgenerator.net/)
+
+> We recommend to use 8 hex characters for identifier ids, and UUID v4 values
+> for tokens. This is a recommendation, but of course, feel free to use as much
+> security as you need for your application. The more security, the best for you
+
+After these recommendations, and in order to be clear for you in this tutorial,
+we will use a much more clear unique identifiers.
+
+Use the specific command to create a new index. The application id will be
+`marvel` as our application will handle multiple type of elements, all related
+to the marvel world. The index we are going to create first of all inside
+`marvel` application will be `comics`, so in this index we will store mainly
+marvel comics.
+
+```
+bin/console apisearch-server:create-index marvel comics --env=prod
+```
+
+Your output should be something like that. The server output will always be as
+much verbose as the occasion needs by default.
+
+```
+[Apisearch] Command started at Sat, 25 Aug 2018 23:31:23 +0000
+
+[Create index] App ID: marvel
+[Create index] Index ID: comics
+[Create index] Index created properly
+
+[Apisearch] Command finished in 122 milliseconds
+[Apisearch] Max memory used: 8388608 bytes
+```
+
+It seems that we already have an index created, right? But you know, never trust
+a console before checking yourself that everything was fine
+
+```
+bin/console apisearch-server:check-index marvel comics --env=prod
+```
+
+This command will check if given configuration is valid and the index under
+given application id already exists. That should be the output for the command
+
+```
+[Apisearch] Command started at Sun, 26 Aug 2018 01:37:47 +0200
+
+[Check index] Index available
+
+[Apisearch] Command finished in 10 milliseconds
+[Apisearch] Max memory used: 16777216 bytes
+```
+
+We can check as well all our created indices by listing them all. In order to
+filter your indices by an specific application, you can define this application
+as well.
+
+```
+bin/console apisearch-server:print-indices --env=prod
+bin/console apisearch-server:print-indices --app-id=marvel --env=prod
+```
+
+Finally, let's create some tokens for our application. As a simple information,
+you will be able to create as many tokens as you want by only using this
+console, or by using the API, but for this small tutorial, we will use a special
+command placed in the server to generate a simple set of usable random tokens.
+
+Tokens are generated for an application, and granted for one or multiple
+indices, endpoints and plugins. These generated tokens will be generated for all
+application indices.
+
+```
+bin/console apisearch-server:generate-basic-tokens marvel --env=prod
+```
+
+This command should generate an output like this.
+
+```
+[Apisearch] Command started at Sun, 26 Aug 2018 01:50:21 +0200
+
+[Create basic tokens] App ID: marvel
+[Create basic tokens] Token with UUID d5d9dc37-1a88-4d1e-a7bd-8c7c41020546 generated for admin
+[Create basic tokens] Token with UUID ab0e9cd7-9180-4c51-a419-467da5421e7f generated for query only
+[Create basic tokens] Token with UUID 6f839034-801e-45eb-9c33-8c45c373c827 generated for events
+[Create basic tokens] Token with UUID 3017a802-b8e5-4368-8ca1-e088e9bcf188 generated for interaction
+[Create basic tokens] Tokens created properly
+
+[Apisearch] Command finished in 8 milliseconds
+[Apisearch] Max memory used: 8388608 bytes
+```
+
+As you can see, some tokens have been generated randomly for you. In order to
+check that the tokens have properly been generated, we can list all application
+tokens.
+
+```
+bin/console apisearch-server:print-tokens marvel --env=prod
+```
+
+So that's it! At this point we should have
+
+- An application called `marvel` with the empty index `comics`
+- Some tokens generated with different permissions
+
+## Import some items
+
+Once we have a created index, let's add some data into it. For this example, we
+will use a small repository placed in our main Github organization called
+[Example Marvel](https://github.com/apisearch-io/example-marvel).
+
+We don't really have to download the repository, so the import command accept
+both local files and remote files. Let's see how to import this file.
+```
+bin/console apisearch-server:import-index marvel comics https://raw.githubusercontent.com/apisearch-io/example-marvel/master/marvel.as
+```
+
+This command will import the file into your previously generated index, so if
+you list all your indices again, you will see a small change; the number of
+items inside the index.
+
+```
+bin/console apisearch-server:print-indices --app-id=marvel --env=prod
+```
+
+This command, now, will output something like this
+
+```
+[Apisearch] Command started at Sun, 26 Aug 2018 00:07:57 +0000
+
++--------+--------+-----------+
+| AppId  | Name   | Doc Count |
++--------+--------+-----------+
+| marvel | comics | 11343     |
++--------+--------+-----------+
+
+[Apisearch] Command finished in 10 milliseconds
+[Apisearch] Max memory used: 14680064 bytes
+```
+
+So, we have already some items inside the index!
+Yay!
 
 ## Create my first search bar
 
-Finally. Let's check some important steps here
+Now we can exit the docker container, so the data is already inside the server.
+We should focus now on our application, and by application we mean the frontend
+website where you will place the search engine.
 
-- We have an App with an id
-- We have an Index with an id
-- We have some generated tokens. At least, one with read-only permissions
-- We have some data indexed
+In this tutorial, we will create a small Marvel comics search bar, where we will
+be able to search across some comic titles, filter by some elements and search
+our favourite saga in milliseconds.
 
-So, what's next? Let's create a simple search widget, where we can search by a
-text field. This widget will be simple, but in the future you could add some
-extra UI widgets in order to make your environment more powerful and complex.
+In order to do that, we will download in our local filesystem the
+[Example Marvel](https://github.com/apisearch-io/example-marvel) repository. You
+can clone the repository and use yours in order to push changes if you need to.
 
-To create your first search bar, first of all you should add our JS library as
-a javascript line in your html.
+Once cloned, and if you followed this tutorial as it is with no alternative
+changes, you **ONLY** need to make a simple addition; the token your server
+generated in order to be able to query over your index. Check the `index.html`
+file where the token is defined, and add yours.
 
-```html
-<script src="https://cdn.jsdelivr.net/npm/apisearch-ui/dist/apisearch-ui.min.js"></script>
-```
+Once added, you can access directly to this file by using your browser... and
+you'll be using Apisearch for the first time :)
 
-Then, let's build our searcher. The first step is to build a simple Apisearch
-client. In order to identify properly your credentials, check how to create
-properly the Client. Remember to fill this data with yours.
+![alt text](/assets/media/marvel-example.jpg "Marvel example")
 
-```javascript
-// Create instance
-const ui = apisearchUI.create({
-    app_id: 'xxx',
-    index_id: 'yyy',
-    token: 'zzz',
-    options: {
-        endpoint: 'http://localhost:8100'
-    }
-});
-```
-
-> Check that all the values in the configuration matches the installation you
-> are actually trying. You should check as well the endpoint, both the host and
-> the port used.
-
-OK. Client done. Let's start by doing a simple skeleton in your html code. That
-skeleton should be enough for you to make as many customizations as you need,
-and to make the search engine very website friendly.
-
-```html
-<div id="search-container"></div>
-<div id="results-container"></div>
-```
-
-That will be enough. Let's create the required widgets to make it work. Two
-widgets needed. The first one for the searcher itself, and the second one for
-the results container.
-
-```javascript
-ui.addWidgets(
-    ui.widgets.simpleSearch({
-        target: '.search-container',
-    }),
-    ui.widgets.result({
-        target: '.result-container',
-        template: {
-            itemsList: '<ul>{{#items}} <li>{{metadata.name}}</li> {{/items}}</ul>',
-        }
-    })
-);
-```
-
-That simple. This will make the magic.
-Once your widget is properly defined, we need just another last step.  
-Initialize the widgets.
-
-```javascript
-ui.init();
-```
+Congratulations!
 
 ## Next steps
 
