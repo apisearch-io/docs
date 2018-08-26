@@ -385,3 +385,12 @@ take a look at them
 Furthermore, if you don't find an specific topic, you can use our search bar
 from every single corner of our documentation. It is build on top of Apisearch
 as well, so we encourage you to use each time you need to find something.
+
+## Support us
+
+Apisearch is an open source project, so the more you use us, the more you
+contribute and the more issues you find, the best project it is. Beyond that, 
+you can actively support the project by making us a small star in our main
+Github repository
+[Search Server](https://github.com/apisearch-io/search-server).
+We will appreciate it so much :)
