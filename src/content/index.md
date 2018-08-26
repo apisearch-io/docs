@@ -113,11 +113,36 @@ docker-compose up --build
 > on how fast your internet connection is. Take the opportunity to drink a glass
 > of water and move a little bit your legs :)
 
+That's it. Congratulations. You already have Apisearch running in your server.
+Now let's go a little bit further with that. First of all, our first call to
+Apisearch, the Apisearch *hello world*. As you can see, we will use the
+environment variable **APISEARCH_GOD_TOKEN** as the token to use everywhere,
+with full access to the entire environment.
+
+```bash
+curl --silent --head --write-out '%{http_code}\n' 'http://localhost:8100?token={{ APISEARCH_GOD_TOKEN }}'
+```
+
+That curl should return us a **200**. You could try the same action, but in this
+case using the **APISEARCH_PING_TOKEN**, and specific token with only one
+possible action of ping.
+
+Let's make another fast check of our infrastructure by calling our check
+endpoint. This endpoint will give some information about the status of the
+cluster and the services working inside.
+
+```bash
+curl 'http://localhost:8100/health?token={{ APISEARCH_GOD_TOKEN }}'
+```
+
+### Have any problem?
+
 At this point you might encounter some of these problems. Please, check all of
 them if you have any issue, and if any of them is not included in this list,
 please ping the organization in our 
-[Gitter Channel](https://gitter.im/apisearch_io) or
-[Open an Issue](https://github.com/apisearch-io/search-server/issues/new)
+- [Ping us on our Gitter Channel](https://gitter.im/apisearch_io)
+- [Open an Issue on Github](https://github.com/apisearch-io/search-server/issues/new)
+- [Tweet us](https://twitter.com/apisearch_io)
 
 > Docker cannot even start. This message appears: **WARNING: The APISEARCH_PORT
 > variable is not set. Defaulting to a blank string.**  
@@ -141,28 +166,6 @@ please ping the organization in our
 > Apisearch do not respond properly with the admin token you've proposed.
 > In this case, please check that there is a file called **.env** in the root of
 > Apisearch server with the required APISEARCH_* environment values.
-
-That's it. Congratulations. You already have Apisearch running in your server.
-Now let's go a little bit further with that. First of all, our first call to
-Apisearch, the Apisearch *hello world*. As you can see, we will use the
-environment variable **APISEARCH_GOD_TOKEN** as the token to use everywhere,
-with full access to the entire environment.
-
-```bash
-curl --silent --head --write-out '%{http_code}\n' 'http://localhost:8100?token={{ APISEARCH_GOD_TOKEN }}'
-```
-
-That curl should return us a **200**. You could try the same action, but in this
-case using the **APISEARCH_PING_TOKEN**, and specific token with only one
-possible action of ping.
-
-Let's make another fast check of our infrastructure by calling our check
-endpoint. This endpoint will give some information about the status of the
-cluster and the services working inside.
-
-```bash
-curl 'http://localhost:8100/health?token={{ APISEARCH_GOD_TOKEN }}'
-```
 
 ## Create your first application
 
@@ -368,8 +371,6 @@ Once added, you can access directly to this file by using your browser... and
 you'll be using Apisearch for the first time :)
 
 ![alt text](/assets/media/marvel-example.jpg "Marvel example")
-
-Congratulations!
 
 ## Next steps
 
