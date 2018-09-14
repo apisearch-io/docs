@@ -9,6 +9,7 @@ source: api-reference/model.md
 languages: 
   - php
   - json
+  - javascript
 tags:
   - apisearch reference
   - http
@@ -22,6 +23,122 @@ implementations you will see some objects and you will know how they work
 internally.
 
 Then this is your chapter.
+
+## AppUUID
+
+AppUUID reference. The composition of this object should represent one and only
+one application in your system.
+
+```
+{
+  "id": !string,
+}
+```
+
+> This value should never contain the character "_" as is reserved
+
+Some examples for you. Feel free to change the language of your examples in the
+top right of the website.
+
+```php
+$appUUID = AppUUID::createFromArray([
+    'id' => '12345',
+]);
+```
+```json
+{
+  "id": "12345"
+}
+```
+```javascript
+const appUUID = AppUUID.createFromArray({
+    "id": "12345"
+});
+```
+
+## IndexUUID
+
+IndexUUID reference. The composition of this object should represent one and
+only one index in your application. Different applications could (but never
+should) repeat UUID.
+
+```
+{
+  "id": !string,
+}
+```
+
+> This value should never contain the character "_" as is reserved
+
+Some examples for you. Feel free to change the language of your examples in the
+top right of the website.
+
+```php
+$indexUUID = IndexUUID::createFromArray([
+    'id' => '12345',
+]);
+```
+```json
+{
+  "id": "12345"
+}
+```
+```javascript
+const indexUUID = IndexUUID.createFromArray({
+    "id": "12345"
+});
+```
+
+## Index 
+
+Index reference. This is the representation of all your indices. Inside this model you can find information about your index.
+
+```
+{
+  "uuid": !IndexUUID,
+  "app_uuid": !AppUUID,
+  "doc_count": ?int,
+  "is_ok": ?boolean,
+  "size": ?string
+}
+```
+
+Some examples for you. Feel free to change the language of your examples in the
+top right of the website.
+
+```php
+$index = Index::createFromArray([
+    'uuid' => IndexUUID::createById("1234"),
+    'app_uuid' => AppUUID::createById("5678"),
+    'doc_count' => 0,
+    'is_ok' => true,
+    'size' => '10mb',
+]);
+
+```
+```json
+{
+  "app_id": "test",
+  "name": "default",
+  "doc_count": 0,
+  "is_ok": true,
+  "size": "10mb"
+}
+```
+```javascript
+const index = Index.createFromArray({
+    'uuid': IndexUUID.createById("1234"),
+    'app_uuid': AppUUID.createById("5678"),
+    'doc_count': 0,
+    'is_ok': true,
+    'size': '10mb'
+});
+```
+
+Some links of interest
+
+* [Api Reference - AppUUID](/api-reference/model.html#appuuid)
+* [Api Reference - ItemUUID](/api-reference/model.html#itemuuid)
 
 ## ItemUUID
 
@@ -54,40 +171,7 @@ $itemUUID = ItemUUID::createFromArray([
 Some links of interest
 
 * [Api Client - Item](/api-client/model.html#item)
-* [Api Client - Item UUID](/api-client/model.html#itemuuid)
-
-
-## Index 
-
-Index reference. This is the representation of all your indices. Inside this model you can find information about your index.
-
-```
-{
-  "app_id": string,
-  "name": string,
-  "doc_count": int
-}
-```
-
-Some examples for you. Feel free to change the language of your examples in the
-top right of the website.
-
-```php
-$index = Index::createFromArray([
-    'app_id' => 'test',
-    'name' => 'default',
-    'doc_count' => 0,
-]);
-
-```
-```json
-{
-  "app_id": "test",
-  "name": "default",
-  "doc_count": 0
-}
-```
-
+* [Api Client - ItemUUID](/api-client/model.html#itemuuid)
 
 ## Item
 
@@ -167,7 +251,7 @@ $item = Item::createFromArray([
 Some links of interest
 
 * [Api Client - Item](/api-client/model.html#item)
-* [Api Client - Item UUID](/api-client/model.html#itemuuid)
+* [Api Client - ItemUUID](/api-client/model.html#itemuuid)
 
 ## User
 
@@ -458,10 +542,10 @@ $synonym = Synonym::createFromArray([
 }
 ```
 
-## ImmutableConfig
+## Config
 
-This configuration is used when a new index instance is created. Is called
-immutable because cannot be changed after this index creation.
+This configuration is used when a new index instance is created or is configured
+after its creation.
 
 ```
 {
@@ -475,7 +559,7 @@ Some examples for you. Feel free to change the language of your examples in the
 top right of the website.
 
 ```php
-$immutableConfig = ImmutableConfig::createFromArray([
+$immutableConfig = Config::createFromArray([
     'language' => 'ca',
     'store_searchable_metadata' => false,
     'synonyms' => [
@@ -515,6 +599,25 @@ $immutableConfig = ImmutableConfig::createFromArray([
     }
   ]
 }
+```
+```javascript
+const config = Config.createFromArray({
+    "language": "ca",
+    "store_searchable_metadata": false,
+    "synonyms": [{
+        "words": [
+            "house",
+            "building",
+            "cottage"
+        ]
+    },
+    {
+        "words": [
+            "large",
+            "big"
+        ]
+    }]
+});
 ```
 
 ## QueryAggregation

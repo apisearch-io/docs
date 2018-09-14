@@ -30,15 +30,15 @@ This is the endpoint reference
 
 - Endpoint name - v1-index-create
 - Path - **/v1/index**
-- Verb - **POST**
+- Verb - **PUT**
 - Query Parameters
     - app_id, **required** 
-    - index, **required** 
     - token, **required with permissions** 
     
-The body of the endpoint should be an array with one optional position with 
-key `config` and a [ImmutableConfig](/api-reference/model.html#immutableconfig) 
-object as value.
+The body of the endpoint should be an array with one required element, a
+[IndexUUID](/api-reference/model.html#indexuuid) object as value under key
+`index`, and an optional position under key `config` with a 
+[Config](/api-reference/model.html#config) object as value.
 
 This is a write-only endpoint, and eventually, all write only endpoints could be
 processed in an asynchronous way
@@ -49,26 +49,27 @@ has a default values in their installation, and creating a vulnerability, no
 default values are created.
 
 ```bash
-curl -XPOST -H "Content-Type: application/json" "http://localhost:8100/v1/index?app_id={{ your_app_id }}&index={{ your_index }}&token={{ your_token }}"  -d'
+curl -XPUT -H "Content-Type: application/json" "http://localhost:8100/v1/index?app_id={{ your_app_id }}&token={{ your_token }}"  -d'
 {
+    "index": {
+        "id": {{ your_index }}
+    },
     "config": {
-      "language": "ca",
-      "store_searchable_metadata": false,
-      "synonyms": [
-        {
-          "words": [
-            "house",
-            "building",
-            "cottage"
-          ]
+        "language": "ca",
+        "store_searchable_metadata": false,
+        "synonyms": [{
+            "words": [
+                "house",
+                "building",
+                "cottage"
+            ]
         },
         {
-          "words": [
-            "large",
-            "big"
-          ]
-        }
-      ]
+            "words": [
+                "large",
+                "big"
+            ]
+        }]
     }
 }
 '
@@ -78,12 +79,19 @@ This config value is optional, so by not providing this object, it should work
 by creating a new index with default configuration.
 
 ```bash
-curl -XPOST "http://localhost:8100/v1/index?app_id={{ your_app_id }}&index={{ your_index }}&token={{ your_token }}"
+curl -XPUT -H "Content-Type: application/json" "http://localhost:8100/v1/index?app_id={{ your_app_id }}&token={{ your_token }}"  -d'
+{
+    "index": {
+        "id": {{ your_index }}
+    }
+}
+'
 ```
 
 ## List Indices
 
-By using this endpoint, you will be able to list existing indices. If there is no indices created, this action returns empty array.
+By using this endpoint, you will be able to list existing indices. If there is
+no indices created, this action returns empty array.
 
 Here some related model objects you may know.
 
@@ -96,9 +104,9 @@ This is the endpoint reference
 - Verb - **GET**
 - Query Parameters
     - token, **required with permissions** 
-    - app_id, **optional** 
+    - app_id, **required** 
 
-This is read-only endpoint and you can filter indices with `app_id` query parameter. 
+This is read-only endpoint.
 
 ```bash
 curl -XGET "http://localhost:8100/v1/indices?app_id={{ your_app_id }&token={{ your_token }}"
@@ -162,6 +170,70 @@ default values are created.
 
 ```bash
 curl -XPOST "http://localhost:8100/v1/index/reset?app_id={{ your_app_id }}&index={{ your_index }}&token={{ your_token }}"
+```
+
+## Configure Index
+
+By using this endpoint you will be able to configure an existing index. If the
+index does not exist, then this action will be skipped and nothing will happen.
+Here some related model objects you may know.
+
+- [Api Client - Index Repository](/api-client/repository.html#index)
+
+This is the endpoint reference
+
+- Endpoint name - v1-index-config
+- Path - **/v1/index**
+- Verb - **POST**
+- Query Parameters
+    - app_id, **required** 
+    - index, **required** 
+    - token, **required with permissions** 
+    
+The body of the endpoint should be an array with one optional position under
+key `config` with a [Config](/api-reference/model.html#config) object as value.
+
+This is a write-only endpoint, and eventually, all write only endpoints could be
+processed in an asynchronous way
+
+> This endpoint should take the same config body as creating an index. The main
+> difference is the verb and that, in this case, the index is passed as part of
+> the authentication (url) instead of part of the content (body)
+
+You can try this endpoint by using this curl snippet. As you can see, you should
+replace the placeholders with your own data. In order to make sure that no one
+has a default values in their installation, and creating a vulnerability, no
+default values are created.
+
+```bash
+curl -XPOST -H "Content-Type: application/json" "http://localhost:8100/v1/index?app_id={{ your_app_id }}&index={{ your_index }}&token={{ your_token }}"  -d'
+{
+    "config": {
+        "language": "ca",
+        "store_searchable_metadata": false,
+        "synonyms": [{
+            "words": [
+                "house",
+                "building",
+                "cottage"
+            ]
+        },
+        {
+            "words": [
+                "large",
+                "big"
+            ]
+        }]
+    }
+}
+'
+```
+
+This config value is optional, so by not providing this object, it should work
+by creating a new index with default configuration.
+
+```bash
+curl -XPUT -H "Content-Type: application/json" "http://localhost:8100/v1/index?app_id={{ your_app_id }}&index={{ your_index }}&token={{ your_token }}"  -d''
 ```
 
 ## Add Token
