@@ -86,7 +86,12 @@ containers.
 Apisearch works with a file called `.env` placed in the root of the project.
 You might update some of these values with your own values (we don't setup
 default values to prevent security issues). You will find an skeleton of the
-file inside the root of the project with the name `.env.dist`
+file inside the root of the project with the name `.env.dist`.
+
+> This is an example of what you can find in your `.env.dist`. As you can see,
+> the environment is ready to accept a local ELK installation, so you can enable
+> the plugin. Same happens with New Relic. Feel free to change this values with
+> your own configuration values.
 
 ```
 APISEARCH_PORT=8100
@@ -94,12 +99,24 @@ APISEARCH_PORT=8100
 APISEARCH_GOD_TOKEN=
 APISEARCH_READONLY_TOKEN=
 APISEARCH_PING_TOKEN=
+APISEARCH_ENABLED_PLUGINS=elk,newrelic
 
-ELASTICSEARCH_HOST=apisearch_elasticsearch
+ELASTICSEARCH_HOST=apisearch.elasticsearch
 ELASTICSEARCH_PORT=9200
 
-REDIS_HOST=apisearch_redis
-REDIS_PORT=6379
+REDIS_STORAGE_HOST=apisearch.redis
+REDIS_STORAGE_PORT=6379
+
+REDIS_QUEUE_HOST=apisearch.redis
+REDIS_QUEUE_PORT=6379
+
+REDIS_ELK_HOST=apisearch.redis
+REDIS_ELK_PORT=6379
+REDIS_ELK_KEY=logstash.apisearch
+
+NEWRELIC_APP_NAME=
+NEWRELIC_API_KEY=
+NEWRELIC_LICENSE_KEY=
 ```
 
 Make sure you **update this values** before building your containers.
@@ -175,7 +192,7 @@ tutorial, we will use the internal commands placed in the same server by
 entering inside one of the server docker containers.
 
 ```
-docker exec -i -t $(docker ps -qf "name=apisearch_server_0") bash
+docker exec -it apisearch.server.0 bash
 ```
 
 > From this point, all commands will be executed inside this container.

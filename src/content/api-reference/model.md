@@ -1157,29 +1157,3 @@ Some links of interest
 
 * [Api Client - Result](/api-client/result.html)
 * [Api Client - Reading Suggestions](/api-client/result.html#reading-suggestions)
-
-## Events
-
-Events Result reference
-
-```
-{
-  "query": !Query,
-  "total_hits": ?int (default 0),
-  "events": ?Event[],
-  "aggregations": ?ResultAggregations
-}
-```
-
-## Logs
-
-Logs Result reference
-
-```
-{
-  "query": !Query,
-  "total_hits": ?int (default 0),
-  "logs": ?Log[],
-  "aggregations": ?ResultAggregations
-}
-```

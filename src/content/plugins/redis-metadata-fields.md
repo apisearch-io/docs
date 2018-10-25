@@ -12,4 +12,4 @@ tags:
   - metadata
 ---
 
-# Metadata Fields
+# Redis Metadata Fields

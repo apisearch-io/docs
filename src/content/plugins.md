@@ -21,17 +21,19 @@ the software by only following some simple instructions.
 You will find some base plugins in the main server repository, and some other
 official plugins developed by our partners.
 
-## [Metadata Fields](plugins/metadata-fields.html)
+## [Redis Metadata Fields](plugins/redis-metadata-fields.html)
 Save your read-only fields in a key-value technology instead of storing it
 inside your search infrastructure. Populate your items with these values
 depending on your needs every moment.
-- Source - [Github](https://github.com/apisearch-io/search-server/tree/master/Plugin/MetadataFields)
+- Source - [Github](https://github.com/apisearch-io/search-server/tree/master/Plugin/RedisMetadataFields)
 - Current versions - [0.1.*](https://github.com/apisearch-io/search-server/releases)
+
 
 ## [New Relic](plugins/new-relic.html)
 Integrate Apisearch with **New Relic** and improve your control over Apisearch.
 - Source - [Github](https://github.com/apisearch-io/search-server/tree/master/Plugin/NewRelic)
 - Current versions - [0.1.*](https://github.com/apisearch-io/search-server/releases)
+
 
 ## [Multilanguage](plugins/multilanguage.html)
 If your index is written in multiple languages, like spanish and english at the
@@ -41,11 +43,33 @@ language.
 - Source - [Github](https://github.com/apisearch-io/search-server/tree/master/Plugin/Multilanguage)
 - Current versions - [0.1.*](https://github.com/apisearch-io/search-server/releases)
 
+
 ## [Callbacks](plugins/callbacks.html)
 Make additional callbacks before or after your calls. By doing them before you
 will be able to modify the input data, and by doing them after, you will be able
 to change the result value.
 - Source - [Github](https://github.com/apisearch-io/search-server/tree/master/Plugin/Callbacks)
+- Current versions - [0.1.*](https://github.com/apisearch-io/search-server/releases)
+
+
+## [Static Tokens](plugins/static-tokens.html)
+Store your tokens as static values, and make their access something completely
+local. Avoid any external access.
+- Source - [Github](https://github.com/apisearch-io/search-server/tree/master/Plugin/StaticTokens)
+- Current versions - [0.1.*](https://github.com/apisearch-io/search-server/releases)
+
+
+## [Most Relevant Words](plugins/most-relevant-words.html)
+Simplify some of your searchable metadata fields by applying some filters.
+Reduce the size of the fields by only keeping the most valuable words.
+- Source - [Github](https://github.com/apisearch-io/search-server/tree/master/Plugin/MostRelevantWords)
+- Current versions - [0.1.*](https://github.com/apisearch-io/search-server/releases)
+
+
+## [ELK](plugins/elk.html)
+Send your domain events to a Redis queue, in order to be consumed by an ELK
+framework.
+- Source - [Github](https://github.com/apisearch-io/search-server/tree/master/Plugin/ELK)
 - Current versions - [0.1.*](https://github.com/apisearch-io/search-server/releases)
     
 ## Enable a plugin
