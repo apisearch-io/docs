@@ -126,6 +126,41 @@ The order is not important here, and the result format will be exactly the same
 than any other type of queries.
 
 
+## Fields selected
+
+Sometimes you don't want to select all Item fields. You could consider this when
+you need as much fastness as possible, for example in real time search, or when
+you want to reduce as much as possible the response payload, for example, for
+CDNs.
+
+```php
+use Apisearch\Query\Query;
+use Apisearch\Model\ItemUUID;
+
+$query = Query::createMatchAll()
+    ->setFields([
+        'metadata.*',
+        'indexed_metadata.title'
+    ]);
+```
+
+```typescript
+import {Query, ItemUUID} from "apisearch";
+
+let query = Query
+    .createMatchAll()
+    .setFields([
+        'metadata.*',
+        'indexed_metadata.title'
+    ]);
+```
+
+You can use wildcards to select a group of fields, or an array of fields.
+
+> Take in account that if you select some fields instead of the entire Item, you
+> may have problems when using this Item result as a domain object in your
+> project, so use this feature only in read-only environments.
+
 ## Filters
 
 Once a new Query is created you can start by filtering your results. This
@@ -1204,6 +1239,27 @@ Query
         'searchable_metadata.subtitle': '2',
         'serchable_metadata.body': 'AUTO'
     });
+```
+
+## Min Score
+
+You may have the experience of having tons of results, being your long tail
+completely useless. That happens because items are sorted by _score (if you
+define other sorting), and even if the result has a score of 1, will still be
+a result.
+
+You can define a minimum score, so all items resulting from a query with a score
+slower than the one selected will be considered as rubbish. Useful for deleting
+this long tail.
+
+```php
+Query::createMatchAll()
+    ->setMinScore(10.0);
+```
+```javascript
+Query
+    .createFromArray()
+    .setMinScore(10.0);
 ```
 
 ## Relevance Strategy

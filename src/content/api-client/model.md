@@ -54,8 +54,9 @@ values. By default, an empty array is used.
 * `suggest` - An array of strings where each item can propose suggestions for
 searching time. Strings wont be decomposed neither. By default, an empty array 
 is used.
-* `Coordinate` - An Item can be geolocated in space, so an instance of Coordinate
-can be injected here. This value is not required.
+* `coordinate` - An Item can be geo located in space, so an instance of
+Coordinate can be injected here. This value is not required.
+* `score` - The score for an item inside a Result
 
 Let's see an example of an item.
 
@@ -556,3 +557,17 @@ You can add as many coordinates as you need in order to build the desired area.
 > This is useful when the final user has any kind of drawing tool, so an
 > specific polygon can be defined by any user. Useful as well when composing
 > maps, for example, defining country areas as polygons.
+
+## Item score
+
+When an Item is retrieved with a Query Result, you can find the score assigned
+to the item in this specific query. This value could change across different
+queries.
+
+```php
+$item->getScore();
+```
+
+```typescript
+item.getScore();
+```
