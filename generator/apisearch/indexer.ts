@@ -5,8 +5,6 @@ import * as apisearchAdminConfig from "../../apisearch-admin-config.js";
 
 
 export function indexSection(section) : Promise<any> {
-    console.log(apisearchAdminConfig);
-    console.log(apisearchConfig);
     const repository = apisearch.createRepository({
         app_id: apisearchConfig.app_id,
         index_id: apisearchConfig.index_id,

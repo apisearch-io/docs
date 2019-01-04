@@ -56,7 +56,8 @@
     "uslug": "^1.0.4",
     "walk": "^2.3.13",
     "webpack": "^3.12.0",
-    "webpack-dev-server": "^2.11.2",
+    "webpack-cli": "^3.2.0",
+    "webpack-dev-server": "^3.1.14",
     "yargs": "^8.0.2"
   },
   "dependencies": {
