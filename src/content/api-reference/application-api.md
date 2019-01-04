@@ -57,6 +57,8 @@ curl -XPUT -H "Content-Type: application/json" "http://localhost:8100/v1/index?a
     "config": {
         "language": "ca",
         "store_searchable_metadata": false,
+        "shards": 5,
+        "replicas": 2,
         "synonyms": [{
             "words": [
                 "house",
@@ -211,6 +213,8 @@ curl -XPOST -H "Content-Type: application/json" "http://localhost:8100/v1/index?
     "config": {
         "language": "ca",
         "store_searchable_metadata": false,
+        "shards": 5,
+        "replicas": 2,
         "synonyms": [{
             "words": [
                 "house",
@@ -230,11 +234,26 @@ curl -XPOST -H "Content-Type: application/json" "http://localhost:8100/v1/index?
 ```
 
 This config value is optional, so by not providing this object, it should work
-by creating a new index with default configuration.
+by configuring the index with default configuration.
 
 ```bash
 curl -XPUT -H "Content-Type: application/json" "http://localhost:8100/v1/index?app_id={{ your_app_id }}&index={{ your_index }}&token={{ your_token }}"  -d''
 ```
+
+This endpoint can work as well as a simple index sanitation. Internally, the
+index is recreated from the scratch with no downtime. That means that the old
+index configuration is maintained, and at the same time, a new index with the
+desired configuration is created. After the creation and the reindex of all
+existing elements, the new one is used and the old one removed. These can be
+some usages of this endpoint.
+
+- Sanitation of the index. Can be called with the same configuration once a
+week, for example
+- To change shards and replicas
+- To reindex without searchable metadata. Note that the other way would result
+empty values (can't index an array that is not actually indexed)
+- To add or delete synonyms
+- To change the language of the index
 
 ## Add Token
 
