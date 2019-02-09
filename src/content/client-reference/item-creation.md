@@ -1,142 +1,19 @@
 ---
-page: 2
+page: 1
 icon: angle-right
-title: Model
-description: Apisearch model
-category: API Client
+title: Item creation
+description: Client Reference - Create a new item
+category: Client Reference
 template: one-column-with-toc.mustache
-source: api-client/model.md
+source: client-reference/item-creation.md
 languages: 
   - php
   - typescript
 tags:
-  - apisearch-client
-  - apisearch model
+  - item creation
 ---
 
-# Model
-
-The library provides you a set of model objects. All repositories will work
-using them, so please, be sure you understand every part of the model before any
-integration.
-
-## Item
-
-The Item is the base class for this package. An Item instance represents a
-single row in your read-only model, and can be mapped with any class of your own
-model.
-
-Because this platform allows you to integrate any kind of object with this Item
-object, the internals of the objects are as simple as we could do, in order to
-provide you as much flexibility as we could.
-
-Lets take a look at what Items is composed by.
-
-* `id` - A string representation of the id of the Item. This id is not required to
-be unique in your model universe, but is required to be unique along all 
-entities of the same type (for example, along products, this id should be
-unique). This parameter is required and cannot be null.
-* `type` - Because an Item can be mapped by any entity from your model, this
-parameter defined what entity has been mapped. This is parameter is required and
-cannot be null.
-* `metadata` - An array of data-values. This data will be not processed nor 
-indexed, and will only be accessible once returned results. Values for this
-array can have any format. By default, an empty array is used.
-* `indexed_metadata` - An array of indexed, filterable and aggregable data-values.
-This data will not be searchable at all. By default, an empty array is used.
-* `searchable_metadata` - An array of strings used for searching. Each string will
-be decomposed by the engine and used for searching the item. By default, an 
-empty array is used.
-* `exact_matching_metadata` - An array of strings used for searching. Each string
-will not be decomposed and will be used as it is introduced. Current item will
-be returned as result only if the query string contains one or many introduced
-values. By default, an empty array is used.
-* `suggest` - An array of strings where each item can propose suggestions for
-searching time. Strings wont be decomposed neither. By default, an empty array 
-is used.
-* `coordinate` - An Item can be geo located in space, so an instance of
-Coordinate can be injected here. This value is not required.
-* `score` - The score for an item inside a Result
-
-Let's see an example of an item.
-
-``` yml
-id: 4303ui203
-type: product
-metadata:
-    name: "T-shirt blue and red"
-    description: "This is an amazing T-shirt"
-    ean: 7827298738293
-indexed_metadata:
-    sizes:
-        - M
-        - L
-        - XL
-    colors:
-        - Blue
-        - Red
-    price: 10
-    old_price: 15
-    brand: Supershirts
-    created_at: now()
-searchable_metadata:
-    name: T-shirt blue and red
-    description: This is an amazing T-shirt
-    brand: Supershirts
-exact_matching_metadata:
-    - 4303ui203
-    - 7827298738293
-suggest:
-    - T-shirt
-```
-
-Let's explain a little better this example
-
-* Our product with ID 4303ui203 is mapped as an Item
-* We have a name, a description and an EAN stored in the item, and because is 
-not filterable not aggregable by these values, we place them in the metadata
-array.
-* We have other values like sizes, colors, price, old_price and brand prepared
-to be filtered and aggregated by. These values will be accessible as well when
-Items are provided as results.
-* When final user searches on our website, this Item will be part of the result
-if the search contains any of the words included as searchable_metadata (
-after some transformations, will see later), so when searching by *amazing*,
-this item will be a result. If searching by *Elephant*, will not.
-* If the final user searches exactly by *4303ui203* or *7827298738293*, this
-Item will be part of the result as well.
-* If you have suggestions enabled, and if the final user start searches by
-string *T-shi*, this item will add a suggestion of *T-shirt*. This is completely
-different from the search fields.
-
-Before start building our first Item, let's see another object we need to know
-in order to use the factory methods inside Item object.
-
-## ItemUUID
-
-Remember that we said that the id field in Item only is unique in the universe
-of the entities with same type? Then, we need a representation of this Unique
-id.
-
-And this representation is the object ItemUUID. A simple class that contains an
-id and a type. Let's see how to build one of these.
-
-```php
-use Apisearch\Model\ItemUUID;
-
-$itemUUID = new ItemUUID('4303ui203', 'product');
-```
-
-```typescript
-import {ItemUUID} from "apisearch";
-
-const itemUUID = new ItemUUID('4303ui203', 'product');
-```
-
-This is a real Unique Id representation of our model, and this instance should
-be unique in all our universe.
-
-## Building an Item
+# Item Creation
 
 So let's build our first Item instance. Because an Item can be build by 
 different ways, we will use static factories instead of the private 

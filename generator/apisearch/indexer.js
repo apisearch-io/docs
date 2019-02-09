@@ -5,8 +5,6 @@ var DocsTransformer_1 = require("./DocsTransformer");
 var apisearchConfig = require("../../apisearch-config.js");
 var apisearchAdminConfig = require("../../apisearch-admin-config.js");
 function indexSection(section) {
-    console.log(apisearchAdminConfig);
-    console.log(apisearchConfig);
     var repository = apisearch_1["default"].createRepository({
         app_id: apisearchConfig.app_id,
         index_id: apisearchConfig.index_id,

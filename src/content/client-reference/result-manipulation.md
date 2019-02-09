@@ -1,20 +1,19 @@
 ---
-page: 4
+page: 3
 icon: angle-right
-title: Result
-description: Apisearch client - Result object
-category: API Client
+title: Result Manipulation
+description: Client Reference - Manipulate results
+category: Client Reference
 template: one-column-with-toc.mustache
-source: api-client/result.md
+source: client-reference/result-manipulation.md
 languages: 
   - php
   - javascript
 tags:
-  - apisearch-client
-  - apisearch model
+  - Result manipulation
 ---
 
-# Result
+# Result manipulation
 
 A Query instance creates a Result instance. A Result is not only a set of basic
 elements from our dataset (Product, Category...) but as well a set of

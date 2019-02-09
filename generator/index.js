@@ -97,7 +97,7 @@ const TEMPLATES_DIR = path.resolve(__dirname, '../src/templates');
          * Create a Json data file
          * for the documentation search
          */
-        createDataFile(files);
+        // createDataFile(files);
     })
 })();
 
@@ -171,6 +171,7 @@ const createDataFile = function(docsArray) {
                     .catch(function(error) {
                         console.log(`X --> Error indexing: ${error.data.message}`);
                     })
+
             }
         });
     });

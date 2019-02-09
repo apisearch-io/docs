@@ -306,7 +306,6 @@ This command should generate an output like this.
 [Create basic tokens] App ID: marvel
 [Create basic tokens] Token with UUID d5d9dc37-1a88-4d1e-a7bd-8c7c41020546 generated for admin
 [Create basic tokens] Token with UUID ab0e9cd7-9180-4c51-a419-467da5421e7f generated for query only
-[Create basic tokens] Token with UUID 6f839034-801e-45eb-9c33-8c45c373c827 generated for events
 [Create basic tokens] Token with UUID 3017a802-b8e5-4368-8ca1-e088e9bcf188 generated for interaction
 [Create basic tokens] Tokens created properly
 

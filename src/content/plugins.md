@@ -1,6 +1,6 @@
 ---
 root: true
-page: 4
+page: 5
 icon: plug
 title: Plugins
 description: Apisearch plugins.
@@ -32,15 +32,6 @@ depending on your needs every moment.
 ## [New Relic](plugins/new-relic.html)
 Integrate Apisearch with **New Relic** and improve your control over Apisearch.
 - Source - [Github](https://github.com/apisearch-io/search-server/tree/master/Plugin/NewRelic)
-- Current versions - [0.1.*](https://github.com/apisearch-io/search-server/releases)
-
-
-## [Multilanguage](plugins/multilanguage.html)
-If your index is written in multiple languages, like spanish and english at the
-same time, then this plugin is specifically designed for you. Split your data in
-several indices, each one specifically designed to work with an specific
-language.
-- Source - [Github](https://github.com/apisearch-io/search-server/tree/master/Plugin/Multilanguage)
 - Current versions - [0.1.*](https://github.com/apisearch-io/search-server/releases)
 
 
@@ -380,8 +371,6 @@ from inside the system
 - GetTokens - Return all the existing tokens
 - Ping - Makes a simple ping
 - Query - Makes a query over all the existing Items
-- QueryEvents - Makes a query over all generated events
-- QueryLogs - Makes a query over all generated logs
 
 ## Events in Apisearch
 

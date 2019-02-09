@@ -1,26 +1,27 @@
 ---
-page: 3
+page: 2
 icon: angle-right
-title: Query
-description: Apisearch client - Query object
-category: API Client
+title: Query Creation
+description: Client Reference - Create a new query
+category: Client Reference
 template: one-column-with-toc.mustache
-source: api-client/query.md
+source: client-reference/query-creation.md
 languages: 
   - php
   - javascript
 tags:
-  - apisearch-client
-  - apisearch model
-  - API Reference
+  - query creation
 ---
 
-# Query
+# Query creation
 
 Knowing how our model is defined, let's start by knowing how to make a simple
 Query Request. Query objects will give us the possibility of communication
 between our project and the server by just using some object methods, and by
 using a single pattern called builder.
+
+- [Model: Query](/model.html#query)
+- [Model: QueryUUID](/model.html#queryuuid)
 
 ## Building a Query
 
@@ -32,7 +33,7 @@ use Apisearch\Query\Query;
 $query = Query::create("something");
 ```
 
-```typescript
+```javascript
 import {Query} from "apisearch";
 
 const query = Query.create('something'); 
@@ -58,7 +59,7 @@ $query = Query::create(
     100          // How many items do we want?
 );
 ```
-```typescript
+```javascript
 import {Query} from "apisearch";
 
 let query = Query.create(
@@ -81,7 +82,7 @@ $query = Query::create('');
 $query = Query::createMatchAll();
 ```
 
-```typescript
+```javascript
 import {Query} from "apisearch";
 
 const emptyStringQuery = Query.create('');
@@ -108,7 +109,7 @@ $query = Query::createByUUIDs([
 ]);
 ```
 
-```typescript
+```javascript
 import {Query, ItemUUID} from "apisearch";
 
 const queryOneUUID = Query.createByUUID(
@@ -144,7 +145,7 @@ $query = Query::createMatchAll()
     ]);
 ```
 
-```typescript
+```javascript
 import {Query, ItemUUID} from "apisearch";
 
 let query = Query
@@ -241,7 +242,7 @@ $query = Query::createMatchAll()
     ->filterUniverseByTypes(['A', 'B']);
 ```
 
-```typescript
+```javascript
 import {Query} from "apisearch";
 
 const query = Query.createMatchAll()
@@ -297,7 +298,7 @@ $query = Query::createMatchAll()
     ->filterUniverseByTypes(['A', 'B']);
 ```
 
-```typescript
+```javascript
 import {Query} from "apisearch";
 
 const query = Query
@@ -317,7 +318,7 @@ $query = Query::createMatchAll()
     ->filterUniverseByTypes(['A', 'B'])
     ->filterByTypes(['A']);
 ```
-```typescript
+```javascript
 import {Query} from "apisearch";
 
 const query = Query
@@ -355,7 +356,7 @@ $query = Query::createMatchAll()
     ->filterByTypes(['A', 'B']);
 ```
 
-```typescript
+```javascript
 import {Query} from "apisearch";
 
 const query = Query
@@ -381,7 +382,7 @@ $query = Query::createMatchAll()
     ->filterByTypes(['A', 'B']);
 ```
 
-```typescript
+```javascript
 import {Query} from "apisearch";
 
 const query = Query
@@ -412,7 +413,7 @@ $query = Query::createMatchAll()
     );
 ```
 
-```typescript
+```javascript
 import {Query} from "apisearch";
 
 const query = Query
@@ -437,7 +438,7 @@ $query = Query::createMatchAll()
     );
 ```
 
-```typescript
+```javascript
 import {Query} from "apisearch";
 
 const query = Query
@@ -460,7 +461,7 @@ $query = Query::createMatchAll()
     ->filterUniverseByIds(['10', '11', '12']);
 ```
 
-```typescript
+```javascript
 import {Query} from "apisearch";
 
 const query = Query
@@ -481,7 +482,7 @@ $query = Query::createMatchAll()
     ->filterByIds(['10', '11', '12']);
 ```
 
-```typescript
+```javascript
 import {Query} from "apisearch";
 
 const query = Query
@@ -507,7 +508,7 @@ $query = Query::createMatchAll()
     ))
 ```
 
-```typescript
+```javascript
 import {Query, Coordinate, CoordinateAndDistance} from "apisearch";
 
 const query = Query
@@ -542,7 +543,7 @@ $query = Query::createMatchAll()
     ->filterUniverseByDateRange('created_at', ["$from..$to"], Filter::MUST_ALL);
 ```
 
-```typescript
+```javascript
 import {Query} from "apisearch";
 
 // Dates Atom 
@@ -586,7 +587,7 @@ Query::createMatchAll()
     );
 ```
 
-```typescript
+```javascript
 import {Query} from "apisearch";
 
 const query = Query
@@ -630,7 +631,7 @@ Query::createMatchAll()
     );
 ```
 
-```typescript
+```javascript
 import {Query} from "apisearch";
 
 const query = Query
@@ -667,8 +668,7 @@ $query = Query::createMatchAll()
         Filter::MUST_ALL
     );
 ```
-
-```typescript
+```javascript
 import {Query} from "apisearch";
 
 const query = Query
@@ -696,8 +696,7 @@ Query::createMatchAll()
         ['value1', 'value2']
     );
 ```
-
-```typescript
+```javascript
 import {Query} from "apisearch";
 
 const query = Query
@@ -724,7 +723,7 @@ Query::createMatchAll()
     );
 ```
 
-```typescript
+```javascript
 import {Query} from "apisearch";
 
 const query = Query
@@ -759,7 +758,7 @@ Query::createMatchAll()
     );
 ```
 
-```typescript
+```javascript
 import {Query} from "apisearch";
 
 const query = Query
@@ -807,7 +806,7 @@ Query::createMatchAll()
     );
 ```
 
-```typescript
+```javascript
 import {Query} from "apisearch";
 
 const query = Query
@@ -835,7 +834,7 @@ Query::createMatchAll()
     );
 ```
 
-```typescript
+```javascript
 import {Query} from "apisearch";
 
 const query = Query
@@ -873,7 +872,7 @@ Query::createMatchAll()
     );
 ```
 
-```typescript
+```javascript
 import {Query} from "apisearch";
 
 const query = Query
@@ -902,7 +901,7 @@ Query::create('')
 ;
 ```
 
-```typescript
+```javascript
 import {Query} from "apisearch";
 
 const query = Query
@@ -926,7 +925,7 @@ Query::createMatchAll()
 ;
 ```
 
-```typescript
+```javascript
 import {Query} from "apisearch";
 
 const query = Query
@@ -1334,7 +1333,7 @@ $query = Query::create('')
 ;
 ```
 
-```typescript
+```javascript
 import {Query} from "apisearch";
 
 let query = Query
@@ -1368,7 +1367,7 @@ $query = Query::create('')
 ;
 ```
 
-```typescript
+```javascript
 import {Query} from "apisearch";
 
 let query = Query
@@ -1403,7 +1402,7 @@ Query::createMatchAll()
 ;
 ```
 
-```typescript
+```javascript
 import {Query, ItemUUID} from "apisearch";
 
 let query = Query
@@ -1440,7 +1439,7 @@ Query::createMatchAll()
 ;
 ```
 
-```typescript
+```javascript
 import {Query, ItemUUID} from "apisearch";
 
 let query = Query

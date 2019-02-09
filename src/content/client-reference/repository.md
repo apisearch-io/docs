@@ -1,16 +1,16 @@
 ---
-page: 5
+page: 4
 icon: angle-right
 title: Repository
-description: Apisearch client - Repository object
-category: API Client
+description: Client Reference - Repository
+category: Client Reference
 template: one-column-with-toc.mustache
-source: api-client/repository.md
+source: client-reference/repository.md
 languages: 
   - php
+  - javascript
 tags:
-  - apisearch-client
-  - apisearch model
+  - repository
 ---
 
 # Repository
@@ -22,18 +22,21 @@ But how it really works? We need an interface where we can communicate with an
 existing endpoint, so we can really have nice results given a set of pre-indexed
 data.
 
-Let's check the interface `Apisearch\Repository\Repository`
+All repository implementations, before being used, need your credentials in 
+order to make sure you're using a well configured repository.
 
-Using an implementation of this main repository, you'll be able to index,
-delete, reset and query your main data set. Each interaction will create an 
-internal event, each one named in a particular way. To query over these events,
-please check the [EventRepository](#event-repository) chapter.
-
-All repository implementations, before being used, need your API secret in order
-to make sure you're using the right repository.
+```php
+$repository = //
+$repository->setCredentials(
+    RepositoryReference::create(
+        AppUUID::createFromId('app-1'),
+        IndexUUID::createFromId('index-1')
+    ),
+    TokenUUID::createFromId('token-1230')
+);
+```
 
 Let's take a look at all our repository interfaces
-
 
 ## HttpRepository
 
@@ -48,7 +51,6 @@ GuzzleClient implementation.
 $repository = new HttpRepository(
     new GuzzleClient('http://api.ourhost.xyz:1234')
 );
-$repository->setKey('mysecretkey');
 ```
 
 
@@ -211,7 +213,6 @@ $transformableRepository = new TransformableRepository(
     $httpRepository,
     $transformer 
 );
-$transformableRepository->setKey('mysecretkey');
 ```
 
 And that's it.
@@ -239,7 +240,26 @@ this means that between requests, this won't work at all).
 
 ```php
 $repository = new InMemoryRepository();
-$repository->setKey('mysecretkey');
+```
+
+## DiskRepository
+
+Only for development and testing purposes.
+Same than InMemoryRepository, but in this case, each time the repository is
+modified, the results are saved into disk. Useful for apisearch server instances
+that, willing to work with the data stored in memory, are volatile. After
+reloading, data will still be there.
+
+```php
+$repository = new DiskRepository('/tmp/my-file.data');
+```
+
+## MockRepository
+
+Empty repository. Nothing is done here.
+
+```php
+$repository = new MockRepository();
 ```
 
 So what can I do with any of these implementations?

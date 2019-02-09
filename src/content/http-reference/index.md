@@ -1,21 +1,21 @@
 ---
-title: Search API
-description: Api Reference - Search
+title: Index
+description: HTTP Reference - Index
 icon: angle-right
 page: 3
-category: API Reference
+category: HTTP Reference
 template: one-column-with-toc.mustache
-source: api-reference/search-api.md
+source: http-reference/index.md
 tags:
-  - apisearch reference
   - http
-  - json
+  - reference
+  - index
 ---
 
-# Search API
+# Index API
 
-These endpoints are part of the Search related repository. By doing them
-you will be able to manage your items, and search over them.
+Use these endpoints to manage your index. Add items and manipulate them directly
+using these endpoints.
 
 ## Index Items
 
@@ -185,50 +185,3 @@ curl -XDELETE -H "Content-Type: application/json" "http://localhost:8100/v1/item
 }
 '
 ```
-
-## Query
-
-By using this endpoint you will make a simple query to one or several indices in
-an existing app. Here some related model objects you may know.
-
-- [Api Reference - Query](/api-reference/model.html#query)
-- [Api Client - Building a Query](/api-client/query.html#building-a-query)
-
-This is the endpoint reference
-
-- Endpoint name - v1-query
-- Path - **/v1**
-- Verb - **GET**
-- Query Parameters
-    - app_id, **required** 
-    - index, *not required, can be multiple separated by comma*
-    - token, **required with permissions** 
-    
-The body of the endpoint should be an array with one optional position with 
-key `query` and a [Query](/api-reference/model.html#query) 
-object as value.
-
-You can try this endpoint by using this curl snippet. As you can see, you should
-replace the placeholders with your own data. In order to make sure that no one
-has a default values in their installation, and creating a vulnerability, no
-default values are created.
-
-```bash
-curl -XGET -H "Content-Type: application/json" "http://localhost:8100/v1?app_id={{ your_app_id }}&index={{ your_index }}&token={{ your_token }}"  -d'
-{
-    "query": {
-        "q": "house"
-    }
-}
-'
-```
-
-By doing an empty query, you would receive the first items of the index. In this
-case, and because you don't really to pass the query at all, you can omit the
-Content-Type header.
-
-```bash
-curl -XGET -H "Content-Type: application/json" "http://localhost:8100/v1?app_id={{ your_app_id }}&index={{ your_index }}&token={{ your_token }}"
-```
-
-This endpoint will return a [Result](/api-reference/model.html#result) object.

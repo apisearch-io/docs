@@ -1,15 +1,15 @@
 ---
-title: Interaction API
-description: Api Reference - Interaction
+title: User
+description: HTTP Reference - User
 icon: angle-right
 page: 4
-category: API Reference
+category: HTTP Reference
 template: one-column-with-toc.mustache
-source: api-reference/interaction.md
+source: http-reference/user.md
 tags:
-  - apisearch reference
   - http
-  - json
+  - reference
+  - user
 ---
 
 ### Add Interaction
@@ -26,5 +26,3 @@ Query_Parameters:
 Body:
     interaction: Interaction
 ```
-
-### Delete all Interactions

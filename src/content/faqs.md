@@ -1,13 +1,12 @@
 ---
 root: true
-page: 7
+page: 8
 icon: question
 title: FAQS
 description: Apisearch Frequent Questions and Answers
 category: FAQs
 template: one-column.mustache
 source: faqs.md
-languages: ~
 tags:
   - apisearch-tools
   - apisearch ui

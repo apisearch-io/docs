@@ -1,20 +1,19 @@
 ---
 root: true
-page: 3
+page: 4
 icon: code
-title: API Client
-description: API reference for the different Apisearch clients
-category: API Client
-template: one-column.mustache
-source: api-client.md
+title: Client Reference
+description: Client reference
+category: Client Reference
+template: one-column-with-toc.mustache
+source: client-reference.md
 languages: ~
 tags:
-  - apisearch-tools
-  - apisearch ui
-  - search components
+  - client
+  - reference
 ---
 
-# Api Client
+# Client Reference
 
 In this chapter we will explain how different clients work. All clients are
 supposed to work as a middle between a language and the final API format, so all
@@ -28,9 +27,8 @@ features, only read ones)
 Some clients can be divided in different repositories, and some of them can be
 unified everything in one. That information will be told in each case.
 
-- [Model](api-client/model.html)
-- [Query](api-client/query.html)
-- [Result](api-client/result.html)
-- [Repository](api-client/repository.html)
-- [Event](api-client/event.html)
-- [Config](api-client/config.html)
+- [Item Creation](client-reference/item-creation.html)
+- [Query Creation](client-reference/query-creation.html)
+- [Result Manipulation](client-reference/result-manipulation.html)
+- [Repository](client-reference/repository.html)
+- [App Repository](client-reference/app-repository.html)

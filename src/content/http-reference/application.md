@@ -1,15 +1,15 @@
 ---
-title: Application API
-description: Api Reference - Application
+title: Application
+description: HTTP Reference - Application
 icon: angle-right
 page: 2
-category: API Reference
+category: HTTP Reference
 template: one-column-with-toc.mustache
-source: api-reference/application-api.md
+source: http-reference/application.md
 tags:
-  - apisearch reference
   - http
-  - json
+  - reference
+  - application
 ---
 
 # Application API
@@ -384,27 +384,3 @@ curl -XGET "http://localhost:8100/v1/tokens?app_id={{ your_app_id }}&token={{ yo
 
 This endpoint will return an array of [Token](/api-reference/model.html#token)
 objects.
-
-## Check Health
-
-By using this endpoint you will be able to check the service statuses and memory usage.
-
-```bash
-curl -XGET "http://localhost:8100/health?app_id={{ your_app_id }}&token={{ your_token }}"
-```
-
-This endpoint will return an array like below: 
-
-```
-{
-    "status": {
-        "elasticsearch": "green",
-        "redis": true
-    },
-    "process": {
-        "memory_used": 6867528
-    }
-}
-```
-
-## Ping
