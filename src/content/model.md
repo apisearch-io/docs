@@ -137,8 +137,8 @@ const index = Index.createFromArray({
 
 Some links of interest
 
-* [Api Reference - AppUUID](/api-reference/model.html#appuuid)
-* [Api Reference - ItemUUID](/api-reference/model.html#itemuuid)
+* [Model - AppUUID](/model.html#appuuid)
+* [Model - ItemUUID](/model.html#itemuuid)
 
 ## ItemUUID
 

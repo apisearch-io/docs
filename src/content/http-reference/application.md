@@ -36,9 +36,9 @@ This is the endpoint reference
     - token, **required with permissions** 
     
 The body of the endpoint should be an array with one required element, a
-[IndexUUID](/api-reference/model.html#indexuuid) object as value under key
+[IndexUUID](/model.html#indexuuid) object as value under key
 `index`, and an optional position under key `config` with a 
-[Config](/api-reference/model.html#config) object as value.
+[Config](/model.html#config) object as value.
 
 This is a write-only endpoint, and eventually, all write only endpoints could be
 processed in an asynchronous way
@@ -97,7 +97,7 @@ no indices created, this action returns empty array.
 
 Here some related model objects you may know.
 
-- [Api Client - Index Model](/api-reference/model.html#index)
+- [Api Client - Index Model](/model.html#index)
 
 This is the endpoint reference
 
@@ -193,7 +193,7 @@ This is the endpoint reference
     - token, **required with permissions** 
     
 The body of the endpoint should be an array with one optional position under
-key `config` with a [Config](/api-reference/model.html#config) object as value.
+key `config` with a [Config](/model.html#config) object as value.
 
 This is a write-only endpoint, and eventually, all write only endpoints could be
 processed in an asynchronous way
@@ -271,7 +271,7 @@ This is the endpoint reference
     - token, **required with permissions** 
     
 The body of the endpoint should be an array with one position with key `token`
-and a [Token](/api-reference/model.html#token) object as value.
+and a [Token](/model.html#token) object as value.
 
 This is a write-only endpoint, and eventually, all write only endpoints could be
 processed in an asynchronous way
@@ -314,7 +314,7 @@ This is the endpoint reference
     - token, **required with permissions** 
     
 The body of the endpoint should be an array with one position with key `token`
-and a [TokenUUID](/api-reference/model.html#tokenuuid) object as value.
+and a [TokenUUID](/model.html#tokenuuid) object as value.
 
 This is a write-only endpoint, and eventually, all write only endpoints could be
 processed in an asynchronous way
@@ -382,5 +382,5 @@ default values are created.
 curl -XGET "http://localhost:8100/v1/tokens?app_id={{ your_app_id }}&token={{ your_token }}"
 ```
 
-This endpoint will return an array of [Token](/api-reference/model.html#token)
+This endpoint will return an array of [Token](/model.html#token)
 objects.

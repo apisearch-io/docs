@@ -22,8 +22,8 @@ using these endpoints.
 By using this endpoint you will be able to add some items in your index.
 Here some related model objects you may know.
 
-- [Api Reference - Item](http://docs.apisearch.io/api-reference/model.html#item)
-- [Api Reference - ItemUUID](http://docs.apisearch.io/api-reference/model.html#itemuuid)
+- [Model - Item](/model.html#item)
+- [Model - ItemUUID](/model.html#itemuuid)
 
 This is the endpoint reference
 
@@ -36,7 +36,7 @@ This is the endpoint reference
     - token, **required with permissions** 
     
 The body of this endpoint is an array with one optional position with 
-key `items` and an array of [Item](/api-reference/model.html#item) objects as
+key `items` and an array of [Item](/model.html#item) objects as
 value.
 
 This is a write-only endpoint, and eventually, all write only endpoints could be
@@ -85,8 +85,8 @@ curl -XPOST "http://localhost:8100/v1/items?app_id={{ your_app_id }}&index={{ yo
 By using this endpoint you will be able to delete some existing items from your
 index. Here some related model objects you may know.
 
-- [Api Reference - Item](http://docs.apisearch.io/api-reference/model.html#item)
-- [Api Reference - ItemUUID](http://docs.apisearch.io/api-reference/model.html#itemuuid)
+- [Model - Item](/model.html#item)
+- [Model - ItemUUID](/model.html#itemuuid)
 
 This is the endpoint reference
 
@@ -99,7 +99,7 @@ This is the endpoint reference
     - token, **required with permissions** 
     
 The body of this endpoint is an array with one optional position with 
-key `items` and an array of [ItemUUID](/api-reference/model.html#itemuuid) 
+key `items` and an array of [ItemUUID](/model.html#itemuuid) 
 objects as value.
 
 This is a write-only endpoint, and eventually, all write only endpoints could be
@@ -144,10 +144,10 @@ This is the endpoint reference
     
 By using this endpoint you will always work with two objects.
 
-With the first one, a [Query](/api-reference/model.html#query) instance, you
+With the first one, a [Query](/model.html#query) instance, you
 will be able to select all these Items that you want to change at a time. This
 parameter key will be `query`. With the second one, a 
-[Changes](/api-reference/model.html#changes) instance, you will be able to apply 
+[Changes](/model.html#changes) instance, you will be able to apply 
 one or more changes to the result of the previous query. This parameter key will 
 be `changes`.
 

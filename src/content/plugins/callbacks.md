@@ -67,7 +67,7 @@ apisearch_plugin_callbacks:
 
 Your endpoint will receive exactly the same query that the system has received.
 You can check this format in the
-[Query Api Reference](/api-reference/search-api.html#query).
+[Query HTTP Reference](/http-reference/search.html#query).
 Your endpoint should return exactly the same body than has received.
 
 ## Query - after handler
@@ -108,7 +108,7 @@ apisearch_plugin_callbacks:
 
 Your endpoint will receive exactly the same array of items that the system has
 received. You can check this format in the
-[Query Api Reference](/api-reference/search-api.html#index-items).
+[Index Items HTTP Reference](/http-reference/index.html#index-items).
 Your endpoint should return exactly the same body than has received.
 
 ## AddToken - before handler
@@ -129,7 +129,7 @@ apisearch_plugin_callbacks:
 
 Your endpoint will receive exactly the same Token that the system has received. 
 You can check this format in the
-[Query Api Reference](/api-reference/application-api.html#add-token).
+[Add Token HTTP Reference](/http-reference/application.html#add-token).
 Your endpoint should return exactly the same body than has received.
 
 ## More to be added

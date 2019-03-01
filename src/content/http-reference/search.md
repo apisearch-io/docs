@@ -21,7 +21,7 @@ Search your items by using these endpoints.
 By using this endpoint you will make a simple query to one or several indices in
 an existing app. Here some related model objects you may know.
 
-- [Api Reference - Query](/api-reference/model.html#query)
+- [Model - Query](/model.html#query)
 - [Api Client - Building a Query](/api-client/query.html#building-a-query)
 
 This is the endpoint reference
@@ -35,7 +35,7 @@ This is the endpoint reference
     - token, **required with permissions** 
     
 The body of the endpoint should be an array with one optional position with 
-key `query` and a [Query](/api-reference/model.html#query) 
+key `query` and a [Query](/model.html#query) 
 object as value.
 
 You can try this endpoint by using this curl snippet. As you can see, you should
@@ -61,4 +61,4 @@ Content-Type header.
 curl -XGET -H "Content-Type: application/json" "http://localhost:8100/v1?app_id={{ your_app_id }}&index={{ your_index }}&token={{ your_token }}"
 ```
 
-This endpoint will return a [Result](/api-reference/model.html#result) object.
+This endpoint will return a [Result](/model.html#result) object.
