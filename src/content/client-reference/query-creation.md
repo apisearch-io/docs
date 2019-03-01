@@ -21,7 +21,6 @@ between our project and the server by just using some object methods, and by
 using a single pattern called builder.
 
 - [Model: Query](/model.html#query)
-- [Model: QueryUUID](/model.html#queryuuid)
 
 ## Building a Query
 
