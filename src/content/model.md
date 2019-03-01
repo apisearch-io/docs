@@ -135,11 +135,6 @@ const index = Index.createFromArray({
 });
 ```
 
-Some links of interest
-
-* [Model - AppUUID](/model.html#appuuid)
-* [Model - ItemUUID](/model.html#itemuuid)
-
 ## ItemUUID
 
 ItemUUID reference. The composition of this object should be unique in your
@@ -167,11 +162,6 @@ $itemUUID = ItemUUID::createFromArray([
   "type": "product"
 }
 ```
-
-Some links of interest
-
-* [Api Client - Item](/api-client/model.html#item)
-* [Api Client - ItemUUID](/api-client/model.html#itemuuid)
 
 ## Item
 
@@ -316,11 +306,6 @@ $item = Item::createFromArray([
 }
 ```
 
-Some links of interest
-
-* [Api Client - Item](/api-client/model.html#item)
-* [Api Client - ItemUUID](/api-client/model.html#itemuuid)
-
 ## User
 
 User reference. The composition of this object should represent one and
@@ -356,10 +341,6 @@ $user = User::createFromArray([
   }
 }
 ```
-
-Some links of interest
-
-* [Api Client - Building a Query](/api-client/query.html#building-a-query)
 
 ## Interaction
 
@@ -494,11 +475,6 @@ $tokenUUID = TokenUUID::createFromArray([
   "id": "aaaa"
 }
 ```
-
-Some links of interest
-
-* [Api Client - Building a Query](/api-client/query.html#building-a-query)
-* [Api Client - User query](/api-client/query.html#user-query)
 
 ## Token
 
@@ -729,11 +705,6 @@ $aggregation = Query\Aggregation::createFromArray([
 }
 ```
 
-Some links of interest
-
-* [Building a Query](/api-client/query.html#building-a-query)
-* [Query aggregations](/api-client/query.html#aggregations)
-
 ## Filter
 
 Filter reference. Used in Query repository.
@@ -768,12 +739,6 @@ $filter = Filter::createFromArray([
 }
 ```
 
-Some links of interest
-
-* [Building a Query](/api-client/query.html#building-a-query)
-* [Query filters](/api-client/query.html#filters)
-* [Filter types](/api-client/query.html#filter-types)
-
 ## ScoreStrategy
 
 Score Strategy reference. Used in Query Repository
@@ -800,11 +765,6 @@ $scoreStrategy = ScoreStrategy::createFromArray([
   "function": "_score + 10"
 }
 ```
-
-Some links of interest
-
-* [Building a Query](/api-client/query.html#building-a-query)
-* [Relevance Strategy](/api-client/query.html#relevance-strategy)
 
 ## SortBy
 
@@ -845,12 +805,6 @@ $sortBy = SortBy::createFromArray([
   }
 }
 ```
-
-Some links of interest
-
-* [Building a Query](/api-client/query.html#building-a-query)
-* [Sort by field](/api-client/query.html#sort-by-field)
-* [Sort randomly](/api-client/query.html#sort-randomly)
 
 ## Query
 
@@ -943,11 +897,6 @@ $query = Query::createFromArray([
 }
 ```
 
-Some links of interest
-
-* [Building a Query](/api-client/query.html#building-a-query)
-* [Enabling Suggestions](/api-client/query.html#enabling-suggestions)
-
 ## Event
 
 Event reference.
@@ -983,11 +932,6 @@ $event = Event::createFromArray([
   "occurred_on": "{...}"
 }
 ```
-
-Some links of interest
-
-* [Event Object](/api-client/event.html#event-object)
-* [Event Types](/api-client/event.html#event-types)
 
 ## Log
 
@@ -1060,11 +1004,6 @@ $counter = Counter::createFromArray([
 }
 ```
 
-Some links of interest
-
-* [Api Client - Result](/api-client/result.html)
-* [Api Client - Aggregation Counter](/api-client/result.html#aggregation-counter)
-
 ## ResultAggregation
 
 Result aggregation reference. Used for Results.
@@ -1120,12 +1059,6 @@ $resultAggregation = Result\Aggregation::createFromArray([
 }
 ```
 
-Some links of interest
-
-* [Api Client - Result](/api-client/result.html)
-* [Api Client - Reading Aggregations](/api-client/result.html#reading-aggregations)
-* [Api Client - Aggregation Counter](/api-client/result.html#aggregation-counter)
-
 ## ResultAggregations
 
 Result aggregations reference. Used for Results.
@@ -1154,12 +1087,6 @@ $aggregations = Aggregations::createFromArray([
   "aggregations": []
 }
 ```
-
-Some links of interest
-
-* [Api Client - Result](/api-client/result.html)
-* [Api Client - Reading Aggregations](/api-client/result.html#reading-aggregations)
-* [Api Client - Aggregation Counter](/api-client/result.html#aggregation-counter)
 
 ## Result
 
@@ -1221,8 +1148,3 @@ $result = Result::createFromArray([
   "suggests": ["product"]
 }
 ```
-
-Some links of interest
-
-* [Api Client - Result](/api-client/result.html)
-* [Api Client - Reading Suggestions](/api-client/result.html#reading-suggestions)

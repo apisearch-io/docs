@@ -21,10 +21,15 @@ Apisearch is easy. So easy.
 
 You will find a list of Apisearch integrations developed by us.
 
-## [PHP Client](api-client.html)
+## PHP Client
 - Source - [Github](https://github.com/apisearch-io/php-client)
 - Current versions - [0.1.*](https://github.com/apisearch-io/php-client/releases)
-- Status - [![Build Status](https://travis-ci.org/apisearch-io/php-client.svg?branch=master)](https://travis-ci.org/apisearch-io/php-client)
+- Status - [![CircleCI](https://circleci.com/gh/apisearch-io/php-client/tree/master.svg?style=svg)](https://circleci.com/gh/apisearch-io/php-client/tree/master)
+
+## Javascript Client
+- Source - [Github](https://github.com/apisearch-io/javascript-client)
+- Current versions - [0.1.*](https://github.com/apisearch-io/javascript-client/releases)
+- Status - [![CircleCI](https://circleci.com/gh/apisearch-io/javascript-client/tree/master.svg?style=svg)](https://circleci.com/gh/apisearch-io/javascript-client/tree/master)
     
 ## [Symfony bundle](integrations/symfony-bundle.html)
 - Source - [Github](https://github.com/apisearch-io/apisearch-bundle)
@@ -33,10 +38,10 @@ You will find a list of Apisearch integrations developed by us.
 ## Roadmap
 
 We encourage you to develop your own extensions for Apisearch. Make sure you
-understand how our API Works by reading our [Api Client](api-client.html) and
-in case you develop something related to the project, please, send us an email
-to *hello+docs@puntmig.com* to make sure you have the needed support and our
-help.
+understand how our API Works by reading our 
+[Client Reference](client-reference.html) and in case you develop something 
+related to the project, please, send us an email to *hello+docs@puntmig.com* to 
+make sure you have the needed support and our help.
 
 We have a very clear policy about supported plugins. If you want to develop a
 third party plugin, and we consider that the code quality is enough to be

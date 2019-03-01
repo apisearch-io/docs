@@ -22,7 +22,7 @@ By using this endpoint you will make a simple query to one or several indices in
 an existing app. Here some related model objects you may know.
 
 - [Model - Query](/model.html#query)
-- [Api Client - Building a Query](/api-client/query.html#building-a-query)
+- [Client Reference - Query creation](/client-reference/query-creation.html)
 
 This is the endpoint reference
 

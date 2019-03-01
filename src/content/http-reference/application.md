@@ -22,9 +22,6 @@ interact with them.
 
 By using this endpoint you will be able to create an empty index. If the index
 is already created, then this action will be skipped and nothing will happen.
-Here some related model objects you may know.
-
-- [Api Client - Index Repository](/api-client/repository.html#index)
 
 This is the endpoint reference
 
@@ -120,10 +117,6 @@ By using this endpoint you will be able to delete an existing index. If the
 index is not previously created, then this action will be skipped and nothing
 will happen.
 
-Here some related model objects you may know.
-
-- [Api Client - Delete Repository](/api-client/repository.html#delete)
-
 This is the endpoint reference
 
 - Endpoint name - v1-index-delete
@@ -178,9 +171,6 @@ curl -XPOST "http://localhost:8100/v1/index/reset?app_id={{ your_app_id }}&index
 
 By using this endpoint you will be able to configure an existing index. If the
 index does not exist, then this action will be skipped and nothing will happen.
-Here some related model objects you may know.
-
-- [Api Client - Index Repository](/api-client/repository.html#index)
 
 This is the endpoint reference
 
