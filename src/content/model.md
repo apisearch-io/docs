@@ -502,7 +502,8 @@ Some links of interest
 
 ## Token
 
-Token reference
+Token reference. Inside the metadata array, some arrays will be able to add and
+define some positions. The type will up to the plugin.
 
 ```
 {
@@ -511,12 +512,10 @@ Token reference
   "created_at": !int,
   "updated_at": !int,
   "indices": ?string[],
-  "seconds_valid": ?int (default 0/Infinite),
-  "max_hits_per_query": ?int (default 0/Infinite),
-  "http_referrers": ?string[],
   "endpoints": ?string[],
   "plugins": ?string[],
-  "ttl": ?int (default 60 seconds)
+  "ttl": ?int (default 60 seconds),
+  "metadata": mixed[]
 }
 ```
 
@@ -535,12 +534,6 @@ $token = Token::createFromArray([
         'default',
         'default2',
     ],
-    'seconds_valid' => 3600,
-    'max_hits_per_query' => 10,
-    'http_referrers' => [
-        'apisearch.io',
-        'apisearch.com
-    ],
     'endpoints' => [
         'v1-query',
     ],
@@ -548,7 +541,14 @@ $token = Token::createFromArray([
         'language_split',
         'metadata_fields'
     ],
-    'ttl' => 3600
+    'ttl' => 3600,
+    'metadata' => [
+        'seconds_valid' => 3600,
+        'http_referrers' => [
+            'apisearch.io',
+            'apisearch.com
+        ],
+    ]
 ]);
 ```
 ```json
@@ -563,18 +563,19 @@ $token = Token::createFromArray([
     "default",
     "default2"
   ],
-  "seconds_valid": 3600,
-  "max_hits_per_query": 10,
-  "http_referrers": [
-    "apisearch.io",
-    "apisearch.com"
-  ],
   "endpoints": ["v1-query"],
   "plugins": [
     "language_split",
     "metadata_fields"
   ],
-  "ttl": 3600
+  "ttl": 3600,
+  "metadata": [
+    "seconds_valid": 3600,
+    "http_referrers": [
+      "apisearch.io",
+      "apisearch.com"
+    ]
+  ]
 }
 ```
 
