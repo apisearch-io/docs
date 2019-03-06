@@ -545,13 +545,13 @@ $token = Token::createFromArray([
     "metadata_fields"
   ],
   "ttl": 3600,
-  "metadata": [
+  "metadata": {
     "seconds_valid": 3600,
     "http_referrers": [
       "apisearch.io",
       "apisearch.com"
     ]
-  ]
+  }
 }
 ```
 
@@ -739,6 +739,29 @@ $filter = Filter::createFromArray([
 }
 ```
 
+## ScoreStrategies
+
+A set of ScoreStrategy instances, and the way they are related
+
+```
+{
+  "score_strategies": ?ScoreStrategy[],
+  "score_mode": ?string
+}
+```
+
+You can add as many ScoreStrategy instances you want. Th score mode will
+determine how the final value is built having each one of the specific values
+given by each of the ScoreStrategy definitions.
+
+```php
+ScoreStrategies::createEmpty(ScoreStrategies::SUM)
+    ->addScoreStrategy($scoreStrategy1)
+    ->addScoreStrategy($scoreStrategy2
+;
+
+```
+
 ## ScoreStrategy
 
 Score Strategy reference. Used in Query Repository
@@ -754,10 +777,16 @@ Some examples for you. Feel free to change the language of your examples in the
 top right of the website.
 
 ```php
-$scoreStrategy = ScoreStrategy::createFromArray([
+ScoreStrategy::createFromArray([
     'type' => ScoreStrategy::CUSTOM_FUNCTION,
     'function' => '_score + 10'
 ]);
+```
+```javascript
+ScoreStrategy.createFromArray({
+    'type': CUSTOM_FUNCTION,
+    'function': "_score + 10"
+})
 ```
 ```json
 {
@@ -777,7 +806,7 @@ Sortby reference. Used in Query Repository
       "field": ?string
       "filter": ?Filter,
       "mode": ?string,
-      "order: !string,
+      "order": !string,
       "function": ?string,
       "coordinate": ?Coordinate,
     }
@@ -831,8 +860,10 @@ Query reference.
   "highlight_enabled": ?bool (default false),
   "aggregations_enabled": ?bool (default true),
   "filter_fields": ?string[],
-  "score_strategy": ?ScoreStrategy,
+  "score_strategies": ?ScoreStrategies,
+  "fuzziness": ?float|string|string[],
   "user": ?User,
+  "subqueries": ?Query[],
   "items_promoted": ?ItemUUID[]
 }
 ```
@@ -861,11 +892,14 @@ $query = Query::createFromArray([
             'limit' => 10
         ]
     ],
-    'sort' => 'type' => SortBy::TYPE_FIELD,
-        'mode' => SortBy::MODE_AVG,
-        'indexed_metadata.category_id' => [
-        'order': SortBy::ASC
+    'sort' => [
+        [
+            'type' => SortBy::TYPE_FIELD,
+            'field' => 'indexed_metadata.category_id',
+            'order': SortBy::ASC
+        ]
     ],
+    'fuziness': 'AUTO',
     'page' => 1,
     'size => 10
 ]);
@@ -891,13 +925,14 @@ $query = Query::createFromArray([
       "limit": 10
     }
   ],
-  "sort": {
-    "type": 1,
-    "mode": "avg",
-    "indexed_metadata.category_id": {
+  "sort": [
+    {
+      "type": "field",
+      "field": "indexed_metadata.category_id",
       "order": "asc"
     }
-  },
+  ],
+  "fuziness": "AUTO",
   "page": 1,
   "size": 10
 }
@@ -935,39 +970,6 @@ $event = Event::createFromArray([
   "name": "QueryWasMade",
   "payload": "{...}",
   "indexable_payload": "{...}",
-  "occurred_on": "{...}"
-}
-```
-
-## Log
-
-Log reference
-
-```
-{
-  "id": !string,
-  "type": !string,
-  "payload": !string,
-  "occurred_on": !int
-}
-```
-
-Some examples for you. Feel free to change the language of your examples in the
-top right of the website.
-
-```php
-$log = Log::createFromArray([
-    'id' => '3478378',
-    'type' => Log::TYPE_FATAL,
-    'payload' => "{...}",
-    "occurred_on" => 34782947389,
-]);
-```
-```json
-{
-  "id": "3478378",
-  "type": "fatal",
-  "payload": "{...}",
   "occurred_on": "{...}"
 }
 ```
