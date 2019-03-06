@@ -773,13 +773,13 @@ Sortby reference. Used in Query Repository
 ```
 [
     {
-      "type": ?int (default 1/field),
+      "type": !string,
+      "field": ?string
       "filter": ?Filter,
-      "mode": !string
-      "indexed_metadata.%field_name%": {
-        "order": !string,
-        "coordinate": ?Coordinate
-      }
+      "mode": ?string,
+      "order: !string,
+      "function": ?string,
+      "coordinate": ?Coordinate,
     }
 ]
 ```
@@ -790,19 +790,25 @@ top right of the website.
 ```php
 $sortBy = SortBy::createFromArray([
     'type' => SortBy::TYPE_FIELD,
+    'field' => 'indexed_metadata.category_id',
     'mode' => SortBy::MODE_AVG,
-    'indexed_metadata.category_id' => [
-        'order': SortBy::ASC
-    ]
+    'order' => SortBy::ASC
 ]);
+```
+```javascript
+sortBy = SortBy.createFromArray({
+    "type": "field",
+    "field": "indexed_metadata.category_id",
+    "mode": "avg",
+    "order": "asc"
+})
 ```
 ```json
 {
-  "type": 1,
+  "type": "field",
+  "field": "indexed_metadata.category_id",
   "mode": "avg",
-  "indexed_metadata.category_id": {
-    "order": "asc"
-  }
+  "order": "asc"
 }
 ```
 

@@ -9,6 +9,7 @@ source: client-reference/query-creation.md
 languages: 
   - php
   - javascript
+  - json
 tags:
   - query creation
 ---
@@ -33,9 +34,7 @@ $query = Query::create("something");
 ```
 
 ```javascript
-import {Query} from "apisearch";
-
-const query = Query.create('something'); 
+query = Query.create('something');
 ```
 
 That simple. This small query will look for all entities in the repository,
@@ -59,9 +58,7 @@ $query = Query::create(
 );
 ```
 ```javascript
-import {Query} from "apisearch";
-
-let query = Query.create(
+query = Query.create(
     'something',  // The query string
     2,            // The page we want to retrieve
     100           // How many items do we want per page?
@@ -82,8 +79,6 @@ $query = Query::createMatchAll();
 ```
 
 ```javascript
-import {Query} from "apisearch";
-
 const emptyStringQuery = Query.create('');
 const querySearchEverything = Query.createMatchAll();
 ```
@@ -109,13 +104,11 @@ $query = Query::createByUUIDs([
 ```
 
 ```javascript
-import {Query, ItemUUID} from "apisearch";
-
-const queryOneUUID = Query.createByUUID(
+queryOneUUID = Query.createByUUID(
     new ItemUUID('12', 'book')
 );
 
-const queryManyUUIDs = Query.createByUUID(
+queryManyUUIDs = Query.createByUUID(
     new ItemUUID('12', 'book'), 
     new ItemUUID('332', 'book'), 
     new ItemUUID('332', 'book')
@@ -145,9 +138,7 @@ $query = Query::createMatchAll()
 ```
 
 ```javascript
-import {Query, ItemUUID} from "apisearch";
-
-let query = Query
+query = Query
     .createMatchAll()
     .setFields([
         'metadata.*',
@@ -242,9 +233,7 @@ $query = Query::createMatchAll()
 ```
 
 ```javascript
-import {Query} from "apisearch";
-
-const query = Query.createMatchAll()
+query = Query.createMatchAll()
     .filterUniverseByTypes(['A', 'B']);
 ```
 
@@ -263,9 +252,7 @@ $query = Query::createMatchAll()
     );
 ```
 ```javascript
-import {Query} from "apisearch";
-
-const query = Query
+query = Query
     .createMatchAll()
     .filterUniverseByTypes(['A', 'B'])
     .filterBy(
@@ -298,9 +285,7 @@ $query = Query::createMatchAll()
 ```
 
 ```javascript
-import {Query} from "apisearch";
-
-const query = Query
+query = Query
     .createMatchAll()
     .filterUniverseByTypes(['A', 'B']);
 ```
@@ -318,9 +303,7 @@ $query = Query::createMatchAll()
     ->filterByTypes(['A']);
 ```
 ```javascript
-import {Query} from "apisearch";
-
-const query = Query
+query = Query
     .createMatchAll()
     .filterUniverseByTypes(['A', 'B'])
     .filterByTypes(['A']);
@@ -356,9 +339,7 @@ $query = Query::createMatchAll()
 ```
 
 ```javascript
-import {Query} from "apisearch";
-
-const query = Query
+query = Query
   .createMatchAll()
   .filterUniverseByTypes(['A', 'B'])
   .filterByTypes(['A', 'B']);
@@ -382,9 +363,7 @@ $query = Query::createMatchAll()
 ```
 
 ```javascript
-import {Query} from "apisearch";
-
-const query = Query
+query = Query
   .createMatchAll()
   .filterByTypes(['A', 'B']);
 ```
@@ -413,9 +392,7 @@ $query = Query::createMatchAll()
 ```
 
 ```javascript
-import {Query} from "apisearch";
-
-const query = Query
+query = Query
     .createMatchAll()
     .filterByTypes(
         ['A', 'B'],
@@ -438,9 +415,7 @@ $query = Query::createMatchAll()
 ```
 
 ```javascript
-import {Query} from "apisearch";
-
-const query = Query
+query = Query
     .filterByTypes(
         ['A', 'B'],
         true,
@@ -461,9 +436,7 @@ $query = Query::createMatchAll()
 ```
 
 ```javascript
-import {Query} from "apisearch";
-
-const query = Query
+query = Query
     .createMatchAll()
     .filterUniverseByIds(['10', '11', '12']);
 ```
@@ -482,9 +455,7 @@ $query = Query::createMatchAll()
 ```
 
 ```javascript
-import {Query} from "apisearch";
-
-const query = Query
+query = Query
     .createMatchAll()
     .filterByIds(['10', '11', '12']);
 ```
@@ -508,9 +479,7 @@ $query = Query::createMatchAll()
 ```
 
 ```javascript
-import {Query, Coordinate, CoordinateAndDistance} from "apisearch";
-
-const query = Query
+query = Query
     .createMatchAll()
     .filterUniverseByLocation(
         new CoordinateAndDistance(
@@ -543,13 +512,11 @@ $query = Query::createMatchAll()
 ```
 
 ```javascript
-import {Query} from "apisearch";
-
 // Dates Atom 
 const from =  (new Date('01 October 2017 08:00 UTC')).toISOString();
 const to =  (new Date('01 October 2017 20:00 UTC')).toISOString();
 
-const query = Query
+Query
     .createMatchAll()
     .filterUniverseByRange(
         'price', 
@@ -558,7 +525,7 @@ const query = Query
     )
     .filterUniverseByDateRange(
         'created_at', 
-        [`${from}..${to}`], 
+        [from + '..' + to], 
         'FILTER_MUST_ALL'
     );
 ```
@@ -587,9 +554,7 @@ Query::createMatchAll()
 ```
 
 ```javascript
-import {Query} from "apisearch";
-
-const query = Query
+query = Query
     .createMatchAll()
     .filterByRange(
         'price',
@@ -631,9 +596,7 @@ Query::createMatchAll()
 ```
 
 ```javascript
-import {Query} from "apisearch";
-
-const query = Query
+query = Query
     .createMatchAll()
     .filterByRange(
         'price',
@@ -668,9 +631,7 @@ $query = Query::createMatchAll()
     );
 ```
 ```javascript
-import {Query} from "apisearch";
-
-const query = Query
+query = Query
     .createMatchAll()
     .filterUniverseBy(
         'brand',
@@ -696,9 +657,7 @@ Query::createMatchAll()
     );
 ```
 ```javascript
-import {Query} from "apisearch";
-
-const query = Query
+query = Query
     .createMatchAll()
     .filterBy(
         'filtername',
@@ -723,9 +682,7 @@ Query::createMatchAll()
 ```
 
 ```javascript
-import {Query} from "apisearch";
-
-const query = Query
+query = Query
     .createMatchAll()
     .filterBy(
         'filtername',
@@ -758,9 +715,7 @@ Query::createMatchAll()
 ```
 
 ```javascript
-import {Query} from "apisearch";
-
-const query = Query
+query = Query
     .createMatchAll()
     .filterBy(
         'filtername',
@@ -806,9 +761,7 @@ Query::createMatchAll()
 ```
 
 ```javascript
-import {Query} from "apisearch";
-
-const query = Query
+query = Query
     .createMatchAll()
     .aggregateBy(
         'fieldname',
@@ -834,9 +787,7 @@ Query::createMatchAll()
 ```
 
 ```javascript
-import {Query} from "apisearch";
-
-const query = Query
+query = Query
     .createMatchAll()
     .aggregateBy(
         'fieldname',
@@ -872,9 +823,7 @@ Query::createMatchAll()
 ```
 
 ```javascript
-import {Query} from "apisearch";
-
-const query = Query
+query = Query
     .createMatchAll()
     .aggregateBy(
         'fieldname',
@@ -901,9 +850,7 @@ Query::create('')
 ```
 
 ```javascript
-import {Query} from "apisearch";
-
-const query = Query
+query = Query
   .create('')
   .disableAggregations()
 ;
@@ -923,11 +870,8 @@ Query::createMatchAll()
     ->disabledAggregations()
 ;
 ```
-
 ```javascript
-import {Query} from "apisearch";
-
-const query = Query
+query = Query
     .createMatchAll()
     .filterByTypes(
         ['product'],
@@ -937,7 +881,7 @@ const query = Query
 ;
 ```
 
-## Sort by field
+## Sort by
 
 You can sort your results, of course. The Query object provides one method for
 this, and the SortBy object defines a prebuilt set of sorting types ready to be
@@ -949,22 +893,26 @@ use Apisearch\Query\Query;
 Query::createMatchAll()
     ->sortBy(
         SortBy::create()
-            ->byFieldValue('manufacturer', 'asc')
-    );
-
-Query::createMatchAll()
-    ->sortBy(
-        SortBy::create()
-            ->byFieldValue('name', 'asc')
-    );
-
-Query::createMatchAll()
-    ->sortBy(
-        SortBy::create()
-            ->byFieldValue('updated_at', 'desc')
+            ->byFieldValue('manufacturer', SortBy::ASC)
     );
 ```
 ```javascript
+Query.createMatchAll()
+    .sortBy(
+        SortBy.create()
+            .byFieldValue('manufacturer', SORT_BY_ASC)
+    )
+```
+```json
+{
+  "sort": [
+    {
+      "type": "field",
+      "field": "indexed_metadata.manufacturer",
+      "order": "asc"
+    }
+  ]
+}
 ```
 
 We can use prebuilt sorts. The first one is the one applied by default when no
@@ -985,10 +933,47 @@ Query::createMatchAll()
 ;
 ```
 ```javascript
+Query.createMatchAll()
+    .sortBy(
+        SortBy.create()
+            .byValue(SORT_BY_SCORE)
+            .byValue(SORT_BY_ID_ASC)
+            .byValue(SORT_BY_ID_DESC)
+            .byValue(SORT_BY_TYPE_ASC)
+            .byValue(SORT_BY_TYPE_DESC)
+    )
+```
+```json
+{
+  "sort": [
+    {
+      "type": "score"
+    },
+    {
+      "type": "field",
+      "field": "uuid.id",
+      "order": "asc"
+    },
+    {
+      "type": "field",
+      "field": "uuid.id",
+      "order": "desc"
+    },
+    {
+      "type": "field",
+      "field": "uuid.type",
+      "order": "asc"
+    },
+    {
+      "type": "field",
+      "field": "uuid.type",
+      "order": "desc"
+    }
+  ]
+}
 ```
 
 When you define a sort element, you override the existing one.
-
 
 ## Sort by location
 
@@ -999,12 +984,19 @@ that the first one's first parameter is a `Coordinate` instance. Therefore,
 the second parameter is the query text.
 
 ```php
-$query = Query::createLocated(
-    new Coordinate(40.0, -70.0),
-    ''
-);
+$query = Query::createLocated(new Coordinate(40.0, -70.0));
 ```
 ```javascript
+query = Query.createLocated(new Coordinate(40.0, -70.0));
+```
+```json
+{
+  "q": "",
+  "coordinate": {
+    "lat": 40.0,
+    "lon": -70.0
+  }
+}
 ```
 
 Because the only way that could make sense when sorting by location is
@@ -1014,18 +1006,45 @@ location in an *asc* mode.
 ```php
 use Apisearch\Query\Query;
 
-$query = Query::createLocated(
-        new Coordinate(40.0, -70.0), 
-        ''
-    )
+$coordinate = 
+Query::createLocated(new Coordinate(40.0, -70.0))
     ->sortBy(
         SortBy::create()
             ->byValue(SortBy::LOCATION_KM_ASC)
             ->byValue(SortBy::LOCATION_MI_ASC)
+            ->setCoordinate(
     )
 ;
 ```
 ```javascript
+Query.createLocated(new Coordinate(40.0, -70.0))
+    .sortBy(
+        SortBy.create()
+            .byValue(SORT_BY_LOCATION_KM_ASC)
+            .byValue(SORT_BY_LOCATION_MI_ASC)
+    );
+```
+```json
+{
+  "sort": [
+    {
+      "type": "distance",
+      "unit": "km",
+      "coordinate": {
+        "lat": 40.0,
+        "lon": -70.0
+      }
+    },
+    {
+      "type": "distance",
+      "unit": "mi",
+      "coordinate": {
+        "lat": 40.0,
+        "lon": -70.0
+      }
+    }
+  ]
+}
 ```
 
 Both sorting types return exactly the same results in the same order, but both
@@ -1040,7 +1059,6 @@ value.
 ```php
 $item->getDistance();
 ```
-
 
 ## Sort randomly
 
@@ -1057,6 +1075,21 @@ Query::createMatchAll()
 ;
 ```
 ```javascript
+Query.createMatchAll()
+    .sortBy(
+        SortBy.create()
+            .byValue(SORT_BY_RANDOM)
+    )
+;
+```
+```json
+{
+  "sort": [
+    {
+      "type": "random"
+    }
+  ]
+}
 ```
 
 ## Sort by nested field
@@ -1077,6 +1110,38 @@ Query::createMatchAll()
 ;
 ```
 ```javascript
+Query.createMatchAll()
+    .sortBy(
+        SortBy.create()
+            .byNestedField('category.id', SORT_BY_ASC, SORT_BY_MODE_MIN)
+            .byNestedField('manufacturer.id', SORT_BY_DESC, SORT_BY_MODE_MAX)
+            .byNestedField('articles.price', SORT_BY_DESC, SORT_BY_MODE_AVG)
+    )
+;
+```
+```json
+{
+  "sort": [
+    {
+      "type": "nested",
+      "field": "category.id",
+      "order": "asc",
+      "mode": "min"
+    },
+    {
+      "type": "nested",
+      "field": "manufacturer.id",
+      "order": "desc",
+      "mode": "max"
+    },
+    {
+      "type": "nested",
+      "field": "articles.price",
+      "order": "desc",
+      "mode": "avg"
+    }
+  ]
+}
 ```
 
 This sorting is a bit confusing when the relation between your item and this other object
@@ -1117,12 +1182,83 @@ Query::createMatchAll()
 ;
 ```
 ```javascript
+Query.createMatchAll()
+    .sortBy(
+        SortBy.create()
+            .byNestedFieldAndFilter(
+                'articles.price',
+                SORT_BY_DESC,
+                Filter.create(
+                    'articles.code',
+                    [10],
+                    FILTER_MUST_ALL,
+                    FILTER_TYPE_FIELD
+                )
+            )
+    )
+;
+```
+```json
+{
+  "sort": [
+    {
+      "type": "nested",
+      "field": "articles.price",
+      "order": "desc",
+      "filter": {
+        "field": "articles.code",
+        "values": [10],
+        "application_type": 4,
+        "filter_type": "field"
+      }
+    }
+  ]
+}
 ```
 
 That would make the trick. Before sorting by articles, the system will apply your filter.
 After that, will sort. Means that when we apply a filter we only get one result? Not at all.
 You could have many articles with code equals to 10, and after that you would sort by the average
 price.
+
+## Sort by function
+
+You can use `painless` to make your own custom sorting function.
+```php
+use Apisearch\Query\Query;
+
+Query::createMatchAll()
+    ->sortBy(
+        SortBy::create()
+            ->byFunction(
+                'doc["indexed_metadata.price"].value * doc["indexed_metadata.units"].value', 
+                SortBy::DESC
+            )
+    )
+;
+```
+```javascript
+Query.createMatchAll()
+    .sortBy(
+        SortBy.create()
+            .byFunction(
+                'doc["indexed_metadata.price"].value * doc["indexed_metadata.units"].value',
+                SORT_BY_DESC
+            )
+    )
+;
+```
+```json
+{
+  "sort": [
+    {
+      "type": "function",
+      "function": "doc['indexed_metadata.price'].value * doc['indexed_metadata.units'].value",
+      "order": "desc"
+    }
+  ]
+}
+```
 
 ## Filter fields
 
@@ -1333,13 +1469,11 @@ $query = Query::create('')
 ```
 
 ```javascript
-import {Query} from "apisearch";
-
-let query = Query
+Query
     .createMatchAll()
     .enableAggregations()
 ;
-query = Query
+Query
     .createMatchAll()
     .disableAggregations()
 ;
@@ -1367,13 +1501,12 @@ $query = Query::create('')
 ```
 
 ```javascript
-import {Query} from "apisearch";
-
-let query = Query
+Query
     .createMatchAll()
     .enableHighlights()
 ;
-query = Query
+
+Query
     .createMatchAll()
     .disableHighlights()
 ;
@@ -1402,9 +1535,7 @@ Query::createMatchAll()
 ```
 
 ```javascript
-import {Query, ItemUUID} from "apisearch";
-
-let query = Query
+Query
     .createMatchAll()
     .filterByTypes(
          ['product']
@@ -1439,9 +1570,7 @@ Query::createMatchAll()
 ```
 
 ```javascript
-import {Query, ItemUUID} from "apisearch";
-
-let query = Query
+Query
     .createMatchAll()
     .filterByTypes(
          ['product']
@@ -1450,7 +1579,7 @@ let query = Query
         new ItemUUID('10', 'product'),
         new ItemUUID('5', 'product'),
         new ItemUUID('100', 'product'),
-        new ItemUUID('21', 'product'),
+        new ItemUUID('21', 'product')
     )  
 ;
 ```
