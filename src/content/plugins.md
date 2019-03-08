@@ -5,7 +5,7 @@ icon: plug
 title: Plugins
 description: Apisearch plugins.
 category: Plugins
-template: one-column.mustache
+template: one-column-with-toc.mustache
 source: plugins.md
 languages: ~
 tags:
@@ -21,7 +21,7 @@ the software by only following some simple instructions.
 You will find some base plugins in the main server repository, and some other
 official plugins developed by our partners.
 
-## [Redis Metadata Fields](plugins/redis-metadata-fields.html)
+## [Redis Metadata Fields](plugins/redis-metadata-fields)
 Save your read-only fields in a key-value technology instead of storing it
 inside your search infrastructure. Populate your items with these values
 depending on your needs every moment.
@@ -29,13 +29,20 @@ depending on your needs every moment.
 - Current versions - [0.1.*](https://github.com/apisearch-io/search-server/releases)
 
 
-## [New Relic](plugins/new-relic.html)
+## [New Relic](plugins/new-relic)
 Integrate Apisearch with **New Relic** and improve your control over Apisearch.
 - Source - [Github](https://github.com/apisearch-io/search-server/tree/master/Plugin/NewRelic)
 - Current versions - [0.1.*](https://github.com/apisearch-io/search-server/releases)
 
 
-## [Callbacks](plugins/callbacks.html)
+## [RabbitMQ](plugins/rabbitmq)
+Integrate Apisearch with **RabbitMQ** and use it for you asynchronous commands
+and domain events.
+- Source - [Github](https://github.com/apisearch-io/search-server/tree/master/Plugin/RabbitMQ)
+- Current versions - [0.1.*](https://github.com/apisearch-io/search-server/releases)
+
+
+## [Callbacks](plugins/callbacks)
 Make additional callbacks before or after your calls. By doing them before you
 will be able to modify the input data, and by doing them after, you will be able
 to change the result value.
@@ -43,24 +50,30 @@ to change the result value.
 - Current versions - [0.1.*](https://github.com/apisearch-io/search-server/releases)
 
 
-## [Static Tokens](plugins/static-tokens.html)
+## [Static Tokens](plugins/static-tokens)
 Store your tokens as static values, and make their access something completely
 local. Avoid any external access.
 - Source - [Github](https://github.com/apisearch-io/search-server/tree/master/Plugin/StaticTokens)
 - Current versions - [0.1.*](https://github.com/apisearch-io/search-server/releases)
 
 
-## [Most Relevant Words](plugins/most-relevant-words.html)
+## [Most Relevant Words](plugins/most-relevant-words)
 Simplify some of your searchable metadata fields by applying some filters.
 Reduce the size of the fields by only keeping the most valuable words.
 - Source - [Github](https://github.com/apisearch-io/search-server/tree/master/Plugin/MostRelevantWords)
 - Current versions - [0.1.*](https://github.com/apisearch-io/search-server/releases)
 
 
-## [ELK](plugins/elk.html)
+## [ELK](plugins/elk)
 Send your domain events to a Redis queue, in order to be consumed by an ELK
 framework.
 - Source - [Github](https://github.com/apisearch-io/search-server/tree/master/Plugin/ELK)
+- Current versions - [0.1.*](https://github.com/apisearch-io/search-server/releases)
+
+
+## [Encoding](plugins/encoding)
+Encode your API responses with GZIP and Deflate
+- Source - [Github](https://github.com/apisearch-io/search-server/tree/master/Plugin/Encoding)
 - Current versions - [0.1.*](https://github.com/apisearch-io/search-server/releases)
     
 ## Enable a plugin
@@ -112,6 +125,15 @@ APISEARCH_ENABLED_PLUGINS="
     My\Own\Plugin\Namespace,
     My\Other\Plugin\Namespace
 "
+```
+
+Or even a short format if the plugin is placed in the main server distribution.
+Each plugin will show its own short format name.
+
+```
+APISEARCH_GOD_TOKEN=xxx
+APISEARCH_PING_TOKEN=xxx
+APISEARCH_ENABLED_PLUGINS="plugin1, plugin2"
 ```
 
 ### Enable plugins in your docker run
