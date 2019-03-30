@@ -160,7 +160,7 @@ curl 'http://localhost:8100/health?token={{ APISEARCH_GOD_TOKEN }}'
 At this point you might encounter some of these problems. Please, check all of
 them if you have any issue, and if any of them is not included in this list,
 please ping the organization in our 
-- [Ping us on our Gitter Channel](https://gitter.im/apisearch_io)
+- [Join us on slack](https://apisearch.slack.com) - or [Get an invitation](https://apisearch-slack.herokuapp.com/)
 - [Open an Issue on Github](https://github.com/apisearch-io/search-server/issues/new)
 - [Tweet us](https://twitter.com/apisearch_io)
 
@@ -170,7 +170,7 @@ please ping the organization in our
 > Apisearch server with the required APISEARCH_* environment values.
 
 > Docker is telling that some ports are already mapped by anyone else.  
-> This project exports these ports: **8100** as the balancer entrypoint (this
+> This project exports these ports: **8100** as the server entrypoint (this
 > value is defined as an environment value, feel free to change it),
 > **8200..8204** as the Apisearch enabled workers, **9200** as the Elasticsearch
 > port, and **6379** as the redis port.  
@@ -195,7 +195,7 @@ tutorial, we will use the internal commands placed in the same server by
 entering inside one of the server docker containers.
 
 ```
-docker exec -it apisearch.server.0 bash
+docker exec -it apisearch.server sh
 ```
 
 > From this point, all commands will be executed inside this container.
@@ -284,8 +284,7 @@ filter your indices by an specific application, you can define this application
 as well.
 
 ```
-bin/console apisearch-server:print-indices --env=prod
-bin/console apisearch-server:print-indices --app-id=marvel --env=prod
+bin/console apisearch-server:print-indices marvel --env=prod
 ```
 
 Finally, let's create some tokens for our application. As a simple information,
@@ -346,7 +345,7 @@ you list all your indices again, you will see a small change; the number of
 items inside the index.
 
 ```
-bin/console apisearch-server:print-indices --app-id=marvel --env=prod
+bin/console apisearch-server:print-indices marvel --env=prod
 ```
 
 This command, now, will output something like this
@@ -354,11 +353,11 @@ This command, now, will output something like this
 ```
 [Apisearch] Command started at Sun, 26 Aug 2018 00:07:57 +0000
 
-+--------+--------+-----------+
-| AppId  | Name   | Doc Count |
-+--------+--------+-----------+
-| marvel | comics | 11343     |
-+--------+--------+-----------+
++--------+--------+-----------+--------+-----+--------+----------+
+| UUID   | App ID | Doc Count | Size   | Ok? | shards | replicas |
++--------+--------+-----------+--------+-----+--------+----------+
+| comics | marvel | 11343     | 27.9mb | Yes | 1      | 0        |
++--------+--------+-----------+--------+-----+--------+----------+
 
 [Apisearch] Command finished in 10 milliseconds
 [Apisearch] Max memory used: 14680064 bytes

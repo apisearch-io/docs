@@ -30,5 +30,5 @@ placed in the top of the website.
 Furthermore, if you have any question related to specific cases, too specific to
 be placed in this section, feel free to use these channels.
 
-- [Apisearch Chat](https://gitter.im/apisearch_io/)
+- [Join us on slack](https://apisearch.slack.com) - or [Get an invitation](https://apisearch-slack.herokuapp.com/)
 - [Stackoverflow](https://stackoverflow.com/questions/tagged/apisearch)
