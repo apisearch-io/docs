@@ -847,6 +847,7 @@ Query reference.
 
 ```
 {
+  "uuid": ?string (default null)
   "q": ?string (default ""/Match all),
   "coordinate": ?Coordinate,
   "filters": ?Filter[],
@@ -1102,7 +1103,7 @@ Result reference.
 
 ```
 {
-  "query": !Query,
+  "query_uuid": string,
   "total_items": ?int (default 0),
   "total_hits": ?int (default 0),
   "items": ?Item[],
@@ -1116,9 +1117,7 @@ top right of the website.
 
 ```php
 $result = Result::createFromArray([
-    'query' => [
-        'q' => 'hola'
-    ],
+    'query_uuid' => 'f7d9f7ds',
     'total_items' => 500,
     'total_hits' => 1,
     'items' => [
@@ -1137,9 +1136,7 @@ $result = Result::createFromArray([
 ```
 ```json
 {
-  "query": {
-    "q": "hola"
-  },
+  "query_uuid": "f7d9f7ds",
   "total_items": 500,
   "total_hits": 1,
   "items": [
