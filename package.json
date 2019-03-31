@@ -61,8 +61,8 @@
     "yargs": "^8.0.2"
   },
   "dependencies": {
-    "apisearch": "^0.2.14",
-    "apisearch-ui": "^0.2.6",
+    "apisearch": "^0.2.17",
+    "apisearch-ui": "^0.2.8",
     "bootstrap": "^4.1.0",
     "gfm-code-blocks": "^1.0.0",
     "js-cookie": "^2.2.0",
