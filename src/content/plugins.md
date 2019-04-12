@@ -71,9 +71,9 @@ framework.
 - Current versions - [0.1.*](https://github.com/apisearch-io/search-server/releases)
 
 
-## [Encoding](plugins/encoding)
-Encode your API responses with GZIP and Deflate
-- Source - [Github](https://github.com/apisearch-io/search-server/tree/master/Plugin/Encoding)
+## [QueryMapper](plugins/query-mapper)
+Map your query and response adding just a PHP class in your server
+- Source - [Github](https://github.com/apisearch-io/search-server/tree/master/Plugin/QueryMapper)
 - Current versions - [0.1.*](https://github.com/apisearch-io/search-server/releases)
     
 ## Enable a plugin
