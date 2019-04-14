@@ -1,6 +1,6 @@
 ---
 root: true
-page: 7
+page: 8
 icon: chain
 title: Integrations
 description: Apisearch framework integrations, Symfony, Laravel, Django, etc.

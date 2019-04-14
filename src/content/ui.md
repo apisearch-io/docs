@@ -1,6 +1,6 @@
 ---
 root: true
-page: 6
+page: 7
 icon: search
 title: UI
 description: A brief introduction of Apisearch UI, installation, and a basic usage.
