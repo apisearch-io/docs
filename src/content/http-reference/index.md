@@ -27,17 +27,13 @@ Here some related model objects you may know.
 
 This is the endpoint reference
 
-- Endpoint name - v1-items-index
-- Path - **/v1/items**
-- Verb - **POST**
-- Query Parameters
-    - app_id, **required** 
-    - index, **required** 
-    - token, **required with permissions** 
-    
-The body of this endpoint is an array with one optional position with 
-key `items` and an array of [Item](/model.html#item) objects as
-value.
+- Endpoint name - v1_put_items
+- Path - /v1/**{{ app_id }}**/indices/**{{ index_id }}**/items
+- Verb - **PUT**
+- Body - An array of [Item](/model.html#item) instances as array
+- Headers
+    - Apisearch-token-id: "{{ token_id }}"
+    - Content-Type: "application/json"
 
 This is a write-only endpoint, and eventually, all write only endpoints could be
 processed in an asynchronous way
@@ -48,35 +44,34 @@ has a default values in their installation, and creating a vulnerability, no
 default values are created.
 
 ```bash
-curl -XPOST "http://localhost:8100/v1/items?app_id={{ your_app_id }}&index={{ your_index }}&token={{ your_token }}"  -d'
-{
-    "items": [
-        {
-            "uuid": {
-                "id": "1",
-                "type": "product"
-            },
-            "metadata": {
-                "title": "My product"
-            },
-            "searchable_metadata": {
-                "title": "My product"
-            }
+curl -X PUT "http://localhost:8100/v1/{{ app_id }}/indices/{{ index_id }}/items" \
+    -H "Content-Type: application/json" \
+    -H "Apisearch-token-id: {{ token }}" \
+    -d'
+    [{
+        "uuid": {
+            "id": "1",
+            "type": "product"
         },
-        {
-            "uuid": {
-                "id": "2",
-                "type": "product"
-            },
-            "metadata": {
-                "title": "Another product"
-            },
-            "searchable_metadata": {
-                "title": "Another product"
-            }
+        "metadata": {
+            "title": "My product"
+        },
+        "searchable_metadata": {
+            "title": "My product"
         }
-    ]
-}
+    },
+    {
+        "uuid": {
+            "id": "2",
+            "type": "product"
+        },
+        "metadata": {
+            "title": "Another product"
+        },
+        "searchable_metadata": {
+            "title": "Another product"
+        }
+    }]
 '
 ```
 
@@ -90,17 +85,13 @@ index. Here some related model objects you may know.
 
 This is the endpoint reference
 
-- Endpoint name - v1-items-index
-- Path - **/v1/items**
+- Endpoint name - v1_delete_items
+- Path - /v1/**{{ app_id }}**/indices/**{{ index_id }}**/items
 - Verb - **DELETE**
-- Query Parameters
-    - app_id, **required** 
-    - index, **required** 
-    - token, **required with permissions** 
-    
-The body of this endpoint is an array with one optional position with 
-key `items` and an array of [ItemUUID](/model.html#itemuuid) 
-objects as value.
+- Body - An array of [ItemUUID](/model.html#itemuuid) instances as array
+- Headers
+    - Apisearch-token-id: "{{ token_id }}"
+    - Content-Type: "application/json"
 
 This is a write-only endpoint, and eventually, all write only endpoints could be
 processed in an asynchronous way
@@ -111,36 +102,37 @@ has a default values in their installation, and creating a vulnerability, no
 default values are created.
 
 ```bash
-curl -XDELETE "http://localhost:8100/v1/items?app_id={{ your_app_id }}&index={{ your_index }}&token={{ your_token }}"  -d'
-{
-    "items": [
-        {
-            "id": "1",
-            "type": "product"
-        },
-        {
-            "id": "2",
-            "type": "product"
-        }
-    ]
-}
+curl -X DELETE "http://localhost:8100/v1/{{ app_id }}/indices/{{ index_id }}/items" \
+    -H "Content-Type: application/json" \
+    -H "Apisearch-token-id: {{ token }}" \
+    -d'
+    [{
+        "id": "1",
+        "type": "product"
+    },
+    {
+        "id": "2",
+        "type": "product"
+    }]
 '
 ```
 
-## Update Items
+## Update Items by Query
 
 By using this endpoint you will be able to update some items from your index
 without needing to index them all once again. 
 
 This is the endpoint reference
 
-- Endpoint name - v1-items-update
-- Path - **/v1**
-- Verb - **GET**
-- Query Parameters
-    - app_id, **required** 
-    - index, *not required, can be multiple separated by comma*
-    - token, **required with permissions** 
+- Endpoint name - v1_update_items_by_query
+- Path - /v1/**{{ app_id }}**/indices/**{{ index_id }}**/items/update_by_query
+- Verb - **POST**
+- Body 
+    - query: An instance of [Query](/model.html#query) as array
+    - changes: An instance of [Changes](/model.html#changes) as array
+- Headers
+    - Apisearch-token-id: "{{ token_id }}"
+    - Content-Type: "application/json"
     
 By using this endpoint you will always work with two objects.
 
@@ -160,28 +152,31 @@ has a default values in their installation, and creating a vulnerability, no
 default values are created.
 
 ```bash
-curl -XDELETE -H "Content-Type: application/json" "http://localhost:8100/v1/items?app_id={{ your_app_id }}&index={{ your_index }}&token={{ your_token }}"  -d'
-{
-    "query": [
-        "q": ""
-    ]
-    "changes": [
-        {
-            "field": "new_field",
-            "type": 1,
-            "value": "new_value"
-        },
-        {
-            "field": "another_field",
-            "type": 1,
-            "value": "new_value"
-        },
-        {
-            "field": "counter",
-            "type": 4,
-            "value": "counter"
+curl -X DELETE "http://localhost:8100/v1/{{ app_id }}/indices/{{ index_id }}/items" \
+    -H "Content-Type: application/json" \
+    -H "Apisearch-token-id: {{ token }}" \
+    -d'
+    {
+        "query": {
+            "q": ""
         }
-    ]
-}
+        "changes": [
+            {
+                "field": "new_field",
+                "type": 1,
+                "value": "new_value"
+            },
+            {
+                "field": "another_field",
+                "type": 1,
+                "value": "new_value"
+            },
+            {
+                "field": "counter",
+                "type": 4,
+                "value": "counter"
+            }
+        ]
+    }
 '
 ```

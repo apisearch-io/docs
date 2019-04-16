@@ -18,24 +18,20 @@ These endpoints are part of the Application related repository. By using them
 you will be able to manage your applications, your indices and the way you 
 interact with them.
 
-## Create Index
+## Put Index
 
-By using this endpoint you will be able to create an empty index. If the index
-is already created, then this action will be skipped and nothing will happen.
+By using this endpoint you will be able to create a new index. If the index does
+exist, then this action will be skipped and nothing will happen.
 
 This is the endpoint reference
 
-- Endpoint name - v1-index-create
-- Path - **/v1/index**
+- Endpoint name - v1_put_index
+- Path - /v1/**{{ app_id }}**/indices/**{{ index_id }}**
 - Verb - **PUT**
-- Query Parameters
-    - app_id, **required** 
-    - token, **required with permissions** 
-    
-The body of the endpoint should be an array with one required element, a
-[IndexUUID](/model.html#indexuuid) object as value under key
-`index`, and an optional position under key `config` with a 
-[Config](/model.html#config) object as value.
+- Body - An instance of [Config](/model.html#config) as array.
+- Headers
+    - Apisearch-token-id: "{{ token_id }}" 
+    - Content-Type: "application/json"
 
 This is a write-only endpoint, and eventually, all write only endpoints could be
 processed in an asynchronous way
@@ -46,12 +42,11 @@ has a default values in their installation, and creating a vulnerability, no
 default values are created.
 
 ```bash
-curl -XPUT -H "Content-Type: application/json" "http://localhost:8100/v1/index?app_id={{ your_app_id }}&token={{ your_token }}"  -d'
-{
-    "index": {
-        "id": {{ your_index }}
-    },
-    "config": {
+curl -X PUT "http://localhost:8100/v1/{{ app_id }}/indices/{{ index_id }}" \
+    -H "Content-Type: application/json" \
+    -H "Apisearch-token-id: {{ token }}" \
+    -d'
+    {
         "language": "ca",
         "store_searchable_metadata": false,
         "shards": 5,
@@ -70,24 +65,18 @@ curl -XPUT -H "Content-Type: application/json" "http://localhost:8100/v1/index?a
             ]
         }]
     }
-}
 '
 ```
 
 This config value is optional, so by not providing this object, it should work
-by creating a new index with default configuration.
+by configuring the index with default configuration.
 
 ```bash
-curl -XPUT -H "Content-Type: application/json" "http://localhost:8100/v1/index?app_id={{ your_app_id }}&token={{ your_token }}"  -d'
-{
-    "index": {
-        "id": {{ your_index }}
-    }
-}
-'
+curl -X PUT "http://localhost:8100/v1/{{ app_id }}/indices/{{ index_id }}" \
+    -H "Apisearch-token-id: {{ token }}"
 ```
 
-## List Indices
+## Get Indices
 
 By using this endpoint, you will be able to list existing indices. If there is
 no indices created, this action returns empty array.
@@ -98,18 +87,28 @@ Here some related model objects you may know.
 
 This is the endpoint reference
 
-- Endpoint name - v1-index-delete
-- Path - **/v1/indices**
+- Endpoint name - v1_get_indices
+- Path - /v1/**{{ app_id }}**/indices
 - Verb - **GET**
-- Query Parameters
-    - token, **required with permissions** 
-    - app_id, **required** 
+- Headers
+    - Apisearch-token-id: "{{ token_id }}"
+    
+> Token can be passed as well, instead of a header, by using the query parameter
+> *token*
 
-This is read-only endpoint.
+This is read-only endpoint. The first example shows how to use the token as a
+header, and the second example, as a query parameter. Both examples are equals.
 
 ```bash
-curl -XGET "http://localhost:8100/v1/indices?app_id={{ your_app_id }&token={{ your_token }}"
+curl -X GET "http://localhost:8100/v1/{{ app_id }}/indices" \
+    -H "Apisearch-token-id: {{ token }}"
 ```
+
+```bash
+curl -X GET "http://localhost:8100/v1/{{ app_id }}/indices?token={{ token }}"
+```
+
+This endpoint will return an array of [Index](/model.html#index) objects.
 
 ## Delete Index
 
@@ -119,13 +118,11 @@ will happen.
 
 This is the endpoint reference
 
-- Endpoint name - v1-index-delete
-- Path - **/v1/index**
+- Endpoint name - v1_delete_index
+- Path - /v1/**{{ app_id }}**/indices/**{{ index_id }}**
 - Verb - **DELETE**
-- Query Parameters
-    - app_id, **required** 
-    - index, **required** 
-    - token, **required with permissions** 
+- Headers
+    - Apisearch-token-id: "{{ token_id }}"
 
 This is a write-only endpoint, and eventually, all write only endpoints could be
 processed in an asynchronous way
@@ -135,8 +132,11 @@ replace the placeholders with your own data. In order to make sure that no one
 has a default values in their installation, and creating a vulnerability, no
 default values are created.
 
+Let's see an example.
+
 ```bash
-curl -XDELETE "http://localhost:8100/v1/index?app_id={{ your_app_id }}&index={{ your_index }}&token={{ your_token }}"
+curl -X DELETE "http://localhost:8100/v1/{{ app_id }}/indices/{{ index_id }}" \
+    -H "Apisearch-token-id: {{ token }}"
 ```
 
 ## Reset Index
@@ -147,13 +147,11 @@ will happen.
 
 This is the endpoint reference
 
-- Endpoint name - v1-index-reset
-- Path - **/v1/index/reset**
+- Endpoint name - v1_reset_index
+- Path - /v1/**{{ app_id }}**/indices/**{{ index_id }}**/reset
 - Verb - **POST**
-- Query Parameters
-    - app_id, **required** 
-    - index, **required** 
-    - token, **required with permissions** 
+- Headers
+    - Apisearch-token-id: "{{ token_id }}"
 
 This is a write-only endpoint, and eventually, all write only endpoints could be
 processed in an asynchronous way
@@ -163,8 +161,11 @@ replace the placeholders with your own data. In order to make sure that no one
 has a default values in their installation, and creating a vulnerability, no
 default values are created.
 
+Let's see an example.
+
 ```bash
-curl -XPOST "http://localhost:8100/v1/index/reset?app_id={{ your_app_id }}&index={{ your_index }}&token={{ your_token }}"
+curl -X POST "http://localhost:8100/v1/{{ app_id }}/indices/{{ index_id }}/reset" \
+    -H "Apisearch-token-id: {{ token }}"
 ```
 
 ## Configure Index
@@ -174,23 +175,16 @@ index does not exist, then this action will be skipped and nothing will happen.
 
 This is the endpoint reference
 
-- Endpoint name - v1-index-config
-- Path - **/v1/index**
+- Endpoint name - v1_configure_index
+- Path - /v1/**{{ app_id }}**/indices/**{{ index_id }}**/configure
 - Verb - **POST**
-- Query Parameters
-    - app_id, **required** 
-    - index, **required** 
-    - token, **required with permissions** 
-    
-The body of the endpoint should be an array with one optional position under
-key `config` with a [Config](/model.html#config) object as value.
+- Body - An instance of [Config](/model.html#config) as array.
+- Headers
+    - Apisearch-token-id: "{{ token_id }}" 
+    - Content-Type: "application/json"
 
 This is a write-only endpoint, and eventually, all write only endpoints could be
 processed in an asynchronous way
-
-> This endpoint should take the same config body as creating an index. The main
-> difference is the verb and that, in this case, the index is passed as part of
-> the authentication (url) instead of part of the content (body)
 
 You can try this endpoint by using this curl snippet. As you can see, you should
 replace the placeholders with your own data. In order to make sure that no one
@@ -198,9 +192,11 @@ has a default values in their installation, and creating a vulnerability, no
 default values are created.
 
 ```bash
-curl -XPOST -H "Content-Type: application/json" "http://localhost:8100/v1/index?app_id={{ your_app_id }}&index={{ your_index }}&token={{ your_token }}"  -d'
-{
-    "config": {
+curl -X POST "http://localhost:8100/v1/{{ app_id }}/indices/{{ index_id }}/configure" \
+    -H "Content-Type: application/json" \
+    -H "Apisearch-token-id: {{ token }}" \
+    -d'
+    {
         "language": "ca",
         "store_searchable_metadata": false,
         "shards": 5,
@@ -219,7 +215,6 @@ curl -XPOST -H "Content-Type: application/json" "http://localhost:8100/v1/index?
             ]
         }]
     }
-}
 '
 ```
 
@@ -227,7 +222,8 @@ This config value is optional, so by not providing this object, it should work
 by configuring the index with default configuration.
 
 ```bash
-curl -XPUT -H "Content-Type: application/json" "http://localhost:8100/v1/index?app_id={{ your_app_id }}&index={{ your_index }}&token={{ your_token }}"  -d''
+curl -X POST "http://localhost:8100/v1/{{ app_id }}/indices/{{ index_id }}/configure" \
+    -H "Apisearch-token-id: {{ token }}"
 ```
 
 This endpoint can work as well as a simple index sanitation. Internally, the
@@ -245,7 +241,7 @@ empty values (can't index an array that is not actually indexed)
 - To add or delete synonyms
 - To change the language of the index
 
-## Add Token
+## Put Token
 
 By using this endpoint you will be able to create a new App token. If the token
 exists, so it's been created previously with a certain configuration, this new
@@ -253,18 +249,20 @@ token will completely overwrite the old one.
 
 This is the endpoint reference
 
-- Endpoint name - v1-token-add
-- Path - **/v1/token**
-- Verb - **POST**
-- Query Parameters
-    - app_id, **required** 
-    - token, **required with permissions** 
+- Endpoint name - v1_put_token
+- Path - /v1/**{{ app_id }}**/tokens/**{{ new_token }}**
+- Verb - **PUT**
+- Body - An instance of [Token](/model.html#token) as array.
+- Headers
+    - Apisearch-token-id: "{{ token }}" 
+    - Content-Type: "application/json"
     
-The body of the endpoint should be an array with one position with key `token`
-and a [Token](/model.html#token) object as value.
+> As you can see, you will be working with two tokens here. The token which must
+> be an existing token with granted permissions for this endpoint, and the
+> new_token, which is the new token creating here.
 
 This is a write-only endpoint, and eventually, all write only endpoints could be
-processed in an asynchronous way
+processed in an asynchronous way.
 
 You can try this endpoint by using this curl snippet. As you can see, you should
 replace the placeholders with your own data. In order to make sure that no one
@@ -272,9 +270,11 @@ has a default values in their installation, and creating a vulnerability, no
 default values are created.
 
 ```bash
-curl -XPOST -H "Content-Type: application/json" "http://localhost:8100/v1/token?app_id={{ your_app_id }}&token={{ your_token }}" -d'
-{
-    "token": {
+curl -X POST "http://localhost:8100/v1/{{ app_id }}/tokens/{{ new_token }}" \
+    -H "Content-Type: application/json" \
+    -H "Apisearch-token-id: {{ token }}" \
+    -d'
+    {
         "uuid": {
             "id": "aaaa"
         },
@@ -284,7 +284,6 @@ curl -XPOST -H "Content-Type: application/json" "http://localhost:8100/v1/token?
             "index2"
         ]
     }
-}
 '
 ```
 
@@ -296,15 +295,15 @@ will happen.
 
 This is the endpoint reference
 
-- Endpoint name - v1-token-delete
-- Path - **/v1/token**
+- Endpoint name - v1_delete_token
+- Path - /v1/**{{ app_id }}**/tokens/**{{ unwanted_token }}**
 - Verb - **DELETE**
-- Query Parameters
-    - app_id, **required** 
-    - token, **required with permissions** 
+- Headers
+    - Apisearch-token-id: "{{ token }}"
     
-The body of the endpoint should be an array with one position with key `token`
-and a [TokenUUID](/model.html#tokenuuid) object as value.
+> As you can see, you will be working with two tokens here. The token which must
+> be an existing token with granted permissions for this endpoint, and the
+> unwanted_token, which is the new token deleting here.
 
 This is a write-only endpoint, and eventually, all write only endpoints could be
 processed in an asynchronous way
@@ -314,28 +313,25 @@ replace the placeholders with your own data. In order to make sure that no one
 has a default values in their installation, and creating a vulnerability, no
 default values are created.
 
+Let's see an example.
+
 ```bash
-curl -XPOST -H "Content-Type: application/json" "http://localhost:8100/v1/token?app_id={{ your_app_id }}&token={{ your_token }}" -d'
-{
-    "token": {
-        "id": "aaaa"
-    }
-}
-'
+curl -X DELETE "http://localhost:8100/v1/{{ app_id }}/tokens/{{ unwanted_token }}" \
+    -H "Apisearch-token-id: {{ token }}"
 ```
 
 ## Delete Tokens
 
-By using this endpoint you will be able to delete all existing index.
+By using this endpoint you will be able to delete all existing tokens from an
+app.
 
 This is the endpoint reference
 
-- Endpoint name - v1-token-delete
-- Path - **/v1/tokens**
+- Endpoint name - v1_delete_tokens
+- Path - /v1/**{{ app_id }}**/tokens/
 - Verb - **DELETE**
-- Query Parameters
-    - app_id, **required** 
-    - token, **required with permissions** 
+- Headers
+    - Apisearch-token-id: "{{ token }}"
 
 This is a write-only endpoint, and eventually, all write only endpoints could be
 processed in an asynchronous way
@@ -345,8 +341,11 @@ replace the placeholders with your own data. In order to make sure that no one
 has a default values in their installation, and creating a vulnerability, no
 default values are created.
 
+Let's see an example.
+
 ```bash
-curl -XPOST "http://localhost:8100/v1/tokens?app_id={{ your_app_id }}&token={{ your_token }}"
+curl -X DELETE "http://localhost:8100/v1/{{ app_id }}/tokens" \
+    -H "Apisearch-token-id: {{ token }}"
 ```
 
 ## Get Tokens
@@ -356,21 +355,30 @@ existing App.
 
 This is the endpoint reference
 
-- Endpoint name - v1-token-all-tokens
-- Path - **/v1/tokens**
+- Endpoint name - v1_get_tokens
+- Path - /v1/**{{ app_id }}**/tokens/
 - Verb - **GET**
-- Query Parameters
-    - app_id, **required** 
-    - token, **required with permissions** 
+- Headers
+    - Apisearch-token-id: "{{ token }}"
 
 You can try this endpoint by using this curl snippet. As you can see, you should
 replace the placeholders with your own data. In order to make sure that no one
 has a default values in their installation, and creating a vulnerability, no
 default values are created.
 
+> Token can be passed as well, instead of a header, by using the query parameter
+> *token*
+
+This is read-only endpoint. The first example shows how to use the token as a
+header, and the second example, as a query parameter. Both examples are equals.
+
 ```bash
-curl -XGET "http://localhost:8100/v1/tokens?app_id={{ your_app_id }}&token={{ your_token }}"
+curl -X GET "http://localhost:8100/v1/{{ app_id }}/tokens" \
+    -H "Apisearch-token-id: {{ token }}"
 ```
 
-This endpoint will return an array of [Token](/model.html#token)
-objects.
+```bash
+curl -X GET "http://localhost:8100/v1/{{ app_id }}/tokens?token={{ token }}"
+```
+
+This endpoint will return an array of [Token](/model.html#token) objects.

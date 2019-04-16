@@ -29,6 +29,40 @@ This architecture is quite effective, and has allowed us to extend the project
 as much as we have wanted in a plugins way, letting the core of the project as
 it is, and locking it for future features.
 
+## HTTP Routes
+
+The server exposes a set of http routes, each one of them documented properly
+under the [HTTP Reference](http-reference.html) chapter. In order to provide a
+basic schema about what kind of urls you will find here, this is the basic
+routing table exposed by Symfony.
+
+```
+ ------------------------------------ -------- -------- ------ ------------------------------------------------------- 
+  Name                                 Method   Scheme   Host   Path                                                   
+ ------------------------------------ -------- -------- ------ ------------------------------------------------------- 
+  apisearch_v1_put_token               PUT      ANY      ANY    /v1/{app_id}/tokens                                    
+  apisearch_v1_delete_token            DELETE   ANY      ANY    /v1/{app_id}/tokens/{token_id}                         
+  apisearch_v1_get_tokens              GET      ANY      ANY    /v1/{app_id}/tokens                                    
+  apisearch_v1_delete_tokens           DELETE   ANY      ANY    /v1/{app_id}/tokens                                    
+  apisearch_v1_get_indices             GET      ANY      ANY    /v1/{app_id}/indices                                   
+  apisearch_v1_put_index               PUT      ANY      ANY    /v1/{app_id}/indices/{index_id}                        
+  apisearch_v1_delete_index            DELETE   ANY      ANY    /v1/{app_id}/indices/{index_id}                        
+  apisearch_v1_reset_index             POST     ANY      ANY    /v1/{app_id}/indices/{index_id}/reset                  
+  apisearch_v1_configure_index         POST     ANY      ANY    /v1/{app_id}/indices/{index_id}/configure              
+  apisearch_v1_check_index             HEAD     ANY      ANY    /v1/{app_id}/indices/{index_id}                        
+  apisearch_v1_put_items               PUT      ANY      ANY    /v1/{app_id}/indices/{index_id}/items                  
+  apisearch_v1_update_items_by_query   POST     ANY      ANY    /v1/{app_id}/indices/{index_id}/items/update-by-query  
+  apisearch_v1_delete_items            DELETE   ANY      ANY    /v1/{app_id}/indices/{index_id}/items                  
+  apisearch_v1_query                   GET      ANY      ANY    /v1/{app_id}/indices/{index_id}                        
+  apisearch_v1_query_all_indices       GET      ANY      ANY    /v1/{app_id}                                           
+  apisearch_v1_post_interaction        POST     ANY      ANY    /v1/{app_id}/interactions                              
+  apisearch_check_health               GET      ANY      ANY    /health                                                
+  apisearch_ping                       HEAD     ANY      ANY    /                                                      
+  apisearch_pause_consumers            POST     ANY      ANY    /consumers/pause                                       
+  apisearch_resume_consumers           POST     ANY      ANY    /consumers/resume                                      
+ ------------------------------------ -------- -------- ------ -------------------------------------------------------
+ ```
+
 ## Inline Vs. Asynchronous
 
 We can configure our server to work as an inline project (our asynchronous
@@ -98,9 +132,41 @@ php bin/console apisearch-consumer:domain-events
 > configuration options than you've found until now, like environment or verbose
 > options.
 
-## The server
+## The HTTP server
 
 Apisearch doesn't need any Apache nor Nginx to work, saving this way many 
-milliseconds of performance when serving query requests.
+milliseconds of performance when serving query requests. Apisearch used a PHP
+project called [PPM](https://github.com/php-pm/php-pm), built on top of
+[ReactPHP](https://reactphp.org/) in order to manage multiple internal PHP 
+threads, each one assuming the work of a single PHP server.
+
+Once composer has installed all the dependencies, you will find two different
+ways of making your server start working. We strongly recommend to use, for
+development and testing, the basic one.
+
+```
+php bin/server 0.0.0.0:8200
+```
+
+This is a simple PHP script based on ReactPHP that will create a simple server,
+listening your defined port. You can stop the server by using `Ctrl+C` and start
+again as many times as you need.
+
+On the other hand, in production, we strongly recommend to use the PPM one.
+
+```
+endor/bin/ppm start --host=0.0.0.0 --port=8200 --workers=3 \
+    --bootstrap=OneBundleApp\\PPM\\Adapter \
+    --bridge=OneBundleApp\\PPM\\Bridge \
+    --app-env=prod --debug=0 --logging=0
+```
+
+You will create 3 workers in that case, and the server will start serving with 
+the first worker. As soon as the first is busy and cannot server anymore, and
+until is free again, worker 2 will start working. And so on.
+
+> Having multiple workers is not free. Each worker can consume so much memory,
+> so please, don't start the server with more than 3 workers. If you need more
+> server instances, then create more containers and use a front balancer.
 
 ## Plugins
