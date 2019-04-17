@@ -2,9 +2,8 @@
 root: true
 page: 1
 icon: dot-circle-o
-title: Apisearch First steps
+title: First steps
 description: How to start with Apisearch from the scratch. Step by step, all you need to know about how to build your next search engine.
-category: First Steps
 template: one-column-with-toc.mustache
 source: index.md
 tags:

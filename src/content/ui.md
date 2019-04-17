@@ -4,7 +4,6 @@ page: 7
 icon: search
 title: Apisearch UI
 description: A brief introduction of Apisearch UI, installation, and a basic usage.
-category: UI
 template: one-column.mustache
 source: ui.md
 languages: 

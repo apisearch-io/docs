@@ -4,7 +4,6 @@ page: 8
 icon: chain
 title: Integrations
 description: Check all our integrations with other languages and frameworks
-category: Integrations
 template: one-column.mustache
 source: integrations.md
 languages: ~
