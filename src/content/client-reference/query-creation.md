@@ -1260,7 +1260,7 @@ Query.createMatchAll()
 }
 ```
 
-## Filter fields
+## Searchable fields
 
 By default, your search will use all the values inside `searchable_metadata`
 with a boosting of 1, and all values inside `exact_matching_metadata` wwith a
@@ -1271,7 +1271,7 @@ your can change this configuration by using this proper field.
 
 ```php
 Query::createMatchAll()
-    ->setFilterFields([
+    ->setSearchableFields([
         'searchable_metadata.title^10',
         'searchable_metadata.subtitle^5',
         'serchable_metadata.body',
@@ -1281,7 +1281,7 @@ Query::createMatchAll()
 ```javascript
 Query
     .createFromArray()
-    .setFilterFields([
+    .setSearchableFields([
         'searchable_metadata.title^10',
         'searchable_metadata.subtitle^5',
         'serchable_metadata.body',
@@ -1396,23 +1396,25 @@ Query
     .setMinScore(10.0);
 ```
 
-## Relevance Strategy
+## Score Strategy
 
 By default, your results are sorted by score from highest to lowest. This score
 is dynamically created per each matched documents in your index. But you may
-change this behavior by adding an extra document-specific boosting. This means
-that part of the final document score will be affected by the value of the
-`indexed_metadata.relevance` field. This field **MUST** be an integer value.
-The higher, the better.
+change this behavior by adding some extra document-specific boosting rules.
 
 In order to enable this feature, use the relevance strategy method.
 
 ```php
 use Apisearch\Query\Query;
+use Apisearch\Query\ScoreStrategies;
 
 Query::createMatchAll()
-    ->setScoreStrategy(ScoreStrategy::createRelevanceBoosting())
+    ->setScoreStrategies(ScoreStrategies::createEmpty())
 ;
+```
+```javascript
+Query.createMatchAll()
+    .setScoreStrategies(ScoreStrategies.createEmpty())
 ```
 
 You can add your custom boosting function by using
@@ -1422,34 +1424,69 @@ make it part of the final calculation by using `_score`
 
 ```php
 use Apisearch\Query\Query;
+use Apisearch\Query\ScoreStrategies;
 
 Query::createMatchAll()
-    ->setScoreStrategy(ScoreStrategy::createCustomFunction(
-        "doc['indexed_metadata.price'].value"
-    ))
-;
+    ->setScoreStrategies(ScoreStrategies::createEmpty()
+        ->addScoreStrategy(ScoreStrategy::createCustomFunction(
+            'doc["indexed_metadata.price"].value',
+            1.0
+        ))
+    )
 ```
+```javascript
+Query.createMatchAll()
+    .setScoreStrategies(ScoreStrategies.createEmpty()
+        .addScoreStrategy(ScoreStrategy.createCustomFunction(
+            'doc["indexed_metadata.price"].value',
+            1.0
+        ))
+    )
+```
+
 
 And using `_score`
 
 ```php
 use Apisearch\Query\Query;
+use Apisearch\Query\ScoreStrategies;
 
 Query::createMatchAll()
-    ->setScoreStrategy(ScoreStrategy::createCustomFunction(
-        "_score + (10 * doc['indexed_metadata.relevance'].value / 100)"
-    ))
-;
+    ->setScoreStrategies(ScoreStrategies::createEmpty()
+        ->addScoreStrategy(ScoreStrategy::createCustomFunction(
+            "_score + (10 * doc['indexed_metadata.relevance'].value / 100)",
+            1.0
+        ))
+    )
+```
+```javascript
+Query.createMatchAll()
+    .setScoreStrategies(ScoreStrategies.createEmpty()
+        .addScoreStrategy(ScoreStrategy.createCustomFunction(
+            "_score + (10 * doc['indexed_metadata.relevance'].value / 100)",
+            1.0
+        ))
+    )
 ```
 
-You can set the default behavior as well.
+```php
+
+You can set back the default behavior as well.
 
 ```php
 use Apisearch\Query\Query;
+use Apisearch\Query\ScoreStrategies;
 
 Query::createMatchAll()
-    ->setScoreStrategy(ScoreStrategy::createDefault())
-;
+    ->setScoreStrategies(ScoreStrategies::createEmpty()
+        ->addScoreStrategy(ScoreStrategy::createDefault()
+    ))
+```
+```javascript
+Query.createMatchAll()
+    .setScoreStrategies(ScoreStrategies.createEmpty()
+        .addScoreStrategy(ScoreStrategy.createDefault()
+    ))
 ```
 
 ## Enabling suggestions

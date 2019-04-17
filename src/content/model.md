@@ -860,7 +860,7 @@ Query reference.
   "suggestions_enabled": ?bool (default false),
   "highlight_enabled": ?bool (default false),
   "aggregations_enabled": ?bool (default true),
-  "filter_fields": ?string[],
+  "searchable_fields": ?string[],
   "score_strategies": ?ScoreStrategies,
   "fuzziness": ?float|string|string[],
   "user": ?User,
