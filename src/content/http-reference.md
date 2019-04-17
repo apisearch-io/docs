@@ -2,7 +2,7 @@
 root: true
 page: 4
 icon: barcode
-title: HTTP Reference
+title: Apisearch HTTP Reference
 description: HTTP reference for the main HTTP contract
 category: HTTP Reference
 template: one-column-with-toc.mustache

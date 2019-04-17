@@ -2,8 +2,8 @@
 root: true
 page: 10
 icon: ticket
-title: Recipes
-description: Cooked Recipes
+title: Apisearch Recipes
+description: Cooked Recipes for the more advanced users. Add yours if you're interested!
 category: Recipes
 template: one-column.mustache
 source: recipes.md

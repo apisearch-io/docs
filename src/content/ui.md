@@ -2,7 +2,7 @@
 root: true
 page: 7
 icon: search
-title: UI
+title: Apisearch UI
 description: A brief introduction of Apisearch UI, installation, and a basic usage.
 category: UI
 template: one-column.mustache

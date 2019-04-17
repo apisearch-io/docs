@@ -2,8 +2,8 @@
 root: true
 page: 6
 icon: plug
-title: Plugins
-description: Apisearch plugins.
+title: Plugins Directory
+description: Check our plugins in this directory. You will find plugins distributed with the main repository and some third party
 category: Plugins
 template: one-column-with-toc.mustache
 source: plugins.md
