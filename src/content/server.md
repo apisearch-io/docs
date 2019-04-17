@@ -169,4 +169,94 @@ until is free again, worker 2 will start working. And so on.
 > so please, don't start the server with more than 3 workers. If you need more
 > server instances, then create more containers and use a front balancer.
 
+## Encoding
+
+Apisearch is designed to be an easy multi platform search engine. One of the
+main goals is to decrease your infrastructure complexity by adding a unique 
+point of access for all your read-only operations from all of your devices. And
+you know that some of these devices can be small ones consuming from 4G. This is
+why response sizes matters. Shorter responses mean faster and smaller responses.
+
+> Supported encoding methods are GZIP and Deflate
+
+You can enable any of these encoding strategies by adding a simple HTTP header
+in your request.
+
+```
+curl -XGET -H "Accept-Encoding: gzip" "http://localhost:80/v1/xxx"
+```
+
+If the plugin is enabled and working properly, you should see a response header
+called `Content-Encoding`. If the content has been encoded properly, you will
+find in this header the used method.
+
+```
+HTTP/1.1 200 OK
+access-control-allow-origin: *
+cache-control: max-age=0, private, s-maxage=0
+date: Fri, 08 Mar 2019 16:40:26 GMT
+content-type: application/json
+content-encoding: gzip
+X-Powered-By: React/alpha
+Content-Length: 6393
+Connection: close
+```
+
+You can use Deflate as well as an encoding method.
+
+```
+curl -XGET -H "Accept-Encoding: gzip" "http://localhost:80/v1/xxx"
+HTTP/1.1 200 OK
+access-control-allow-origin: *
+cache-control: max-age=0, private, s-maxage=0
+date: Fri, 08 Mar 2019 16:42:28 GMT
+content-type: application/json
+content-encoding: deflate
+X-Powered-By: React/alpha
+Content-Length: 6387
+Connection: close
+```
+
+## Basic Tokens
+
+By default, Apisearch server provide 3 basic tokens for each installation. Each
+time you create a new server instance, by using direct configuration or by using
+environment variables, you will be able to define 3 tokens that will be usable,
+basically, for a normal server usage.
+
+- GOD_TOKEN, for administration. Full access to everyhing
+- READONLY_TOKEN, for read only operations. Usable only for items querying
+. PING_TOKEN, for ping and health check. Specially designed for external
+services that need to control the aliveness of the server (a balancer, a ping
+service...)
+
+These values are optional, and you can define them in configuration
+
+```
+apisearch_server:
+    god_token: XXX
+    readonly_token: YYY
+    ping_token: ZZZ
+```
+
+of by using environment variables (recommended)
+
+```
+APISEARCH_GOD_TOKEN: XXX
+APISEARCH_READONLY_TOKEN: YYY
+APISEARCH_PING_TOKEN: ZZZ
+```
+
+## Result limitations
+
+You can limit the number of results returned by the query endpoint in a hard
+way. Even if the user that performs the query increase that number, this value
+will override the custom one.
+
+```
+apisearch_server:
+    limitations:
+        number_of_results: 100
+```
+
 ## Plugins

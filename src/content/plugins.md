@@ -42,14 +42,6 @@ and domain events.
 - Current versions - [0.1.*](https://github.com/apisearch-io/search-server/releases)
 
 
-## [Callbacks](plugins/callbacks)
-Make additional callbacks before or after your calls. By doing them before you
-will be able to modify the input data, and by doing them after, you will be able
-to change the result value.
-- Source - [Github](https://github.com/apisearch-io/search-server/tree/master/Plugin/Callbacks)
-- Current versions - [0.1.*](https://github.com/apisearch-io/search-server/releases)
-
-
 ## [Static Tokens](plugins/static-tokens)
 Store your tokens as static values, and make their access something completely
 local. Avoid any external access.
