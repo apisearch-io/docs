@@ -865,7 +865,8 @@ Query reference.
   "fuzziness": ?float|string|string[],
   "user": ?User,
   "subqueries": ?Query[],
-  "items_promoted": ?ItemUUID[]
+  "items_promoted": ?ItemUUID[],
+  "index_uuid": ?IndexUUID
 }
 ```
 

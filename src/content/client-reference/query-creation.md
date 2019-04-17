@@ -1489,6 +1489,25 @@ Query.createMatchAll()
     ))
 ```
 
+## Forcing index
+
+This feature is useful when working with multiquery. You might have 3 parallel
+queries at the same time, and you might want each query to work with a totally
+different index each one. This is possible by forcing a specific
+[IndexUUID](#indexUUID) instance per query.
+
+```php
+use Apisearch\Query\Query;
+use Apisearch\Model\IndexUUID;
+
+Query::createMatchAll()
+    ->forceIndexUUID(IndexUUID::createById('index-1'));
+```
+```javascript
+Query.createMatchAll()
+    .forceIndexUUID(IndexUUID.createById('index-1'));
+```
+
 ## Enabling suggestions
 
 Suggestions can be enabled or disabled by using these flag methods.
