@@ -155,7 +155,7 @@ again as many times as you need.
 On the other hand, in production, we strongly recommend to use the PPM one.
 
 ```
-endor/bin/ppm start --host=0.0.0.0 --port=8200 --workers=3 \
+php vendor/bin/ppm start --host=0.0.0.0 --port=8200 --workers=3 \
     --bootstrap=OneBundleApp\\PPM\\Adapter \
     --bridge=OneBundleApp\\PPM\\Bridge \
     --app-env=prod --debug=0 --logging=0
