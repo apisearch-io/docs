@@ -369,6 +369,8 @@ action may require to stop the index some time
 - IndexItems - Indexes a set of items.
 - ResetIndex - Resets the index. Removed all existing information.
 - UpdateItems - Applies some updates over the existing items
+- PauseConsumers - Pause all existing consumers given an array of types
+- ResumeConsumers - Resume all existing consumers given an array of types
 
 ## Queries
 
@@ -381,9 +383,11 @@ from inside the system
 
 - CheckHealth - Checks the cluster health
 - CheckIndex - Checks if an index is available
-- GetTokens - Return all the existing tokens
+- GetTokens - Return all the existing tokens given an app i
+- GetIndices - Return all the existing indices given an app id
 - Ping - Makes a simple ping
 - Query - Makes a query over all the existing Items
+- GetCrontab - Crontab lines are required for local configuration
 
 ## Events in Apisearch
 

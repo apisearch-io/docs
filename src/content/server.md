@@ -258,4 +258,29 @@ apisearch_server:
         number_of_results: 100
 ```
 
-## Plugins
+## Crontab
+
+You might have to work with some custom (or existing) plugin with some regular
+actions, like some checks or some pushes. A regular way of solving this need is
+by providing some extra endpoints inside Apisearch, defined by the plugin
+itself and calling them from the outside, forcing something to happen in a
+regular frequency.
+
+This could work, but is not easy, and is would not follow what we call good
+practices. Different versions would mean instant deployments in different
+places, what means that the plugin would lose that isolation we are always
+looking for.
+
+In order to solve that, Apisearch has a command with one single mission: to
+collect Crontab lines among all plugins.
+
+Check the [plugins](plugins.html) documentation, and check how to create
+middlewares for some commands and queries. You will notice that there is one
+query called `GetCrontab`. Add there you crontab lines, and call your local
+commands.
+
+You can generate the crontab file by calling this server command.
+
+```
+php bin/console apisearch-server:generate-crontab --env=prod
+```
