@@ -239,7 +239,7 @@ That's it. The first one to subscribe this transformer as a WriteTransformer and
 the second one to subscriber it as a ReadTransformer. Remember to implement both
 interfaces if needed.
 
-### Saving entities
+### Indexing entities
 
 By using the TransformableRepository, you will be able to work with yet another
 2 extra methods.
