@@ -5,6 +5,7 @@ icon: code
 title: Client Reference
 description: Client reference
 template: one-column-with-toc.mustache
+category: Client Reference
 source: client-reference.md
 languages: ~
 tags:

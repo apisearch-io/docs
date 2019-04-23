@@ -4,6 +4,7 @@ page: 6
 icon: plug
 title: Plugins Directory
 description: Check our plugins in this directory. You will find plugins distributed with the main repository and some third party
+category: Plugins
 template: one-column-with-toc.mustache
 source: plugins.md
 languages: ~

@@ -4,6 +4,7 @@ page: 4
 icon: barcode
 title: HTTP Reference
 description: HTTP reference for the main HTTP contract
+category: HTTP Reference
 template: one-column-with-toc.mustache
 source: http-reference.md
 tags:

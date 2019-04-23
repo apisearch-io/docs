@@ -4,6 +4,7 @@ page: 3
 icon: exchange
 title: Server Specification and Configuration
 description: Check the server configuration, and how you can customize some parts of the behavior
+category: Server
 template: one-column-with-toc.mustache
 source: server.md
 tags:

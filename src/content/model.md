@@ -4,6 +4,7 @@ page: 2
 icon: window-restore
 title: Model Reference
 description: Check the model reference and all our objects
+category: Model
 template: one-column-with-toc.mustache
 source: model.md
 languages: 
