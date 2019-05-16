@@ -21,7 +21,7 @@ the software by only following some simple instructions.
 You will find some base plugins in the main server repository, and some other
 official plugins developed by our partners.
 
-## [Redis Metadata Fields](plugins/redis-metadata-fields)
+## [Redis Metadata Fields](plugins/redis-metadata-fields.html)
 Save your read-only fields in a key-value technology instead of storing it
 inside your search infrastructure. Populate your items with these values
 depending on your needs every moment.
@@ -29,41 +29,41 @@ depending on your needs every moment.
 - Current versions - [0.1.*](https://github.com/apisearch-io/search-server/releases)
 
 
-## [New Relic](plugins/new-relic)
+## [New Relic](plugins/new-relic.html)
 Integrate Apisearch with **New Relic** and improve your control over Apisearch.
 - Source - [Github](https://github.com/apisearch-io/search-server/tree/master/Plugin/NewRelic)
 - Current versions - [0.1.*](https://github.com/apisearch-io/search-server/releases)
 
 
-## [RabbitMQ](plugins/rabbitmq)
+## [RabbitMQ](plugins/rabbitmq.html)
 Integrate Apisearch with **RabbitMQ** and use it for you asynchronous commands
 and domain events.
 - Source - [Github](https://github.com/apisearch-io/search-server/tree/master/Plugin/RabbitMQ)
 - Current versions - [0.1.*](https://github.com/apisearch-io/search-server/releases)
 
 
-## [Static Tokens](plugins/static-tokens)
+## [Static Tokens](plugins/static-tokens.html)
 Store your tokens as static values, and make their access something completely
 local. Avoid any external access.
 - Source - [Github](https://github.com/apisearch-io/search-server/tree/master/Plugin/StaticTokens)
 - Current versions - [0.1.*](https://github.com/apisearch-io/search-server/releases)
 
 
-## [Most Relevant Words](plugins/most-relevant-words)
+## [Most Relevant Words](plugins/most-relevant-words.html)
 Simplify some of your searchable metadata fields by applying some filters.
 Reduce the size of the fields by only keeping the most valuable words.
 - Source - [Github](https://github.com/apisearch-io/search-server/tree/master/Plugin/MostRelevantWords)
 - Current versions - [0.1.*](https://github.com/apisearch-io/search-server/releases)
 
 
-## [ELK](plugins/elk)
+## [ELK](plugins/elk.html)
 Send your domain events to a Redis queue, in order to be consumed by an ELK
 framework.
 - Source - [Github](https://github.com/apisearch-io/search-server/tree/master/Plugin/ELK)
 - Current versions - [0.1.*](https://github.com/apisearch-io/search-server/releases)
 
 
-## [QueryMapper](plugins/query-mapper)
+## [QueryMapper](plugins/query-mapper.html)
 Map your query and response adding just a PHP class in your server
 - Source - [Github](https://github.com/apisearch-io/search-server/tree/master/Plugin/QueryMapper)
 - Current versions - [0.1.*](https://github.com/apisearch-io/search-server/releases)
