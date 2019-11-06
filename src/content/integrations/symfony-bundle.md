@@ -18,23 +18,16 @@ tags:
 # Symfony Bundle
 
 This library aims to provide to any Symfony >=3.0 developer a nice configuration
-way to create, configure and inject Apisearch php repositories. Check the 
-[PHP library documentation](http://github.com/puntmig/php-search) for plain PHP
-documentation.
-
-- [Install](#install)
-- [Repository](#repository)
-- [App Repository](#app-repository)
-- [App Repository](#user-repository)
-- [Transformers](#transformers)
-- [Twig macros](#twig-macros)
-- [Filter values](#filter-values)
-- [Reset index command](#reset-index-command)
+way to create, configure and inject Apisearch php repositories. As any Symfony
+bundle, this is a simple and plain layer to make an existing PHP library work on
+top of Symfony, adding only a thin configuration layer on top of the framework.
+You will not find any kind of logic here (at least you should'nt).
 
 ## Install
 
 In order to install the Apisearch bundle you need to follow the regular Bundle
-installation process described in the [Symfony documentation](https://symfony.com/doc/3.3/bundles/installation.html).
+installation process described in the
+[Symfony documentation](https://symfony.com/doc/3.3/bundles/installation.html).
 
 ## Configuration
 
@@ -55,7 +48,7 @@ apisearch:
             app_id: d78s7ds89
             token: dcdbc971-9872-a798-c7ac-59e64957d4bd
             indices:
-                default: d789d7s89
+                default: 78fd87fd8d
         comments:
             app_id: ds9d7s8978
             token: 1d992ee9-0eb4-096c-3e1e-bc1eba256360
@@ -224,4 +217,25 @@ endpoints with the only entity we really understand in our servers. Item.
 
 ## Commands
 
-This bundle allow you the same bundles than 
+This bundle allow you the same bundles than the server have, at least, almost
+all of them. In fact, these commands will not be shown in the server itself,
+having this bundle running there as well.
+
+You can check the list of available commands in [Console commands](/console.html)
+
+The main difference is that these commands use app-id and index-id when treating
+with indices and tokens, and this bundle does **not** work with this values, but
+with the named ones.
+
+For example. Let's check the console command for exporting an entire index. The
+server command required both the app-id and the index-id values, so we would
+have something like 
+`php bin/console apisearch-server:export-index d78s7ds89 78fd87fd8d my-file.txt`
+(we're using the configuration exposed at the beginning of the chapter). With
+this bundle, and because these values could change in the future, we will use
+only the named references. So in this case, we would use
+`php bin/console apisearch:export-index search default my-file.txt`
+
+> See that the root of the commands has changed as well. Instead of
+> apisearch-server:export-index we will use apisearch:export-index. This happen
+> with all the commands.
