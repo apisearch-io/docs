@@ -24,7 +24,8 @@ documentation.
 
 - [Install](#install)
 - [Repository](#repository)
-- [Event Repository](#event-repository)
+- [App Repository](#app-repository)
+- [App Repository](#user-repository)
 - [Transformers](#transformers)
 - [Twig macros](#twig-macros)
 - [Filter values](#filter-values)
@@ -32,16 +33,20 @@ documentation.
 
 ## Install
 
+In order to install the Apisearch bundle you need to follow the regular Bundle
+installation process described in the [Symfony documentation](https://symfony.com/doc/3.3/bundles/installation.html).
 
+## Configuration
 
-## Repository
+This bundle provides a single point of configuration where you can define how
+your index should be built. That means defining the repositories by their own
+app_id values, and inside each one, defining the token that should be used in 
+order to connect properly and the different indices available.
 
-In this chapter we will see how to create a new repository instance in order to
-create a nice connection with the remote server. This repository will be always
-created by the Symfony container, so we only have to define some parameters to
-make it happen.
+Given this configuration, you'll be able to manage all apps, indices, tokens and
+repositories content.
 
-Let's open the configuration file.
+Let's check a basic configuration snippet.
 
 ```yml
 apisearch:
@@ -60,12 +65,51 @@ apisearch:
                 en: 347893b43b
 ```
 
-By default, this configuration creates a TransformableRepository instance,
-wrapping a HttpRepository instance configured by given endpoint and api secret.
+We have 2 different applications here, with their own indices each. Each one of
+them will be used to generate repositories for you. Let's check what
+repositories are available with this configuration.
 
-The bundle will generate one repository per index, and will always follow the
-same pattern `apisearch.repository_{app_name}.{index_name}`. In the example
-posted, the container would generate 4 different connection repositories
+## App Repository
+
+This is the repository that will allow you to manage applications, their indices
+and tokens. Remember that you must have valid tokens for such actions.
+
+With this configuration the bundle will generate for you two on-demand instances
+implementing `AppRepository`. These instances will be injectable by using their
+built service names, following the pattern
+`apisearch.repository_{app_name}`
+
+```yaml
+my_service:
+    class: My\Service\Namespace
+    arguments:
+      - "@apisearch.repository_search"
+```
+
+> The name of the repository is the one defined in the configuration block. In
+> this case, you have two applications, the search and the comments one. You
+> would find here the service `apisearch.search_repository` and
+> `apisearch.commends_repository`. The app_id is not used at any case.
+
+You can use **auto-wiring** as well by using named aliases. This mean that if you
+have this feature enabled (by default in Symfony 4), you can simply inject the
+AppRepository by casting it as it is, and by naming the parameter following this
+convention
+
+```php
+public function __construct(AppRepository $apisearchSearchAppRepository) {}
+public function __construct(AppRepository $apisearchCommentsAppRepository) {}
+```
+
+## Repository
+
+Each application will create a single repository per each index created. Each
+one of them will give you the capability to connect to the Apisearch server and
+manage the entities inside this index.
+
+Following the same default configuration, this bundle will create 4 different
+repositories, each one following the pattern
+`apisearch.repository_{app_name}.{index_name}`
 
 - apisearch.repository_search.default
 - apisearch.repository_comments.ca
@@ -76,102 +120,30 @@ The first repository will use the token assigned to search repository, and the
 other 3, will use the second token.
 You can use all these service by injecting them in your service or containers.
 
-```yml
-services:
-
-    my_service:
-        class: My\Service\Namespace
-        arguments:
-            - "@apisearch.repository_search.default"
+```yaml
+my_service:
+    class: My\Service\Namespace
+    arguments:
+        - "@apisearch.repository_search.default"
 ```
 
-You can disable HTTP clients if you're not going to work with the HTTP layer.
-That will be great if you are under testing environment. In that case, you will
-be able to work with a very restrictive environment. That means that complex
-queries cannot be tested.
+> The name of the repository and the name of the index are the ones defined in
+> the configuration block. In this case, inside the first application you will
+> find a single repository generated named
+> `apisearch.repository_search.default`. The app_id and the index_id will not be
+> used at any case.
 
-```yml
-apisearch:
-    repositories:
-        search:
-            app_id: d78s7ds89
-            token: dcdbc971-9872-a798-c7ac-59e64957d4bd
-            indices:
-                default: d789d7s89
-            http: false
+You can use **auto-wiring** as well by using named aliases. This mean that if you
+have this feature enabled (by default in Symfony 4), you can simply inject the
+Repository by casting it as it is, and by naming the parameter following this
+convention
+
+```php
+public function __construct(Repository $apisearchSearchDefaultRepository) {}
+public function __construct(TransformableRepository $apisearchCommentsEsRepository) {}
 ```
 
-From now, this documentation will talk about using HTTP layer.
-You can create a test client by telling through configuration. If the repository
-is created with a test environment, then a special HttpClient will be created to
-work with the testing client provided by Symfony client. Of course, in that
-case, we don't need any endpoint.
-
-```yml
-apisearch:
-    repositories:
-        search_test:
-            app_id: d78s7ds89
-            token: dcdbc971-9872-a798-c7ac-59e64957d4bd
-            indices:
-                default: d789d7s89
-            test: true
-```
-
-You can use as well another Repository implementation. Yours for example. This
-service must be defined in the container, and you should define the service name
-without the `@` symbol.
-
-```yml
-apisearch:
-    repositories:
-        search:
-            app_id: d78s7ds89
-            token: dcdbc971-9872-a798-c7ac-59e64957d4bd
-            indices:
-                default: d789d7s89
-            search:
-                repository_server: my_repository_service
-```
-
-## Event Repository
-
-You can use the event repository as well. The container will build exactly the
-same number of services than the regular repository, but instead of
-`.repository_`, the services are built by using the `.event_repository_` syntax.
-
-- `apisearch.event_repository_search.default`
-- `apisearch.event_repository_comments.ca`
-- `apisearch.event_repository_comments.es`
-- `apisearch.event_repository_comments.en`
-
-You can inject them as well the way Symfony says.
-
-
-```yml
-services:
-
-    my_service:
-        class: My\Service\Namespace
-        arguments:
-            - "@apisearch.event_repository_search"
-```
-
-You can use as well another Event Repository implementation. Yours for example.
-This service must be defined in the container, and you should define the service
-name without the `@` symbol.
-
-```yml
-search_bundle:
-    repositories:
-        search:
-            app_id: d78s7ds89
-            token: dcdbc971-9872-a798-c7ac-59e64957d4bd
-            indices:
-                default: d789d7s89
-            event:
-                repository_server: my_event_repository_service
-```
+Both castings will have the same effect.
 
 ## Transformers
 
@@ -250,153 +222,6 @@ By using the TransformableRepository, you will be able to work with yet another
 Both methods will use Transformers to work with your model, but call API
 endpoints with the only entity we really understand in our servers. Item.
 
-## Twig macros
+## Commands
 
-This package provides you as well a set of basic macros for your aggregations.
-Let's imagine that our controller makes a great Query with 2 aggregations and
-gets from the repository a Result object. We have aggregated our repository by
-color and by size.
-
-```php
-/**
- * Our controller
- */
-class SearchController extends Controller
-{
-    /**
-     * Search action
-     *
-     * @return Response
-     */
-    public function searchAction() : Response
-    {
-        $query = Query::createMatchAll()
-            ->aggregateBy('size', 'size', Filter::AT_LEAST_ONE)
-            ->aggregateBy('color', 'color', Filter::AT_LEAST_ONE)
-            
-        $result = $this
-            ->get('apisearch.repository_search')
-            ->query($query);
-            
-        return $this->render('MyBundle:Search:search.html.twig', [
-            'result' => $result,
-        ]);
-    }
-}
-```
-
-Then, this Result object is passed to the view, and we want a basic aggregation
-print, in order to check that good results are being printed properly.
-
-If you go to the PHP documentation and check how a Result object is actually
-built internally, you'll notice that, in fact, any kind of view can be build on
-top of that object. You can take this base macros as an example as well.
-
-```jinja
-{% import "ApisearchBundle:Macros:aggregations.html.twig" as _aggregations %}
-
-{{ _aggregations.printAggregation(result, 'size') }}
-{{ _aggregations.printAggregation(result, 'color') }}
-```
-
-That simple macro will print something like that
-
-```
-Size
-[ ] M   (10)
-[ ] L   (12)
-[ ] XL  (6)
-
-Color
-[ ] Blue (1)
-[ ] Red  (2)
-```
-
-Each line will create the right url, with parameters applied or removed.
-
-## Filter values
-
-As you can see, any filter is applied in the last example, and this is because,
-even if we applied a filter clicking by one of these links, filters are not
-retrieved from the request and added in the query.
-
-Let's fix it by changing our controller.
-
-```php
-/**
- * Our controller
- */
-class SearchController extends Controller
-{
-    /**
-     * Search action
-     *
-     * @param Request $request
-     *
-     * @return Response
-     */
-    public function searchAction(Request $request) : Response
-    {
-        $requestQuery = $request->query;
-        $query = Query::createMatchAll()
-            ->filterBy('size', 'size', $requestQuery->get('size', []), Filter::AT_LEAST_ONE)
-            ->aggregateBy('size', 'size')
-            ->filterBy('color', 'color', $requestQuery->get('color', []), Filter::AT_LEAST_ONE)
-            ->aggregateBy('color', 'color')
-            
-        $result = $this
-            ->get('apisearch.repository_search')
-            ->query($query);
-            
-        return $this->render('MyBundle:Search:search.html.twig', [
-            'result' => $result,
-        ]);
-    }
-}
-```
-
-By default, the filter/aggregation name will be the name of the parameter, so if
-you add a HTTP query parameter called color with value an array with value
-`blue`, then the Query object will take `blue` filter. Then, your aggregations
-will look like this, and all your results will contain, minimum, color blue.
-
-```
-Size
-[ ] M   (10)
-[ ] L   (12)
-[ ] XL  (6)
-
-Color
-[x] Blue (1)
-[ ] Red  (2)
-```
-
-## Reset index command
-
-By default this bundle enables to a pre-configured command, so you can reset any
-of your configured repositories by only adding as argument the repository name.
-
-```bash
-Usage:
-  puntmig:search:reset-index <repository> [<language>]
-
-Arguments:
-  repository            Repository name
-  language              Language base for the repository
-
-Options:
-  -h, --help            Display this help message
-  -q, --quiet           Do not output any message
-  ...
-  
-Help:
-  Reset your search index. Prepared a clean instance of the index and remove 
-  existing objects
-```
-
-as you can see, you can define as well the language.
-
-```bash
-php bin/console puntmig:search:reset-index search
-php bin/console puntmig:search:reset-index search ca
-```
+This bundle allow you the same bundles than 

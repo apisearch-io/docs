@@ -1,0 +1,381 @@
+---
+root: true
+page: 4
+icon: terminal
+title: Console Specification
+description: Check the server console
+category: Console
+template: one-column-with-toc.mustache
+source: console.md
+tags:
+  - console
+---
+
+# Console
+
+In this chapter we will talk about the Apisearch console. Each server instance
+will provide you a set of console commands to manage your server. As it is in
+Symfony, all commands must be executed in the root of the project by using the
+provided console bin file
+
+```
+php bin/console apisearch-server:add-token xxx
+```
+
+Each command need some optional and required arguments and options, so in this
+chapter we will check how to use each of them.
+
+```
+php bin/console
+
+apisearch-server:add-token               Add a token
+apisearch-server:check-health            Check health
+apisearch-server:check-index             Checks an index
+apisearch-server:clean-environment       Clean the environment before server stops
+apisearch-server:configure-environment   Configure the environment before server run
+apisearch-server:configure-index         Configure an index
+apisearch-server:create-index            Create an index
+apisearch-server:delete-all-tokens       Delete all tokens
+apisearch-server:delete-index            Delete an index
+apisearch-server:delete-token            Delete a token
+apisearch-server:export-index            Export your index items in a portable file
+apisearch-server:generate-basic-tokens   Generate a basic tokens ring
+apisearch-server:generate-crontab        Create crontab file
+apisearch-server:import-index            Import items from a file to your index
+apisearch-server:pause-consumers         Schedule pause on all required consumers
+apisearch-server:print-indices           Print all indices
+apisearch-server:print-tokens            Print all tokens of an app-id
+apisearch-server:query                   Query an index
+apisearch-server:resume-consumers        Schedule resume on all required consumers
+apisearch-server:server-configuration    Print server configuration
+```
+
+> In this documentation, and in all the examples for commands in console, we
+> will use "marvel" as the app UID and "comics" as the index UID. In order to
+> increase the quality of the security, we encourage you to use UUID values for
+> these assignations.
+ 
+## Create Index
+
+Creates a new index by defining an app-id and an index id. If the index exists,
+the command will not override the existing one (see [Configure Index](#configure-index))
+and will throw an error.
+
+```
+php bin/console apisearch-server:create-index marvel comics
+```
+
+You can configure the new index with a small set of options.
+
+- --language - Define an specific language for the index. This option will force
+the index to adopt a set of small optimizations for index and search items
+- --no-store-searchable-metadata - The searchable metadata will not be stored
+in the index. If this option is enabled, index exporting will not work as
+expected
+- --synonym - Add a synonym in your index.
+- --synonyms-file - Define a file where synonyms are defined, instead of
+defining one by one
+- --shards - Number of shards your index should have
+- --replicas - Number of replicas your index should have
+
+```
+php bin/console apisearch-server:create-index marvel comics \
+    --language=es \
+    --no-store-searchable-metadata \
+    --synonym=land,country,homeland \
+    --synonym-file=synonyms.txt \
+    --shards=5 \
+    --replicas=2
+```
+
+## Configure Index
+
+Once an index is already created, you cannot create it again, but you can
+configure it. Because you could have many items already inserted in your index,
+because some configuration elements need the index to be stopped, and because
+our index should never be stopped in production, this action will recreate the
+index in parallel with new changes meanwhile the current one is live.
+
+New actions will be stopped only if asynchronous feature for writes is enabled,
+so after the new copy of the index is already created with the new
+configuration, paused consumers will be resumed again, and all actions will
+affect the new index.
+
+The old one will be deleted.
+
+> This action is interesting if you want to regularly reset the segments of the
+> search engine. Segments can increment so much the physical size of the index 
+> by keeping old segments in memory. This action creates a new one from the
+> scratch with only the current data.
+
+The arguments and options are exactly the same than the previous command
+[Create Index](#create-index). If the index does not exist, the command will
+throw an error.
+
+```
+php bin/console apisearch-server:configure-index marvel comics \
+    --language=es \
+    --no-store-searchable-metadata \
+    --synonym=land,country,homeland \
+    --synonym-file=synonyms.txt \
+    --shards=5 \
+    --replicas=2
+```
+
+## Check Index
+
+Checks if an index exists.
+
+```
+php bin/console apisearch-server:check-index marvel comics
+```
+
+## Export Index
+
+Given an existing index, export all the data in a single file. This file will be
+importable with using [Import Index](#import-index), being this resulting file
+something manipulable and editable by a single text editor. If the index does
+not exist, an error will be thrown.
+
+```
+php bin/console apisearch-server:export-index marvel comics myfile.txt
+```
+
+## Import Index
+
+Imports an index, if exists, with an existing formatted file. This file can
+easily be created exporting the same index with [Export Index](#export-index).
+Importing a file into a non existing index would throw an error, having the same
+result importing a non existing file.
+
+```
+php bin/console apisearch-server:import-index marvel comics myfile.txt
+```
+
+## Print all Indices
+
+You can print all the existing indices given an app. An index, by definition,
+can have multiple fields (built dynamically) and some associated metadata,
+provided by the installed plugins. All this information is optional, by can 
+easily be printed as well.
+
+```
+php bin/console apisearch-server:print-indices marvel
+
+[Get indices] App ID: media
++--------+--------+-----------+--------+-----+--------+----------+
+| UUID   | App ID | Doc Count | Size   | Ok? | shards | replicas |
++--------+--------+-----------+--------+-----+--------+----------+
+| comics | marvel | 11343     | 26.6mb | Yes | 1      | 0        |
++--------+--------+-----------+--------+-----+--------+----------+
+```
+
+And printing the files
+
+```
+php bin/console apisearch-server:print-indices marvel --with-fields
+
+[Get indices] App ID: marvel
++--------+--------+-----------+--------+-----+--------+----------+-------------------------------------+-----------+-------------+
+| UUID   | App ID | Doc Count | Size   | Ok? | shards | replicas | Fields                              | Allocated | Doc_deleted |
++--------+--------+-----------+--------+-----+--------+----------+-------------------------------------------------+-------------+
+| comics | marvel | 11343     | 26.6mb | Yes | 1      | 0        | coordinate: geo_point               | 1         | 0           |
+|        |        |           |        |     |        |          | exact_matching_metadata: keyword    |           |             |
+|        |        |           |        |     |        |          | indexed_metadata.year: keyword      |           |             |
+|        |        |           |        |     |        |          | metadata.title: text                |           |             |
+|        |        |           |        |     |        |          | searchable_metadata.title: text     |           |             |
+|        |        |           |        |     |        |          | suggest: completion                 |           |             |
+|        |        |           |        |     |        |          | uuid.id: keyword                    |           |             |
+|        |        |           |        |     |        |          | uuid.type: keyword                  |           |             |
++--------+--------+-----------+--------+-----+--------+----------+-------------------------------------+-----------+-------------+
+
+```
+
+## Delete Index
+
+Deletes an existing index if exists. If not exists, throws error.
+
+```
+php bin/console apisearch-server:delete-index marvel comics
+```
+
+## Add Token
+
+Adds a new token for an index. This token can be manually defined or
+automatically generated by the command. There is a required argument which is
+the app-id, and an optional token value. If this token is defined, then will be
+used as the token value to upsert. Otherwise, a random *UUID* value will be
+generated and used for you.
+
+As part of the token definition, you can limit the indices where this token will
+be valid (all for empty), the endpoints that will allow permissions
+(all for empty), the plugins that will use once is used (all for empty), and the
+TTL.
+
+```
+php bin/console apisearch-server:add-token marvel 1234-5678-9100 --index=comics
+```
+
+> The new token will be stored only if the server has a storage plugin enabled.
+> Otherwise, this action will not have any effect.
+
+## Generate Basic Tokens
+
+A regular Apisearch environment, by default, would need 3 different tokens. The
+first one, an admin token, specific for adding other tokens, creating and
+deleting indices and everything related to the administration of your data. The
+second one, a read-only token, with a very restricted set of actions, like make
+queries. The third one, a token with only one goal: send user interactions to
+the server from the browser. The first one should never be public, and the other
+two are specifically designed to be public.
+
+After you create a new index, you can generate all these tokens with a single
+command. Random tokens will be generated with the proper rights and will be sent
+to the server.
+
+```
+php bin/console apisearch-server:generate-basic-tokens marvel
+
+[Create basic tokens] App ID: media
+[Create basic tokens] Token with UUID 6ed35deb-fb82-4af6-83d3-17db37624cf0 generated for admin
+[Create basic tokens] Token with UUID 9dfc1d21-4e31-422a-9247-6e99ab7d90df generated for query only
+[Create basic tokens] Token with UUID d08146b2-310b-4d86-9c24-20005ff3999e generated for interaction
+[Create basic tokens] Tokens created properly
+
+```
+
+You can delete or update this tokens after this command, so these generated 
+tokens are considered dynamic, and only will be really stored if your server
+has enabled a storage plugin.
+
+## Print all Tokens
+
+You can print all generated tokens given an app. In this command, each token
+will be decorated with the configured permissions, the plugins that uses each
+one, and the TTL.
+
+```
+php bin/console apisearch-server:print-tokens marvel
+
++------+---------+--------------------------------+---------+-----+
+| UUID | Indices | endpoints                      | plugins | ttl |
++------+---------+--------------------------------+---------+-----+
+| xxx  |         |                                |         | 0   |
+| xxx  |         | v1_query, v1_query_all_indices |         | 60  |
+| xxx  |         | ping, check_health             |         | 0   |
++------+---------+--------------------------------+---------+-----+
+```
+
+This command will print both static and dynamic tokens.
+
+## Delete Token
+
+You can delete a token. If the app or the token defined does not exist, an error
+will be thrown. If the token is a dynamic one, this token will be deleted. If
+the token is a static one (defined by configuration), then this action will have
+not effects.
+
+```
+php bin/console apisearch-server:delete-token marvel 1234-5678-9100
+```
+
+## Delete all Tokens
+
+Given an app, you can delete all tokens. Only dynamic tokens will be deleted.
+
+```
+php bin/console apisearch-server:delete-all-tokens marvel
+```
+
+## Query
+
+You can make a simple query given an app and an index. This is a basic reduction
+of what queries can be, but in order to make the command simple and completely
+secondary, only the size and the page are enabled for configuration.
+
+```
+php bin/console apisearch-server:query marvel comics
+
+[Query index] App ID: marvel
+[Query index] Index UUID: comics
+[Query / Page / Size] * / 1 / 10
+[Number of resources in index] 11343
+[Number of hits] 11343
+
+[x] nation_x:_x-factor_vol_1_1~book - /wiki/Nation_X:_X-Factor_Vol_1_1
+[x] new_mutants_vol_3_9~book - /wiki/New_Mutants_Vol_3_9
+[x] siege_vol_1_1~book - /wiki/Siege_Vol_1_1
+[x] marvel_boy:_the_uranian_vol_1_1~book - /wiki/Marvel_Boy:_The_Uranian_Vol_1_1
+[x] spider-man_noir:_eyes_without_a_face_vol_1_2~book - /wiki/Spider-Man_Noir:_Eyes_Without_A_Face_Vol_1_2
+[x] cable_vol_2_22~book - /wiki/Cable_Vol_2_22
+[x] deadpool_team-up_vol_1_897~book - /wiki/Deadpool_Team-Up_Vol_1_897
+[x] siege:_embedded_vol_1_1~book - /wiki/Siege:_Embedded_Vol_1_1
+[x] daffodil_vol_1_1~book - /wiki/Daffodil_Vol_1_1
+[x] deadpool:_merc_with_a_mouth_vol_1_9~book - /wiki/Deadpool:_Merc_with_a_Mouth_Vol_1_9
+```
+
+You can define the page and the size of the result if you want to.
+
+```
+php bin/console apisearch-server:query marvel comics \
+    --size=5 \
+    --page=10
+```
+
+## Check Health
+
+Checking the health of your server could be very useful when deploying it in
+your infrastructure. You can have the same information as an HTTP entrypoint,
+but by using this command you can have the same information (for example the
+enabled plugins given a configuration and a set of environment variables) by
+using this console command.
+
+```
+php bin/console apisearch-server:check-health
+
+[Memory Used] 12171992
+[Plugins] elastica
+[Elasticsearch] green
+```
+
+## Server Configuration
+
+Print the entire server configuration, including the environment values, the
+server values and the loaded plugins. Very useful for logging when deploying and
+facing some issues.
+
+```
+php bin/console apisearch-server:server-configuration
+```
+
+## Pause Consumers
+
+Send an signal to all running consumers so, after the current job,
+should turn paused. Will stay paused until receives a new signal for be resumed.
+You can define what type of consumers do you want to pause with the option
+`--type`, allowing multiple values (none is all).
+
+```
+php bin/console apisearch-server:pause-consumers --type=command --type=domain-event
+```
+
+## Resume Consumers
+
+Send a signal to all paused consumers so they can be resumed.
+You can define what type of consumers do you want to pause with the option
+`--type`, allowing multiple values (none is all).
+
+```
+php bin/console apisearch-server:resume-consumers --type=command --type=domain-event
+```
+
+## Generate Crontab
+
+Generates a new crontab configuration given the enabled plugins. That means
+that, by default, this crontab will be empty, but if you install a plugin that
+creates some kind of periodic action based on crontab engine, the plugin itself
+will build this lines when running this command.
+
+```
+php bin/console apisearch-server:generate-crontab
+```

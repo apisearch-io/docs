@@ -1,6 +1,6 @@
 ---
 root: true
-page: 6
+page: 7
 icon: plug
 title: Plugins Directory
 description: Check our plugins in this directory. You will find plugins distributed with the main repository and some third party

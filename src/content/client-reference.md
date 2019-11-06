@@ -1,6 +1,6 @@
 ---
 root: true
-page: 5
+page: 6
 icon: code
 title: Client Reference
 description: Client reference
