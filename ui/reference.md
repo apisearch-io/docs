@@ -214,8 +214,8 @@ Here you have a live example about
         target: '#sortby',
         options: [
             { name: 'Score', value: 'score' },
-            { name: 'Best rated first', value: 'rating:asc' },
-            { name: 'Worst rated first', value: 'rating:desc' },
+            { name: 'Best rated first', value: 'rating:desc' },
+            { name: 'Worst rated first', value: 'rating:asc' },
             { name: 'Newer first', value: 'year:asc' },
             { name: 'Older first', value: 'year:desc' },
         ],
@@ -397,7 +397,7 @@ work with numbers or dates).
 );</code></pre>
     </div>
     <div class="column is-one-third-fullhd is-half-desktop is-desktop">
-        <iframe scrolling="no" loading="lazy" src="/_iframe/search-input.html?with-filter=1&num-results=4&first-query=1" style="height: 614px;"></iframe>
+        <iframe scrolling="no" loading="lazy" src="/_iframe/search-input.html?with-filter=1&with-rating=1&num-results=4&first-query=1" style="height: 614px;"></iframe>
     </div>
 </div>
 
@@ -495,7 +495,7 @@ In this example, we use jQuery UI range library for adding a year range.
 );</code></pre>
     </div>
     <div class="column is-one-third-fullhd is-half-desktop is-desktop">
-        <iframe scrolling="no" loading="lazy" src="/_iframe/search-input.html?with-range=1&num-results=4&first-query=1" style="height: 535px;"></iframe>
+        <iframe scrolling="no" loading="lazy" src="/_iframe/search-input.html?with-range=1&with-rating=1&num-results=4&first-query=1" style="height: 535px;"></iframe>
     </div>
 </div>
 
@@ -639,7 +639,7 @@ In this example you can see a simple pagination widget.
 );</code></pre>
     </div>
     <div class="column is-one-third-fullhd is-half-desktop is-desktop">
-        <iframe scrolling="no" loading="lazy" src="/_iframe/search-input.html?num-results=4&with-pagination=1&first-query=1" style="height: 550px;"></iframe>
+        <iframe scrolling="no" loading="lazy" src="/_iframe/search-input.html?num-results=4&with-pagination=1&with-rating=1&first-query=1" style="height: 550px;"></iframe>
     </div>
 </div>
 
@@ -696,6 +696,6 @@ widget.
 );</code></pre>
     </div>
     <div class="column is-one-third-fullhd is-half-desktop is-desktop">
-        <iframe scrolling="no" loading="lazy" src="/_iframe/search-input.html?num-results=4&with-information=1&first-query=1" style="height: 550px;"></iframe>
+        <iframe scrolling="no" loading="lazy" src="/_iframe/search-input.html?num-results=4&with-information=1&with-rating=1&first-query=1" style="height: 550px;"></iframe>
     </div>
 </div>
