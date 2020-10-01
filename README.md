@@ -30,10 +30,11 @@ you're lucky today! You're exactly in the best place.
 
 Here you have some articles for you.
 
-- [Download](download.md)
-- [First example](first-example.md)
-- [Model](model.md)
-- [Server](server.md)
+- [Download](https://docs.apisearch.io/#/download)
+- [Server configuration](https://docs.apisearch.io/#/server-configuration)
+- [First example](https://docs.apisearch.io/#/first-example)
+- [Model](https://docs.apisearch.io/#/code-reference/model)
+- [UI Quickstart](https://docs.apisearch.io/#/ui/quickstart)
 
 If you want a bit more of support, don't worry. Our team created this project
 because we believe that a search engine should be accessible by anyone,

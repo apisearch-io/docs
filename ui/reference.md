@@ -133,8 +133,8 @@ This is mandatory if you want a “clearSearch” button. By default `true`
 
 Here you have a live example about a simple input field.
 
-<div class="columns is-desktop">
-    <div class="column is-two-thirds-fullhd is-half-desktop">
+<div class="row">
+    <div class="col-lg-8 col-md-6 col-sm-12">
         <pre v-pre="" data-lang="javascript">
         <code lang="javascript">ui.addWidgets(
     ui.widgets.searchInput({
@@ -150,7 +150,7 @@ Here you have a live example about a simple input field.
     }),
 );</code></pre>
     </div>
-    <div class="column is-one-third-fullhd is-half-desktop is-desktop">
+    <div class="col-lg-4 col-md-6 col-sm-12">
         <iframe scrolling="no" loading="lazy" src="/_iframe/search-input.html" style="height: 423px;"></iframe>
     </div>
 </div>
@@ -197,8 +197,8 @@ or by distance (`distance`). Both don't need order, just these values as field.
 
 Here you have a live example about
 
-<div class="columns is-desktop">
-    <div class="column is-two-thirds-fullhd is-half-desktop">
+<div class="row">
+    <div class="col-lg-8 col-md-6 col-sm-12">
         <pre v-pre="" data-lang="javascript">
         <code lang="javascript">ui.addWidgets(
     ui.widgets.searchInput({
@@ -222,7 +222,7 @@ Here you have a live example about
     })
 );</code></pre>
     </div>
-    <div class="column is-one-third-fullhd is-half-desktop is-desktop">
+    <div class="col-lg-4 col-md-6 col-sm-12">
         <iframe scrolling="no" loading="lazy" src="/_iframe/search-input.html?with-sortby=1&with-rating=1&num-results=4" style="height: 614px;"></iframe>
     </div>
 </div>
@@ -370,8 +370,8 @@ Here you have a live example about how to create some filters. In that case, we
 have created a small year filter, defining some ranges (only available when you
 work with numbers or dates).
 
-<div class="columns is-desktop">
-    <div class="column is-two-thirds-fullhd is-half-desktop">
+<div class="row">
+    <div class="col-lg-8 col-md-6 col-sm-12">
         <pre data-lang="javascript">
         <code lang="javascript">ui.addWidgets(
     ui.widgets.searchInput({
@@ -396,7 +396,7 @@ work with numbers or dates).
     })
 );</code></pre>
     </div>
-    <div class="column is-one-third-fullhd is-half-desktop is-desktop">
+    <div class="col-lg-4 col-md-6 col-sm-12">
         <iframe scrolling="no" loading="lazy" src="/_iframe/search-input.html?with-filter=1&with-rating=1&num-results=4&first-query=1" style="height: 614px;"></iframe>
     </div>
 </div>
@@ -472,8 +472,8 @@ Apisearch as indexed_metadata.
     
 In this example, we use jQuery UI range library for adding a year range.
 
-<div class="columns is-desktop">
-    <div class="column is-two-thirds-fullhd is-half-desktop">
+<div class="row">
+    <div class="col-lg-8 col-md-6 col-sm-12">
         <pre data-lang="javascript">
         <code lang="javascript">ui.addWidgets(
     ui.widgets.searchInput({
@@ -494,7 +494,7 @@ In this example, we use jQuery UI range library for adding a year range.
     })
 );</code></pre>
     </div>
-    <div class="column is-one-third-fullhd is-half-desktop is-desktop">
+    <div class="col-lg-4 col-md-6 col-sm-12">
         <iframe scrolling="no" loading="lazy" src="/_iframe/search-input.html?with-range=1&with-rating=1&num-results=4&first-query=1" style="height: 535px;"></iframe>
     </div>
 </div>
@@ -526,8 +526,8 @@ Parameters:
 Here you have a small snippet showing you how to use clear filter button (make
 sure you filter by something before it appears)
 
-<div class="columns is-desktop">
-    <div class="column is-two-thirds-fullhd is-half-desktop">
+<div class="row">
+    <div class="col-lg-8 col-md-6 col-sm-12">
         <pre data-lang="javascript">
         <code lang="javascript">ui.addWidgets(
     ui.widgets.searchInput({
@@ -558,7 +558,7 @@ sure you filter by something before it appears)
     }),
 );</code></pre>
     </div>
-    <div class="column is-one-third-fullhd is-half-desktop is-desktop">
+    <div class="col-lg-4 col-md-6 col-sm-12">
         <iframe scrolling="no" loading="lazy" src="/_iframe/search-input.html?with-filter=1&with-clear-filters=1&num-results=4&first-query=1" style="height: 614px;"></iframe>
     </div>
 </div>
@@ -618,8 +618,8 @@ result will be: [<] 3 4 [5] 6 7 [>]
 
 In this example you can see a simple pagination widget.
 
-<div class="columns is-desktop">
-    <div class="column is-two-thirds-fullhd is-half-desktop">
+<div class="row">
+    <div class="col-lg-8 col-md-6 col-sm-12">
         <pre data-lang="javascript">
         <code lang="javascript">ui.addWidgets(
     ui.widgets.searchInput({
@@ -638,7 +638,7 @@ In this example you can see a simple pagination widget.
     }),
 );</code></pre>
     </div>
-    <div class="column is-one-third-fullhd is-half-desktop is-desktop">
+    <div class="col-lg-4 col-md-6 col-sm-12">
         <iframe scrolling="no" loading="lazy" src="/_iframe/search-input.html?num-results=4&with-pagination=1&with-rating=1&first-query=1" style="height: 550px;"></iframe>
     </div>
 </div>
@@ -677,8 +677,8 @@ information received before being passed to the template.
 In this example, we have a simple information widget on top of the results
 widget.
 
-<div class="columns is-desktop">
-    <div class="column is-two-thirds-fullhd is-half-desktop">
+<div class="row">
+    <div class="col-lg-8 col-md-6 col-sm-12">
         <pre data-lang="javascript">
         <code lang="javascript">ui.addWidgets(
     ui.widgets.searchInput({
@@ -695,7 +695,7 @@ widget.
     }),
 );</code></pre>
     </div>
-    <div class="column is-one-third-fullhd is-half-desktop is-desktop">
+    <div class="col-lg-4 col-md-6 col-sm-12">
         <iframe scrolling="no" loading="lazy" src="/_iframe/search-input.html?num-results=4&with-information=1&with-rating=1&first-query=1" style="height: 550px;"></iframe>
     </div>
 </div>

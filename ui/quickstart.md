@@ -71,6 +71,8 @@ All widgets are past using `.addWidget(widget)` method,
 or using `.addWidgets(...widgets)` to add widgets in bulk mode,
 like in the example below.
 
+Check all the available widgets in our [UI Reference](reference.md)
+
 Once your setup is done, you just call the `.init()` method to 
 start all the magic!
 
