@@ -1,0 +1,301 @@
+<script src="https://apisearch-io.github.io/search-ui/dist/apisearch-ui.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.0/css/bulma.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<style type="text/css">
+
+    .as-searchInput__clearSearch {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        color: #CCC;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    .as-multipleFilter__itemName {
+        margin-left: 10px;
+    }
+
+    .as-multipleFilter__itemNumber {
+        float: right;
+        color: #777;
+        font-size: 13px;
+    }
+
+    .as-multipleFilter__itemNumber:before {
+        content: '(';
+    }
+
+    .as-multipleFilter__itemNumber:after {
+        content: ')';
+    }
+
+    .red {
+        color: red;
+    }
+
+    li.button {
+        margin-left: 1px;
+        margin-right: 1px;
+    }
+
+    .as-pagination {
+        text-align: center;
+    }
+
+</style>
+
+<script>
+    $(document).ready(function() {
+        $("#range-slider").slider({
+            range: true,
+            min: 1900,
+            max: 2020,
+            values: [ 1900, 2020 ],
+            slide: function( event, ui ) {
+                $("#range-slider-info span").text(ui.values[0] + " - " + ui.values[1] );
+            },
+            stop: function( event, ui ) {
+                document.getElementById("price-from").setAttribute('value', ui.values[0]);
+                document.getElementById("price-to").setAttribute('value', ui.values[1]);
+            }
+        });
+
+        $("#range-slider-info span").text($("#range-slider").slider("values", 0) + ' - ' + $("#range-slider").slider("values", 1));
+    });
+</script>
+
+<body style="padding: 20px;">
+    <div class="columns">
+        <div class="column">
+            <div id="pagination" class="hidden" style="margin-bottom: 15px;"></div>
+            <div id="clear-filters" class="hidden" style="margin-bottom: 15px;"></div>
+            <div id="sortby" class="select hidden" style="margin-bottom: 15px;"></div>
+            <div id="filter" class="hidden" style="margin-bottom: 15px;"></div>
+            <div id="range-slider-info" class="hidden" style="margin-bottom: 15px;">Year filter <span></span></div>
+            <div id="range-slider" class="hidden" style="margin-bottom: 15px;"></div>
+            <div id="range" class="hidden" style="margin-bottom: 15px;"></div>
+            <div id="information" class="hidden" style="margin-bottom: 15px;"></div>
+            <div class="field">
+                <div id="input" class="control"></div>
+            </div>
+            <div id="results"></div>
+        </div>
+    </div>
+
+    <script type="text/template" id="result-template">
+        {{#items}}
+        <div class="card" style="border-radius: .2rem; margin-top: .5rem">
+            <div class="card-content" style="padding: 1rem;">
+                <div class="media">
+                    <div class="media-left">
+                        <img src="{{metadata.image}}" alt="{{metadata.title}}" style="height: 46px;">
+                    </div>
+                    <div class="media-content">
+                        <strong>{{metadata.title}}</strong> - <i style="font-size: 14px; color: #777;">({{indexedMetadata.year}})</i><br>
+                        {{#indexedMetadata.categories.0}}
+                            {{indexedMetadata.categories.0.name}}
+                        {{/indexedMetadata.categories.0}}
+                        {{^indexedMetadata.categories.0}}
+                            {{{indexedMetadata.rating_with_stars}}}
+                        {{/indexedMetadata.categories.0}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{/items}}
+    </script>
+
+    <script>
+
+        function itemsToStarRating(item) {
+            if (item.indexedMetadata.rating) {
+                const ratingNumber = item.indexedMetadata.rating;
+                item.indexedMetadata.rating_with_stars = '';
+
+                for(let index = 0; index < 5; index++) {
+                    if (index < ratingNumber) {
+                        item.indexedMetadata.rating_with_stars += '&nbsp;<i class="fa fa-star" style="color: red;"></i>';
+                    } else {
+                        item.indexedMetadata.rating_with_stars += '&nbsp;<i class="fa fa-star" style="color: #CCC;"></i>';
+                    }
+                }
+            }
+
+            return item;
+        }
+
+        const urlParams = new URLSearchParams(window.location.search);
+
+        const hasSortBy = urlParams.get('with-sortby');
+        const hasFilter = urlParams.get('with-filter');
+        const hasClearFilters = urlParams.get('with-clear-filters');
+        const hasPagination = urlParams.get('with-pagination');
+        const hasInformation = urlParams.get('with-information');
+        const hasRange = urlParams.get('with-range');
+
+        const withRating = urlParams.get('with-rating');
+        const numberOfResults = urlParams.get('num-results');
+        const firstQuery = urlParams.get('first-query') != undefined;
+        const highlightClearSearch = urlParams.get('highlight-clearsearch') != undefined;
+
+        let fields = [];
+
+        if (withRating) {
+            fields= ['metadata.*', 'indexed_metadata.rating', 'indexed_metadata.year'];
+        }
+
+        const ui = apisearchUI.create({
+            app_id: 'as-29be77d7-2f64-4522',
+            index_id: 'eu1-prod-d53da03a-d49c-483c',
+            token: 'eu1-8438694d-5839-4179-9f73-a55630f3cd4d',
+            options: {
+                'endpoint': 'https://eu1.apisearch.io'
+            }
+        });
+
+        ui.addWidgets(
+            ui.widgets.searchInput({
+                target: '#input',
+                placeholder: 'Type to search...',
+                autofocus: true,
+                startSearchOn: firstQuery ? 0 : 3,
+                clearSearch: true,
+                classNames: {
+                    'input': 'input is-medium'
+                },
+                template: {
+                    clearSearch: '<i class="fa fa-times-circle'+ (highlightClearSearch ? ' red' : '') +'"></i>'
+                }
+            }),
+            ui.widgets.result({
+                target: '#results',
+                itemsPerPage: numberOfResults ? numberOfResults : 3,
+                fields: fields,
+                promote: [
+                    { type: 'album', id: 'mw0002885819' },
+                    { type: 'album', id: 'mw0000828548' },
+                    { type: 'album', id: 'mw0000085540' },
+                    { type: 'album', id: 'mw0002080092' }
+                ],
+                template: {
+                    itemsList: document.getElementById('result-template').text,
+                },
+                formatData: item => itemsToStarRating(item)
+            }),
+        );
+
+        if (hasSortBy) {
+            document.getElementById('sortby').classList.remove("hidden");
+            ui.addWidget(
+                ui.widgets.sortBy({
+                    target: '#sortby',
+                    options: [
+                        { name: 'Score', value: 'score' },
+                        { name: 'Best rated first', value: 'rating:asc' },
+                        { name: 'Worst rated first', value: 'rating:desc' },
+                        { name: 'Newer first', value: 'year:asc' },
+                        { name: 'Older first', value: 'year:desc' },
+                    ],
+                    classNames: {
+                        'select': 'select is-medium'
+                    },
+                })
+            );
+        }
+
+        if (hasFilter) {
+            document.getElementById('filter').classList.remove("hidden");
+            ui.addWidget(
+                ui.widgets.multipleFilter({
+                    target: '#filter',
+                    filterName: 'year',
+                    filterField: 'year',
+                    activeFirst: false,
+                    ranges: {
+                        '..1970': 'Until seventies',
+                        '1970..2000': 'From 1970 to 2000',
+                        '2000..': 'This millennium'
+                    }
+                })
+            );
+        }
+
+        if (hasClearFilters) {
+            document.getElementById('clear-filters').classList.remove("hidden");
+            ui.addWidget(
+                ui.widgets.clearFilters({
+                    target: '#clear-filters',
+                    classNames: {
+                        container: 'button is-danger is-light'
+                    }
+                }),
+            );
+        }
+
+        if (hasPagination) {
+            document.getElementById('pagination').classList.remove("hidden");
+            ui.addWidget(
+                ui.widgets.pagination({
+                    target: '#pagination',
+                    goFirstLast: true,
+                    padding: 1,
+                    classNames: {
+                        container: 'buttons',
+                        item: 'button',
+                        next: 'button is-info',
+                        first: 'button is-info',
+                        previous: 'button is-info',
+                        last: 'button is-info',
+                        active: 'is-primary',
+                    }
+                }),
+            );
+        }
+
+        if (hasInformation) {
+            document.getElementById('information').classList.remove("hidden");
+            ui.addWidget(
+                ui.widgets.information({
+                    target: '#information',
+                    template: {
+                        container: '<i class="fa fa-bolt red"></i> &nbsp; Matched {{total_hits}} of {{total_items}}!'
+                    }
+                }),
+            );
+        }
+
+        if (hasRange) {
+            document.getElementById('range-slider').classList.remove("hidden");
+            document.getElementById('range-slider-info').classList.remove("hidden");
+            ui.addWidget(
+                ui.widgets.rangeFilter({
+                    target: '#range',
+                    filterName: 'year',
+                    filterField: 'year',
+                    fromValue: 1900,
+                    toValue: 2020,
+                    from: {
+                        attributes: {
+                            'id': 'price-from',
+                        }
+                    },
+                    to: {
+                        attributes: {
+                            'id': 'price-to',
+                        }
+                    }
+                }),
+            );
+        }
+
+        ui.init({firstQuery: firstQuery});
+    </script>
+</body>
