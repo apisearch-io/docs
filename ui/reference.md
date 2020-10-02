@@ -125,7 +125,7 @@ will never be shown if the input has less than this value. By default, 0.
 * withContainer: to wrap the search input with a div container. 
 This is mandatory if you want a “clearSearch” button. By default `true`
 * classNames:
-    * container: refers to the parent div that contains the widget.
+    * container: refers to the parent div containing the widget.
     * input: refers to the html input.
     clearSearch_ 
 * template:
@@ -155,12 +155,103 @@ Here you have a live example about a simple input field.
     </div>
 </div>
 
+## Result
+
+This widget allows to show results the way you need.
+
+```javascript
+const resultWidget = ui.widgets.result({
+    target: !string,
+    fields: ?string[],
+    itemsPerPage: ?number[10],
+    highlightsEnabled: ?boolean[false],
+    promote: ?ItemUUID[],
+    exclude: ?ItemUUID[],
+    filter: ?Function,
+    formatData: ?Function,
+    fadeInSelector: ?string,
+    classNames: {
+        container: ?string,
+        itemsList: ?string,
+        placeholder: ?string,
+    },
+    template: {
+        itemsList: ?string,
+        placeholder: ?string[null],
+    },
+});
+```
+
+Properties:
+
+* target: is the dom selector, it can be an ID, or a class.
+* fields: the fields you want to require. Can have wildcards, like `metadata.*`
+or simple fields like `indexed_metadata.my_field`. You can exclude fields as
+well by adding an exclamation mark before the field, like `!metadata.field`.
+* itemsPerPage: number of fields you want to require. Pagination will use this
+value to show number of elements per page
+* highlightsEnabled: enable result highlights.
+* promote: list of ItemUUID objects with some items you want to promote in your
+search (will appear first)
+* exclude: list of ItemUUID objects with some items you want to exclude from
+your search (will not appear)
+* filter: Callback that receives the query before is executed. You can
+manipulate this query, for example, for filtering the universe with a specific
+subset of items
+* formatData: Callback that receives the result before is rendered. Useful if
+you need to create some dynamic content inside elements before is rendered.
+* fadeInSelector: if you define a selector here (a class, for example), all
+elements containing this selector will be considered as a virtual unit. As soon
+as you click outside this unit (could be the search input and this result
+widget), this result div will disappear until you click again over this unit
+(the search input). By default, this behavior is disabled.
+* classNames:
+    * container: refers to the parent div class containing the widget.
+    * itemsList: class name of the result items list.
+    * placeholder: class name of the "no results" div
+* template:
+    * itemsList: template string where to iterate across all result items
+    * placeholder: template string for "no results"
+
+In this example we only require the image of the result and we print all items
+as a simple grid.
+
+<div class="row">
+    <div class="col-lg-8 col-md-6 col-sm-12">
+        <pre v-pre="" data-lang="javascript">
+        <code lang="javascript">ui.addWidgets(
+    ui.widgets.searchInput({
+        target: '#input',
+        placeholder: 'Type to search...',
+        autofocus: true,
+    }),
+    ui.widgets.result({
+        target: '#results',
+        itemsPerPage: 15,
+        fields: ['metadata.image', 'metadata.title'],
+        promote: [
+            { type: 'album', id: 'mw0002885819' },
+            { type: 'album', id: 'mw0000828548' },
+            { type: 'album', id: 'mw0000085540' },
+            { type: 'album', id: 'mw0002080092' },
+            { type: 'album', id: 'mw0000190356' },
+            { type: 'album', id: 'mw0001379083' },
+            { type: 'album', id: 'mw0001936827' },
+            { type: 'album', id: 'mw0001986242' },
+        ]
+    })
+);</code></pre>
+    </div>
+    <div class="col-lg-4 col-md-6 col-sm-12">
+        <iframe scrolling="no" loading="lazy" src="/_iframe/search-input.html?num-results=12&as-grid=1&first-query=1" style="height: 614px;"></iframe>
+    </div>
+</div>
 
 ## SortBy
 
-The sort by widget allows to order the result set as you like. This widget uses
-indexed_metadata fields, so make sure that you have indexed properly these
-fields if you need to sort by them.
+This widget allows to order the result set as you like. Uses indexed_metadata 
+fields, so make sure you have indexed properly these fields if you need to sort 
+by them.
 
 ```javascript
 const sortByWidget = ui.widgets.sortBy({
@@ -186,7 +277,7 @@ format: `field:order`. Fields should avoid `indexed_metadata` prefix, and order
 can have both `asc` and `desc` values. You can sort as well by score (`score`)
 or by distance (`distance`). Both don't need order, just these values as field.
 * classNames:
-    * container: refers to the parent div class that contains the widget.
+    * container: refers to the parent div class containing the widget.
     * select: refers to the select input.
 
 > The first defined option will be the default used option. Make sure that you
@@ -292,7 +383,7 @@ example.
 * labels: Specific label per each option. This is optional and only will be 
 used defined ones (can be partial). See example.
 * classNames:
-    * container: refers to the parent div class that contains the widget.
+    * container: refers to the parent div class containing the widget.
     * top: class name of the container that holds the title of the filter.
     * itemsList: class name of the filter items list.
     * item: class name of the filter item link.
@@ -519,7 +610,7 @@ Parameters:
 
 * target: is the dom selector, it can be an ID, or a class
 * classNames:
-    * container: refers to the parent div class that contains the widget.
+    * container: refers to the parent div class containing the widget.
 * template:
     * container: template string for the container
     
@@ -599,7 +690,7 @@ Properties
 current page. For example, if padding is set to 2, and current page is [5], the 
 result will be: [<] 3 4 [5] 6 7 [>]
 * classNames:
-    * container: refers to the parent div class that contains the widget.
+    * container: refers to the parent div class containing the widget.
     * item: class name of the page item.
     * active: class name of the current page.
     * disabled: class name of the disabled buttons. when current page is the 
@@ -666,7 +757,7 @@ Parameters:
 
 * target: is the dom selector, it can be an ID, or a class.
 * classNames:
-    * container: refers to the parent div class that contains the widget.
+    * container: refers to the parent div class containing the widget.
 * template:
     * container: is the template string of the result information. The variables
     `{{total_hits}}` and `{{total_items}}` can be used on the template.
