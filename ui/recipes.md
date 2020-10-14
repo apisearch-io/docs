@@ -22,7 +22,7 @@ even if you enable this feature, you'll find nothing as results.
 As soon as you have indexed items with some suggestions, as it's shown here in
 this last example, then it's time to add this feature in our `InputWidget`
 settings. Internally, this feature requires 1 suggestion from the server to make
-this completition. As soon as the suggestion appears in the search bar, you can 
+this completion. As soon as the suggestion appears in the search bar, you can 
 press `tab` or `right` keys to apply the proposed word.
 
 <div class="row">
