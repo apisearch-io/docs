@@ -1,4 +1,4 @@
-<script src="https://apisearch-io.github.io/search-ui/dist/apisearch-ui.min.js"></script>
+<script src="https://apisearch-io.github.io/search-ui/dist/apisearch-ui.min.js?a"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.1/css/bulma.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -152,6 +152,7 @@
         const hasRange = urlParams.get('with-range');
 
         const withRating = urlParams.get('with-rating');
+        const withAutocomplete = urlParams.get('with-autocomplete');
         const numberOfResults = urlParams.get('num-results');
         const firstQuery = urlParams.get('first-query') != undefined;
         const highlightClearSearch = urlParams.get('highlight-clearsearch') != undefined;
@@ -177,6 +178,7 @@
                 target: '#input',
                 placeholder: 'Type to search...',
                 autofocus: true,
+                autocomplete: withAutocomplete,
                 startSearchOn: firstQuery ? 0 : 3,
                 clearSearch: true,
                 classNames: {

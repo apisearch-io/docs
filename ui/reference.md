@@ -25,7 +25,7 @@ const ui = apisearchUI.create({
 });
 ```
 
-First block of setings are basically for authorization. You have to define 
+First block of settings are basically for authorization. You have to define 
 where your index/indices will be found, and how to reach them.
 
 > It is important to always use an only-Query token for that purpose. This token
@@ -93,6 +93,7 @@ const searchInputWidget = ui.widgets.searchInput({
     target: !string,
     placeholder: ?string,
     autofocus: ?bool[false],
+    autocomplete: ?bool[false],
     initialSearch: ?string,
     startSearchOn: ?integer[0],
     clearSearch: ?bool[true],
@@ -115,6 +116,11 @@ mandatory
 * placeholder: the default html input placeholder.
 * autofocus: when set to true, the cursor is focused on the input. By default
 `false`
+* autocomplete: enable autocomplete feature. When is enabled, some specific CSS
+style rules are applied to your search box, so you might need to fix some style
+properties. Use keys `tab` and `right` for autocompletion when a suggestion
+appears. Only viable when your items expose suggestions when are indexed.
+Check [this recipe](reference.md) more a specific configuration recipe.
 * initialSearch: initial search value. Can be taken from the url (a parameter).
 or can be static, for example, if the field is configured but hidden. By default
 empty
@@ -141,6 +147,7 @@ Here you have a live example about a simple input field.
         target: '#input',
         placeholder: 'Type to search...',
         autofocus: true,
+        autocomplete: true,
         startSearchOn: 3,
         clearSearch: true,
     }),
@@ -151,7 +158,7 @@ Here you have a live example about a simple input field.
 );</code></pre>
     </div>
     <div class="col-lg-4 col-md-6 col-sm-12">
-        <iframe scrolling="no" loading="lazy" src="/_iframe/search-input.html" style="height: 423px;"></iframe>
+        <iframe scrolling="no" loading="lazy" src="/_iframe/search-input.html?with-autocomplete=true" style="height: 423px;"></iframe>
     </div>
 </div>
 
@@ -165,6 +172,7 @@ const resultWidget = ui.widgets.result({
     fields: ?string[],
     itemsPerPage: ?number[10],
     highlightsEnabled: ?boolean[false],
+    suggestionsEnabled: ?boolean|integer[false],
     promote: ?ItemUUID[],
     exclude: ?ItemUUID[],
     filter: ?Function,
@@ -190,7 +198,10 @@ or simple fields like `indexed_metadata.my_field`. You can exclude fields as
 well by adding an exclamation mark before the field, like `!metadata.field`.
 * itemsPerPage: number of fields you want to require. Pagination will use this
 value to show number of elements per page
-* highlightsEnabled: enable result highlights.
+* highlightsEnabled: enable result highlights. By default false.
+* suggestionsEnabled: enable result suggestions. By default false. Can take a
+boolean value, accepting the default number of suggestions returned (10), or an
+integer, specifying the number of required suggestions.
 * promote: list of ItemUUID objects with some items you want to promote in your
 search (will appear first)
 * exclude: list of ItemUUID objects with some items you want to exclude from
@@ -227,7 +238,7 @@ as a simple grid.
     }),
     ui.widgets.result({
         target: '#results',
-        itemsPerPage: 15,
+        itemsPerPage: 12,
         fields: ['metadata.image', 'metadata.title'],
         promote: [
             { type: 'album', id: 'mw0002885819' },
@@ -366,7 +377,7 @@ Apisearch as indexed_metadata.
 Apisearch as indexed_metadata. By default, filterField value will be used.
 * applicationType: the type of filter.
     * 4: Results are the intersection of selected options. A simple `AND` among
-    all selections
+    all selections.
     * 5: Same than 4, but respecting tree hierarchy. If you filter by an element
     with field `level` 1, only aggregation values with `level` 2 will be shown.
     * 8: All filtered values are cumulative. A simple `OR` among all selections.
@@ -391,7 +402,8 @@ used defined ones (can be partial). See example.
     * showMoreContainer: class of the “show more” button container.
 * template:
     * top: template string for the title of the filter list.
-    * item: template string for the filter item link. If any template is passed, Apisearch UI have a default one. This template will have the following values available:
+    * item: template string for the filter item link. If any template is passed,
+    Apisearch UI have a default one. This template will have the following values available:
         * {{n}}: number of aggregations.
         * {{isActive}}: if filter is active.
         * {{values}}: the information of the filter: {{values.id}} and {{values.name}}.
@@ -401,9 +413,10 @@ used defined ones (can be partial). See example.
 to the multiple filter widget:
     * n: number of aggregations
     * isActive: if filter is active
-    * values: the information of the filter. This is useful to transform some information received before being passed to the template.
+    * values: the information of the filter. This is useful to transform some 
+    information received before being passed to the template.
 * activeFirst: If true, all active filter values will be placed at the beginning
-of the list. After them, non active will be placed. Otherwise, positions are
+of the list. After them, non-active will be placed. Otherwise, positions are
 maintained. By default `true`
 
 You can see an example of what an item template is like

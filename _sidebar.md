@@ -35,6 +35,7 @@
 - UI
     - [Quick Start](ui/quickstart.md)
     - [UI Reference](ui/reference.md)
+    - [UI Recipes](ui/recipes.md)
 
 - Community
     - [Twitter](https://twitter.com/apisearchio)
