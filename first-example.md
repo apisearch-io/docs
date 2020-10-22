@@ -215,13 +215,15 @@ configuration, but not distributed in the regular server image), we can use the
 Apisearch import feature. We are about to index more than 11K comics, so this
 process could last up to 3 minutes, depending on your processor.
 
+> Make sure the route of the feed matches your local file.
+
 <!-- tabs:start -->
 #### ** HTTP **
 ```bash
 curl \
     -XPUT \
     --header "Apisearch-Token-ID: 0e4d75ba-c640-44c1-a745-06ee51db4e93" \
-    'http://localhost:8100/v1/marvel/indices/comics/import?feed=file:///marvel.as'
+    'http://localhost:8100/v1/marvel/indices/comics/import/by-feed?feed=file:///marvel.as'
 ```
 
 #### ** Console **
