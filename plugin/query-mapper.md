@@ -4,8 +4,6 @@ This plugin is a hands-on plugin. This means that in order to work with it, we
 recommend you to fork the main repository, and work with your own repository, so
 you will have to add some code in the server
 
-## Motivation
-
 Apisearch is a search engine that exposes a basic object mapping, like what is a
 Query, what is a Response and what Items are composed by. This is one of the
 purposes of the project, so forces your entire environment to work with an

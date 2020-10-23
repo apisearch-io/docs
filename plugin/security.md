@@ -3,8 +3,6 @@
 Add some extra security to your system by adding some capabilities to your
 tokens.
 
-## Motivation
-
 Apisearch is an online API designed to be available from what we can call the
 entire internet. Of course, you can explicitly limit this access in a hard way
 by using network rules or by making a hard use of tokens, but even in the most

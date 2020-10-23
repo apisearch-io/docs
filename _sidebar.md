@@ -24,6 +24,7 @@
 - Plugins
     - [How to enable a plugin](plugin/how-to-enable-a-plugin.md)
     - [Create a plugin](plugin/create-a-plugin.md)
+    - [Campaigns](plugin/campaigns.md)
     - [Security](plugin/security.md)
     - [DBAL](plugin/dbal.md)
     - [Admin](plugin/admin.md)

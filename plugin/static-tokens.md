@@ -4,8 +4,6 @@ Define static tokens in your Apisearch application by using a single `token.yml`
 file in the root of the project. These tokens will be immutable and static, and
 will not be enabled or disabled by any circumstance.
 
-## Motivation
-
 Most of the projects using search engines use tokens for their own usage, and
 not for external integrations (third party clients, for example). In that cases
 where tokens become something really static, there's no sense of adding an extra

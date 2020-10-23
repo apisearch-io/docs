@@ -17,9 +17,9 @@ This is the endpoint reference
     - Content-Type: "application/json"
 
 You can try this endpoint by using this curl snippet. As you can see, you should
-replace the placeholders with your own data. In order to make sure that no one
+replace the placeholders with your own data. In order to make sure no one
 has a default values in their installation, and creating a vulnerability, no
-default values are created.
+default values are shown.
 
 ```bash
 curl -X PUT "http://localhost:8100/v1/{{ app_id }}/indices/{{ index_id }}/items" \
@@ -72,9 +72,9 @@ This is the endpoint reference
     - Content-Type: "application/json"
 
 You can try this endpoint by using this curl snippet. As you can see, you should
-replace the placeholders with your own data. In order to make sure that no one
+replace the placeholders with your own data. In order to make sure no one
 has a default values in their installation, and creating a vulnerability, no
-default values are created.
+default values are shown.
 
 ```bash
 curl -X DELETE "http://localhost:8100/v1/{{ app_id }}/indices/{{ index_id }}/items" \
@@ -119,9 +119,9 @@ one or more changes to the result of the previous query. This parameter key will
 be `changes`.
 
 You can try this endpoint by using this curl snippet. As you can see, you should
-replace the placeholders with your own data. In order to make sure that no one
+replace the placeholders with your own data. In order to make sure no one
 has a default values in their installation, and creating a vulnerability, no
-default values are created.
+default values are shown.
 
 ```bash
 curl -X PUT "http://localhost:8100/v1/{{ app_id }}/indices/{{ index_id }}/items/update-by-query" \
@@ -176,9 +176,9 @@ will be able to select all these Items that you want to change at a time. This
 parameter key will be `query`.
 
 You can try this endpoint by using this curl snippet. As you can see, you should
-replace the placeholders with your own data. In order to make sure that no one
+replace the placeholders with your own data. In order to make sure no one
 has a default values in their installation, and creating a vulnerability, no
-default values are created.
+default values are shown.
 
 ```bash
 curl -X DELETE "http://localhost:8100/v1/{{ app_id }}/indices/{{ index_id }}/items/by-query" \

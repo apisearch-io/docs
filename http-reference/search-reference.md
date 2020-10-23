@@ -24,9 +24,9 @@ This is the endpoint reference
 > *token*
 
 You can try this endpoint by using this curl snippet. As you can see, you should
-replace the placeholders with your own data. In order to make sure that no one
+replace the placeholders with your own data. In order to make sure no one
 has a default values in their installation, and creating a vulnerability, no
-default values are created.
+default values are shown.
 
 All these three options will be equal, having different ways of passing the
 query object and the token.

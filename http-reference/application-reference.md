@@ -14,9 +14,9 @@ This is the endpoint reference
     - Content-Type: "application/json"
 
 You can try this endpoint by using this curl snippet. As you can see, you should
-replace the placeholders with your own data. In order to make sure that no one
+replace the placeholders with your own data. In order to make sure no one
 has a default values in their installation, and creating a vulnerability, no
-default values are created.
+default values are shown.
 
 ```bash
 curl -X PUT "http://localhost:8100/v1/{{ app_id }}/indices/{{ index_id }}" \
@@ -102,9 +102,9 @@ This is the endpoint reference
     - Apisearch-token-id: "{{ token_id }}"
 
 You can try this endpoint by using this curl snippet. As you can see, you should
-replace the placeholders with your own data. In order to make sure that no one
+replace the placeholders with your own data. In order to make sure no one
 has a default values in their installation, and creating a vulnerability, no
-default values are created.
+default values are shown.
 
 Let's see an example.
 
@@ -128,9 +128,9 @@ This is the endpoint reference
     - Apisearch-token-id: "{{ token_id }}"
 
 You can try this endpoint by using this curl snippet. As you can see, you should
-replace the placeholders with your own data. In order to make sure that no one
+replace the placeholders with your own data. In order to make sure no one
 has a default values in their installation, and creating a vulnerability, no
-default values are created.
+default values are shown.
 
 Let's see an example.
 
@@ -155,9 +155,9 @@ This is the endpoint reference
     - Content-Type: "application/json"
 
 You can try this endpoint by using this curl snippet. As you can see, you should
-replace the placeholders with your own data. In order to make sure that no one
+replace the placeholders with your own data. In order to make sure no one
 has a default values in their installation, and creating a vulnerability, no
-default values are created.
+default values are shown.
 
 ```bash
 curl -X PUT "http://localhost:8100/v1/{{ app_id }}/indices/{{ index_id }}/configure" \
@@ -230,9 +230,9 @@ This is the endpoint reference
 > new_token, which is the new token creating here.
 
 You can try this endpoint by using this curl snippet. As you can see, you should
-replace the placeholders with your own data. In order to make sure that no one
+replace the placeholders with your own data. In order to make sure no one
 has a default values in their installation, and creating a vulnerability, no
-default values are created.
+default values are shown.
 
 ```bash
 curl -X PUT "http://localhost:8100/v1/{{ app_id }}/tokens/{{ new_token }}" \
@@ -271,9 +271,9 @@ This is the endpoint reference
 > unwanted_token, which is the new token deleting here.
 
 You can try this endpoint by using this curl snippet. As you can see, you should
-replace the placeholders with your own data. In order to make sure that no one
+replace the placeholders with your own data. In order to make sure no one
 has a default values in their installation, and creating a vulnerability, no
-default values are created.
+default values are shown.
 
 Let's see an example.
 
@@ -296,9 +296,9 @@ This is the endpoint reference
     - Apisearch-token-id: "{{ token }}"
 
 You can try this endpoint by using this curl snippet. As you can see, you should
-replace the placeholders with your own data. In order to make sure that no one
+replace the placeholders with your own data. In order to make sure no one
 has a default values in their installation, and creating a vulnerability, no
-default values are created.
+default values are shown.
 
 Let's see an example.
 
@@ -321,9 +321,9 @@ This is the endpoint reference
     - Apisearch-token-id: "{{ token }}"
 
 You can try this endpoint by using this curl snippet. As you can see, you should
-replace the placeholders with your own data. In order to make sure that no one
+replace the placeholders with your own data. In order to make sure no one
 has a default values in their installation, and creating a vulnerability, no
-default values are created.
+default values are shown.
 
 > Token can be passed as well, instead of a header, by using the query parameter
 > *token*
