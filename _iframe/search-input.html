@@ -157,6 +157,7 @@
         const firstQuery = urlParams.get('first-query') != undefined;
         const highlightClearSearch = urlParams.get('highlight-clearsearch') != undefined;
         const asGrid = urlParams.get('as-grid');
+        const withInfiniteScroll = urlParams.get('infinite-scroll') === '1';
 
         let fields = [];
 
@@ -191,6 +192,7 @@
             ui.widgets.result({
                 target: '#results',
                 itemsPerPage: numberOfResults ? numberOfResults : 3,
+                infiniteScroll: withInfiniteScroll,
                 fields: asGrid
                     ? ['metadata.image', 'metadata.title']
                     : fields,

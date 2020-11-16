@@ -112,24 +112,24 @@ const searchInputWidget = ui.widgets.searchInput({
 Parameters:
 
 * target: is the dom selector, it can be an ID, or a class. This setting is
-mandatory
+mandatory.
 * placeholder: the default html input placeholder.
-* autofocus: when set to true, the cursor is focused on the input. By default
+* autofocus: when set to true, the cursor it's focused on the input. By default,
 `false`
 * autocomplete: enable autocomplete feature. When is enabled, some specific CSS
 style rules are applied to your search box, so you might need to fix some style
 properties. Use keys `tab` and `right` for autocompletion when a suggestion
 appears. Only viable when your items expose suggestions when are indexed.
-Check [this recipe](reference.md) more a specific configuration recipe.
+Check [this recipe](reference.md) for more documentation.
 * initialSearch: initial search value. Can be taken from the url (a parameter).
-or can be static, for example, if the field is configured but hidden. By default
-empty
+or can be static, for example, if the field it's not configured but hidden. By 
+default, this parameter it's empty.
 * startSearchOn: is the minimum number of characters to start searching. Results
 will never be shown if the input has less than this value. By default, 0.
-* clearSearch: to show a clear search button to reset your search. By default
+* clearSearch: to show a clear search button to reset your search. By default,
 `true`
 * withContainer: to wrap the search input with a div container. 
-This is mandatory if you want a “clearSearch” button. By default `true`
+This is mandatory if you want a “clearSearch” button. By default, `true`
 * classNames:
     * container: refers to the parent div containing the widget.
     * input: refers to the html input.
@@ -178,6 +178,7 @@ const resultWidget = ui.widgets.result({
     filter: ?Function,
     formatData: ?Function,
     fadeInSelector: ?string,
+    infiniteScroll: ?boolean[false]|integer,
     classNames: {
         container: ?string,
         itemsList: ?string,
@@ -198,8 +199,8 @@ or simple fields like `indexed_metadata.my_field`. You can exclude fields as
 well by adding an exclamation mark before the field, like `!metadata.field`.
 * itemsPerPage: number of fields you want to require. Pagination will use this
 value to show number of elements per page
-* highlightsEnabled: enable result highlights. By default false.
-* suggestionsEnabled: enable result suggestions. By default false. Can take a
+* highlightsEnabled: enable result highlights. By default, false.
+* suggestionsEnabled: enable result suggestions. By default, false. Can take a
 boolean value, accepting the default number of suggestions returned (10), or an
 integer, specifying the number of required suggestions.
 * promote: list of ItemUUID objects with some items you want to promote in your
@@ -215,7 +216,9 @@ you need to create some dynamic content inside elements before is rendered.
 elements containing this selector will be considered as a virtual unit. As soon
 as you click outside this unit (could be the search input and this result
 widget), this result div will disappear until you click again over this unit
-(the search input). By default, this behavior is disabled.
+(the search input). By default, this behavior it's disabled.
+* infiniteScroll: Create an infinite scroll effect. Checkout 
+[this recipe](recipes.md#infinite-scrolling) for more documentation.
 * classNames:
     * container: refers to the parent div class containing the widget.
     * itemsList: class name of the result items list.
@@ -283,10 +286,11 @@ Parameters:
 
 * target: is the dom selector, it can be an ID, or a class.
 * options: is the list of options in a selector. The name refers to the html
-text shown, and value is the field and the order of the option, being the used
+text shown, and value it's the field, and the order of the option, being the used
 format: `field:order`. Fields should avoid `indexed_metadata` prefix, and order
 can have both `asc` and `desc` values. You can sort as well by score (`score`)
-or by distance (`distance`). Both don't need order, just these values as field.
+or by distance (`distance`). Both don't need to order, just these values as
+field.
 * classNames:
     * container: refers to the parent div class containing the widget.
     * select: refers to the select input.
@@ -382,7 +386,7 @@ Apisearch as indexed_metadata. By default, filterField value will be used.
     with field `level` 1, only aggregation values with `level` 2 will be shown.
     * 8: All filtered values are cumulative. A simple `OR` among all selections.
 * fetchLimit: is the limit of items to be fetched on the server.
-* viewLimit: Once filter options are rendered, if this value is smaller than 
+* viewLimit: Once filter options render, if this value is smaller than 
 fetchLimit, only a defined number of options will be shown, exposing a
 `show More` button at the end of the list.
 * sortBy: refers to the order/sort of the filter items. By default, option with
@@ -417,7 +421,7 @@ to the multiple filter widget:
     information received before being passed to the template.
 * activeFirst: If true, all active filter values will be placed at the beginning
 of the list. After them, non-active will be placed. Otherwise, positions are
-maintained. By default `true`
+maintained. By default, `true`.
 
 You can see an example of what an item template is like
 
@@ -778,7 +782,7 @@ Parameters:
 the information widget: total_hits and total_items. Is useful to transform some
 information received before being passed to the template.
 
-In this example, we have a simple information widget on top of the results
+In this example, we have a simple information widget on top of the results'
 widget.
 
 <div class="row">
