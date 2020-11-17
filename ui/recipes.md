@@ -1,3 +1,40 @@
+## Multiple UI instances
+
+You can work with several UI instances at the same time. For example, in case
+you want to work with 2 search instances, initialization will depend on how you
+want to configure them.
+
+In case you want two different UI instances with different configurations, you
+will need to create two independent UI objects.
+
+```javascript
+const firstUI = apisearchUI.create({
+    app_id: 'an_app_id',
+    index_id: 'an_index_id',
+    token: 'a_token'
+});
+
+const secondUI = apisearchUI.create({
+    app_id: 'another_app_id',
+    index_id: 'another_index_id',
+    token: 'another_token'
+});
+```
+
+In case you want to create two different UI instances with the same
+configuration, you can use the factory object to create replicas of the same UI.
+
+```javascript
+const UIFactory = apisearchUI.factory({
+    app_id: 'an_app_id',
+    index_id: 'an_index_id',
+    token: 'a_token'
+});
+
+const firstUI = UIFactory.createUI();
+const secondUI = UIFactory.createUI();
+```
+
 ## Autocomplete input
 
 You can autocomplete your user queries by exposing some suggestions per indexed

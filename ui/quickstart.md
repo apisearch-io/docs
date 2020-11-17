@@ -39,14 +39,15 @@ input with a result container using a custom template
 engine.
 
 ```javascript
-// Create instance
-const ui = apisearchUI.create({
+// Create factory
+const uiFactory = apisearchUI.factory({
     app_id: 'your_app_id',
     index_id: 'your_index_id',
     token: 'your_app_QUERY_token'
 });
 
-// Append widgets
+// Create a UI instance and append widgets
+const ui = uiFactory.createUI();
 ui.addWidgets(
     ui.widgets.searchInput({
         target: '.search-container',
@@ -71,7 +72,9 @@ All widgets are past using `.addWidget(widget)` method,
 or using `.addWidgets(...widgets)` to add widgets in bulk mode,
 like in the example below.
 
-Check all the available widgets in our [UI Reference](reference.md)
+Check all the available widgets in our [UI Reference](reference.md)  
+In case you want to work with different UI instances, you can check the 
+[Multiple UI Instances](recipes.md#multiple-ui-instances) recipe.
 
 Once your setup is done, you just call the `.init()` method to 
 start all the magic!
