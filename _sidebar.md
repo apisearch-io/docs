@@ -41,5 +41,6 @@
 - Community
     - [Twitter](https://twitter.com/apisearchio)
     - [Github](https://github.com/apisearch-io)
+    - [Newsletter](newsletter.md)
     - [Slack - Group](https://apisearch.slack.com)
     - [Slack - Get invitation](https://apisearch-slack.herokuapp.com/)
