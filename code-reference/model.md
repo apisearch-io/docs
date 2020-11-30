@@ -259,7 +259,7 @@ suggest:
 
 Let's explain a little better this example
 
-* Our product with ID 4303ui203 is mapped as an Item
+* Our product with ID udsio-dsadsa-dsdaa is mapped as an Item
 * We have a name, a description and an EAN stored in the item, and because is 
 not filterable not aggregable by these values, we place them in the metadata
 array.
@@ -270,7 +270,7 @@ Items are provided as results.
 if the search contains any of the words included as searchable_metadata (
 after some transformations, will see later), so when searching by *amazing*,
 this item will be a result. If searching by *Elephant*, will not.
-* If the final user searches exactly by *4303ui203* or *7827298738293*, this
+* If the final user searches exactly by *udsio-dsadsa-dsdaa* or *7827298738293*, this
 Item will be part of the result as well.
 * If you have suggestions enabled, and if the final user start searches by
 string *T-shi*, this item will add a suggestion of *T-shirt*. This is completely
