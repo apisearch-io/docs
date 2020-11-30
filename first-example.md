@@ -284,16 +284,16 @@ our project.
 
 Are you interested in **the server**?
 
-- [How the server works](server.md)
+- [How the server works](code-reference/server.md)
 - [How to configure the server](server-configuration.md)
-- [How to use console commands](console.md)
-- [How the model is designed](model.md)
+- [How to use console commands](code-reference/console.md)
+- [How the model is designed](code-reference/model.md)
 
 Are you interested in **the UI**?
 
-- [How to create queries](query-creation.md)
-- [How to manupulate results](result-manipulation.md)
-- [Let me start with UI](ui-quickstart.md) or [Show me the UI Reference](ui-reference.md)
+- [How to create queries](code-reference/query-creation.md)
+- [How to manupulate results](code-reference/result-manipulation.md)
+- [Let me start with UI](ui/quickstart.md) or [Show me the UI Reference](ui/reference.md)
 - [Apisearch and CDN](plugin/fastly.md)
 
 Are you interested in **the community and the project**?
