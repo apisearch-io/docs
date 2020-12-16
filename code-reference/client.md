@@ -272,19 +272,20 @@ class ProductTransformer implements ReadTransformer, WriteTransformer
             ],
             [
                 // Searchable metadata
-                'name' => $this->getName(),
-                'description' => $this->getDescription(),
-                'brand' => $this->getBrand()->getName(),
+                'name' => $object->getName(),
+                'description' => $object->getDescription(),
+                'brand' => $object->getBrand()->getName(),
             ],
             [
                 // Exact matching metadata
-                $this->getId(),
-                $this->getEan(),
+                $object->getId(),
+                $object->getEan(),
             ],
             [
                 // Suggestions
                 'T-shirt',
             ]
+        );
     }
 
     /**
@@ -326,7 +327,7 @@ class ProductTransformer implements ReadTransformer, WriteTransformer
         return new Product(
             $item->getId(),
             $item->get('name'),
-            $item->get('description),
+            $item->get('description'),
             // ...
     }
 }
