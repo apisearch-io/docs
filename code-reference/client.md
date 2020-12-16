@@ -21,9 +21,9 @@ to make sure you're using the right repository.
 $repository = //
 $repository->setCredentials(
     RepositoryReference::create(
-        AppUUID::createFromId('app-1')
+        AppUUID::createById('app-1')
     ),
-    TokenUUID::createFromId('token-1230')
+    TokenUUID::createById('token-1230')
 );
 ```
 
@@ -43,13 +43,18 @@ purposes and defined for pointing to our main servers.
 
 In order to make it work, you'll need a HTTPClient implementation. In that case,
 and because your usage will be maily for production, you can use the
-GuzzleClient implementation.
+TCPClient implementation.
 
 <!-- tabs:start -->
 #### ** PHP **
 ```php
 $repository = new HttpAppRepository(
-    new GuzzleClient('http://api.ourhost.xyz:1234')
+    new TCPClient(
+        'http://api.ourhost.xyz:1234',
+        new CurlAdapter(),
+        '1',
+        new RetryMap()
+    )
 );
 ```
 
@@ -149,10 +154,10 @@ order to make sure you're using a well configured repository.
 $repository = //
 $repository->setCredentials(
     RepositoryReference::create(
-        AppUUID::createFromId('app-1'),
-        IndexUUID::createFromId('index-1')
+        AppUUID::createById('app-1'),
+        IndexUUID::createById('index-1')
     ),
-    TokenUUID::createFromId('token-1230')
+    TokenUUID::createById('token-1230')
 );
 ```
 
@@ -171,13 +176,18 @@ purposes and defined for pointing to our main servers.
 
 In order to make it work, you'll need a HTTPClient implementation. In that case,
 and because your usage will be maily for production, you can use the
-GuzzleClient implementation.
+TCPClient implementation.
 
 <!-- tabs:start -->
 #### ** PHP **
 ```php
 $repository = new HttpRepository(
-    new GuzzleClient('http://api.ourhost.xyz:1234')
+    new TCPClient(
+        'http://api.ourhost.xyz:1234',
+        new CurlAdapter(),
+        '1',
+        new RetryMap()
+    )
 );
 ```
 
