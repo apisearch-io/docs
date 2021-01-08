@@ -150,6 +150,7 @@
         const hasPagination = urlParams.get('with-pagination');
         const hasInformation = urlParams.get('with-information');
         const hasRange = urlParams.get('with-range');
+        const hideInput = urlParams.get('hide-input');
 
         const withRating = urlParams.get('with-rating');
         const withAutocomplete = urlParams.get('with-autocomplete');
@@ -175,20 +176,6 @@
         });
 
         ui.addWidgets(
-            ui.widgets.searchInput({
-                target: '#input',
-                placeholder: 'Type to search...',
-                autofocus: true,
-                autocomplete: withAutocomplete,
-                startSearchOn: firstQuery ? 0 : 3,
-                clearSearch: true,
-                classNames: {
-                    'input': 'input is-medium'
-                },
-                template: {
-                    clearSearch: '<i class="fa fa-times-circle'+ (highlightClearSearch ? ' red' : '') +'"></i>'
-                }
-            }),
             ui.widgets.result({
                 target: '#results',
                 itemsPerPage: numberOfResults ? numberOfResults : 3,
@@ -218,6 +205,25 @@
                 formatData: item => itemsToStarRating(item)
             }),
         );
+
+        if (!hideInput) {
+            ui.addWidget(
+                ui.widgets.searchInput({
+                    target: '#input',
+                    placeholder: 'Type to search...',
+                    autofocus: true,
+                    autocomplete: withAutocomplete,
+                    startSearchOn: firstQuery ? 0 : 3,
+                    clearSearch: true,
+                    classNames: {
+                        'input': 'input is-medium'
+                    },
+                    template: {
+                        clearSearch: '<i class="fa fa-times-circle'+ (highlightClearSearch ? ' red' : '') +'"></i>'
+                    }
+                })
+            );
+        }
 
         if (hasSortBy) {
             document.getElementById('sortby').classList.remove("hidden");

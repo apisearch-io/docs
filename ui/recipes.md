@@ -116,7 +116,35 @@ number for your case
 );</code></pre>
     </div>
     <div class="col-lg-4 col-md-6 col-sm-12">
-        <iframe loading="lazy" src="/_iframe/search-input.html?num-results=20&as-grid=1&first-query=1&infinite-scroll=1" style="height: 423px;"></iframe>
+        <iframe loading="lazy" src="/_iframe/search-input.html?num-results=21&as-grid=1&first-query=1&infinite-scroll=1" style="height: 423px;"></iframe>
+    </div>
+</div>
+
+## Static lists
+
+You can even display static lists. No input, no filters, not even a sort by
+selector. Just ask for an specific set of items and print them. Let's see an
+example of the first set of 3 albums of the demo selection. You could configure
+here your own set of results as well, adding static filters in the results
+widget definition.
+
+These lists can be extremely useful for recommendation or similar lists.
+
+<div class="row">
+    <div class="col-lg-8 col-md-6 col-sm-12">
+        <pre v-pre="" data-lang="javascript">
+        <code lang="javascript">ui.addWidgets(
+    ui.widgets.result({
+        target: '#results',
+        itemsPerPage: 3,
+        filter: function(query) {
+            // You can configure your query here
+        }
+    }),
+);</code></pre>
+    </div>
+    <div class="col-lg-4 col-md-6 col-sm-12">
+        <iframe loading="lazy" src="/_iframe/search-input.html?num-results=9&as-grid=1&first-query=1&hide-input=1" style="height: 460px;"></iframe>
     </div>
 </div>
 
