@@ -98,6 +98,7 @@ const searchInputWidget = ui.widgets.searchInput({
     startSearchOn: ?integer[0],
     clearSearch: ?bool[true],
     withContainer: ?bool[true],
+    searchableFields: string[],
     classNames: {
         container: ?string,
         input: ?string,
@@ -130,6 +131,11 @@ will never be shown if the input has less than this value. By default, 0.
 `true`
 * withContainer: to wrap the search input with a div container. 
 This is mandatory if you want a “clearSearch” button. By default, `true`
+* searchableFields: Array of what fields do you want to to search by. By default, 
+  will use all `searchable_metadata` values with same weight, and the 
+  `exact_matching_metadata` array with an extra boosting. All fields should have
+  a full field format (`searchable_metadata.my_field`), with the possibility to
+  add a custom weight per each field (`searchable_metadata.my_field^10`)
 * classNames:
     * container: refers to the parent div containing the widget.
     * input: refers to the html input.
