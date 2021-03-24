@@ -40,10 +40,14 @@ engine.
 
 ```javascript
 // Create factory
+// Use the endpoint where your server is running.
 const uiFactory = apisearchUI.factory({
     app_id: 'your_app_id',
     index_id: 'your_index_id',
-    token: 'your_app_QUERY_token'
+    token: 'your_app_QUERY_token',
+    options: {
+        endpoint: 'https://localhost:8200'
+    }
 });
 
 // Create a UI instance and append widgets
